@@ -47,8 +47,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "Node.js", iconKey: "nodejs" },
       { name: "FastAPI", iconKey: "fastapi" },
       { name: "PostgreSQL", iconKey: "postgres" },
-      { name: "MSSQL" },
-      { name: "InfluxDB" },
+      { name: "Supabase" },
+      { name: "Vector DB" },
     ],
   },
   {
@@ -56,10 +56,10 @@ export const skillCategories: SkillCategory[] = [
     iconKey: "ai",
     theme: "purple",
     skills: [
+      { name: "LLM Integration" },
+      { name: "Prompt Eng." },
+      { name: "Machine Vision (YOLO)" },
       { name: "ROS", iconKey: "ros" },
-      { name: "Machine Vision" },
-      { name: "YOLO" },
-      { name: "HIKROBOT" },
       { name: "Anomaly Detection" },
     ],
   },
@@ -72,7 +72,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Docker", iconKey: "docker" },
       { name: "Linux Server" },
       { name: "REST API" },
-      { name: "MQTT/TCP" },
+      { name: "Cloud (Vercel)" },
     ],
   },
 ];
