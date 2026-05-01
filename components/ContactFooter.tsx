@@ -255,7 +255,7 @@ export default function ContactFooter() {
 
         {/* Bottom bar */}
         <div className="border-t border-slate-200 dark:border-slate-800 mt-16 pt-8 text-center text-sm text-slate-500 dark:text-slate-400">
-          © {new Date().getFullYear()} {personalInfo.fullName}. Built with Next.js & Supabase.
+          © {new Date().getFullYear()} {personalInfo.fullName} · All rights reserved.
         </div>
       </div>
     </footer>
