@@ -43,18 +43,18 @@ export default function HeroSection() {
       </div>
 
       {/* Right — Avatar */}
-      <div className="relative w-48 h-48 md:w-80 md:h-80 shrink-0 group perspective-1000">
+      <div className="relative w-48 h-64 md:w-60 md:h-80 shrink-0 group perspective-1000">
         {/* Animated glowing ring */}
         <div 
-          className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-emerald-500 opacity-30 dark:opacity-40 blur-2xl group-hover:opacity-60 transition-opacity duration-700 animate-spin" 
+          className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500 via-purple-500 to-emerald-500 opacity-30 dark:opacity-40 blur-2xl group-hover:opacity-60 transition-opacity duration-700 animate-spin" 
           style={{ animationDuration: '8s' }} 
         />
 
         {/* Shadow offset background */}
-        <div className="absolute inset-0 rounded-full bg-slate-200 dark:bg-slate-800 transform translate-x-4 translate-y-4 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500 ease-out" />
+        <div className="absolute inset-0 rounded-3xl bg-slate-200 dark:bg-slate-800 transform translate-x-4 translate-y-4 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500 ease-out" />
 
         {/* Profile Image */}
-        <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-white dark:border-slate-900 shadow-xl group-hover:scale-105 group-hover:-rotate-2 transition-all duration-500 ease-out z-10 bg-white dark:bg-slate-900">
+        <div className="absolute inset-0 rounded-3xl overflow-hidden border-4 border-white dark:border-slate-900 shadow-xl group-hover:scale-105 group-hover:-rotate-2 transition-all duration-500 ease-out z-10 bg-white dark:bg-slate-900">
           <Image
             src={personalInfo.avatar}
             alt={personalInfo.fullName}
@@ -62,7 +62,7 @@ export default function HeroSection() {
             quality={100}
             unoptimized
             priority
-            className="object-cover object-top"
+            className="object-cover object-center"
           />
         </div>
 
