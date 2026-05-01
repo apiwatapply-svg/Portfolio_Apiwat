@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, Tag, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown } from "lucide-react";
+import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon } from "lucide-react";
 import { type Project } from "@/lib/data";
 
 const themeMap = {
-  blue: { badge: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300", dot: "bg-blue-500", border: "border-blue-200 dark:border-blue-800" },
-  emerald: { badge: "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300", dot: "bg-emerald-500", border: "border-emerald-200 dark:border-emerald-800" },
-  purple: { badge: "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300", dot: "bg-purple-500", border: "border-purple-200 dark:border-purple-800" },
-  orange: { badge: "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300", dot: "bg-orange-500", border: "border-orange-200 dark:border-orange-800" },
+  blue: { badge: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300", dot: "bg-blue-500", border: "border-blue-200 dark:border-blue-800", activeTab: "text-blue-600 border-blue-600" },
+  emerald: { badge: "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300", dot: "bg-emerald-500", border: "border-emerald-200 dark:border-emerald-800", activeTab: "text-emerald-600 border-emerald-600" },
+  purple: { badge: "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300", dot: "bg-purple-500", border: "border-purple-200 dark:border-purple-800", activeTab: "text-purple-600 border-purple-600" },
+  orange: { badge: "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300", dot: "bg-orange-500", border: "border-orange-200 dark:border-orange-800", activeTab: "text-orange-600 border-orange-600" },
 };
 
 type Props = {
@@ -19,6 +19,8 @@ type Props = {
 };
 
 export default function ProjectModal({ project, onClose }: Props) {
+  const [activeTab, setActiveTab] = useState<"overview" | "technical">("overview");
+
   // Prevent body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -29,6 +31,8 @@ export default function ProjectModal({ project, onClose }: Props) {
 
   const t = themeMap[project.theme];
   const d = project.details;
+
+  const hasTechnicalData = d?.workflow?.length || d?.technicalHighlights?.length || d?.challenges?.length;
 
   return (
     <AnimatePresence>
@@ -53,7 +57,7 @@ export default function ProjectModal({ project, onClose }: Props) {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-colors"
+            className="absolute top-4 right-4 z-20 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-colors"
             aria-label="Close modal"
           >
             <X size={20} />
@@ -93,141 +97,246 @@ export default function ProjectModal({ project, onClose }: Props) {
               </div>
             </div>
 
-            {/* Content Body */}
-            <div className="p-6 sm:p-8 space-y-10">
-              
+            <div className="p-6 sm:p-8">
               {/* Tech Stack */}
-              <section>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className={`text-xs font-bold px-3 py-1.5 rounded-full ${t.badge}`}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </section>
+              <div className="flex flex-wrap gap-2 mb-8">
+                {project.tags.map((tag) => (
+                  <span key={tag} className={`text-xs font-bold px-3 py-1.5 rounded-full ${t.badge}`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-              {/* Overview & Objective */}
-              <section className="space-y-4">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <BookOpen size={20} className={t.dot.replace('bg-', 'text-')} /> 
-                  Overview & Objective
-                </h3>
-                <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                    {project.description}
-                  </p>
-                  {d?.objective && (
-                    <div className={`p-4 rounded-lg bg-white dark:bg-slate-900 border-l-4 ${t.border}`}>
-                      <p className="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-1">Target Objective:</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{d.objective}</p>
+              {/* Tabs */}
+              {hasTechnicalData && (
+                <div className="flex border-b border-slate-200 dark:border-slate-800 mb-8">
+                  <button
+                    onClick={() => setActiveTab("overview")}
+                    className={`px-6 py-3 text-sm font-bold border-b-2 transition-colors ${
+                      activeTab === "overview" 
+                      ? t.activeTab
+                      : "border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                    }`}
+                  >
+                    Overview & Results
+                  </button>
+                  <button
+                    onClick={() => setActiveTab("technical")}
+                    className={`px-6 py-3 text-sm font-bold border-b-2 transition-colors flex items-center gap-2 ${
+                      activeTab === "technical" 
+                      ? t.activeTab
+                      : "border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                    }`}
+                  >
+                    <GitMerge size={16} /> Technical Details
+                  </button>
+                </div>
+              )}
+
+              {/* TAB 1: OVERVIEW */}
+              {(!hasTechnicalData || activeTab === "overview") && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-10"
+                >
+                  {/* Overview & Objective */}
+                  <section className="space-y-4">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                      <BookOpen size={20} className={t.dot.replace('bg-', 'text-')} /> 
+                      Overview & Objective
+                    </h3>
+                    <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        {project.description}
+                      </p>
+                      {d?.objective && (
+                        <div className={`p-4 rounded-lg bg-white dark:bg-slate-900 border-l-4 ${t.border}`}>
+                          <p className="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-1">Target Objective:</p>
+                          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{d.objective}</p>
+                        </div>
+                      )}
                     </div>
+                  </section>
+
+                  {/* Methodology */}
+                  {(d?.methodology || d?.features) && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <Layers size={20} className="text-purple-500" />
+                        {d.methodology ? "Methodology & Development" : "Key Features"}
+                      </h3>
+                      <div className="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                        <ol className="space-y-4">
+                          {(d.methodology ?? d.features ?? []).map((item, i) => (
+                            <li key={i} className="flex gap-4">
+                              <span className={`mt-0.5 w-6 h-6 rounded-full ${t.badge} flex-shrink-0 flex items-center justify-center text-[11px] font-bold`}>
+                                {d.methodology ? i + 1 : "✓"}
+                              </span>
+                              <span className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed pt-0.5">{item}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    </section>
                   )}
-                </div>
-              </section>
 
-              {/* Hardware Components */}
-              {d?.hardware && (
-                <section>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Cpu size={20} className="text-emerald-500" /> 
-                    Hardware Components
-                  </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {d.hardware.map((hw) => (
-                      <div key={hw} className="flex flex-col justify-center items-center text-center p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 dark:hover:border-emerald-800 transition-colors">
-                        <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{hw}</span>
+                  {/* Hardware Components */}
+                  {d?.hardware && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <Cpu size={20} className="text-emerald-500" /> 
+                        Hardware Components
+                      </h3>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        {d.hardware.map((hw) => (
+                          <div key={hw} className="flex flex-col justify-center items-center text-center p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 dark:hover:border-emerald-800 transition-colors">
+                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{hw}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </section>
+                    </section>
+                  )}
+
+                  {/* Key Results */}
+                  {d?.results && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <CheckCircle2 size={20} className="text-orange-500" /> 
+                        Key Results & Impact
+                      </h3>
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        {d.results.map((r, i) => (
+                          <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30">
+                            <CheckCircle2 size={18} className="text-orange-500 flex-shrink-0 mt-0.5" />
+                            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{r}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
+                  {/* Media Gallery */}
+                  {d?.gallery && d.gallery.length > 0 && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <ImageIcon size={20} className="text-blue-500" /> 
+                        Project Gallery
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {d.gallery.map((img, i) => (
+                          <div key={i} className="relative h-40 w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 group">
+                            <Image src={img} alt={`Gallery image ${i+1}`} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="300px" />
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                </motion.div>
               )}
 
-              {/* System Workflow */}
-              {d?.workflow && d.workflow.length > 0 && (
-                <section>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <GitMerge size={20} className="text-blue-500" /> 
-                    System Workflow
-                  </h3>
-                  <div className="hidden sm:flex items-center justify-between w-full p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
-                    {d.workflow.map((step, idx) => (
-                      <div key={idx} className="flex items-center flex-1">
-                        <div className="relative flex flex-col items-center text-center px-2 flex-1">
-                          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold mb-2 shadow-sm ${t.dot}`}>
-                            {idx + 1}
+              {/* TAB 2: TECHNICAL DETAILS */}
+              {hasTechnicalData && activeTab === "technical" && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-10"
+                >
+                  {/* System Workflow */}
+                  {d?.workflow && d.workflow.length > 0 && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <GitMerge size={20} className="text-blue-500" /> 
+                        System Workflow
+                      </h3>
+                      <div className="hidden sm:flex items-center justify-between w-full p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+                        {d.workflow.map((step, idx) => (
+                          <div key={idx} className="flex items-center flex-1">
+                            <div className="relative flex flex-col items-center text-center px-2 flex-1">
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold mb-2 shadow-sm ${t.dot}`}>
+                                {idx + 1}
+                              </div>
+                              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 leading-tight">
+                                {step}
+                              </span>
+                            </div>
+                            {idx < d.workflow!.length - 1 && (
+                              <div className="flex-shrink-0 text-slate-300 dark:text-slate-700">
+                                <ArrowRight size={20} />
+                              </div>
+                            )}
                           </div>
-                          <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 leading-tight">
-                            {step}
-                          </span>
-                        </div>
-                        {idx < d.workflow!.length - 1 && (
-                          <div className="flex-shrink-0 text-slate-300 dark:text-slate-700">
-                            <ArrowRight size={20} />
-                          </div>
-                        )}
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                  {/* Mobile version workflow */}
-                  <div className="flex sm:hidden flex-col items-center space-y-2 p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
-                    {d.workflow.map((step, idx) => (
-                      <div key={idx} className="flex flex-col items-center">
-                        <div className="flex items-center gap-3 w-full max-w-[250px] p-3 rounded-lg bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700">
-                          <div className={`w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold ${t.dot}`}>
-                            {idx + 1}
+                      {/* Mobile version workflow */}
+                      <div className="flex sm:hidden flex-col items-center space-y-2 p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+                        {d.workflow.map((step, idx) => (
+                          <div key={idx} className="flex flex-col items-center">
+                            <div className="flex items-center gap-3 w-full max-w-[250px] p-3 rounded-lg bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700">
+                              <div className={`w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold ${t.dot}`}>
+                                {idx + 1}
+                              </div>
+                              <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{step}</span>
+                            </div>
+                            {idx < d.workflow!.length - 1 && (
+                              <div className="text-slate-300 dark:text-slate-700 py-1">
+                                <ArrowDown size={16} />
+                              </div>
+                            )}
                           </div>
-                          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{step}</span>
-                        </div>
-                        {idx < d.workflow!.length - 1 && (
-                          <div className="text-slate-300 dark:text-slate-700 py-1">
-                            <ArrowDown size={16} />
-                          </div>
-                        )}
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </section>
-              )}
+                    </section>
+                  )}
 
-              {/* Methodology */}
-              {(d?.methodology || d?.features) && (
-                <section>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Layers size={20} className="text-purple-500" />
-                    {d.methodology ? "Methodology & Development" : "Key Features"}
-                  </h3>
-                  <div className="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                    <ol className="space-y-4">
-                      {(d.methodology ?? d.features ?? []).map((item, i) => (
-                        <li key={i} className="flex gap-4">
-                          <span className={`mt-0.5 w-6 h-6 rounded-full ${t.badge} flex-shrink-0 flex items-center justify-center text-[11px] font-bold`}>
-                            {d.methodology ? i + 1 : "✓"}
-                          </span>
-                          <span className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed pt-0.5">{item}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </section>
-              )}
-
-              {/* Key Results */}
-              {d?.results && (
-                <section>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <CheckCircle2 size={20} className="text-orange-500" /> 
-                    Key Results & Impact
-                  </h3>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {d.results.map((r, i) => (
-                      <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30">
-                        <CheckCircle2 size={18} className="text-orange-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{r}</span>
+                  {/* Technical Highlights */}
+                  {d?.technicalHighlights && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <Lightbulb size={20} className="text-purple-500" /> 
+                        Engineering & Technical Highlights
+                      </h3>
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        {d.technicalHighlights.map((hl, i) => (
+                          <div key={i} className={`p-5 rounded-xl border ${t.border} bg-white dark:bg-slate-900 shadow-sm`}>
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-2">{hl.title}</h4>
+                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{hl.description}</p>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </section>
+                    </section>
+                  )}
+
+                  {/* Challenges & Solutions */}
+                  {d?.challenges && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <AlertTriangle size={20} className="text-red-500" /> 
+                        Challenges & Solutions
+                      </h3>
+                      <div className="space-y-4">
+                        {d.challenges.map((chal, i) => (
+                          <div key={i} className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                            <div className="flex gap-3 mb-3">
+                              <div className="w-1.5 h-full min-h-[40px] bg-red-400 rounded-full flex-shrink-0"></div>
+                              <div>
+                                <span className="text-xs font-bold text-red-500 uppercase tracking-wider block mb-1">Challenge</span>
+                                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{chal.issue}</p>
+                              </div>
+                            </div>
+                            <div className="flex gap-3 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                              <div className="w-1.5 h-full min-h-[40px] bg-emerald-400 rounded-full flex-shrink-0"></div>
+                              <div>
+                                <span className="text-xs font-bold text-emerald-500 uppercase tracking-wider block mb-1">Solution</span>
+                                <p className="text-sm text-slate-600 dark:text-slate-400">{chal.solution}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                </motion.div>
               )}
 
               {/* Bottom padding for scrolling */}

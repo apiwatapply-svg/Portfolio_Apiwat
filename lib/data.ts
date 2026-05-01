@@ -99,6 +99,9 @@ export type ProjectDetails = {
   hardware?: string[];
   features?: string[];
   publication?: string;
+  challenges?: { issue: string; solution: string }[];
+  technicalHighlights?: { title: string; description: string }[];
+  gallery?: string[];
 };
 
 export type Project = {
@@ -262,6 +265,19 @@ export const projects: Project[] = [
         "Time Delay การติดตามลูกปิงปอง = 0.35 วินาที",
         "ความผิดพลาดการทำนายตำแหน่งลูกตก = 3.82–5.3 cm",
         "ติดตามลูกได้ต่อเนื่องในแกน X, Y และ Z",
+      ],
+      challenges: [
+        { issue: "ความหน่วง (Latency) ในการประมวลผลภาพจากกล้องทำให้หุ่นยนต์ตอบสนองไม่ทัน", solution: "ปรับแก้ให้ LabVIEW ประมวลผลภาพขั้นสูงบน PC แล้วส่งเฉพาะค่าพิกัดพิกัดเป้าหมาย (X, Y) ไปยัง NI myRIO เพื่อลดภาระการคำนวณของบอร์ดควบคุม" },
+        { issue: "ความคลาดเคลื่อนของตำแหน่งที่เกิดจากน้ำหนักของชิ้นส่วนที่พิมพ์จาก 3D Printer", solution: "คำนวณและปรับสมการ Inverse Kinematics ใหม่ พร้อมจูนค่า PID Control ของมอเตอร์แต่ละแกนอย่างละเอียดเพื่อชดเชยน้ำหนัก" }
+      ],
+      technicalHighlights: [
+        { title: "Linear Prediction Algorithm", description: "ประยุกต์ใช้สมการเส้นตรงคำนวณจากพิกัด 2 จุดแรกที่กล้องจับได้แบบ Real-time เพื่อทำนายหาตำแหน่งและจังหวะที่ลูกปิงปองจะเคลื่อนที่มาถึงจุดตกเป้าหมาย" },
+        { title: "Inverse Kinematics Mapping", description: "ใช้วิธีการทางคณิตศาสตร์ในการแปลงพิกัดเป้าหมาย 3 มิติ (X, Y, Z) ย้อนกลับไปเป็นมุมองศา (Joint Angles) เพื่อสั่งการมอเตอร์ 4 แกนให้เคลื่อนไม้ปิงปองไปรับลูกได้อย่างแม่นยำ" }
+      ],
+      gallery: [
+        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=80"
       ],
     },
   },
