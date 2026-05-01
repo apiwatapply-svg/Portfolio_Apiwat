@@ -75,6 +75,20 @@ const SkillIcon = ({ iconKey }: { iconKey?: string }) => {
     case "linux": return <Terminal className="w-4 h-4" />;
     case "api": return <Network className="w-4 h-4" />;
     case "vercel": return <Cloud className="w-4 h-4" />;
+    case "ros":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+          <circle cx="5" cy="5" r="2.5" />
+          <circle cx="12" cy="5" r="2.5" />
+          <circle cx="19" cy="5" r="2.5" />
+          <circle cx="5" cy="12" r="2.5" />
+          <circle cx="12" cy="12" r="2.5" />
+          <circle cx="19" cy="12" r="2.5" />
+          <circle cx="5" cy="19" r="2.5" />
+          <circle cx="12" cy="19" r="2.5" />
+          <circle cx="19" cy="19" r="2.5" />
+        </svg>
+      );
     default:
       return null;
   }
