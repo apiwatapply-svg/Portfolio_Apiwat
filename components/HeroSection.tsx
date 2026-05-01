@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Briefcase, ArrowRight, Code2, Bot, Database } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 import { motion } from "framer-motion";
+import { TypeAnimation } from "react-type-animation";
 
 export default function HeroSection() {
   return (
@@ -26,7 +27,21 @@ export default function HeroSection() {
 
         <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4 leading-[1.1] text-slate-900 dark:text-white">
           Hi, I&apos;m {personalInfo.name}. <br />
-          <span className="text-blue-600">{personalInfo.role}</span>
+          <span className="text-blue-600 block min-h-[1.2em]">
+            <TypeAnimation
+              sequence={[
+                personalInfo.role,
+                2000,
+                "Frontend Developer",
+                2000,
+                "Automation Enthusiast",
+                2000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
+          </span>
         </h1>
 
         <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl mb-8 mx-auto md:mx-0">
