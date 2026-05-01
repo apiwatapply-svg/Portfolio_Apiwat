@@ -59,9 +59,10 @@ export default function HeroSection() {
             src={personalInfo.avatar}
             alt={personalInfo.fullName}
             fill
-            sizes="(max-width: 768px) 192px, 320px"
+            quality={100}
+            unoptimized
             priority
-            className="object-cover"
+            className="object-cover object-top"
           />
         </div>
 
