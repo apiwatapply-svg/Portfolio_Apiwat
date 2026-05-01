@@ -8,7 +8,7 @@ export const personalInfo = {
   role: "Software Developer Engineer",
   email: "apiwat2418@gmail.com",
   phone: "092-5853800",
-  location: "Surathane, Thailand",
+  location: "Suratthani, Thailand",
   github: "https://github.com/apiwatnonut",
   linkedin: "https://linkedin.com/in/apiwatnonut",
   bio: "Passionate about bridging the gap between Software Engineering and Industrial Automation. I design and develop intelligent solutions that enhance decision-making and resolve complex production challenges.",
