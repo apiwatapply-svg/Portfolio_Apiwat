@@ -14,8 +14,7 @@ export const personalInfo = {
   bio: "Passionate about bridging the gap between Software Engineering and Industrial Automation. I design and develop intelligent solutions that enhance decision-making and resolve complex production challenges.",
   availability: "Available for new opportunities",
   yearsOfExperience: "5+",
-  avatar:
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+  avatar: "/Apiwat.png",
 };
 
 export type SkillCategory = {
