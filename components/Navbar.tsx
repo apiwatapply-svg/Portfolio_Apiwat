@@ -72,9 +72,9 @@ export default function Navbar() {
           className="text-xl font-black tracking-tight flex items-center gap-2 text-slate-900 dark:text-white"
         >
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-            A
+            P
           </div>
-          Apiwat<span className="text-blue-600">.</span>
+          Portfolio<span className="text-blue-600">.</span>
         </a>
 
         {/* Desktop Nav */}
