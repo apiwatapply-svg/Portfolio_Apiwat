@@ -135,15 +135,33 @@ export default function ContactFooter() {
                 </a>
               )}
               {personalInfo.line && (
-                <a
-                  href={`https://line.me/ti/p/~${personalInfo.line}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-green-500 hover:border-green-300 dark:hover:border-green-600 transition-colors flex items-center justify-center w-10 h-10"
-                  aria-label="Line"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                </a>
+                <div className="relative group">
+                  <a
+                    href={`https://line.me/ti/p/~${personalInfo.line}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-green-500 hover:border-green-300 dark:hover:border-green-600 transition-colors flex items-center justify-center w-10 h-10"
+                    aria-label="Line"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                  </a>
+                  
+                  {/* QR Code Tooltip */}
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                    <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col items-center gap-2">
+                      <img 
+                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://line.me/ti/p/~${personalInfo.line}`} 
+                        alt="Line QR Code" 
+                        className="w-28 h-28 rounded-lg bg-white p-1"
+                      />
+                      <span className="text-xs font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                        Scan to Add Line
+                      </span>
+                      {/* Triangle pointer */}
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-white dark:border-t-slate-800"></div>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           </div>
