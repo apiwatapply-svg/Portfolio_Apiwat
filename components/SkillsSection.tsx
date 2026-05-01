@@ -1,4 +1,7 @@
-import { Code2, Database, Bot, Server, Users, Languages, CheckCircle2 } from "lucide-react";
+import { 
+  Code2, Database, Bot, Server, Users, Languages, CheckCircle2,
+  Wind, Layers, Brain, Sparkles, Eye, Activity, Terminal, Network, Cloud
+} from "lucide-react";
 import { skillCategories, softSkills, languageSkills, type SkillCategory } from "@/lib/data";
 
 // ---- Inline SVG Tech Icons ----
@@ -58,6 +61,17 @@ const SkillIcon = ({ iconKey }: { iconKey?: string }) => {
           <path d="M12 0C5.375 0 0 5.375 0 12c0 6.626 5.375 12.001 12 12.001S24 18.626 24 12C24 5.375 18.625 0 12 0zm-.624 21.619v-7.227H7.19L13.203 2.38v7.227h4.029L11.376 21.62z" />
         </svg>
       );
+    case "tailwind": return <Wind className="w-4 h-4" />;
+    case "bootstrap": return <Layers className="w-4 h-4" />;
+    case "supabase": return <Database className="w-4 h-4" />;
+    case "vectordb": return <Database className="w-4 h-4" />;
+    case "llm": return <Brain className="w-4 h-4" />;
+    case "prompt": return <Sparkles className="w-4 h-4" />;
+    case "vision": return <Eye className="w-4 h-4" />;
+    case "anomaly": return <Activity className="w-4 h-4" />;
+    case "linux": return <Terminal className="w-4 h-4" />;
+    case "api": return <Network className="w-4 h-4" />;
+    case "vercel": return <Cloud className="w-4 h-4" />;
     default:
       return null;
   }

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Briefcase, ArrowRight } from "lucide-react";
+import { Briefcase, ArrowRight, Code2, Bot, Database } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
 export default function HeroSection() {
@@ -76,6 +76,19 @@ export default function HeroSection() {
             </div>
             <div className="text-xs text-slate-500 dark:text-slate-400">Experience</div>
           </div>
+        </div>
+
+        {/* Floating Icons */}
+        <div className="absolute -top-2 -right-2 bg-white dark:bg-slate-900 p-2.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 z-20 animate-bounce" style={{ animationDuration: '3s' }}>
+          <Code2 className="text-blue-500 w-5 h-5" />
+        </div>
+        
+        <div className="absolute top-1/2 -right-6 bg-white dark:bg-slate-900 p-2.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 z-20 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
+          <Bot className="text-purple-500 w-5 h-5" />
+        </div>
+
+        <div className="absolute -bottom-2 right-4 bg-white dark:bg-slate-900 p-2.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 z-20 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '2s' }}>
+          <Database className="text-emerald-500 w-5 h-5" />
         </div>
       </div>
     </section>

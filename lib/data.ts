@@ -33,8 +33,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "React.js", iconKey: "react" },
       { name: "Next.js", iconKey: "nextjs" },
       { name: "HTML/CSS", iconKey: "html" },
-      { name: "Tailwind CSS" },
-      { name: "Bootstrap" },
+      { name: "Tailwind CSS", iconKey: "tailwind" },
+      { name: "Bootstrap", iconKey: "bootstrap" },
     ],
   },
   {
@@ -46,8 +46,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "Node.js", iconKey: "nodejs" },
       { name: "FastAPI", iconKey: "fastapi" },
       { name: "PostgreSQL", iconKey: "postgres" },
-      { name: "Supabase" },
-      { name: "Vector DB" },
+      { name: "Supabase", iconKey: "supabase" },
+      { name: "Vector DB", iconKey: "vectordb" },
     ],
   },
   {
@@ -55,11 +55,11 @@ export const skillCategories: SkillCategory[] = [
     iconKey: "ai",
     theme: "purple",
     skills: [
-      { name: "LLM Integration" },
-      { name: "Prompt Eng." },
-      { name: "Machine Vision (YOLO)" },
+      { name: "LLM Integration", iconKey: "llm" },
+      { name: "Prompt Eng.", iconKey: "prompt" },
+      { name: "Machine Vision (YOLO)", iconKey: "vision" },
       { name: "ROS", iconKey: "ros" },
-      { name: "Anomaly Detection" },
+      { name: "Anomaly Detection", iconKey: "anomaly" },
     ],
   },
   {
@@ -69,9 +69,9 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Git", iconKey: "git" },
       { name: "Docker", iconKey: "docker" },
-      { name: "Linux Server" },
-      { name: "REST API" },
-      { name: "Cloud (Vercel)" },
+      { name: "Linux Server", iconKey: "linux" },
+      { name: "REST API", iconKey: "api" },
+      { name: "Cloud (Vercel)", iconKey: "vercel" },
     ],
   },
 ];
