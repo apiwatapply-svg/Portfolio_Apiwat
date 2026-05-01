@@ -27,6 +27,7 @@ export default function Navbar() {
     const saved = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const dark = saved === "dark" || (!saved && prefersDark);
+    // eslint-disable-next-line
     setIsDark(dark);
     document.documentElement.classList.toggle("dark", dark);
   }, []);

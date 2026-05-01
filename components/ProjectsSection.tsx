@@ -77,16 +77,13 @@ function FeaturedGrid({ items }: { items: Project[] }) {
 }
 
 function TimelineList({ items }: { items: Project[] }) {
-  let currentYear: string | null = null;
-
   return (
     <div className="relative mt-12 max-w-3xl mx-auto animate-in fade-in duration-500">
       {/* Vertical line */}
       <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-800" />
 
       {items.map((project, idx) => {
-        const showYearMarker = project.year !== currentYear;
-        if (showYearMarker) currentYear = project.year;
+        const showYearMarker = idx === 0 || project.year !== items[idx - 1].year;
 
         return (
           <div key={`${project.title}-${idx}`}>
