@@ -97,7 +97,7 @@ export default function SkillsSection() {
     <section id="about">
       <div className="mb-10">
         <h2 className="text-3xl font-black mb-2 tracking-tight text-slate-900 dark:text-white">
-          Technical Arsenal
+          Skills & Technologies
         </h2>
         <p className="text-slate-600 dark:text-slate-400 font-medium">
           Tools I use to build robust applications.
