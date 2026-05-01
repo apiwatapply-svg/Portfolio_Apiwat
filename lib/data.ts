@@ -91,6 +91,19 @@ export const languageSkills = [
   { name: "English", level: "Conversational" },
 ];
 
+export type FlowStep = {
+  id: string;
+  label: string;
+  detail?: string;
+  icon?: string;
+  type: "action" | "decision" | "success" | "error" | "warning" | "process";
+  branches?: {
+    condition: string;
+    steps: FlowStep[];
+    type: "success" | "error" | "warning";
+  }[];
+};
+
 export type ProjectDetails = {
   objective: string;
   methodology?: string[];
@@ -102,6 +115,17 @@ export type ProjectDetails = {
   challenges?: { issue: string; solution: string }[];
   technicalHighlights?: { title: string; description: string }[];
   gallery?: string[];
+  userFlow?: FlowStep[];
+  programFlow?: FlowStep[];
+  metrics?: { label: string; value: string; unit?: string; icon?: string }[];
+  // --- Presentation Slide Fields (7 sections) ---
+  context?: string;
+  origin?: string;
+  painPoint?: string;
+  yourRole?: string;
+  keySkillsUsed?: string[];
+  lessonsLearned?: string[];
+  nextSteps?: string[];
 };
 
 export type Project = {
@@ -153,10 +177,28 @@ export const projects: Project[] = [
     image: "https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=800&q=80",
     theme: "purple", isFeatured: true, year: "2023", duration: "Aug 2023 - Nov 2023",
     details: {
-      objective: "ติดตั้งระบบตรวจสอบชิ้นงานด้วย AI Machine Vision เพื่อเพิ่มความแม่นยำในการตรวจหาของเสีย",
+      context: "ระบบตรวจสอบข้อบกพร่องชิ้นงานอัตโนมัติด้วย AI — ใช้กล้องอุตสาหกรรมและ Deep Learning ตรวจหาความผิดปกติบนชิ้นส่วนที่ผ่านสายการผลิต แทนการใช้สายตามนุษย์ซึ่งเมื่อยล้าและพลาดได้",
+      origin: "โปรเจกต์ในบริษัท NMB-Minebea Thai Ltd. (2023) ซึ่งเป็นโรงงานผลิตชิ้นส่วนอิเล็กทรอนิกส์ ต้องการยกระดับกระบวนการ QC ให้เป็น Zero-defect Manufacturing",
+      painPoint: "ระบบตรวจสอบแบบเดิมใช้พนักงานตรวจด้วยตา ทำให้มีความผิดพลาดจากความเมื่อยล้า (Human Error) และไม่สามารถรักษาความสม่ำเสมอในการผลิตแบบ High-volume ได้",
+      objective: "ติดตั้งระบบตรวจสอบชิ้นงานด้วย AI Machine Vision เพื่อเพิ่มความแม่นยำในการตรวจหาของเสียและลด Human Error ในกระบวนการ QC",
+      yourRole: "วิศวกรผู้รับผิดชอบหลัก — ออกแบบ Data Collection Pipeline, Label ข้อมูลชิ้นงาน, Train YOLO Model, Integrate กับ HIKROBOT SDK, และ Deploy ระบบในสายการผลิตจริง",
+      keySkillsUsed: ["Python", "YOLOv8", "HIKROBOT SDK", "OpenCV", "Edge Computing", "Dataset Labeling", "Model Training & Evaluation"],
       hardware: ["HIKROBOT Industrial Camera", "High-speed LED Lighting System", "Industrial PC (Edge Computing)"],
-      methodology: ["Train YOLO Model ด้วย Dataset ชิ้นงานจริง", "Integrate กับ HIKROBOT SDK", "Deploy บน Edge Device ในสายการผลิต"],
-      results: ["ความแม่นยำการตรวจจับข้อบกพร่อง > 95%", "ลด Defect Rate ในสายการผลิต", "ความเร็ว Inference < 50ms ต่อชิ้นงาน"],
+      methodology: ["รวบรวมและ Label Dataset ชิ้นงานจริงในสายการผลิต", "Train YOLO Model และปรับ Hyperparameter จนได้ mAP > 95%", "Integrate กับ HIKROBOT SDK เพื่อรับ-ส่งข้อมูลกล้อง", "Deploy บน Edge Device และทดสอบกับสายการผลิตจริง"],
+      results: ["ความแม่นยำการตรวจจับข้อบกพร่อง > 95%", "ลด Defect Rate ที่ผ่านไปถึงลูกค้าได้อย่างมีนัยสำคัญ", "ความเร็ว Inference < 50ms ต่อชิ้นงาน — ไม่กระทบ Takt Time"],
+      challenges: [
+        { issue: "Dataset ชิ้นงานเสียในสายการผลิตจริงมีจำนวนน้อยมาก ทำให้ Model Overfit กับ Training Data", solution: "ใช้เทคนิค Data Augmentation (Rotation, Brightness, Noise) และ Transfer Learning จาก Pre-trained YOLO เพื่อเพิ่มประสิทธิภาพ Model ด้วย Dataset ขนาดเล็ก" },
+        { issue: "แสงในสายการผลิตมีความแปรปรวน ทำให้ Model Accuracy ลดลงในบางช่วงเวลา", solution: "ติดตั้ง Controlled LED Lighting System และปรับ Camera Exposure ให้คงที่ ลดตัวแปรด้านแสงออกจากระบบ" },
+      ],
+      lessonsLearned: [
+        "เทคนิค: Data Quality สำคัญกว่า Model Complexity — Dataset ที่ Label ถูกต้องและหลากหลายสร้างผลลัพธ์ดีกว่า Model ซับซ้อนที่ใช้ข้อมูลไม่ดี",
+        "สภาพแวดล้อม: ปัจจัยทางกายภาพ (แสง, ฝุ่น, สั่น) ในโรงงานมีผลต่อ AI มากกว่าที่คาด ต้องควบคุม Environment ก่อน Deploy",
+      ],
+      nextSteps: [
+        "ขยายไปยังชิ้นส่วนประเภทอื่นในโรงงานโดย Reuse Pipeline เดิม",
+        "เพิ่ม Anomaly Detection สำหรับ Defect ประเภทใหม่ที่ไม่เคยเห็นใน Training Data",
+        "บูรณาการกับระบบ MES เพื่อส่ง Alert และหยุดสายการผลิตอัตโนมัติเมื่อพบ Defect Rate เกิน Threshold",
+      ],
     },
   },
   {
@@ -221,21 +263,52 @@ export const projects: Project[] = [
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80",
     theme: "purple", isFeatured: true, year: "2021", duration: "2019 - 2021",
     details: {
+      context: "ระบบควบคุม UAV ปีกตรึง (Fixed-Wing) แบบอัตโนมัติ — บินได้เองโดยไม่ต้องมีนักบิน โดยใช้ Algorithm ทางคณิตศาสตร์หาแบบจำลองของอากาศยานและออกแบบตัวควบคุม PID แทนการหาค่าด้วยมือ",
+      origin: "วิทยานิพนธ์ระดับปริญญาโท สาขาวิศวกรรมเครื่องกล มหาวิทยาลัยขอนแก่น (2019–2021) ทำคนเดียวตลอดโครงการ ภายใต้การดูแลของอาจารย์ที่ปรึกษา",
+      painPoint: "การออกแบบระบบควบคุม UAV แบบดั้งเดิมต้องอาศัยผู้เชี่ยวชาญคำนวณ Mathematical Model ด้วยมือ ซึ่งใช้เวลานานและมีความคลาดเคลื่อนสูง อีกทั้งยากต่อการนำไปใช้กับอากาศยานต้นแบบใหม่",
       objective: "สร้างแบบจำลองทางคณิตศาสตร์และออกแบบระบบควบคุม PID สำหรับ Fixed-Wing UAV ด้วยเทคนิค Meta-Heuristic Optimization (วิทยานิพนธ์ระดับปริญญาโท — ประเมิน Excellent)",
+      yourRole: "นักวิจัยและวิศวกรระบบควบคุมเพียงคนเดียว — รับผิดชอบตั้งแต่การออกแบบการทดลอง, เก็บข้อมูลบินจริง, เขียนโค้ด MATLAB/Python สำหรับ System Identification และ Optimization, ไปจนถึงทดสอบบินจริงและเขียนวิทยานิพนธ์",
+      keySkillsUsed: ["MATLAB", "Python", "PID Control Design", "Meta-Heuristic Optimization (L-SHADE)", "System Identification", "Raspberry Pi", "Data Analysis", "Academic Writing"],
       methodology: [
         "Step 1 — System Identification: ป้อนสัญญาณกระตุ้นระบบและเก็บข้อมูลจริง จากนั้นหา Mathematical Model ด้วย Meta-Heuristics (ความแม่นยำ 87–98%)",
         "Step 2 — PID Control Design: ออกแบบ PID Controller ด้วย L-SHADE Optimization Algorithm สำหรับทั้ง Longitudinal และ Lateral Dynamic",
         "Step 3 — Real Flight Test: ทดสอบบินจริงเปรียบเทียบกับ Simulation พบว่า Error < 10%",
       ],
       hardware: ["Raspberry Pi 3 Model B+", "Arduino Mega 2560", "BNO080 IMU Sensor", "MS5611 Pressure Sensor", "Analog Airspeed Sensor", "FrSky R9 Receiver"],
+      metrics: [
+        { label: "Model Accuracy", value: "87–98", unit: "%", icon: "🎯" },
+        { label: "Real Flight Error", value: "<10", unit: "%", icon: "✈️" },
+        { label: "Longitudinal Rise Time", value: "0.15", unit: "s", icon: "⏱️" },
+        { label: "Lateral Settling Time", value: "3.15", unit: "s", icon: "⏱️" },
+        { label: "ผลประเมินวิทยานิพนธ์", value: "Excellent", unit: "", icon: "🏆" },
+        { label: "ตีพิมพ์นานาชาติ", value: "ISI", unit: "Indexed", icon: "📚" },
+      ],
+      programFlow: [
+        { id: "excite", label: "ป้อนสัญญาณกระตุ้น UAV จริง", icon: "✈️", type: "action" as const, detail: "Input: คลื่นทาร์ → เก็บ Response" },
+        { id: "sysid", label: "Meta-Heuristics System ID", icon: "🧠", type: "process" as const, detail: "L-SHADE Algorithm → Model 87–98%" },
+        { id: "pid_design", label: "PID Controller Design", icon: "⚙️", type: "process" as const, detail: "Optimize Kp, Ki, Kd ทั้ง Long + Lat" },
+        { id: "sim", label: "Simulate ใน MATLAB", icon: "🖥️", type: "process" as const, detail: "Verify ตาม Spec" },
+        { id: "embed", label: "Deploy บน Raspberry Pi", icon: "🍓", type: "action" as const, detail: "Python PID loop" },
+        { id: "flight", label: "Real Flight Test", icon: "✈️", type: "success" as const, detail: "Error < 10% vs Simulation" },
+      ],
       results: [
         "Mathematical Model มีความแม่นยำ 87–98%",
         "Longitudinal PID: Rise Time 0.15s, Overshoot 11.1%, Settling Time 5.0s",
         "Lateral PID: Rise Time 0.52s, Overshoot 5.0%, Settling Time 3.15s",
         "Real Flight Error < 10% เปรียบเทียบกับ Simulation",
-        "ผลการประเมินวิทยานิพนธ์: Excellent",
+        "ผลการประเมินวิทยานิพนธ์: Excellent และได้รับการตีพิมพ์ในวารสารนานาชาติ",
       ],
       publication: "https://www.tandfonline.com/doi/full/10.1080/23311916.2022.2114196",
+      lessonsLearned: [
+        "เทคนิค: การทำ System Identification ด้วย Meta-Heuristics ให้ความแม่นยำสูง แต่ต้องระวัง Overfitting กับ Dataset ที่เก็บมา",
+        "กระบวนการ: ผลจาก Simulation ไม่เท่ากับผลจริงเสมอไป การทดสอบกับสภาพแวดล้อมจริงมีความสำคัญมาก",
+        "การวิจัย: การเขียนเพื่อตีพิมพ์ต้องการความชัดเจนและการนำเสนอ Methodology ที่ทำซ้ำได้ (Reproducible)",
+      ],
+      nextSteps: [
+        "ขยายไปสู่ Adaptive Control ที่ปรับตัวได้เมื่อสภาพอากาศเปลี่ยน (Gain Scheduling)",
+        "บูรณาการกับ GPS/Waypoint Navigation เพื่อให้บินตามเส้นทางอัตโนมัติได้",
+        "ทดลองใช้ Reinforcement Learning แทน PID เพื่อเปรียบเทียบประสิทธิภาพ",
+      ],
     },
   },
   {
@@ -246,38 +319,50 @@ export const projects: Project[] = [
     image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
     theme: "purple", isFeatured: false, year: "2019", duration: "Jan 2019 - May 2019",
     details: {
+      context: "หุ่นยนต์แขนกลที่สามารถตีปิงปองโต้กับมนุษย์ได้อัตโนมัติ — ใช้กล้องจับตำแหน่งลูกแบบ Real-time, คำนวณทำนายจุดตก, แล้วสั่งให้แขนกลเคลื่อนไปรับลูกทัน",
+      origin: "Senior Project ปริญญาตรี สาขาวิศวกรรมไฟฟ้า มหาวิทยาลัยขอนแก่น (ม.ค.–พ.ค. 2019) ทำเป็นทีม 3 คน โดยฉันรับผิดชอบหลักด้าน Software และ Control System",
+      painPoint: "โปรเจกต์นี้ต้องการแก้ปัญหาความล่าช้าของระบบ (Latency) ที่เกิดจากการประมวลผลภาพ ซึ่งทำให้หุ่นยนต์ไม่สามารถตอบสนองได้ทันกับลูกปิงปองที่เคลื่อนที่เร็ว",
       objective: "พัฒนาหุ่นยนต์แขนกลสำหรับตีปิงปองโต้ตอบอัตโนมัติ ผสาน Computer Vision สำหรับตรวจจับและทำนายตำแหน่งลูก (Senior Project ปริญญาตรี)",
-      workflow: [
-        "รับภาพจากกล้อง (Image Acquisition)",
-        "ประมวลผลหาลูกปิงปอง (Image Processing)",
-        "คำนวณทำนายจุดตก (Prediction Algorithm)",
-        "คำนวณพิกัดและส่งค่า (Inverse Kinematics & PID)",
-        "ขับเคลื่อนกลไก (DC Motor Actuation)"
+      yourRole: "รับผิดชอบหลักด้าน Software & Control — พัฒนาระบบ Computer Vision ใน LabVIEW, เขียน Linear Prediction Algorithm, คำนวณ Inverse Kinematics, ออกแบบและ Tune PID Controller สำหรับ DC Motor ทุกแกน",
+      metrics: [
+        { label: "Time Delay", value: "0.35", unit: "s", icon: "⏱️" },
+        { label: "ความผิดพลาดทำนาย", value: "3.82–5.3", unit: "cm", icon: "🎯" },
+        { label: "DOF แขนกล", value: "4", unit: "DOF", icon: "🤖" },
+        { label: "รุ่นที่พัฒนา", value: "4", unit: "รุ่น", icon: "🔄" },
+        { label: "ติดตามตำแหน่ง", value: "3D", unit: "X,Y,Z", icon: "📍" },
+        { label: "การประเมิน", value: "A", unit: "Excellent", icon: "⭐" },
       ],
-      methodology: [
-        "ออกแบบและพิมพ์ 3D ชิ้นส่วน Robot Arm ด้วย SolidWorks (พัฒนา 4 รุ่น)",
-        "ออกแบบระบบควบคุม PID สำหรับ DC Motor ผ่าน NI myRIO",
-        "พัฒนาระบบ Computer Vision ด้วย LabVIEW เพื่อจับตำแหน่งลูกปิงปอง",
-        "ทำนายตำแหน่งลูกตกด้วยสมการเส้นตรงจาก 2 จุดแรก",
+      userFlow: [
+        { id: "ball_thrown", label: "Player เสิร์ฟลูกปิงปอง", icon: "🏓", type: "action" as const },
+        { id: "camera", label: "กล้องจับภาพ Real-time", icon: "📹", type: "process" as const, detail: "30 fps" },
+        { id: "detect", label: "LabVIEW ตรวจจับลูกเจอ X,Y", icon: "🔍", type: "process" as const, detail: "Color Blob Detection" },
+        { id: "predict", label: "ทำนายจุดตกจาก 2 จุดแรก", icon: "🧠", type: "process" as const, detail: "Linear Prediction" },
+        { id: "ik", label: "คำนวณ Inverse Kinematics", icon: "⚙️", type: "process" as const, detail: "แปลง X,Y,Z เป็นมุม Joint" },
+        { id: "pid", label: "PID Controller สั่งมอเตอร์ 4 แกน", icon: "🏓", type: "action" as const, detail: "ผ่าน NI myRIO" },
+        { id: "hit", label: "ไม้ปิงปองตีลูกคืน", icon: "✨", type: "success" as const },
       ],
-      hardware: ["NI myRIO Controller", "DC Motor + Encoder", "USB Camera", "3D Printed Robot Arm (4 DOF)"],
-      results: [
-        "Time Delay การติดตามลูกปิงปอง = 0.35 วินาที",
-        "ความผิดพลาดการทำนายตำแหน่งลูกตก = 3.82–5.3 cm",
-        "ติดตามลูกได้ต่อเนื่องในแกน X, Y และ Z",
-      ],
-      challenges: [
-        { issue: "ความหน่วง (Latency) ในการประมวลผลภาพจากกล้องทำให้หุ่นยนต์ตอบสนองไม่ทัน", solution: "ปรับแก้ให้ LabVIEW ประมวลผลภาพขั้นสูงบน PC แล้วส่งเฉพาะค่าพิกัดพิกัดเป้าหมาย (X, Y) ไปยัง NI myRIO เพื่อลดภาระการคำนวณของบอร์ดควบคุม" },
-        { issue: "ความคลาดเคลื่อนของตำแหน่งที่เกิดจากน้ำหนักของชิ้นส่วนที่พิมพ์จาก 3D Printer", solution: "คำนวณและปรับสมการ Inverse Kinematics ใหม่ พร้อมจูนค่า PID Control ของมอเตอร์แต่ละแกนอย่างละเอียดเพื่อชดเชยน้ำหนัก" }
-      ],
-      technicalHighlights: [
-        { title: "Linear Prediction Algorithm", description: "ประยุกต์ใช้สมการเส้นตรงคำนวณจากพิกัด 2 จุดแรกที่กล้องจับได้แบบ Real-time เพื่อทำนายหาตำแหน่งและจังหวะที่ลูกปิงปองจะเคลื่อนที่มาถึงจุดตกเป้าหมาย" },
-        { title: "Inverse Kinematics Mapping", description: "ใช้วิธีการทางคณิตศาสตร์ในการแปลงพิกัดเป้าหมาย 3 มิติ (X, Y, Z) ย้อนกลับไปเป็นมุมองศา (Joint Angles) เพื่อสั่งการมอเตอร์ 4 แกนให้เคลื่อนไม้ปิงปองไปรับลูกได้อย่างแม่นยำ" }
+      programFlow: [
+        { id: "img_acq", label: "Image Acquisition", icon: "📷", type: "action" as const, detail: "USB Camera → LabVIEW" },
+        { id: "proc", label: "Image Processing (PC)", icon: "🖥️", type: "process" as const, detail: "Color Threshold + Blob" },
+        { id: "coord", label: "ส่งพิกัด X,Y ไป myRIO", icon: "📡", type: "action" as const, detail: "TCP/IP (ลด Latency)" },
+        { id: "predict2", label: "Linear Prediction Algorithm", icon: "🧠", type: "process" as const, detail: "หาจุดตก Z จาก 2 จุด" },
+        { id: "ik2", label: "Inverse Kinematics", icon: "⚙️", type: "process" as const, detail: "คำนวณ Joint Angles 4 แกน" },
+        { id: "pid2", label: "PID Motor Control", icon: "🏓", type: "action" as const, detail: "DC Motor Encoder Feedback" },
       ],
       gallery: [
-        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=500&q=80",
-        "https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&w=500&q=80",
-        "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=80"
+        "/projects/ping-pong-robot/p007_img01.jpeg",
+        "/projects/ping-pong-robot/p011_img01.jpeg",
+        "/projects/ping-pong-robot/p010_img02.jpeg",
+      ],
+      lessonsLearned: [
+        "เทคนิค: การแยก Image Processing ออกจาก Controller (PC vs myRIO) เป็นหลัก Separation of Concerns ที่สำคัญมากในระบบ Real-time",
+        "การออกแบบ: ชิ้นส่วน 3D Printed ต้องคำนึงถึงน้ำหนักและความแข็งแรงตั้งแต่ต้น ไม่ใช่แก้ปัญหาทีหลัง",
+        "การทำงานทีม: การแบ่งบทบาทที่ชัดเจน (Hardware/Software/Testing) ทำให้ทีมขนาดเล็กทำงานได้มีประสิทธิภาพ",
+      ],
+      nextSteps: [
+        "เปลี่ยนจาก Linear Prediction เป็น Kalman Filter หรือ ML-based Trajectory Prediction เพื่อความแม่นยำขึ้น",
+        "ใช้กล้อง Stereo Vision เพื่อจับ 3D Position ได้โดยตรง ไม่ต้องประมาณค่า Z",
+        "เพิ่ม Degree of Freedom ของแขนกลเป็น 6 DOF เพื่อรองรับการโต้ตอบที่ซับซ้อนขึ้น",
       ],
     },
   },
@@ -331,10 +416,92 @@ export const projects: Project[] = [
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
     theme: "orange", isFeatured: false, year: "2018", duration: "2018 (Internship)",
     details: {
+      context: "ระบบควบคุมประตูคลังสินค้าด้วย PLC — ใช้ Keypad กรอกรหัสผ่าน 4 หลัก ระบบตรวจสอบแล้วสั่ง Pneumatic Valve เปิด/ปิดประตูอัตโนมัติ มีระบบป้องกัน Auto-lock เมื่อกรอกผิดซ้ำ",
+      origin: "Summer Internship ที่ NHK Spring Co., Ltd. (2018) ได้รับมอบหมายให้ออกแบบและพัฒนาระบบรักษาความปลอดภัยสำหรับประตูคลังสินค้า",
+      painPoint: "ประตูคลังสินค้าเดิมไม่มีระบบรักษาความปลอดภัย ใครก็เปิดได้ ทำให้มีความเสี่ยงต่อการสูญหายของวัสดุและความปลอดภัยในโรงงาน",
+      yourRole: "วิศวกรผู้รับผิดชอบทั้งโปรเจกต์ — ออกแบบ Ladder Logic ใน Mitsubishi PLC ระบบ Security, Timeout, Auto-lock และ Alert ทั้งหมด รวมถึงทดสอบกับ Pneumatic System จริง",
+      keySkillsUsed: ["Mitsubishi PLC", "Ladder Logic Programming", "Pneumatic System", "Sequential Control Design", "Safety System Design"],
       objective: "พัฒนาระบบควบคุมประตูคลังสินค้าด้วย Mitsubishi PLC และระบบนิวเมติก โดยใช้รหัสผ่าน 4 หลัก (Summer Internship ที่ NHK Spring Co., Ltd.)",
       features: ["รองรับรหัสผ่านได้ 4 ชุด (แต่ละชุด 4 หลัก)", "Timeout อัตโนมัติ 10 วินาทีหากไม่กรอกรหัส", "Auto-lock หลังกรอกรหัสผิด 3 ครั้งติดต่อกัน", "Alert System แจ้งเตือนเมื่อ Auto-lock ทำงาน"],
       hardware: ["Mitsubishi PLC", "Pneumatic Cylinder & Valve", "Keypad Input Module", "Indicator Lights"],
-      results: ["ระบบทำงานตามข้อกำหนดทั้งหมด", "ผ่านการทดสอบและใช้งานจริงในโรงงาน NHK Spring"],
+      metrics: [
+        { label: "รหัสผ่านที่รองรับ", value: "4", unit: "ชุด", icon: "🔑" },
+        { label: "หลักต่อรหัส", value: "4", unit: "หลัก", icon: "🔢" },
+        { label: "Timeout", value: "10", unit: "วินาที", icon: "⏱️" },
+        { label: "Auto-lock หลังผิด", value: "3", unit: "ครั้ง", icon: "🔒" },
+        { label: "Response Time", value: "<1", unit: "วินาที", icon: "⚡" },
+        { label: "ผ่านการทดสอบ", value: "100", unit: "%", icon: "✅" },
+      ],
+      userFlow: [
+        { id: "approach", label: "User เดินเข้ามาหน้าประตู", icon: "🚶", type: "action" },
+        { id: "keypad", label: "กด Keypad เริ่มกรอกรหัส", icon: "⌨️", type: "action", detail: "Timeout เริ่มนับ 10 วินาที" },
+        { id: "enter4", label: "กรอกรหัส 4 หลัก", icon: "🔢", type: "action" },
+        {
+          id: "check",
+          label: "PLC ตรวจสอบรหัส",
+          icon: "🖥️",
+          type: "decision",
+          branches: [
+            {
+              condition: "✅ ถูกต้อง",
+              type: "success",
+              steps: [
+                { id: "valve_open", label: "Pneumatic Valve เปิด", icon: "💨", type: "success" },
+                { id: "door_open", label: "ประตูเปิด", icon: "🚪", type: "success", detail: "ไฟสีเขียวติด" },
+                { id: "auto_close", label: "ประตูปิดอัตโนมัติ", icon: "🔒", type: "action", detail: "หลัง User ผ่าน" },
+              ],
+            },
+            {
+              condition: "❌ ผิด",
+              type: "error",
+              steps: [
+                { id: "count", label: "นับจำนวนครั้งที่ผิด", icon: "🔢", type: "warning" },
+                {
+                  id: "lockcheck",
+                  label: "ผิดครบ 3 ครั้ง?",
+                  icon: "⚠️",
+                  type: "decision",
+                  branches: [
+                    {
+                      condition: "ใช่",
+                      type: "error",
+                      steps: [
+                        { id: "autolock", label: "Auto-Lock ทำงาน", icon: "🔴", type: "error" },
+                        { id: "alert", label: "Alert แจ้งเตือน", icon: "🚨", type: "error", detail: "ไฟสีแดงกะพริบ" },
+                      ],
+                    },
+                    {
+                      condition: "ยัง",
+                      type: "warning",
+                      steps: [
+                        { id: "retry", label: "กรอกรหัสใหม่ได้", icon: "🔄", type: "warning" },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      programFlow: [
+        { id: "input", label: "รับ Input จาก Keypad", icon: "⌨️", type: "action", detail: "Ladder Rung: Input Module" },
+        { id: "timer", label: "Timeout Timer เริ่มทำงาน", icon: "⏱️", type: "process", detail: "TON: 10 วินาที" },
+        { id: "store", label: "เก็บรหัสใน Data Register", icon: "💾", type: "process", detail: "D100–D103" },
+        { id: "compare", label: "เปรียบเทียบกับ 4 รหัสที่ตั้ง", icon: "🔍", type: "decision", detail: "CMP Instruction" },
+        { id: "counter", label: "อัปเดต Error Counter", icon: "🔢", type: "process", detail: "C0: 0–3" },
+        { id: "output", label: "สั่ง Output: Valve / Lock / Alert", icon: "⚡", type: "output" as "process", detail: "Y000, Y001, Y002" },
+      ],
+      results: ["ระบบทำงานตามข้อกำหนดทั้งหมด", "ผ่านการทดสอบและใช้งานจริงในโรงงาน NHK Spring", "Response Time < 1 วินาที", "ลดความเสี่ยงการเข้าถึงโดยไม่ได้รับอนุญาต 100%"],
+      lessonsLearned: [
+        "PLC Ladder Logic: การออกแบบ Sequential Control ต้องคำนึงถึง Edge case เช่น Timeout และ Power Failure",
+        "Safety Design: Auto-lock ต้องมี Manual Override สำหรับกรณีฉุกเฉิน — เพิ่มเติมหลังรีวิวกับหัวหน้างาน",
+      ],
+      nextSteps: [
+        "เพิ่ม RFID Card สำหรับผู้ที่มีสิทธิ์พิเศษ",
+        "บันทึก Access Log ลง Database",
+        "เชื่อมต่อกับระบบ CCTV เมื่อ Auto-lock ทำงาน",
+      ],
     },
   },
 ];
