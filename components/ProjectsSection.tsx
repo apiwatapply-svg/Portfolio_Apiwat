@@ -153,6 +153,15 @@ export default function ProjectsSection() {
     setCurrentPage(1); // รีเซ็ตหน้ากลับไปหน้าแรกเมื่อเปลี่ยน tab
   };
 
+  const scrollToProjects = () => {
+    const el = document.getElementById("projects");
+    if (el) {
+      const offset = 100; // เผื่อความสูงของ Navbar
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
+
   const activeProjects = tab === "featured" ? featured : projects;
   const totalPages = Math.ceil(activeProjects.length / PROJECTS_PER_PAGE);
   const paginatedProjects = activeProjects.slice(
@@ -210,8 +219,11 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      {(tab === "featured" || tab === "all-grid") && <FeaturedGrid items={paginatedProjects} />}
-      {tab === "timeline" && <TimelineList items={paginatedProjects} />}
+      {/* Wrapper with min-height to prevent layout shift when changing pages */}
+      <div className="min-h-[600px] md:min-h-[800px] transition-all duration-300">
+        {(tab === "featured" || tab === "all-grid") && <FeaturedGrid items={paginatedProjects} />}
+        {tab === "timeline" && <TimelineList items={paginatedProjects} />}
+      </div>
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
@@ -219,7 +231,7 @@ export default function ProjectsSection() {
           <button
             onClick={() => {
               setCurrentPage((p) => Math.max(1, p - 1));
-              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+              scrollToProjects();
             }}
             disabled={currentPage === 1}
             className="px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-50 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm"
@@ -234,7 +246,7 @@ export default function ProjectsSection() {
           <button
             onClick={() => {
               setCurrentPage((p) => Math.min(totalPages, p + 1));
-              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+              scrollToProjects();
             }}
             disabled={currentPage === totalPages}
             className="px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-50 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm"
