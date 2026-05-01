@@ -108,7 +108,7 @@ const themeMap = {
 
 export default function SkillsSection() {
   return (
-    <section id="about">
+    <section id="skills" className="pt-20">
       <div className="mb-10">
         <h2 className="text-3xl font-black mb-2 tracking-tight text-slate-900 dark:text-white">
           Skills & Qualifications
