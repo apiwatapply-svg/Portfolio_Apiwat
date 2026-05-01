@@ -140,9 +140,25 @@ function TimelineList({ items }: { items: Project[] }) {
   );
 }
 
+const PROJECTS_PER_PAGE = 6;
+
 export default function ProjectsSection() {
   const [tab, setTab] = useState<"featured" | "all">("featured");
+  const [currentPage, setCurrentPage] = useState(1);
+  
   const featured = projects.filter((p) => p.isFeatured);
+  
+  const handleTabChange = (newTab: "featured" | "all") => {
+    setTab(newTab);
+    setCurrentPage(1); // รีเซ็ตหน้ากลับไปหน้าแรกเมื่อเปลี่ยน tab
+  };
+
+  const activeProjects = tab === "featured" ? featured : projects;
+  const totalPages = Math.ceil(activeProjects.length / PROJECTS_PER_PAGE);
+  const paginatedProjects = activeProjects.slice(
+    (currentPage - 1) * PROJECTS_PER_PAGE,
+    currentPage * PROJECTS_PER_PAGE
+  );
 
   return (
     <section id="projects">
@@ -160,7 +176,7 @@ export default function ProjectsSection() {
         <div className="flex bg-transparent border border-slate-200 dark:border-slate-700 p-1 rounded-lg">
           <button
             id="tab-featured"
-            onClick={() => setTab("featured")}
+            onClick={() => handleTabChange("featured")}
             className={`px-4 py-1.5 text-sm font-bold rounded-md transition-colors ${
               tab === "featured"
                 ? "bg-blue-600 text-white"
@@ -171,7 +187,7 @@ export default function ProjectsSection() {
           </button>
           <button
             id="tab-timeline"
-            onClick={() => setTab("all")}
+            onClick={() => handleTabChange("all")}
             className={`px-4 py-1.5 text-sm font-bold rounded-md transition-colors ${
               tab === "all"
                 ? "bg-blue-600 text-white"
@@ -183,8 +199,39 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      {tab === "featured" && <FeaturedGrid items={featured} />}
-      {tab === "all" && <TimelineList items={projects} />}
+      {tab === "featured" && <FeaturedGrid items={paginatedProjects} />}
+      {tab === "all" && <TimelineList items={paginatedProjects} />}
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-4 mt-16">
+          <button
+            onClick={() => {
+              setCurrentPage((p) => Math.max(1, p - 1));
+              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            disabled={currentPage === 1}
+            className="px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-50 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm"
+          >
+            Previous
+          </button>
+          
+          <div className="text-sm font-medium text-slate-600 dark:text-slate-400">
+            Page {currentPage} of {totalPages}
+          </div>
+          
+          <button
+            onClick={() => {
+              setCurrentPage((p) => Math.min(totalPages, p + 1));
+              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-50 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </section>
   );
 }
