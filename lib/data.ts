@@ -13,6 +13,7 @@ export const personalInfo = {
   linkedin: "https://linkedin.com/in/apiwatnonut",
   facebook: "https://www.facebook.com/apiwat.nonut",
   line: "0925853800",
+  lineId: "oatza38",
   bio: "Passionate about bridging the gap between Software Engineering and Industrial Automation. I design and develop intelligent solutions that enhance decision-making and resolve complex production challenges.",
   availability: "Available for new opportunities",
   yearsOfExperience: "5+",

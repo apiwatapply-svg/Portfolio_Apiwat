@@ -23,13 +23,6 @@ export default function ContactFooter() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<FormState>("idle");
-  const [lineCopied, setLineCopied] = useState(false);
-
-  const handleCopyLine = () => {
-    navigator.clipboard.writeText(personalInfo.line);
-    setLineCopied(true);
-    setTimeout(() => setLineCopied(false), 2000);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -149,25 +142,29 @@ export default function ContactFooter() {
               )}
               {personalInfo.line && (
                 <div className="relative group">
-                  <button
-                    onClick={handleCopyLine}
+                  <a
+                    href={`https://line.me/ti/p/~${personalInfo.lineId}`}
+                    target="_blank"
+                    rel="noreferrer"
                     className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-green-500 hover:border-green-300 dark:hover:border-green-600 transition-colors flex items-center justify-center w-10 h-10"
                     aria-label="Line"
                   >
                     <MessageCircle className="w-5 h-5" />
-                  </button>
+                  </a>
                   
-                  {/* Tooltip for Phone Number */}
+                  {/* QR Code Tooltip */}
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                     <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col items-center gap-1.5 min-w-[140px]">
-                      <span className="text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap">
-                        Search Line by Phone
+                      <img 
+                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://line.me/ti/p/~${personalInfo.lineId}`} 
+                        alt="Line QR Code" 
+                        className="w-28 h-28 rounded-lg bg-white p-1"
+                      />
+                      <span className="text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap mt-1">
+                        Scan to Add Line
                       </span>
                       <span className="text-sm font-black text-slate-900 dark:text-white tracking-wide">
                         {personalInfo.line}
-                      </span>
-                      <span className={`text-[10px] mt-1 px-2.5 py-0.5 rounded-full transition-colors ${lineCopied ? 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-400' : 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400'}`}>
-                        {lineCopied ? 'Copied!' : 'Click to copy'}
                       </span>
                       {/* Triangle pointer */}
                       <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-white dark:border-t-slate-800"></div>
