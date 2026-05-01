@@ -143,12 +143,12 @@ function TimelineList({ items }: { items: Project[] }) {
 const PROJECTS_PER_PAGE = 6;
 
 export default function ProjectsSection() {
-  const [tab, setTab] = useState<"featured" | "all">("featured");
+  const [tab, setTab] = useState<"featured" | "all-grid" | "timeline">("featured");
   const [currentPage, setCurrentPage] = useState(1);
   
   const featured = projects.filter((p) => p.isFeatured);
   
-  const handleTabChange = (newTab: "featured" | "all") => {
+  const handleTabChange = (newTab: "featured" | "all-grid" | "timeline") => {
     setTab(newTab);
     setCurrentPage(1); // รีเซ็ตหน้ากลับไปหน้าแรกเมื่อเปลี่ยน tab
   };
@@ -186,10 +186,21 @@ export default function ProjectsSection() {
             Featured
           </button>
           <button
-            id="tab-timeline"
-            onClick={() => handleTabChange("all")}
+            id="tab-all-grid"
+            onClick={() => handleTabChange("all-grid")}
             className={`px-4 py-1.5 text-sm font-bold rounded-md transition-colors ${
-              tab === "all"
+              tab === "all-grid"
+                ? "bg-blue-600 text-white"
+                : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+            }`}
+          >
+            All Projects
+          </button>
+          <button
+            id="tab-timeline"
+            onClick={() => handleTabChange("timeline")}
+            className={`px-4 py-1.5 text-sm font-bold rounded-md transition-colors ${
+              tab === "timeline"
                 ? "bg-blue-600 text-white"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
@@ -199,8 +210,8 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      {tab === "featured" && <FeaturedGrid items={paginatedProjects} />}
-      {tab === "all" && <TimelineList items={paginatedProjects} />}
+      {(tab === "featured" || tab === "all-grid") && <FeaturedGrid items={paginatedProjects} />}
+      {tab === "timeline" && <TimelineList items={paginatedProjects} />}
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
