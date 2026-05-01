@@ -120,15 +120,7 @@ export default function ContactFooter() {
               >
                 <GithubIcon />
               </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:border-blue-300 dark:hover:border-blue-700 transition-colors font-bold text-sm flex items-center justify-center w-10 h-10"
-                aria-label="LinkedIn"
-              >
-                in
-              </a>
+
               {personalInfo.facebook && (
                 <a
                   href={personalInfo.facebook}

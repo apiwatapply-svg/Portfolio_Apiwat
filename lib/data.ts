@@ -10,7 +10,6 @@ export const personalInfo = {
   phone: "092-5853800",
   location: "Suratthani, Thailand",
   github: "https://github.com/apiwatapply-svg",
-  linkedin: "https://linkedin.com/in/apiwatnonut",
   facebook: "https://www.facebook.com/apiwat.nonut",
   line: "0925853800",
   lineId: "oatza38",
