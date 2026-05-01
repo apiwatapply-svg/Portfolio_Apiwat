@@ -43,23 +43,32 @@ export default function HeroSection() {
       </div>
 
       {/* Right — Avatar */}
-      <div className="relative w-48 h-48 md:w-80 md:h-80 shrink-0">
-        {/* Shadow offset background */}
-        <div className="absolute inset-0 rounded-full bg-slate-200 dark:bg-slate-800 transform translate-x-4 translate-y-4" />
-
-        <Image
-          src={personalInfo.avatar}
-          alt={personalInfo.fullName}
-          fill
-          sizes="(max-width: 768px) 192px, 320px"
-          priority
-          className="relative object-cover rounded-full border-4 border-white dark:border-slate-900 shadow-md"
+      <div className="relative w-48 h-48 md:w-80 md:h-80 shrink-0 group perspective-1000">
+        {/* Animated glowing ring */}
+        <div 
+          className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-emerald-500 opacity-30 dark:opacity-40 blur-2xl group-hover:opacity-60 transition-opacity duration-700 animate-spin" 
+          style={{ animationDuration: '8s' }} 
         />
 
+        {/* Shadow offset background */}
+        <div className="absolute inset-0 rounded-full bg-slate-200 dark:bg-slate-800 transform translate-x-4 translate-y-4 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500 ease-out" />
+
+        {/* Profile Image */}
+        <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-white dark:border-slate-900 shadow-xl group-hover:scale-105 group-hover:-rotate-2 transition-all duration-500 ease-out z-10 bg-white dark:bg-slate-900">
+          <Image
+            src={personalInfo.avatar}
+            alt={personalInfo.fullName}
+            fill
+            sizes="(max-width: 768px) 192px, 320px"
+            priority
+            className="object-cover"
+          />
+        </div>
+
         {/* Experience badge */}
-        <div className="absolute bottom-4 -left-4 bg-white dark:bg-slate-900 p-3 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 flex items-center gap-2">
+        <div className="absolute bottom-4 -left-6 bg-white dark:bg-slate-900 p-3 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2 z-20 group-hover:-translate-y-3 group-hover:scale-110 transition-all duration-500 ease-out delay-100 hover:!scale-110">
           <div className="bg-blue-100 dark:bg-blue-900/50 p-2 rounded-lg text-blue-600 dark:text-blue-400">
-            <Briefcase size={20} />
+            <Briefcase size={20} className="animate-bounce" style={{ animationDuration: '2.5s' }} />
           </div>
           <div className="text-left">
             <div className="font-bold text-slate-900 dark:text-white leading-tight text-sm">
