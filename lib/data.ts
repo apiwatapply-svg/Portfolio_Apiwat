@@ -5,7 +5,7 @@
 export const personalInfo = {
   name: "Apiwat",
   fullName: "Apiwat Nonut",
-  role: "Software Developer Engineer",
+  role: "Developer Engineer",
   email: "apiwat.apply@gmail.com",
   phone: "092-5853800",
   location: "Suratthani, Thailand",

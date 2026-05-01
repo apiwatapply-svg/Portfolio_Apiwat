@@ -30,10 +30,10 @@ export default function HeroSection() {
           <span className="text-blue-600 block min-h-[1.2em]">
             <TypeAnimation
               sequence={[
-                personalInfo.role,
-                3000,
-                "",
-                500,
+                "Developer Engineer",
+                2000,
+                "IoT Engineer",
+                2000,
               ]}
               wrapper="span"
               speed={50}
