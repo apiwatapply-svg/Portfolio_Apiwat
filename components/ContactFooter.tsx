@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, Facebook, MessageCircle } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
 const GithubIcon = () => (
@@ -104,7 +104,7 @@ export default function ContactFooter() {
             </div>
 
             {/* Social */}
-            <div className="flex gap-3 pt-2">
+            <div className="flex flex-wrap gap-3 pt-2">
               <a
                 href={personalInfo.github}
                 target="_blank"
@@ -118,11 +118,33 @@ export default function ContactFooter() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:border-blue-300 dark:hover:border-blue-700 transition-colors font-bold text-sm flex items-center"
+                className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:border-blue-300 dark:hover:border-blue-700 transition-colors font-bold text-sm flex items-center justify-center w-10 h-10"
                 aria-label="LinkedIn"
               >
                 in
               </a>
+              {personalInfo.facebook && (
+                <a
+                  href={personalInfo.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-blue-500 hover:border-blue-300 dark:hover:border-blue-600 transition-colors flex items-center justify-center w-10 h-10"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
+              )}
+              {personalInfo.line && (
+                <a
+                  href={`https://line.me/ti/p/~${personalInfo.line}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-green-500 hover:border-green-300 dark:hover:border-green-600 transition-colors flex items-center justify-center w-10 h-10"
+                  aria-label="Line"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                </a>
+              )}
             </div>
           </div>
 

@@ -100,7 +100,7 @@ export default function Navbar() {
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <a
-            href="https://github.com/apiwatnonut"
+            href="https://github.com/apiwatapply-svg"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 transition-opacity"
@@ -143,7 +143,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="https://github.com/apiwatnonut"
+            href="https://github.com/apiwatapply-svg"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 text-blue-600 font-semibold text-lg"
