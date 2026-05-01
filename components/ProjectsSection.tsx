@@ -149,16 +149,18 @@ function TimelineList({ items }: { items: Project[] }) {
                 <Tilt tiltMaxAngleX={2} tiltMaxAngleY={2} scale={1.01} transitionSpeed={2000}>
                   <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all group">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors">
-                      {project.title}
-                    </h3>
-                    <a
-                      href={project.link ?? "#"}
+                    <Link href={`/projects/${project.slug}`}>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors cursor-pointer">
+                        {project.title}
+                      </h3>
+                    </Link>
+                    <Link
+                      href={`/projects/${project.slug}`}
                       className="text-slate-400 hover:text-blue-500 transition-colors"
                       aria-label={`View ${project.title}`}
                     >
                       <ExternalLink size={16} />
-                    </a>
+                    </Link>
                   </div>
                   <div className={`text-xs font-semibold mb-3 ${themeMap[project.theme]}`}>
                     {project.duration}
