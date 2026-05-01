@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Briefcase, ArrowRight, Code2, Bot, Database } from "lucide-react";
+import { Briefcase, Download, Code2, Bot, Database } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
@@ -48,11 +48,14 @@ export default function HeroSection() {
 
         <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
           <a
-            href="#projects"
+            href="/Resume_Apiwat_Nonut.pdf"
+            download="Resume_Apiwat_Nonut.pdf"
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex justify-center items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors group"
           >
-            View Projects
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            Download Resume
+            <Download size={18} className="group-hover:-translate-y-1 transition-transform" />
           </a>
           <a
             href="#contact"
