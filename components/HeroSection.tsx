@@ -31,11 +31,9 @@ export default function HeroSection() {
             <TypeAnimation
               sequence={[
                 personalInfo.role,
-                2000,
-                "Frontend Developer",
-                2000,
-                "Automation Enthusiast",
-                2000,
+                3000,
+                "",
+                500,
               ]}
               wrapper="span"
               speed={50}
