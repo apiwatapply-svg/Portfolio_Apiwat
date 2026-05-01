@@ -1,5 +1,5 @@
-import { Code2, Database, Bot, Server } from "lucide-react";
-import { skillCategories, type SkillCategory } from "@/lib/data";
+import { Code2, Database, Bot, Server, Users, Languages, CheckCircle2 } from "lucide-react";
+import { skillCategories, softSkills, languageSkills, type SkillCategory } from "@/lib/data";
 
 // ---- Inline SVG Tech Icons ----
 const SkillIcon = ({ iconKey }: { iconKey?: string }) => {
@@ -97,46 +97,92 @@ export default function SkillsSection() {
     <section id="about">
       <div className="mb-10">
         <h2 className="text-3xl font-black mb-2 tracking-tight text-slate-900 dark:text-white">
-          Skills & Technologies
+          Skills & Qualifications
         </h2>
         <p className="text-slate-600 dark:text-slate-400 font-medium">
-          Tools I use to build robust applications.
+          A comprehensive overview of my technical expertise and professional skills.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {skillCategories.map((category) => {
-          const t = themeMap[category.theme];
-          return (
-            <div
-              key={category.title}
-              className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                  <CategoryIcon iconKey={category.iconKey} className={`w-6 h-6 ${t.iconText}`} />
-                </div>
-                <h3 className="font-bold text-slate-900 dark:text-white">{category.title}</h3>
-              </div>
+      <div className="space-y-16">
+        {/* 1. Hard Skills / Technical Skills */}
+        <div>
+          <h3 className="text-xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
+            <Code2 className="text-blue-500" /> Hard Skills / Technical Skills
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {skillCategories.map((category) => {
+              const t = themeMap[category.theme];
+              return (
+                <div
+                  key={category.title}
+                  className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                      <CategoryIcon iconKey={category.iconKey} className={`w-6 h-6 ${t.iconText}`} />
+                    </div>
+                    <h3 className="font-bold text-slate-900 dark:text-white">{category.title}</h3>
+                  </div>
 
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400"
-                  >
-                    {skill.iconKey && (
-                      <span className={t.skillText}>
-                        <SkillIcon iconKey={skill.iconKey} />
-                      </span>
-                    )}
-                    <span>{skill.name}</span>
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                      <div
+                        key={skill.name}
+                        className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400"
+                      >
+                        {skill.iconKey && (
+                          <span className={t.skillText}>
+                            <SkillIcon iconKey={skill.iconKey} />
+                          </span>
+                        )}
+                        <span>{skill.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* 2. Soft Skills */}
+          <div>
+            <h3 className="text-xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
+              <Users className="text-emerald-500" /> Soft Skills
+            </h3>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {softSkills.map((skill) => (
+                  <div key={skill} className="flex items-center gap-2">
+                    <CheckCircle2 className="text-emerald-500 w-5 h-5 flex-shrink-0" />
+                    <span className="font-semibold text-sm text-slate-700 dark:text-slate-300">
+                      {skill}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
-          );
-        })}
+          </div>
+
+          {/* 3. Language Skills */}
+          <div>
+            <h3 className="text-xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
+              <Languages className="text-purple-500" /> Language Skills
+            </h3>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-4">
+              {languageSkills.map((lang) => (
+                <div key={lang.name} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50">
+                  <span className="font-bold text-slate-900 dark:text-white">{lang.name}</span>
+                  <span className="text-sm font-semibold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 px-3 py-1 rounded-full">
+                    {lang.level}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

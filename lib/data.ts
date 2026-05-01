@@ -77,6 +77,19 @@ export const skillCategories: SkillCategory[] = [
   },
 ];
 
+export const softSkills = [
+  "Problem Solving",
+  "Analytical Thinking",
+  "Cross-functional Collaboration",
+  "Adaptability & Fast Learning",
+  "Leadership & Mentoring",
+];
+
+export const languageSkills = [
+  { name: "Thai", level: "Native" },
+  { name: "English", level: "Conversational" },
+];
+
 export type Project = {
   title: string;
   description: string;
