@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
+import ProjectModal from "./ProjectModal";
 import { projects, type Project } from "@/lib/data";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
@@ -15,7 +15,7 @@ const themeMap = {
   orange: "text-orange-600 dark:text-orange-400",
 };
 
-function FeaturedGrid({ items }: { items: Project[] }) {
+function FeaturedGrid({ items, onSelect }: { items: Project[], onSelect: (p: Project) => void }) {
   return (
     <motion.div 
       initial="hidden"
@@ -57,13 +57,13 @@ function FeaturedGrid({ items }: { items: Project[] }) {
             )}
 
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <Link
-                href={`/projects/${project.slug}`}
+              <button
+                onClick={() => onSelect(project)}
                 className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/50 hover:bg-white hover:text-slate-900 transition-colors"
                 aria-label={`View ${project.title}`}
               >
                 <ArrowRight size={18} />
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -72,11 +72,11 @@ function FeaturedGrid({ items }: { items: Project[] }) {
             <div className={`text-xs font-semibold mb-2 ${themeMap[project.theme]}`}>
               {project.duration}
             </div>
-            <Link href={`/projects/${project.slug}`}>
+            <button onClick={() => onSelect(project)} className="text-left">
               <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
                 {project.title}
               </h3>
-            </Link>
+            </button>
             <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 flex-grow">
               {project.description}
             </p>
@@ -99,7 +99,7 @@ function FeaturedGrid({ items }: { items: Project[] }) {
   );
 }
 
-function TimelineList({ items }: { items: Project[] }) {
+function TimelineList({ items, onSelect }: { items: Project[], onSelect: (p: Project) => void }) {
   return (
     <motion.div 
       initial="hidden"
@@ -149,18 +149,18 @@ function TimelineList({ items }: { items: Project[] }) {
                 <Tilt tiltMaxAngleX={2} tiltMaxAngleY={2} scale={1.01} transitionSpeed={2000}>
                   <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all group">
                   <div className="flex justify-between items-start mb-2">
-                    <Link href={`/projects/${project.slug}`}>
+                    <button onClick={() => onSelect(project)} className="text-left">
                       <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors cursor-pointer">
                         {project.title}
                       </h3>
-                    </Link>
-                    <Link
-                      href={`/projects/${project.slug}`}
+                    </button>
+                    <button
+                      onClick={() => onSelect(project)}
                       className="text-slate-400 hover:text-blue-500 transition-colors"
                       aria-label={`View ${project.title}`}
                     >
                       <ExternalLink size={16} />
-                    </Link>
+                    </button>
                   </div>
                   <div className={`text-xs font-semibold mb-3 ${themeMap[project.theme]}`}>
                     {project.duration}
@@ -191,6 +191,7 @@ const PROJECTS_PER_PAGE = 6;
 export default function ProjectsSection() {
   const [tab, setTab] = useState<"featured" | "all-grid" | "timeline">("featured");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
   const featured = projects.filter((p) => p.isFeatured);
   
@@ -273,8 +274,8 @@ export default function ProjectsSection() {
 
       {/* Wrapper with min-height to prevent layout shift when changing pages */}
       <div className="min-h-[600px] md:min-h-[800px] transition-all duration-300">
-        {(tab === "featured" || tab === "all-grid") && <FeaturedGrid items={paginatedProjects} />}
-        {tab === "timeline" && <TimelineList items={paginatedProjects} />}
+        {(tab === "featured" || tab === "all-grid") && <FeaturedGrid items={paginatedProjects} onSelect={setSelectedProject} />}
+        {tab === "timeline" && <TimelineList items={paginatedProjects} onSelect={setSelectedProject} />}
       </div>
 
       {/* Pagination Controls */}
@@ -306,6 +307,14 @@ export default function ProjectsSection() {
             Next
           </button>
         </div>
+      )}
+
+      {/* Render Modal */}
+      {selectedProject && (
+        <ProjectModal 
+          project={selectedProject} 
+          onClose={() => setSelectedProject(null)} 
+        />
       )}
     </motion.section>
   );

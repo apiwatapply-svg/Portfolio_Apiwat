@@ -94,6 +94,7 @@ export const languageSkills = [
 export type ProjectDetails = {
   objective: string;
   methodology?: string[];
+  workflow?: string[];
   results?: string[];
   hardware?: string[];
   features?: string[];
@@ -243,6 +244,13 @@ export const projects: Project[] = [
     theme: "purple", isFeatured: false, year: "2019", duration: "Jan 2019 - May 2019",
     details: {
       objective: "พัฒนาหุ่นยนต์แขนกลสำหรับตีปิงปองโต้ตอบอัตโนมัติ ผสาน Computer Vision สำหรับตรวจจับและทำนายตำแหน่งลูก (Senior Project ปริญญาตรี)",
+      workflow: [
+        "รับภาพจากกล้อง (Image Acquisition)",
+        "ประมวลผลหาลูกปิงปอง (Image Processing)",
+        "คำนวณทำนายจุดตก (Prediction Algorithm)",
+        "คำนวณพิกัดและส่งค่า (Inverse Kinematics & PID)",
+        "ขับเคลื่อนกลไก (DC Motor Actuation)"
+      ],
       methodology: [
         "ออกแบบและพิมพ์ 3D ชิ้นส่วน Robot Arm ด้วย SolidWorks (พัฒนา 4 รุ่น)",
         "ออกแบบระบบควบคุม PID สำหรับ DC Motor ผ่าน NI myRIO",
