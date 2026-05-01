@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { projects, type Project } from "@/lib/data";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
@@ -56,13 +57,13 @@ function FeaturedGrid({ items }: { items: Project[] }) {
             )}
 
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <a
-                href={project.link ?? "#"}
+              <Link
+                href={`/projects/${project.slug}`}
                 className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/50 hover:bg-white hover:text-slate-900 transition-colors"
                 aria-label={`View ${project.title}`}
               >
-                <ExternalLink size={18} />
-              </a>
+                <ArrowRight size={18} />
+              </Link>
             </div>
           </div>
 
@@ -71,9 +72,11 @@ function FeaturedGrid({ items }: { items: Project[] }) {
             <div className={`text-xs font-semibold mb-2 ${themeMap[project.theme]}`}>
               {project.duration}
             </div>
-            <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-white">
-              {project.title}
-            </h3>
+            <Link href={`/projects/${project.slug}`}>
+              <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
+                {project.title}
+              </h3>
+            </Link>
             <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 flex-grow">
               {project.description}
             </p>
