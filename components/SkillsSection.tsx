@@ -1,8 +1,11 @@
+"use client";
+
 import { 
   Code2, Database, Bot, Server, Users, Languages, CheckCircle2,
   Wind, Layers, Brain, Sparkles, Eye, Activity, Terminal, Network, Cloud
 } from "lucide-react";
 import { skillCategories, softSkills, languageSkills, type SkillCategory } from "@/lib/data";
+import { motion } from "framer-motion";
 
 // ---- Inline SVG Tech Icons ----
 const SkillIcon = ({ iconKey }: { iconKey?: string }) => {
@@ -108,7 +111,14 @@ const themeMap = {
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="pt-20">
+    <motion.section 
+      id="skills" 
+      className="pt-20"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="mb-10">
         <h2 className="text-3xl font-black mb-2 tracking-tight text-slate-900 dark:text-white">
           Skills & Qualifications
@@ -124,13 +134,26 @@ export default function SkillsSection() {
           <h3 className="text-xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
             <Code2 className="text-blue-500" /> Hard Skills / Technical Skills
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+            }}
+          >
             {skillCategories.map((category) => {
               const t = themeMap[category.theme];
               return (
-                <div
+                <motion.div
                   key={category.title}
-                  className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                  }}
+                  className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all"
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
@@ -154,10 +177,10 @@ export default function SkillsSection() {
                       </div>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -198,6 +221,6 @@ export default function SkillsSection() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

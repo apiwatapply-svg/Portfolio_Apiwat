@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { projects, type Project } from "@/lib/data";
+import { motion } from "framer-motion";
+import Tilt from "react-parallax-tilt";
 
 const themeMap = {
   blue: "text-blue-600 dark:text-blue-400",
@@ -14,13 +16,29 @@ const themeMap = {
 
 function FeaturedGrid({ items }: { items: Project[] }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500 mt-12">
-      {items.map((project) => (
-        <div
-          key={project.title}
-          className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-shadow group flex flex-col h-full"
+    <motion.div 
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: { staggerChildren: 0.1 }
+        }
+      }}
+      className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12"
+    >
+      {items.map((project, index) => (
+        <motion.div
+          key={project.title + index}
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+          }}
         >
-          {/* Image */}
+          <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} scale={1.02} transitionSpeed={2000} className="h-full">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-shadow group flex flex-col h-full">
+              {/* Image */}
           <div className="h-48 overflow-hidden relative bg-slate-100 dark:bg-slate-800">
             <Image
               src={project.image}
@@ -70,17 +88,35 @@ function FeaturedGrid({ items }: { items: Project[] }) {
               ))}
             </div>
           </div>
-        </div>
+            </div>
+          </Tilt>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 
 function TimelineList({ items }: { items: Project[] }) {
   return (
-    <div className="relative mt-12 max-w-3xl mx-auto animate-in fade-in duration-500">
+    <motion.div 
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: { staggerChildren: 0.1 }
+        }
+      }}
+      className="relative mt-12 max-w-3xl mx-auto"
+    >
       {/* Vertical line */}
-      <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-800" />
+      <motion.div 
+        initial={{ height: 0 }}
+        animate={{ height: "100%" }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="absolute left-4 top-0 w-0.5 bg-slate-200 dark:bg-slate-800" 
+      />
 
       {items.map((project, idx) => {
         const showYearMarker = idx === 0 || project.year !== items[idx - 1].year;
@@ -95,13 +131,20 @@ function TimelineList({ items }: { items: Project[] }) {
               </div>
             )}
 
-            <div className="relative flex items-center mb-8 w-full">
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0, x: -20 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.5 } }
+              }}
+              className="relative flex items-center mb-8 w-full"
+            >
               {/* Timeline dot */}
               <div className="absolute left-[11px] w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-slate-400 border-2 border-white dark:border-slate-900 z-10" />
 
               {/* Card */}
               <div className="w-full pl-10">
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group">
+                <Tilt tiltMaxAngleX={2} tiltMaxAngleY={2} scale={1.01} transitionSpeed={2000}>
+                  <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all group">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors">
                       {project.title}
@@ -127,13 +170,14 @@ function TimelineList({ items }: { items: Project[] }) {
                       </span>
                     ))}
                   </div>
-                </div>
+                  </div>
+                </Tilt>
               </div>
-            </div>
+            </motion.div>
           </div>
         );
       })}
-    </div>
+    </motion.div>
   );
 }
 
@@ -167,7 +211,13 @@ export default function ProjectsSection() {
   );
 
   return (
-    <section id="projects">
+    <motion.section 
+      id="projects"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
         <div>
           <h2 className="text-3xl font-black mb-2 tracking-tight text-slate-900 dark:text-white">
@@ -252,6 +302,6 @@ export default function ProjectsSection() {
           </button>
         </div>
       )}
-    </section>
+    </motion.section>
   );
 }

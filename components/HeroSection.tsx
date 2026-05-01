@@ -1,12 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import { Briefcase, ArrowRight, Code2, Bot, Database } from "lucide-react";
 import { personalInfo } from "@/lib/data";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
     <section id="home" className="flex flex-col-reverse md:flex-row items-center gap-12 pt-10">
       {/* Left — Text */}
-      <div className="flex-1 text-center md:text-left">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="flex-1 text-center md:text-left"
+      >
         {/* Availability badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-sm font-semibold mb-6 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">
           <span className="relative flex h-2 w-2">
@@ -40,10 +48,15 @@ export default function HeroSection() {
             Contact Me
           </a>
         </div>
-      </div>
+      </motion.div>
 
       {/* Right — Avatar */}
-      <div className="relative w-48 h-64 md:w-60 md:h-80 shrink-0 group perspective-1000">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+        className="relative w-48 h-64 md:w-60 md:h-80 shrink-0 group perspective-1000"
+      >
         {/* Animated glowing ring */}
         <div 
           className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500 via-purple-500 to-emerald-500 opacity-30 dark:opacity-40 blur-2xl group-hover:opacity-60 transition-opacity duration-700 animate-spin" 
@@ -91,7 +104,7 @@ export default function HeroSection() {
         <div className="absolute -bottom-2 right-4 bg-white dark:bg-slate-900 p-2.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 z-20 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '2s' }}>
           <Database className="text-emerald-500 w-5 h-5" />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
