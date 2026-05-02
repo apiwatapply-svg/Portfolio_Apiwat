@@ -192,7 +192,7 @@ export const projects: Project[] = [
     description: "Created a reservation platform for sports facilities, allowing users to book football fields and tennis courts in real-time.",
     tags: ["Next.js", "Prisma", "TypeScript", "Vercel"],
     image: "https://images.unsplash.com/photo-1518605368461-1e92211eb717?auto=format&fit=crop&w=800&q=80",
-    theme: "emerald", isFeatured: false, year: "2026", duration: "May 2026 - Jul 2026",
+    theme: "emerald", isFeatured: false, year: "2024", duration: "May 2024 - Jul 2024",
     details: {
       objective: "Digitize sports facility reservations to prevent double-booking and automate payments.",
       features: ["Real-time availability calendar", "Automated booking confirmations via SMS/Email", "Dynamic pricing based on peak hours"],
