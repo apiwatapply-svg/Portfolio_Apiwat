@@ -29,7 +29,7 @@ export default function Home() {
 
       <Navbar />
 
-      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 space-y-32">
+      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 space-y-16 md:space-y-24">
         <HeroSection />
         <SkillsSection />
         <ProjectsSection />
