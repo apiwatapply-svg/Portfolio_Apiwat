@@ -156,7 +156,7 @@ export const projects: Project[] = [
     description: "Developed a secure, cloud-based document storage system enabling paperless workflows, version control, and role-based access.",
     tags: ["Next.js", "Supabase", "AWS S3", "Tailwind CSS"],
     image: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: false, year: "2026", duration: "Jan 2026 - Mar 2026",
+    theme: "blue", isFeatured: false, year: "2025", duration: "Jan 2025 - Mar 2025",
     details: {
       objective: "Provide a centralized and secure online storage solution for corporate documents.",
       features: ["Role-based access control (RBAC)", "File versioning and history tracking", "Full-text search using OCR"],
@@ -168,7 +168,7 @@ export const projects: Project[] = [
     description: "Built a full-stack online storefront with a seamless checkout experience, inventory management, and payment gateway integration.",
     tags: ["React", "Node.js", "Stripe", "PostgreSQL"],
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
-    theme: "purple", isFeatured: false, year: "2026", duration: "Feb 2026 - Apr 2026",
+    theme: "purple", isFeatured: false, year: "2025", duration: "Apr 2025 - Jun 2025",
     details: {
       objective: "Develop a modern e-commerce solution for retail businesses to expand their digital footprint.",
       features: ["Shopping cart and secure Stripe checkout", "Admin dashboard for inventory tracking", "Automated email receipts and shipping updates"],
@@ -180,7 +180,7 @@ export const projects: Project[] = [
     description: "Engineered a modern Point-of-Sale (POS) system tailored for coffee shops, featuring quick order entry, loyalty programs, and sales analytics.",
     tags: ["Vue.js", "Express", "MongoDB", "WebSocket"],
     image: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: false, year: "2026", duration: "Apr 2026 - Jun 2026",
+    theme: "orange", isFeatured: false, year: "2025", duration: "Jul 2025 - Sep 2025",
     details: {
       objective: "Streamline the ordering and payment process for fast-paced coffee shop environments.",
       features: ["Touch-friendly quick order interface", "Integration with receipt printers and cash drawers", "Real-time daily sales analytics dashboard"],
