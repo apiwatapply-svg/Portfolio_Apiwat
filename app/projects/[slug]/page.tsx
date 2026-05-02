@@ -97,8 +97,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             </h2>
             <div className="flex flex-wrap gap-2">
               {d.hardware.map((hw) => (
-                <span key={hw} className="text-sm font-semibold px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                  {hw}
+                <span key={hw.name} className="text-sm font-semibold px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                  {hw.name}
                 </span>
               ))}
             </div>

@@ -3,9 +3,24 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Presentation, Target, User, TrendingUp, GraduationCap, BarChart2, Workflow } from "lucide-react";
+import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Presentation, Target, User, TrendingUp, GraduationCap, BarChart2, Workflow, Camera, Server, Activity, Wifi, Bot, Cloud, Code } from "lucide-react";
 import { type Project } from "@/lib/data";
 import AnimationFlow from "@/components/AnimationFlow";
+
+const getHardwareIcon = (iconName: string, className: string) => {
+  switch (iconName) {
+    case "Camera": return <Camera size={24} className={className} />;
+    case "Server": return <Server size={24} className={className} />;
+    case "Activity": return <Activity size={24} className={className} />;
+    case "Wifi": return <Wifi size={24} className={className} />;
+    case "Bot": return <Bot size={24} className={className} />;
+    case "Cloud": return <Cloud size={24} className={className} />;
+    case "Code": return <Code size={24} className={className} />;
+    case "Layers": return <Layers size={24} className={className} />;
+    case "Lightbulb": return <Lightbulb size={24} className={className} />;
+    default: return <Cpu size={24} className={className} />;
+  }
+};
 
 const themeMap = {
   blue: { badge: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300", dot: "bg-blue-500", border: "border-blue-200 dark:border-blue-800", activeTab: "text-blue-600 border-blue-600" },
@@ -280,8 +295,9 @@ export default function ProjectModal({ project, onClose }: Props) {
                       </h3>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {d.hardware.map((hw) => (
-                          <div key={hw} className="flex flex-col justify-center items-center text-center p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 dark:hover:border-emerald-800 transition-colors">
-                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{hw}</span>
+                          <div key={hw.name} className="flex flex-col justify-center items-center text-center p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-emerald-200 dark:hover:border-emerald-800 transition-colors gap-2">
+                            {getHardwareIcon(hw.icon, "text-slate-400 dark:text-slate-500")}
+                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{hw.name}</span>
                           </div>
                         ))}
                       </div>
@@ -536,24 +552,28 @@ export default function ProjectModal({ project, onClose }: Props) {
                       </h3>
                       <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 p-8 bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800">
                         {d.hardware.map((hw, i) => (
-                          <div key={i} className="flex items-center gap-2 sm:gap-4">
+                          <div key={i} className="flex items-center gap-2 sm:gap-4 flex-col sm:flex-row">
                             <motion.div
                               initial={{ opacity: 0, scale: 0.8 }}
                               animate={{ opacity: 1, scale: 1 }}
                               transition={{ delay: i * 0.1 }}
-                              className="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium text-sm text-center shadow-sm flex items-center gap-2"
+                              className="px-6 py-5 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-center shadow-sm flex flex-col items-center gap-2 w-36 sm:w-40"
                             >
-                              <div className={`w-2 h-2 rounded-full ${t.dot}`}></div>
-                              {hw}
+                              <div className="p-3 rounded-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm mb-1">
+                                {getHardwareIcon(hw.icon, t.activeTab.split(' ')[0])}
+                              </div>
+                              <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200 leading-tight">{hw.name}</h4>
+                              <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 leading-tight">{hw.description}</p>
                             </motion.div>
                             {i < d.hardware!.length - 1 && (
                               <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: (i * 0.1) + 0.1 }}
-                                className="text-slate-300 dark:text-slate-600 hidden sm:block"
+                                className="text-slate-300 dark:text-slate-600 my-2 sm:my-0"
                               >
-                                <ArrowRight size={24} />
+                                <ArrowRight size={24} className="hidden sm:block" />
+                                <ArrowDown size={24} className="block sm:hidden" />
                               </motion.div>
                             )}
                           </div>

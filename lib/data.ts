@@ -109,7 +109,7 @@ export type ProjectDetails = {
   methodology?: string[];
   workflow?: string[];
   results?: string[];
-  hardware?: string[];
+  hardware?: { name: string; description: string; icon: string }[];
   features?: string[];
   publication?: string;
   challenges?: { issue: string; solution: string }[];
@@ -183,7 +183,11 @@ export const projects: Project[] = [
       objective: "Deploy an AI Machine Vision inspection system to improve defect detection accuracy and reduce human error in the QC process.",
       yourRole: "Lead engineer for the entire project — designed the data collection pipeline, labeled parts dataset, trained YOLO model, integrated with HIKROBOT SDK, and deployed the system on the live production line.",
       keySkillsUsed: ["Python", "YOLOv8", "HIKROBOT SDK", "OpenCV", "Edge Computing", "Dataset Labeling", "Model Training & Evaluation"],
-      hardware: ["HIKROBOT Industrial Camera", "High-speed LED Lighting System", "Industrial PC (Edge Computing)"],
+      hardware: [
+        { name: "HIKROBOT Camera", icon: "Camera", description: "Captures high-res images" },
+        { name: "LED Lighting", icon: "Lightbulb", description: "Controls lighting environment" },
+        { name: "Industrial PC", icon: "Server", description: "Runs YOLOv8 locally on edge" }
+      ],
       methodology: ["Collect and label real defective parts dataset from the production line", "Train YOLO model and tune hyperparameters to achieve mAP > 95%", "Integrate with HIKROBOT SDK for camera I/O", "Deploy on edge device and validate on live production line"],
       results: ["Defect detection accuracy > 95%", "Significantly reduced defect rate reaching customers", "Inference speed < 50ms per part — no impact on Takt Time"],
       challenges: [
@@ -223,7 +227,12 @@ export const projects: Project[] = [
     theme: "emerald", isFeatured: true, year: "2023", duration: "Feb 2023 - Jul 2023",
     details: {
       objective: "Design and develop ROS-based automation systems (AGV, Robot Arms) for Industry 4.0 factory environments.",
-      hardware: ["AGV Platform", "Robot Arm (6-DOF)", "LiDAR Sensor", "Depth Camera", "Linux Server"],
+      hardware: [
+        { name: "LiDAR & Depth Camera", icon: "Camera", description: "3D vision & obstacle avoidance" },
+        { name: "AGV Platform", icon: "Cpu", description: "Mobile robotic base" },
+        { name: "Robot Arm", icon: "Bot", description: "6-DOF manipulator" },
+        { name: "Linux Server", icon: "Server", description: "ROS master node" }
+      ],
       methodology: ["Design ROS node architecture", "Develop AGV navigation stack", "Control robot arm via MoveIt!", "Integrate with factory MES"],
       results: ["AGV navigates autonomously throughout the factory floor", "Reduced manual material handling labor by 60%"],
     },
@@ -251,7 +260,11 @@ export const projects: Project[] = [
     details: {
       objective: "Research and develop smart agricultural machinery concepts with IoT technology for Kubota.",
       methodology: ["Market feasibility study for agricultural machinery", "Design new product concepts", "Integrate sensors and IoT into machinery", "Performance testing in real field conditions"],
-      hardware: ["IoT Sensors (Temperature, Humidity, GPS)", "Microcontroller (ESP32)", "Cloud Platform (AWS IoT)"],
+      hardware: [
+        { name: "IoT Sensors", icon: "Activity", description: "Collects Temp, Humidity, GPS" },
+        { name: "Microcontroller", icon: "Cpu", description: "ESP32 data processing unit" },
+        { name: "Cloud Platform", icon: "Cloud", description: "AWS IoT Core for data sync" }
+      ],
       results: ["Developed approved product concept", "Reduced crop losses in farming process"],
     },
   },
@@ -274,7 +287,12 @@ export const projects: Project[] = [
         "Step 2 — PID Control Design: Design PID Controller using L-SHADE Optimization Algorithm for both Longitudinal and Lateral Dynamics",
         "Step 3 — Real Flight Test: Conduct actual flight tests comparing with Simulation, achieving Error < 10%",
       ],
-      hardware: ["Raspberry Pi 3 Model B+", "Arduino Mega 2560", "BNO080 IMU Sensor", "MS5611 Pressure Sensor", "Analog Airspeed Sensor", "FrSky R9 Receiver"],
+      hardware: [
+        { name: "Raspberry Pi", icon: "Server", description: "High-level flight control" },
+        { name: "Arduino Mega", icon: "Cpu", description: "Low-level sensor I/O" },
+        { name: "Flight Sensors", icon: "Activity", description: "IMU, Airspeed, Pressure" },
+        { name: "FrSky Receiver", icon: "Wifi", description: "Radio communication" }
+      ],
       metrics: [
         { label: "Model Accuracy", value: "87–98", unit: "%", icon: "🎯" },
         { label: "Real Flight Error", value: "<10", unit: "%", icon: "✈️" },
@@ -376,7 +394,11 @@ export const projects: Project[] = [
     details: {
       objective: "Extend the Ping Pong Robot system to play Air Hockey, adapting the tracking algorithm for 2D planar motion.",
       methodology: ["Adapt Computer Vision algorithm for Air Hockey Puck", "Adjust 2D (X, Y) control system", "Test response speed capabilities"],
-      hardware: ["NI myRIO Controller", "DC Motor x2 (X, Y axis)", "USB Camera", "Air Hockey Table"],
+      hardware: [
+        { name: "USB Camera", icon: "Camera", description: "Tracks puck in real-time" },
+        { name: "NI myRIO", icon: "Cpu", description: "Main logic controller" },
+        { name: "DC Motors", icon: "Activity", description: "X and Y axis actuation" }
+      ],
       results: ["Achieved real-time interaction with the puck", "Response speed was sufficient for playing Air Hockey"],
     },
   },
@@ -390,7 +412,11 @@ export const projects: Project[] = [
     details: {
       objective: "Collaborate with the Faculty of Nursing at Khon Kaen University to develop a temperature control device for brain injury patients suffering from high fever.",
       methodology: ["Analyze medical requirements with nursing specialists", "Design closed-loop temperature control circuit", "Test for accuracy and safety compliance"],
-      hardware: ["Temperature Sensor (DS18B20)", "Microcontroller", "Relay Module", "Cooling Element", "LCD Display"],
+      hardware: [
+        { name: "DS18B20 Sensor", icon: "Activity", description: "Reads patient temperature" },
+        { name: "Microcontroller", icon: "Cpu", description: "PID control logic" },
+        { name: "Cooling Element", icon: "Activity", description: "Regulates body temperature" }
+      ],
       results: ["Maintained temperature within ±0.5°C of target", "Integrated safety alarm system for out-of-bounds temperatures"],
     },
   },
@@ -404,7 +430,11 @@ export const projects: Project[] = [
     details: {
       objective: "Design and build a 4-DOF Robot Arm using SolidWorks and a 3D Printer, then develop a control system using Inverse Kinematics and PID.",
       methodology: ["Design 4-DOF structure in SolidWorks", "Print components using a 3D Printer", "Compute Inverse Kinematics", "Design PID Control for each Servo Motor joint"],
-      hardware: ["Servo Motor x4", "3D Printed Structure", "Microcontroller", "Power Supply"],
+      hardware: [
+        { name: "Servo Motors", icon: "Activity", description: "4-axis robotic actuation" },
+        { name: "Microcontroller", icon: "Cpu", description: "Joint position control" },
+        { name: "3D Printed Body", icon: "Layers", description: "Custom structural chassis" }
+      ],
       results: ["Successfully moved to target coordinates using Inverse Kinematics", "Implemented Master-Slave system to control two robot arms moving synchronously"],
     },
   },
@@ -423,7 +453,12 @@ export const projects: Project[] = [
       keySkillsUsed: ["Mitsubishi PLC", "Ladder Logic Programming", "Pneumatic System", "Sequential Control Design", "Safety System Design"],
       objective: "Develop a warehouse door control system using a Mitsubishi PLC and pneumatics, secured by a 4-digit password (Summer Internship at NHK Spring Co., Ltd.).",
       features: ["Supports 4 distinct password sets (4 digits each)", "10-second automatic timeout if no input is detected", "Auto-lock triggered after 3 consecutive failed attempts", "Alert System notifies when auto-lock is engaged"],
-      hardware: ["Mitsubishi PLC", "Pneumatic Cylinder & Valve", "Keypad Input Module", "Indicator Lights"],
+      hardware: [
+        { name: "Keypad Input", icon: "Code", description: "4-digit entry module" },
+        { name: "Mitsubishi PLC", icon: "Server", description: "Ladder logic controller" },
+        { name: "Pneumatic Valve", icon: "Activity", description: "Door actuating mechanism" },
+        { name: "Indicator Lights", icon: "Lightbulb", description: "Visual status feedback" }
+      ],
       metrics: [
         { label: "Supported Passwords", value: "4", unit: "sets", icon: "🔑" },
         { label: "Length", value: "4", unit: "digits", icon: "🔢" },
