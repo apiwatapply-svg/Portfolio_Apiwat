@@ -4,9 +4,11 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { ArrowRight, ExternalLink, Calendar } from "lucide-react";
 import ProjectModal from "./ProjectModal";
-import { projects, type Project } from "@/lib/data";
+import { projects as rawProjects, type Project } from "@/lib/data";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
+
+const projects = [...rawProjects].sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
 const themeMap = {
   blue: "text-blue-600 dark:text-blue-400",

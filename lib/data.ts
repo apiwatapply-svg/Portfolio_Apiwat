@@ -150,6 +150,95 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "n8n-automation",
+    title: "n8n Enterprise Workflow Automation",
+    description: "Architected a low-code automation pipeline to connect production data to ERP systems and trigger real-time LINE Notify alerts.",
+    tags: ["n8n", "Low-code", "REST API", "LINE Notify", "ERP"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+    theme: "purple", isFeatured: true, year: "2026", duration: "Jan 2026 - Present",
+    details: {
+      objective: "Streamline factory data workflows and alert systems using n8n to reduce manual data entry and coding overhead.",
+      features: ["Automated data synchronization between Factory DB and ERP", "Real-time production issue alerts via LINE Notify", "Webhook integrations for IoT sensors"],
+      results: ["Cut development time for new integrations by 70%", "Enabled instant supervisor notifications for critical line down events"],
+    },
+  },
+  {
+    slug: "auto-setting-machine",
+    title: "Auto Setting Machine",
+    description: "Engineered an automated configuration system for manufacturing machines to drastically reduce setup time and operator errors.",
+    tags: ["PLC", "HMI", "C#", "Automation"],
+    image: "https://images.unsplash.com/photo-1565439390235-c335e9f8546b?auto=format&fit=crop&w=800&q=80",
+    theme: "blue", isFeatured: false, year: "2026", duration: "Mar 2026 - Present",
+    details: {
+      objective: "Automate machine parameter configuration for new production batches.",
+      features: ["Barcode scanning for automatic recipe loading", "Direct parameter injection to PLC", "Audit logs for setting changes"],
+      results: ["Reduced machine setup time by 40%", "Zero parameter input errors across deployed lines"],
+    },
+  },
+  {
+    slug: "booking-meeting-room",
+    title: "Booking Meeting Room",
+    description: "Developed a responsive web application for managing factory meeting room reservations and schedules.",
+    tags: ["Next.js", "Tailwind", "PostgreSQL"],
+    image: "https://images.unsplash.com/photo-1497215840616-091a14151770?auto=format&fit=crop&w=800&q=80",
+    theme: "emerald", isFeatured: false, year: "2025", duration: "Feb 2025 - Apr 2025",
+    details: {
+      objective: "Provide a centralized platform for staff to book meeting rooms and avoid schedule conflicts.",
+      features: ["Real-time availability calendar", "Automated email confirmations", "Admin dashboard for room management"],
+    },
+  },
+  {
+    slug: "abnormal-defect-detection",
+    title: "Abnormal Defect Detection",
+    description: "Deployed anomaly detection algorithms to identify rare and unknown production defects outside standard parameters.",
+    tags: ["Python", "OpenCV", "Anomaly Detection"],
+    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=800&q=80",
+    theme: "orange", isFeatured: true, year: "2025", duration: "May 2025 - Aug 2025",
+    details: {
+      objective: "Detect previously unseen 'abnormal' defects that supervised models miss.",
+      methodology: ["Implement unsupervised learning for anomaly detection", "Integrate with high-speed cameras on the line"],
+      results: ["Caught 100% of major unexpected anomalies during test period"],
+    },
+  },
+  {
+    slug: "oil-recording-paperless",
+    title: "Oil Recording (Paperless)",
+    description: "Digitized the factory's oil recording process, replacing clipboards with a mobile-friendly web application.",
+    tags: ["React", "Mobile Web", "Node.js"],
+    image: "https://images.unsplash.com/photo-1507914372368-b2b085ca822c?auto=format&fit=crop&w=800&q=80",
+    theme: "blue", isFeatured: false, year: "2025", duration: "Sep 2025 - Dec 2025",
+    details: {
+      objective: "Eliminate paper records for machine oil consumption and standardize data entry.",
+      features: ["Mobile-first UI for operators on the floor", "Data validation constraints", "Monthly consumption reports generation"],
+      results: ["Saved 500+ sheets of paper per month", "Improved data accuracy and visibility for the maintenance team"],
+    },
+  },
+  {
+    slug: "student-attendance",
+    title: "Student Attendance Management System",
+    description: "Built a management platform for tracking student attendance using RFID and web technologies.",
+    tags: ["PHP", "MySQL", "RFID", "IoT"],
+    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80",
+    theme: "purple", isFeatured: false, year: "2021", duration: "Jul 2021 - Dec 2021",
+    details: {
+      objective: "Develop a reliable attendance tracking system for educational institutions.",
+      features: ["RFID card scanning integration", "Real-time attendance dashboard", "Automated absence alerts"],
+    },
+  },
+  {
+    slug: "pid-control",
+    title: "PID Control System Designer",
+    description: "Designed a software interface to simulate and tune Proportional-Integral-Derivative controllers for various dynamic systems.",
+    tags: ["MATLAB", "Control Systems", "Simulation"],
+    image: "https://images.unsplash.com/photo-1581092334245-d812bdc14106?auto=format&fit=crop&w=800&q=80",
+    theme: "blue", isFeatured: false, year: "2018", duration: "Sep 2018 - Oct 2018",
+    details: {
+      objective: "Create a simulation tool to quickly tune PID gains for hardware projects.",
+      features: ["Step response graphing", "Root locus analysis", "Gain scheduling presets"],
+    },
+  },
+
+  {
     slug: "mms-dashboard",
     title: "Smart Factory MMS Dashboard",
     description: "Real-time Machine Monitoring Systems (MMS) and dashboards for data-driven decision-making in manufacturing operations.",
@@ -181,7 +270,7 @@ export const projects: Project[] = [
     description: "Applied AI-based Machine Vision utilizing HIKROBOT technologies to enhance inspection accuracy and decrease defect rate.",
     tags: ["Python", "YOLO", "Machine Vision"],
     image: "https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=800&q=80",
-    theme: "purple", isFeatured: true, year: "2023", duration: "Aug 2023 - Nov 2023",
+    theme: "purple", isFeatured: true, year: "2023", duration: "Oct 2023 - Dec 2023",
     details: {
       context: "An automated AI-based defect inspection system — uses industrial cameras and Deep Learning to detect anomalies on parts moving through the production line, replacing human visual inspection which is prone to fatigue and errors.",
       origin: "Internal project at NMB-Minebea Thai Ltd. (2023), an electronics parts manufacturer aiming to upgrade QC processes toward Zero-defect Manufacturing.",
@@ -230,7 +319,7 @@ export const projects: Project[] = [
     description: "Designed and developed ROS-based automation systems (AGV, Robot Arms) aligned with Industry 4.0 standards.",
     tags: ["ROS", "Python", "Linux", "IoT"],
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
-    theme: "emerald", isFeatured: true, year: "2023", duration: "Feb 2023 - Jul 2023",
+    theme: "emerald", isFeatured: true, year: "2023", duration: "Jun 2023 - Sep 2023",
     details: {
       objective: "Design and develop ROS-based automation systems (AGV, Robot Arms) for Industry 4.0 factory environments.",
       hardware: [
@@ -262,7 +351,7 @@ export const projects: Project[] = [
     description: "Applied IoT technologies and sensor integration to engineer and develop smart agricultural machinery concepts for Kubota.",
     tags: ["IoT", "Hardware Integration", "Sensors"],
     image: "https://images.unsplash.com/photo-1628186175949-366f030bc39e?auto=format&fit=crop&w=800&q=80",
-    theme: "emerald", isFeatured: false, year: "2021", duration: "Sep 2021 - Apr 2022",
+    theme: "emerald", isFeatured: false, year: "2022", duration: "Jan 2022 - Dec 2022",
     details: {
       objective: "Research and develop smart agricultural machinery concepts with IoT technology for Kubota.",
       methodology: ["Market feasibility study for agricultural machinery", "Design new product concepts", "Integrate sensors and IoT into machinery", "Performance testing in real field conditions"],
@@ -280,7 +369,7 @@ export const projects: Project[] = [
     description: "Mathematical modeling and PID control system design for fixed-wing UAV using meta-heuristic optimization. Thesis evaluated 'Excellent'.",
     tags: ["MATLAB", "Python", "PID Control", "Raspberry Pi", "UAV"],
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80",
-    theme: "purple", isFeatured: true, year: "2021", duration: "2019 - 2021",
+    theme: "purple", isFeatured: true, year: "2020", duration: "Jan 2020 - Jun 2021",
     details: {
       context: "An autonomous Fixed-Wing UAV control system — flies without a pilot by using mathematical algorithms to derive an aircraft model and design a PID controller, replacing manual tuning.",
       origin: "Master's thesis in Mechanical Engineering at Khon Kaen University (2019–2021), completed solo under thesis advisor supervision.",
@@ -416,7 +505,7 @@ export const projects: Project[] = [
     description: "Collaborated with Faculty of Nursing KKU to develop a thermostat device for brain injury patients with high fever.",
     tags: ["Embedded Systems", "Sensors", "Medical Device", "Hardware Design"],
     image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=800&q=80",
-    theme: "emerald", isFeatured: false, year: "2018", duration: "2018",
+    theme: "emerald", isFeatured: false, year: "2018", duration: "Jun 2018 - Aug 2018",
     details: {
       objective: "Collaborate with the Faculty of Nursing at Khon Kaen University to develop a temperature control device for brain injury patients suffering from high fever.",
       methodology: ["Analyze medical requirements with nursing specialists", "Design closed-loop temperature control circuit", "Test for accuracy and safety compliance"],
@@ -452,7 +541,7 @@ export const projects: Project[] = [
     description: "Industrial internship project: PLC-controlled warehouse door with 4-digit password security and pneumatic actuation at NHK Spring.",
     tags: ["Mitsubishi PLC", "Pneumatic System", "Ladder Logic", "Industrial Automation"],
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: false, year: "2018", duration: "2018 (Internship)",
+    theme: "orange", isFeatured: false, year: "2018", duration: "Mar 2018 - May 2018",
     details: {
       context: "A PLC-controlled warehouse door system — requires a 4-digit password via a Keypad. Upon validation, the system triggers a Pneumatic Valve to automatically open/close the door, with an auto-lock mechanism to prevent repeated unauthorized attempts.",
       origin: "Summer Internship at NHK Spring Co., Ltd. (2018), tasked with designing and developing a security system for warehouse doors.",
