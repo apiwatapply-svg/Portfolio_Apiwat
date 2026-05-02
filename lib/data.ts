@@ -613,7 +613,7 @@ export type Certificate = {
 };
 
 export const certificates: Certificate[] = [
-  { id: 1, title: "Certificate 01", image: "/certificate/01.png" },
-  { id: 2, title: "Certificate 02", image: "/certificate/02.png" },
-  { id: 3, title: "Certificate 03", image: "/certificate/03.png" },
+  { id: 1, title: "Mastering Indoor Vertical Farming for Cannabis (6 Hrs)", image: "/certificate/01.png" },
+  { id: 2, title: "Test Case Design Techniques", image: "/certificate/02.png" },
+  { id: 3, title: "BASIC STM32 MICROCONTROLLER PROGRAMMER", image: "/certificate/03.png" },
 ];
