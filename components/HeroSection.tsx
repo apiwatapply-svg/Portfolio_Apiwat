@@ -46,20 +46,20 @@ export default function HeroSection() {
           {personalInfo.bio}
         </p>
 
-        <div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-4">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-4 w-full">
           <a
             href="/Resume_Apiwat_Nonut.pdf"
             download="Resume_Apiwat_Nonut.pdf"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex justify-center items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors group"
+            className="inline-flex justify-center items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors group w-full sm:w-auto"
           >
             Download Resume
             <Download size={18} className="group-hover:-translate-y-1 transition-transform" />
           </a>
           <a
             href="#contact"
-            className="inline-flex justify-center items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-6 py-3 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            className="inline-flex justify-center items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-6 py-3 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors w-full sm:w-auto"
           >
             Contact Me
           </a>
@@ -71,7 +71,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-        className="relative w-48 h-64 md:w-60 md:h-80 shrink-0 group perspective-1000"
+        className="relative w-40 h-56 md:w-60 md:h-80 shrink-0 group perspective-1000"
       >
         {/* Animated glowing ring */}
         <div 
@@ -96,7 +96,7 @@ export default function HeroSection() {
         </div>
 
         {/* Experience badge */}
-        <div className="absolute bottom-4 -left-6 bg-white dark:bg-slate-900 p-3 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2 z-20 group-hover:-translate-y-3 group-hover:scale-110 transition-all duration-500 ease-out delay-100 hover:!scale-110">
+        <div className="absolute bottom-4 left-0 md:-left-6 bg-white dark:bg-slate-900 p-2 md:p-3 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2 z-20 group-hover:-translate-y-3 group-hover:scale-110 transition-all duration-500 ease-out delay-100 hover:!scale-110 scale-90 md:scale-100 origin-bottom-left">
           <div className="bg-blue-100 dark:bg-blue-900/50 p-2 rounded-lg text-blue-600 dark:text-blue-400">
             <Briefcase size={20} className="animate-bounce" style={{ animationDuration: '2.5s' }} />
           </div>

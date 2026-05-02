@@ -115,7 +115,7 @@ export default function ProjectModal({ project, onClose }: Props) {
               </div>
             </div>
 
-            <div className="p-6 sm:p-8">
+            <div className="p-4 sm:p-8">
               {/* Tech Stack */}
               <div className="flex flex-wrap gap-2 mb-8">
                 {project.tags.map((tag) => (
@@ -346,7 +346,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {d.visualEvidence.map((ev, i) => (
                           <div key={i} className="flex flex-col rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm group">
-                            <div className="relative w-full h-48 bg-slate-100 dark:bg-slate-800">
+                            <div className="relative w-full h-40 sm:h-48 bg-slate-100 dark:bg-slate-800">
                               <Image 
                                 src={ev.url} 
                                 alt={ev.caption} 
