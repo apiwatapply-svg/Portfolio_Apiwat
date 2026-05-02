@@ -605,3 +605,15 @@ export const education: Education[] = [
     details: "Senior Project: Ping Pong Robot using LabVIEW and NI myRIO. (GPA: 3.35, Second Class Honors)",
   },
 ];
+
+export type Certificate = {
+  id: number;
+  title: string;
+  image: string;
+};
+
+export const certificates: Certificate[] = [
+  { id: 1, title: "Certificate 01", image: "/certificate/01.png" },
+  { id: 2, title: "Certificate 02", image: "/certificate/02.png" },
+  { id: 3, title: "Certificate 03", image: "/certificate/03.png" },
+];

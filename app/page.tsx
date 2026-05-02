@@ -5,6 +5,8 @@ import ProjectsSection from "@/components/ProjectsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ContactFooter from "@/components/ContactFooter";
 
+import CertificatesSection from "@/components/CertificatesSection";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300">
@@ -32,6 +34,7 @@ export default function Home() {
         <SkillsSection />
         <ProjectsSection />
         <ExperienceSection />
+        <CertificatesSection />
       </main>
 
       <ContactFooter />
