@@ -58,16 +58,6 @@ export default function HeroSection() {
             <Download size={18} className="group-hover:-translate-y-1 transition-transform" />
           </a>
           <a
-            href="/Doc/3_Portfolio_2019-2023.pdf"
-            download="Portfolio_Apiwat_2019_2023.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex justify-center items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-indigo-700 transition-colors group"
-          >
-            Full Portfolio PDF
-            <Download size={18} className="group-hover:-translate-y-1 transition-transform" />
-          </a>
-          <a
             href="#contact"
             className="inline-flex justify-center items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-6 py-3 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
           >
