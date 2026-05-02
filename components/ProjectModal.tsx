@@ -70,21 +70,36 @@ export default function ProjectModal({ project, onClose }: Props) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-950 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+          className="relative w-full max-w-5xl h-[90vh] bg-white dark:bg-slate-950 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
         >
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-20 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-colors"
-            aria-label="Close modal"
-          >
-            <X size={20} />
-          </button>
+          {/* Fixed Header */}
+          <div className="flex-shrink-0 flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 z-30 relative shadow-sm">
+            <div className="flex flex-col gap-1 pr-4">
+              <h2 className="text-lg sm:text-2xl font-black text-slate-900 dark:text-white line-clamp-1">
+                {project.title}
+              </h2>
+              <div className="flex items-center gap-3 text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">
+                <span className="flex items-center gap-1"><Calendar size={14} /> {project.duration}</span>
+                {project.isFeatured && (
+                  <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-bold uppercase text-[10px] tracking-wider">
+                    Featured
+                  </span>
+                )}
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors shrink-0"
+              aria-label="Close modal"
+            >
+              <X size={20} />
+            </button>
+          </div>
 
           {/* Scrolling Content */}
           <div className="overflow-y-auto flex-1 custom-scrollbar">
             {/* Header Image */}
-            <div className="relative h-64 sm:h-80 w-full bg-slate-100 dark:bg-slate-800">
+            <div className="relative h-48 sm:h-72 w-full bg-slate-100 dark:bg-slate-800">
               <Image
                 src={project.image}
                 alt={project.title}
@@ -92,27 +107,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 1024px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-              
-              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 flex flex-col justify-end">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className={`text-xs font-bold px-3 py-1 rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/20`}>
-                    {project.year}
-                  </span>
-                  {project.isFeatured && (
-                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-500 text-white">
-                      Featured
-                    </span>
-                  )}
-                </div>
-                <h2 className="text-2xl sm:text-4xl font-black text-white leading-tight mb-2">
-                  {project.title}
-                </h2>
-                <div className="flex items-center gap-2 text-white/80 text-sm font-medium">
-                  <Calendar size={14} />
-                  <span>{project.duration}</span>
-                </div>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
             </div>
 
             <div className="p-4 sm:p-8">
@@ -125,9 +120,9 @@ export default function ProjectModal({ project, onClose }: Props) {
                 ))}
               </div>
 
-              {/* Tabs */}
+              {/* Tabs (Sticky) */}
               {(hasTechnicalData || hasVisualData) && (
-                <div className="flex flex-wrap border-b border-slate-200 dark:border-slate-800 mb-8">
+                <div className="sticky top-0 z-20 flex flex-wrap border-b border-slate-200 dark:border-slate-800 mb-8 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md pt-2 -mx-4 px-4 sm:-mx-8 sm:px-8">
                   <button
                     onClick={() => setActiveTab("overview")}
                     className={`px-5 py-3 text-sm font-bold border-b-2 transition-colors ${
