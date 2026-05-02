@@ -498,7 +498,17 @@ export const projects: Project[] = [
         "Thesis evaluated as Excellent and published in an international journal",
       ],
       videoUrl: "/projects/uav-drone-thesis/Fly_test.mov",
-      visualEvidence: [],
+      visualEvidence: [
+        { url: "/projects/uav-drone-thesis/p060_img01.jpeg", caption: "System Identification and Mathematical Modeling", type: 'image' },
+        { url: "/projects/uav-drone-thesis/p098_img01.jpeg", caption: "Flight Path and L-SHADE Controller Simulation", type: 'image' },
+        { url: "/projects/uav-drone-thesis/p131_img01.jpeg", caption: "Hardware Setup and Real Flight Testing", type: 'image' }
+      ],
+      gallery: [
+        "/projects/uav-drone-thesis/p001_img01.png",
+        "/projects/uav-drone-thesis/p030_img01.png",
+        "/projects/uav-drone-thesis/p141_img01.jpeg",
+        "/projects/uav-drone-thesis/p162_img01.png",
+      ],
       publication: "https://www.tandfonline.com/doi/full/10.1080/23311916.2022.2114196",
       lessonsLearned: [
         "Technique: System Identification using Meta-Heuristics provides high accuracy, but beware of overfitting to the collected dataset.",
