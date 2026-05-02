@@ -406,10 +406,10 @@ export default function ProjectModal({ project, onClose }: Props) {
                     <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
                       <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
                         <User size={18} className="text-purple-500" /> User Workflow Animation
-                        <span className="text-xs font-normal text-slate-400">(กด Replay เพื่อดูใหม่)</span>
+                        <span className="text-xs font-normal text-slate-400">(Click Replay to watch again)</span>
                       </h3>
                       <AnimationFlow
-                        title="ขั้นตอนที่ User ทำ — ทีละขั้น"
+                        title="User Steps — Step by Step"
                         steps={d.userFlow}
                         autoPlay
                       />
@@ -421,10 +421,10 @@ export default function ProjectModal({ project, onClose }: Props) {
                     <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
                       <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
                         <Workflow size={18} className="text-orange-500" /> Program Flow Animation
-                        <span className="text-xs font-normal text-slate-400">(ลำดับการทำงานของโปรแกรม)</span>
+                        <span className="text-xs font-normal text-slate-400">(Program Execution Sequence)</span>
                       </h3>
                       <AnimationFlow
-                        title="ลำดับการประมวลผลภายใน"
+                        title="Internal Processing Sequence"
                         steps={d.programFlow}
                         autoPlay={false}
                       />
@@ -450,13 +450,13 @@ export default function ProjectModal({ project, onClose }: Props) {
                       <div className="space-y-3">
                         {d?.context && (
                           <div className="p-4 rounded-lg bg-white dark:bg-slate-900 border-l-4 border-blue-400">
-                            <p className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-1">โปรเจกต์นี้คืออะไร</p>
+                            <p className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-1">What is this project?</p>
                             <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.context}</p>
                           </div>
                         )}
                         {d?.origin && (
                           <div className="p-4 rounded-lg bg-white dark:bg-slate-900 border-l-4 border-slate-300 dark:border-slate-600">
-                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">จุดเริ่มต้น</p>
+                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Background</p>
                             <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.origin}</p>
                           </div>
                         )}
@@ -584,7 +584,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                       <div className="grid sm:grid-cols-2 gap-4">
                         {d?.lessonsLearned && (
                           <div>
-                            <p className="text-xs font-black text-indigo-500 uppercase tracking-wider mb-3">สิ่งที่ได้เรียนรู้</p>
+                            <p className="text-xs font-black text-indigo-500 uppercase tracking-wider mb-3">Lessons Learned</p>
                             <ul className="space-y-2">
                               {d.lessonsLearned.map((l, i) => (
                                 <li key={i} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300">
@@ -597,7 +597,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                         )}
                         {d?.nextSteps && (
                           <div>
-                            <p className="text-xs font-black text-emerald-500 uppercase tracking-wider mb-3">การต่อยอด</p>
+                            <p className="text-xs font-black text-emerald-500 uppercase tracking-wider mb-3">Next Steps</p>
                             <ul className="space-y-2">
                               {d.nextSteps.map((s, i) => (
                                 <li key={i} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300">
