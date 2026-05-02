@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { ArrowRight, ExternalLink, Calendar } from "lucide-react";
 import ProjectModal from "./ProjectModal";
@@ -136,6 +136,26 @@ export default function ProjectsSection() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedYear, setSelectedYear] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    const savedTab = localStorage.getItem("portfolio-projects-tab") as "featured" | "all-grid" | "timeline" | null;
+    const savedYear = localStorage.getItem("portfolio-projects-year");
+    const savedPage = localStorage.getItem("portfolio-projects-page");
+
+    if (savedTab) setTab(savedTab);
+    if (savedYear) setSelectedYear(savedYear);
+    if (savedPage) setCurrentPage(parseInt(savedPage, 10));
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem("portfolio-projects-tab", tab);
+      localStorage.setItem("portfolio-projects-year", selectedYear);
+      localStorage.setItem("portfolio-projects-page", currentPage.toString());
+    }
+  }, [tab, selectedYear, currentPage, isMounted]);
 
   // Sorted unique years from all projects
   const availableYears = useMemo(() => {
