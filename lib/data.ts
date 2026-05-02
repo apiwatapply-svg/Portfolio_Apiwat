@@ -237,15 +237,15 @@ export const projects: Project[] = [
 
   {
     slug: "n8n-automation",
-    title: "n8n Enterprise Workflow Automation",
-    description: "Architected a low-code automation pipeline to connect production data to ERP systems and trigger real-time LINE Notify alerts.",
-    tags: ["n8n", "Low-code", "REST API", "LINE Notify", "ERP"],
+    title: "n8n Automated Reporting & Workflow",
+    description: "Architected low-code automation pipelines using n8n to generate daily email summaries and report the status of ongoing projects.",
+    tags: ["n8n", "Low-code", "REST API", "Email Automation", "Workflow"],
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
     theme: "purple", isFeatured: true, year: "2026", duration: "Jan 2026 - Present",
     details: {
-      objective: "Streamline factory data workflows and alert systems using n8n to reduce manual data entry and coding overhead.",
-      features: ["Automated data synchronization between Factory DB and ERP", "Real-time production issue alerts via LINE Notify", "Webhook integrations for IoT sensors"],
-      results: ["Cut development time for new integrations by 70%", "Enabled instant supervisor notifications for critical line down events"],
+      objective: "Automate repetitive reporting tasks such as daily email summaries and project status tracking using n8n.",
+      features: ["Automated generation and distribution of daily email summaries", "Real-time status tracking and reporting for ongoing projects", "Seamless integration with internal databases and communication channels"],
+      results: ["Eliminated manual reporting efforts for daily summaries", "Improved visibility into project progress for stakeholders"],
     },
   },
   {
