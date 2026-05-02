@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Award, X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -8,28 +8,69 @@ import { certificates } from "@/lib/data";
 
 export default function CertificatesSection() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  
+  // Carousel states
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 for right, -1 for left
+  const N = certificates.length;
 
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const { clientWidth } = scrollRef.current;
-      const scrollAmount = direction === "left" ? -clientWidth * 0.8 : clientWidth * 0.8;
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  const handleNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % N);
+  };
+
+  const handlePrev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + N) % N);
+  };
+
+  // Lightbox navigation
+  const handleLightboxNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedIndex !== null) {
+      setSelectedIndex((selectedIndex + 1) % N);
     }
   };
 
-  const handleNext = (e: React.MouseEvent) => {
+  const handleLightboxPrev = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex + 1) % certificates.length);
+      setSelectedIndex((selectedIndex - 1 + N) % N);
     }
   };
 
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex - 1 + certificates.length) % certificates.length);
-    }
+  // Get up to 3 visible items for the carousel grid
+  const getVisibleCerts = () => {
+    if (N === 0) return [];
+    if (N === 1) return [certificates[0]];
+    if (N === 2) return [certificates[currentIndex], certificates[(currentIndex + 1) % N]];
+    return [
+      certificates[currentIndex],
+      certificates[(currentIndex + 1) % N],
+      certificates[(currentIndex + 2) % N]
+    ];
+  };
+
+  const visibleCerts = getVisibleCerts();
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 50 : -50,
+      opacity: 0,
+      scale: 0.95,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4, type: "spring" as const, bounce: 0.3 }
+    },
+    exit: (direction: number) => ({
+      x: direction > 0 ? -50 : 50,
+      opacity: 0,
+      scale: 0.95,
+      transition: { duration: 0.3 }
+    })
   };
 
   return (
@@ -52,58 +93,63 @@ export default function CertificatesSection() {
           </div>
         </motion.div>
 
-        {/* Carousel Navigation Buttons */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-2 hidden sm:flex"
-        >
-          <button 
-            onClick={() => scroll("left")}
-            className="p-3 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-orange-500 transition-colors shadow-sm"
+        {/* Carousel Controls */}
+        {N > 0 && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 bg-white dark:bg-slate-900 p-2 rounded-full border border-slate-200 dark:border-slate-800 shadow-sm"
           >
-            <ChevronLeft size={24} />
-          </button>
-          <button 
-            onClick={() => scroll("right")}
-            className="p-3 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-orange-500 transition-colors shadow-sm"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </motion.div>
+            <button 
+              onClick={handlePrev}
+              className="p-2 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-orange-500 transition-colors"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <div className="font-bold text-sm text-slate-700 dark:text-slate-300 w-12 text-center select-none">
+              {currentIndex + 1} / {N}
+            </div>
+            <button 
+              onClick={handleNext}
+              className="p-2 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-orange-500 transition-colors"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </motion.div>
+        )}
       </div>
 
-      {/* Horizontal Scroll Carousel */}
-      <div className="relative group">
-        <div 
-          ref={scrollRef}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          <AnimatePresence>
-            {certificates.map((cert, index) => (
+      {/* Grid Carousel Layout */}
+      <div className="relative overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout" custom={direction}>
+            {visibleCerts.map((cert, idx) => (
               <motion.div
-                key={cert.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="group/card relative cursor-pointer flex-shrink-0 w-[85vw] sm:w-[45vw] md:w-[30vw] snap-center sm:snap-start"
-                onClick={() => setSelectedIndex(index)}
+                key={`${cert.id}-${currentIndex}`} // Force re-render for animation on index change
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className={`group relative cursor-pointer
+                  ${idx === 1 ? "hidden sm:block" : ""} 
+                  ${idx === 2 ? "hidden md:block" : ""}
+                `}
+                onClick={() => setSelectedIndex(certificates.findIndex(c => c.id === cert.id))}
               >
-                <div className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 aspect-[4/3] shadow-sm hover:shadow-xl transition-all duration-300">
+                <div className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 aspect-[4/3] shadow-sm hover:shadow-xl transition-shadow duration-300">
                   <Image
                     src={cert.image}
                     alt={cert.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover/card:scale-105"
-                    sizes="(max-width: 768px) 85vw, (max-width: 1200px) 45vw, 30vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover/card:bg-black/50 transition-colors duration-300 flex flex-col justify-end p-6">
-                    <div className="translate-y-4 opacity-0 group-hover/card:translate-y-0 group-hover/card:opacity-100 transition-all duration-300">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex flex-col justify-end p-6">
+                    <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                       <ZoomIn size={24} className="text-white mb-2" />
                       <h3 className="text-white font-bold text-lg drop-shadow-md leading-tight">{cert.title}</h3>
                     </div>
@@ -139,7 +185,7 @@ export default function CertificatesSection() {
             {/* Previous Button */}
             <button
               className="absolute left-4 sm:left-10 p-3 rounded-full bg-white/10 text-white hover:bg-white/30 transition-colors z-[110]"
-              onClick={handlePrev}
+              onClick={handleLightboxPrev}
             >
               <ChevronLeft size={32} />
             </button>
@@ -147,7 +193,7 @@ export default function CertificatesSection() {
             {/* Next Button */}
             <button
               className="absolute right-4 sm:right-10 p-3 rounded-full bg-white/10 text-white hover:bg-white/30 transition-colors z-[110]"
-              onClick={handleNext}
+              onClick={handleLightboxNext}
             >
               <ChevronRight size={32} />
             </button>
@@ -158,7 +204,7 @@ export default function CertificatesSection() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -50, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-5xl w-full h-[80vh] aspect-[4/3] rounded-lg overflow-hidden flex flex-col items-center justify-center px-16 sm:px-24"
+              className="relative max-w-5xl w-full h-[80vh] aspect-[4/3] rounded-lg flex flex-col items-center justify-center px-16 sm:px-24"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative w-full h-full">
@@ -178,12 +224,6 @@ export default function CertificatesSection() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <style jsx global>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 }
