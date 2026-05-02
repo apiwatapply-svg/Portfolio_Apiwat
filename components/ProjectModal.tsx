@@ -211,7 +211,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                       {d?.yourRole && (
                         <div>
                           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                            <User size={20} className="text-purple-500" /> Your Role
+                            <User size={20} className="text-purple-500" /> My Role
                           </h3>
                           <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                             <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.yourRole}</p>
