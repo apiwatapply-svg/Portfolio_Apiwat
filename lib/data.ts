@@ -567,6 +567,7 @@ export const experience: Experience[] = [
       "Architected and developed ROS-based automation systems (AGVs, Robot Arms) in alignment with Industry 4.0.",
       "Implemented AI-based Machine Vision solutions utilizing HIKROBOT technologies for smart inspection.",
       "Engineered end-to-end smart factory solutions, including real-time Machine Monitoring Systems (MMS).",
+      "Developed web applications to support production operations and drive paperless initiatives.",
     ],
   },
   {
