@@ -421,12 +421,12 @@ export default function ProjectModal({ project, onClose }: Props) {
                     <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
                       <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
                         <Workflow size={18} className="text-orange-500" /> Program Flow Animation
-                        <span className="text-xs font-normal text-slate-400">(Program Execution Sequence)</span>
+                        <span className="text-xs font-normal text-slate-400">(Click Replay to watch again)</span>
                       </h3>
                       <AnimationFlow
                         title="Internal Processing Sequence"
                         steps={d.programFlow}
-                        autoPlay={false}
+                        autoPlay
                       />
                     </section>
                   )}
