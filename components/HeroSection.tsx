@@ -26,7 +26,7 @@ export default function HeroSection() {
         </div>
 
         <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4 leading-[1.1] text-slate-900 dark:text-white">
-          Hi, I&apos;m {personalInfo.name}. <br />
+          Hi, I&apos;m {personalInfo.fullName}. <br />
           <span className="text-blue-600 block min-h-[1.2em]">
             <TypeAnimation
               sequence={[
