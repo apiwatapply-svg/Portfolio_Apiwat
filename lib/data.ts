@@ -326,11 +326,11 @@ export const projects: Project[] = [
 
   {
     slug: "mms-dashboard",
-    title: "Smart Factory MMS Dashboard",
+    title: "Smart Factory MMS Dashboard (25 type 134 machine)",
     description: "Real-time Machine Monitoring Systems (MMS) and dashboards for data-driven decision-making in manufacturing operations.",
     tags: ["React", "Node.js", "Firebase", "PostgreSQL"],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: true, year: "2024", duration: "Jan 2024 - Present",
+    theme: "blue", isFeatured: true, year: "2026", duration: "Jan 2025 - 2026",
     details: {
       objective: "Develop a real-time machine status dashboard to support data-driven decision-making in production lines.",
       features: ["Real-time machine status monitoring", "OEE (Overall Equipment Effectiveness) tracking", "Downtime analysis & reporting", "Alert notification system", "Multi-line production overview"],
