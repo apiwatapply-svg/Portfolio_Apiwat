@@ -111,7 +111,7 @@ export default function ProjectModal({ project, onClose }: Props) {
               </div>
 
               {/* Tabs */}
-              {(hasTechnicalData || hasPresentationData || hasVisualData) && (
+              {(hasTechnicalData || hasVisualData) && (
                 <div className="flex flex-wrap border-b border-slate-200 dark:border-slate-800 mb-8">
                   <button
                     onClick={() => setActiveTab("overview")}
@@ -147,65 +147,126 @@ export default function ProjectModal({ project, onClose }: Props) {
                       <BarChart2 size={16} /> Visuals & Flow
                     </button>
                   )}
-                  {hasPresentationData && (
-                    <button
-                      onClick={() => setActiveTab("presentation")}
-                      className={`px-5 py-3 text-sm font-bold border-b-2 transition-colors flex items-center gap-2 ${
-                        activeTab === "presentation"
-                        ? t.activeTab
-                        : "border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
-                      }`}
-                    >
-                      <Presentation size={16} /> Present Mode
-                    </button>
-                  )}
                 </div>
               )}
 
-              {/* TAB 1: OVERVIEW */}
-              {((!hasTechnicalData && !hasPresentationData) || activeTab === "overview") && (
+              {/* TAB 1: OVERVIEW & RESULTS */}
+              {activeTab === "overview" && (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="space-y-10"
                 >
-                  {/* Overview & Objective */}
+                  {/* Context & Problem / Basic Overview */}
                   <section className="space-y-4">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                       <BookOpen size={20} className={t.dot.replace('bg-', 'text-')} /> 
-                      Overview & Objective
+                      Project Overview
                     </h3>
-                    <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
-                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                        {project.description}
-                      </p>
-                      {d?.objective && (
-                        <div className={`p-4 rounded-lg bg-white dark:bg-slate-900 border-l-4 ${t.border}`}>
-                          <p className="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-1">Target Objective:</p>
-                          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{d.objective}</p>
-                        </div>
-                      )}
-                    </div>
+                    
+                    {d?.context || d?.origin || d?.painPoint ? (
+                      <div className="space-y-3">
+                        {d?.context && (
+                          <div className="p-4 rounded-lg bg-white dark:bg-slate-900 border-l-4 border-blue-400 shadow-sm">
+                            <p className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-1">What is this project?</p>
+                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.context}</p>
+                          </div>
+                        )}
+                        {d?.origin && (
+                          <div className="p-4 rounded-lg bg-white dark:bg-slate-900 border-l-4 border-slate-300 dark:border-slate-600 shadow-sm">
+                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Background</p>
+                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.origin}</p>
+                          </div>
+                        )}
+                        {d?.painPoint && (
+                          <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/10 border-l-4 border-red-400 shadow-sm">
+                            <p className="text-xs font-bold text-red-500 uppercase tracking-wider mb-1">Pain Point</p>
+                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.painPoint}</p>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                          {project.description}
+                        </p>
+                      </div>
+                    )}
                   </section>
 
-                  {/* Methodology */}
-                  {(d?.methodology || d?.features) && (
+                  {/* Objective & Role */}
+                  {(d?.objective || d?.yourRole) && (
+                    <section className="space-y-6">
+                      {d?.objective && (
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <Target size={20} className="text-emerald-500" /> Objectives
+                          </h3>
+                          <div className={`p-4 rounded-lg border-l-4 ${t.border} bg-white dark:bg-slate-900 shadow-sm`}>
+                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">{d.objective}</p>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {d?.yourRole && (
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <User size={20} className="text-purple-500" /> Your Role
+                          </h3>
+                          <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.yourRole}</p>
+                            {d?.keySkillsUsed && (
+                              <div className="mt-3 flex flex-wrap gap-2">
+                                {d.keySkillsUsed.map((skill, i) => (
+                                  <span key={i} className={`px-2 py-1 rounded text-xs font-bold ${t.badge}`}>{skill}</span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </section>
+                  )}
+
+                  {/* Methodology & Challenges */}
+                  {(d?.methodology || d?.features || d?.challenges) && (
                     <section>
                       <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                         <Layers size={20} className="text-purple-500" />
                         {d.methodology ? "Methodology & Development" : "Key Features"}
                       </h3>
-                      <div className="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                        <ol className="space-y-4">
-                          {(d.methodology ?? d.features ?? []).map((item, i) => (
-                            <li key={i} className="flex gap-4">
-                              <span className={`mt-0.5 w-6 h-6 rounded-full ${t.badge} flex-shrink-0 flex items-center justify-center text-[11px] font-bold`}>
-                                {d.methodology ? i + 1 : "✓"}
-                              </span>
-                              <span className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed pt-0.5">{item}</span>
-                            </li>
-                          ))}
-                        </ol>
+                      
+                      <div className="space-y-4">
+                        {(d.methodology || d.features) && (
+                          <div className="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                            <ol className="space-y-4">
+                              {(d.methodology ?? d.features ?? []).map((item, i) => (
+                                <li key={i} className="flex gap-4">
+                                  <span className={`mt-0.5 w-6 h-6 rounded-full ${t.badge} flex-shrink-0 flex items-center justify-center text-[11px] font-bold`}>
+                                    {d.methodology ? i + 1 : "✓"}
+                                  </span>
+                                  <span className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed pt-0.5">{item}</span>
+                                </li>
+                              ))}
+                            </ol>
+                          </div>
+                        )}
+                        
+                        {d?.challenges && d.challenges.length > 0 && (
+                          <div className="p-5 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30">
+                            <p className="text-xs font-black text-red-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                              <AlertTriangle size={14} /> Challenges & Solutions
+                            </p>
+                            <div className="space-y-4">
+                              {d.challenges.map((ch, i) => (
+                                <div key={i} className="text-sm bg-white dark:bg-slate-900 p-4 rounded-lg border border-red-100 dark:border-red-900/20 shadow-sm">
+                                  <p className="font-bold text-slate-800 dark:text-slate-200 mb-2">Problem: <span className="font-normal text-slate-600 dark:text-slate-400">{ch.issue}</span></p>
+                                  <p className="font-bold text-emerald-600 dark:text-emerald-400">Solution: <span className="font-normal text-slate-600 dark:text-slate-400">{ch.solution}</span></p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </section>
                   )}
@@ -236,11 +297,47 @@ export default function ProjectModal({ project, onClose }: Props) {
                       </h3>
                       <div className="grid sm:grid-cols-2 gap-4">
                         {d.results.map((r, i) => (
-                          <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30">
+                          <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 shadow-sm">
                             <CheckCircle2 size={18} className="text-orange-500 flex-shrink-0 mt-0.5" />
                             <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{r}</span>
                           </div>
                         ))}
+                      </div>
+                    </section>
+                  )}
+                  
+                  {/* Lessons Learned & Next Steps */}
+                  {(d?.lessonsLearned || d?.nextSteps) && (
+                    <section className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+                      <div className="grid sm:grid-cols-2 gap-6">
+                        {d?.lessonsLearned && (
+                          <div>
+                            <p className="text-xs font-black text-indigo-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                              <Lightbulb size={14} /> Lessons Learned
+                            </p>
+                            <ul className="space-y-3">
+                              {d.lessonsLearned.map((l, i) => (
+                                <li key={i} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300">
+                                  <span className="text-indigo-400 mt-0.5 flex-shrink-0">•</span> <span className="leading-relaxed">{l}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        {d?.nextSteps && (
+                          <div>
+                            <p className="text-xs font-black text-emerald-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                              <ArrowRight size={14} /> Next Steps
+                            </p>
+                            <ul className="space-y-3">
+                              {d.nextSteps.map((s, i) => (
+                                <li key={i} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300">
+                                  <span className="text-emerald-400 mt-0.5 flex-shrink-0">→</span> <span className="leading-relaxed">{s}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                       </div>
                     </section>
                   )}
@@ -254,7 +351,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         {d.gallery.map((img, i) => (
-                          <div key={i} className="relative h-40 w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 group">
+                          <div key={i} className="relative h-40 w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 group shadow-sm">
                             <Image src={img} alt={`Gallery image ${i+1}`} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="300px" />
                           </div>
                         ))}
@@ -430,189 +527,44 @@ export default function ProjectModal({ project, onClose }: Props) {
                       />
                     </section>
                   )}
-                </motion.div>
-              )}
 
-              {/* TAB 3: PRESENTATION MODE — 7 sections */}
-              {hasPresentationData && activeTab === "presentation" && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-6"
-                >
-                  {/* Section 1: Context & Problem */}
-                  {(d?.context || d?.origin || d?.painPoint) && (
+                  {/* Hardware Connection Diagram */}
+                  {d?.hardware && d.hardware.length > 0 && (
                     <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
                       <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
-                        <span className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0">1</span>
-                        Context & Problem Statement
+                        <Cpu size={18} className="text-indigo-500" /> Hardware Connection Diagram
                       </h3>
-                      <div className="space-y-3">
-                        {d?.context && (
-                          <div className="p-4 rounded-lg bg-white dark:bg-slate-900 border-l-4 border-blue-400">
-                            <p className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-1">What is this project?</p>
-                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.context}</p>
-                          </div>
-                        )}
-                        {d?.origin && (
-                          <div className="p-4 rounded-lg bg-white dark:bg-slate-900 border-l-4 border-slate-300 dark:border-slate-600">
-                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Background</p>
-                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.origin}</p>
-                          </div>
-                        )}
-                        {d?.painPoint && (
-                          <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/10 border-l-4 border-red-400">
-                            <p className="text-xs font-bold text-red-500 uppercase tracking-wider mb-1">Pain Point</p>
-                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.painPoint}</p>
-                          </div>
-                        )}
-                      </div>
-                    </section>
-                  )}
-
-                  {/* Section 2: Objectives */}
-                  {d?.objective && (
-                    <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
-                      <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
-                        <span className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0">2</span>
-                        <Target size={16} className="text-emerald-500" /> Objectives
-                      </h3>
-                      <div className={`p-4 rounded-lg border-l-4 ${t.border} bg-white dark:bg-slate-900`}>
-                        <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.objective}</p>
-                      </div>
-                    </section>
-                  )}
-
-                  {/* Section 3: Your Role */}
-                  {(d?.yourRole || d?.keySkillsUsed) && (
-                    <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
-                      <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
-                        <span className="w-6 h-6 rounded-full bg-purple-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0">3</span>
-                        <User size={16} className="text-purple-500" /> Your Role ⭐
-                      </h3>
-                      {d?.yourRole && (
-                        <div className={`p-4 rounded-lg border-l-4 border-purple-400 bg-white dark:bg-slate-900 mb-4`}>
-                          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{d.yourRole}</p>
-                        </div>
-                      )}
-                      {d?.keySkillsUsed && (
-                        <div className="flex flex-wrap gap-2">
-                          {d.keySkillsUsed.map((skill) => (
-                            <span key={skill} className={`text-xs font-bold px-3 py-1.5 rounded-full ${t.badge}`}>{skill}</span>
-                          ))}
-                        </div>
-                      )}
-                    </section>
-                  )}
-
-                  {/* Section 4: Methodology & Tools */}
-                  {(d?.methodology || d?.hardware) && (
-                    <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
-                      <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
-                        <span className="w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0">4</span>
-                        <Layers size={16} className="text-orange-500" /> Methodology & Tools
-                      </h3>
-                      {d?.methodology && (
-                        <ol className="space-y-2 mb-4">
-                          {d.methodology.map((item, i) => (
-                            <li key={i} className="flex gap-3 text-sm text-slate-700 dark:text-slate-300">
-                              <span className={`mt-0.5 w-5 h-5 rounded-full ${t.badge} flex-shrink-0 flex items-center justify-center text-[10px] font-black`}>{i + 1}</span>
-                              <span className="leading-relaxed">{item}</span>
-                            </li>
-                          ))}
-                        </ol>
-                      )}
-                      {d?.hardware && (
-                        <div className="flex flex-wrap gap-2">
-                          {d.hardware.map((hw) => (
-                            <span key={hw} className="text-xs font-semibold px-3 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">{hw}</span>
-                          ))}
-                        </div>
-                      )}
-                    </section>
-                  )}
-
-                  {/* Section 5: Challenges & Solutions */}
-                  {d?.challenges && d.challenges.length > 0 && (
-                    <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
-                      <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
-                        <span className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0">5</span>
-                        <AlertTriangle size={16} className="text-red-500" /> Challenges & Solutions ⭐
-                      </h3>
-                      <div className="space-y-3">
-                        {d.challenges.map((c, i) => (
-                          <div key={i} className="bg-white dark:bg-slate-900 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800">
-                            <div className="flex gap-3 p-4 border-l-4 border-red-400">
-                              <p className="text-xs font-bold text-red-500 uppercase tracking-wider w-20 flex-shrink-0 pt-0.5">Challenge</p>
-                              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{c.issue}</p>
-                            </div>
-                            <div className="flex gap-3 p-4 border-l-4 border-emerald-400 bg-emerald-50/50 dark:bg-emerald-900/10">
-                              <p className="text-xs font-bold text-emerald-600 uppercase tracking-wider w-20 flex-shrink-0 pt-0.5">Solution</p>
-                              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{c.solution}</p>
-                            </div>
+                      <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 p-8 bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800">
+                        {d.hardware.map((hw, i) => (
+                          <div key={i} className="flex items-center gap-2 sm:gap-4">
+                            <motion.div
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: i * 0.1 }}
+                              className="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium text-sm text-center shadow-sm flex items-center gap-2"
+                            >
+                              <div className={`w-2 h-2 rounded-full ${t.dot}`}></div>
+                              {hw}
+                            </motion.div>
+                            {i < d.hardware!.length - 1 && (
+                              <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: (i * 0.1) + 0.1 }}
+                                className="text-slate-300 dark:text-slate-600 hidden sm:block"
+                              >
+                                <ArrowRight size={24} />
+                              </motion.div>
+                            )}
                           </div>
                         ))}
                       </div>
                     </section>
                   )}
-
-                  {/* Section 6: Results & Impact */}
-                  {d?.results && d.results.length > 0 && (
-                    <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
-                      <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
-                        <span className="w-6 h-6 rounded-full bg-teal-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0">6</span>
-                        <TrendingUp size={16} className="text-teal-500" /> Results & Impact
-                      </h3>
-                      <div className="grid sm:grid-cols-2 gap-3">
-                        {d.results.map((r, i) => (
-                          <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-teal-50 dark:bg-teal-900/10 border border-teal-100 dark:border-teal-900/30">
-                            <CheckCircle2 size={16} className="text-teal-500 flex-shrink-0 mt-0.5" />
-                            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{r}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-                  )}
-
-                  {/* Section 7: Lessons Learned & Next Steps */}
-                  {(d?.lessonsLearned || d?.nextSteps) && (
-                    <section className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800">
-                      <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2 mb-4">
-                        <span className="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0">7</span>
-                        <GraduationCap size={16} className="text-indigo-500" /> Lessons Learned & Next Steps
-                      </h3>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        {d?.lessonsLearned && (
-                          <div>
-                            <p className="text-xs font-black text-indigo-500 uppercase tracking-wider mb-3">Lessons Learned</p>
-                            <ul className="space-y-2">
-                              {d.lessonsLearned.map((l, i) => (
-                                <li key={i} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300">
-                                  <Lightbulb size={14} className="text-indigo-400 flex-shrink-0 mt-0.5" />
-                                  <span className="leading-relaxed">{l}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                        {d?.nextSteps && (
-                          <div>
-                            <p className="text-xs font-black text-emerald-500 uppercase tracking-wider mb-3">Next Steps</p>
-                            <ul className="space-y-2">
-                              {d.nextSteps.map((s, i) => (
-                                <li key={i} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300">
-                                  <ArrowRight size={14} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-                                  <span className="leading-relaxed">{s}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    </section>
-                  )}
                 </motion.div>
               )}
+
+
 
               {/* Bottom padding for scrolling */}
               <div className="h-4"></div>
