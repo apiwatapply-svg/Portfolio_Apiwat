@@ -150,6 +150,91 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "online-document-storage",
+    title: "Online Document Management System",
+    description: "Developed a secure, cloud-based document storage system enabling paperless workflows, version control, and role-based access.",
+    tags: ["Next.js", "Supabase", "AWS S3", "Tailwind CSS"],
+    image: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=800&q=80",
+    theme: "blue", isFeatured: false, year: "2026", duration: "Jan 2026 - Mar 2026",
+    details: {
+      objective: "Provide a centralized and secure online storage solution for corporate documents.",
+      features: ["Role-based access control (RBAC)", "File versioning and history tracking", "Full-text search using OCR"],
+    },
+  },
+  {
+    slug: "ecommerce-platform",
+    title: "E-Commerce Platform",
+    description: "Built a full-stack online storefront with a seamless checkout experience, inventory management, and payment gateway integration.",
+    tags: ["React", "Node.js", "Stripe", "PostgreSQL"],
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
+    theme: "purple", isFeatured: false, year: "2026", duration: "Feb 2026 - Apr 2026",
+    details: {
+      objective: "Develop a modern e-commerce solution for retail businesses to expand their digital footprint.",
+      features: ["Shopping cart and secure Stripe checkout", "Admin dashboard for inventory tracking", "Automated email receipts and shipping updates"],
+    },
+  },
+  {
+    slug: "coffee-shop-pos",
+    title: "Coffee Shop POS System",
+    description: "Engineered a modern Point-of-Sale (POS) system tailored for coffee shops, featuring quick order entry, loyalty programs, and sales analytics.",
+    tags: ["Vue.js", "Express", "MongoDB", "WebSocket"],
+    image: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=800&q=80",
+    theme: "orange", isFeatured: false, year: "2026", duration: "Apr 2026 - Jun 2026",
+    details: {
+      objective: "Streamline the ordering and payment process for fast-paced coffee shop environments.",
+      features: ["Touch-friendly quick order interface", "Integration with receipt printers and cash drawers", "Real-time daily sales analytics dashboard"],
+    },
+  },
+  {
+    slug: "field-booking-system",
+    title: "Online Field Booking System",
+    description: "Created a reservation platform for sports facilities, allowing users to book football fields and tennis courts in real-time.",
+    tags: ["Next.js", "Prisma", "TypeScript", "Vercel"],
+    image: "https://images.unsplash.com/photo-1518605368461-1e92211eb717?auto=format&fit=crop&w=800&q=80",
+    theme: "emerald", isFeatured: false, year: "2026", duration: "May 2026 - Jul 2026",
+    details: {
+      objective: "Digitize sports facility reservations to prevent double-booking and automate payments.",
+      features: ["Real-time availability calendar", "Automated booking confirmations via SMS/Email", "Dynamic pricing based on peak hours"],
+    },
+  },
+  {
+    slug: "material-requisition",
+    title: "Material Requisition System",
+    description: "Developed an internal inventory and requisition system for factories to track material usage and automate restock alerts.",
+    tags: ["React", "GraphQL", "PostgreSQL", "Docker"],
+    image: "https://images.unsplash.com/photo-1586528116311-ad8ed7ce3040?auto=format&fit=crop&w=800&q=80",
+    theme: "blue", isFeatured: false, year: "2026", duration: "Jul 2026 - Sep 2026",
+    details: {
+      objective: "Optimize internal supply chain and prevent material shortages in the production line.",
+      features: ["Barcode scanning for material check-in/out", "Approval workflow for high-value items", "Low stock automated email alerts"],
+    },
+  },
+  {
+    slug: "restaurant-pos",
+    title: "Restaurant POS System",
+    description: "Built a comprehensive Point-of-Sale solution for full-service restaurants, including table management and kitchen display systems (KDS).",
+    tags: ["React Native", "Node.js", "Firebase", "Redux"],
+    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+    theme: "orange", isFeatured: false, year: "2026", duration: "Aug 2026 - Oct 2026",
+    details: {
+      objective: "Enhance restaurant operations by connecting front-of-house orders directly to the kitchen.",
+      features: ["Visual table layout and status tracking", "Kitchen Display System (KDS) integration", "Split bill and multi-payment support"],
+    },
+  },
+  {
+    slug: "barbershop-booking",
+    title: "Barbershop Booking App",
+    description: "Designed a mobile-first booking application for barbershops, enabling clients to choose their preferred barber and time slot.",
+    tags: ["Flutter", "Firebase", "Google Calendar API"],
+    image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=800&q=80",
+    theme: "purple", isFeatured: false, year: "2026", duration: "Oct 2026 - Dec 2026",
+    details: {
+      objective: "Reduce walk-in wait times and help barbers manage their daily schedules efficiently.",
+      features: ["Customer profiles and haircut history", "Barber-specific calendar availability", "Automated appointment reminders"],
+    },
+  },
+
+  {
     slug: "n8n-automation",
     title: "n8n Enterprise Workflow Automation",
     description: "Architected a low-code automation pipeline to connect production data to ERP systems and trigger real-time LINE Notify alerts.",
