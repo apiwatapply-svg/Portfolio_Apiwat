@@ -8,7 +8,15 @@ import { projects as rawProjects, type Project } from "@/lib/data";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 
-const projects = [...rawProjects].sort((a, b) => parseInt(b.year) - parseInt(a.year));
+const projects = [...rawProjects].sort((a, b) => {
+  const yearDiff = parseInt(b.year) - parseInt(a.year);
+  if (yearDiff !== 0) return yearDiff;
+  const aPresent = a.duration.toLowerCase().includes("present");
+  const bPresent = b.duration.toLowerCase().includes("present");
+  if (aPresent && !bPresent) return -1;
+  if (!aPresent && bPresent) return 1;
+  return 0;
+});
 
 const themeMap = {
   blue: "text-blue-600 dark:text-blue-400",
