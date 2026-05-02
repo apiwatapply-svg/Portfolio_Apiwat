@@ -561,7 +561,7 @@ export const education: Education[] = [
     degree: "Master of Engineering in Mechanical Engineering",
     university: "Khon Kaen University",
     period: "2019 - 2021",
-    details: "Thesis: System Identification and Inner-Loop Stability Control for Fixed-Wing UAVs using Meta-Heuristics.",
+    details: "Thesis: System Identification and Inner-Loop Stability Control for Fixed-Wing UAVs using Meta-Heuristics. (Thesis Evaluation: Excellent)",
   },
   {
     degree: "Bachelor of Engineering in Electrical Engineering",
