@@ -99,7 +99,7 @@ export default function CertificatesSection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="flex items-center gap-4 bg-white dark:bg-slate-900 p-2 rounded-full border border-slate-200 dark:border-slate-800 shadow-sm"
+            className="self-center sm:self-auto flex items-center justify-center gap-4 bg-white dark:bg-slate-900 p-2 rounded-full border border-slate-200 dark:border-slate-800 shadow-sm"
           >
             <button 
               onClick={handlePrev}
