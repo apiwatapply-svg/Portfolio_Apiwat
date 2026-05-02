@@ -134,7 +134,7 @@ export default function ProjectsSection() {
     return [...new Set(projects.map((p) => p.year))].sort((a, b) => Number(b) - Number(a));
   }, []);
 
-  const featured = projects.filter((p) => p.isFeatured);
+  const featured = projects.filter((p) => p.isFeatured).slice(0, 4);
 
   const handleTabChange = (newTab: "featured" | "all-grid" | "timeline") => {
     setTab(newTab);
