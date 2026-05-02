@@ -115,6 +115,12 @@ export type ProjectDetails = {
   challenges?: { issue: string; solution: string }[];
   technicalHighlights?: { title: string; description: string }[];
   gallery?: string[];
+  videoUrl?: string;
+  visualEvidence?: {
+    url: string;
+    caption: string;
+    type: 'image' | 'graph';
+  }[];
   userFlow?: FlowStep[];
   programFlow?: FlowStep[];
   metrics?: { label: string; value: string; unit?: string; icon?: string }[];
@@ -315,6 +321,12 @@ export const projects: Project[] = [
         "Lateral PID: Rise Time 0.52s, Overshoot 5.0%, Settling Time 3.15s",
         "Real Flight Error < 10% compared to Simulation",
         "Thesis evaluated as Excellent and published in an international journal",
+      ],
+      videoUrl: "/projects/uav-drone-thesis/Fly_test.mov",
+      visualEvidence: [
+        { url: "/projects/uav-drone-thesis/p160_img01.png", caption: "Longitudinal PID Response", type: "graph" },
+        { url: "/projects/uav-drone-thesis/p162_img01.png", caption: "Lateral PID Response", type: "graph" },
+        { url: "/projects/uav-drone-thesis/p168_img01.jpeg", caption: "Real Flight Testing", type: "image" },
       ],
       publication: "https://www.tandfonline.com/doi/full/10.1080/23311916.2022.2114196",
       lessonsLearned: [

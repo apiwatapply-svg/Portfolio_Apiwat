@@ -172,6 +172,20 @@ export default function ProjectModal({ project, onClose }: Props) {
                   animate={{ opacity: 1, y: 0 }}
                   className="space-y-10"
                 >
+                  {/* Top Video Player */}
+                  {d?.videoUrl && (
+                    <section className="rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-800 bg-black aspect-video relative">
+                      <video 
+                        src={d.videoUrl} 
+                        controls 
+                        autoPlay 
+                        muted 
+                        loop 
+                        className="absolute inset-0 w-full h-full object-contain"
+                      />
+                    </section>
+                  )}
+
                   {/* Context & Problem / Basic Overview */}
                   <section className="space-y-4">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
@@ -316,6 +330,34 @@ export default function ProjectModal({ project, onClose }: Props) {
                           <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 shadow-sm">
                             <CheckCircle2 size={18} className="text-orange-500 flex-shrink-0 mt-0.5" />
                             <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{r}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
+                  {/* Visual Evidence (Graphs & Images) */}
+                  {d?.visualEvidence && d.visualEvidence.length > 0 && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <BarChart2 size={20} className="text-blue-500" /> 
+                        Performance & Visual Proof
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {d.visualEvidence.map((ev, i) => (
+                          <div key={i} className="flex flex-col rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm group">
+                            <div className="relative w-full h-48 bg-slate-100 dark:bg-slate-800">
+                              <Image 
+                                src={ev.url} 
+                                alt={ev.caption} 
+                                fill 
+                                className="object-cover group-hover:scale-105 transition-transform duration-500" 
+                                sizes="(max-width: 768px) 100vw, 33vw" 
+                              />
+                            </div>
+                            <div className="p-3 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+                              <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 text-center">{ev.caption}</p>
+                            </div>
                           </div>
                         ))}
                       </div>
