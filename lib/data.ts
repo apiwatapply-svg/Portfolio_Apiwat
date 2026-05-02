@@ -58,10 +58,11 @@ export const skillCategories: SkillCategory[] = [
     theme: "purple",
     skills: [
       { name: "LLM Integration", iconKey: "llm" },
-      { name: "Prompt Eng.", iconKey: "prompt" },
-      { name: "Machine Vision (YOLO)", iconKey: "vision" },
-      { name: "ROS", iconKey: "ros" },
-      { name: "Anomaly Detection", iconKey: "anomaly" },
+      { name: "RAG & AI Agents", iconKey: "rag" },
+      { name: "AI Workflow (n8n)", iconKey: "workflow" },
+      { name: "Machine Vision & Edge AI", iconKey: "vision" },
+      { name: "Predictive Maintenance", iconKey: "predictive" },
+      { name: "ROS / Robotics", iconKey: "ros" },
     ],
   },
   {
