@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, BookOpen, Cpu, Layers, CheckCircle2, Target, User, Activity, Settings, Award, Lightbulb, ArrowRight, ArrowDown } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, BookOpen, Cpu, Layers, CheckCircle2, Target, User, Activity, Settings, Award, Lightbulb, ArrowRight, ArrowDown, ExternalLink, FileText, ImageIcon } from "lucide-react";
 
 // ---------------------------------------------------------
 // Helper: Image Slider Component for multiple images
@@ -449,6 +449,77 @@ export default function FixedWingUAVModal({ onClose }: { onClose: () => void }) 
                       </p>
                     </div>
                   </div>
+                </div>
+              </section>
+
+              {/* SECTION: Publications & Downloads */}
+              <section className="space-y-6">
+                <h3 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
+                  <ExternalLink size={22} className="text-blue-500" /> Publications & Downloads
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <a href="https://www.researchgate.net/publication/363124652_A_small_fixed-wing_UAV_system_identification_using_metaheuristics" target="_blank" rel="noopener noreferrer" className="p-5 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700 transition-all flex gap-4 group">
+                    <ExternalLink size={24} className="text-blue-500 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                    <div>
+                      <h5 className="font-black text-sm text-slate-800 dark:text-slate-200 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Read Published Research (ISI Indexed)</h5>
+                      <p className="text-xs text-slate-500">ResearchGate</p>
+                    </div>
+                  </a>
+                  <a href="/projects/uav-drone/วิทยานิพนธ์_นายอภิวัฒน์%20โนนุตร.pdf" target="_blank" rel="noopener noreferrer" className="p-5 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-md hover:border-red-300 dark:hover:border-red-700 transition-all flex gap-4 group">
+                    <FileText size={24} className="text-red-500 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                    <div>
+                      <h5 className="font-black text-sm text-slate-800 dark:text-slate-200 mb-1 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">Download Full Master&apos;s Thesis</h5>
+                      <p className="text-xs text-slate-500">PDF Document (Thai)</p>
+                    </div>
+                  </a>
+                </div>
+              </section>
+
+              {/* SECTION: Lessons Learned */}
+              <section className="space-y-6">
+                <h3 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
+                  <Lightbulb size={22} className="text-emerald-500" /> Lessons Learned
+                </h3>
+                <div className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+                  <ul className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+                    <li className="flex gap-3">
+                      <span className="text-emerald-500 mt-1 flex-shrink-0"><CheckCircle2 size={16} /></span> 
+                      <span><strong className="text-slate-900 dark:text-white">Technique:</strong> System Identification using Meta-Heuristics provides high accuracy, but beware of overfitting to the collected dataset.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="text-emerald-500 mt-1 flex-shrink-0"><CheckCircle2 size={16} /></span> 
+                      <span><strong className="text-slate-900 dark:text-white">Process:</strong> Simulation results don&apos;t always match reality. Real-world testing is crucial.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="text-emerald-500 mt-1 flex-shrink-0"><CheckCircle2 size={16} /></span> 
+                      <span><strong className="text-slate-900 dark:text-white">Research:</strong> Writing for publication requires clarity and a reproducible methodology.</span>
+                    </li>
+                  </ul>
+                </div>
+              </section>
+
+              {/* SECTION: Gallery */}
+              <section className="space-y-6">
+                <h3 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
+                  <ImageIcon size={22} className="text-purple-500" /> Project Gallery
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {[
+                    "p030_img01.png", "p141_img01.jpeg", "p162_img01.png", "p001_img01.png", 
+                    "p004_img01.png", "p026_img01.jpeg", "p026_img02.jpeg", "p027_img01.jpeg", 
+                    "p027_img02.jpeg", "p028_img01.jpeg", "p028_img02.jpeg", "p029_img01.jpeg",
+                    "p031_img01.jpeg", "p032_img01.jpeg", "p041_img01.jpeg", "p041_img02.jpeg"
+                  ].map((img, i) => (
+                    <div key={i} className="relative h-24 sm:h-32 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 group shadow-sm">
+                      <Image 
+                        src={`/projects/uav-drone-thesis/${img}`}
+                        alt={`Gallery ${i+1}`}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                      />
+                    </div>
+                  ))}
                 </div>
               </section>
 
