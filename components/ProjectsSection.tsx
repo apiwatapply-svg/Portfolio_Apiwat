@@ -5,6 +5,8 @@ import Image from "next/image";
 import { ArrowRight, ExternalLink, Calendar } from "lucide-react";
 import ProjectModal from "./ProjectModal";
 import FixedWingUAVModal from "./modals/FixedWingUAVModal";
+import PIDControlModal from "./modals/PIDControlModal";
+import ThermostatModal from "./modals/ThermostatModal";
 import { projects as rawProjects, type Project } from "@/lib/data";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
@@ -315,6 +317,10 @@ export default function ProjectsSection() {
       {selectedProject && (
         selectedProject.slug === "uav-drone" ? (
           <FixedWingUAVModal onClose={() => setSelectedProject(null)} />
+        ) : selectedProject.slug === "pid-control" ? (
+          <PIDControlModal onClose={() => setSelectedProject(null)} />
+        ) : selectedProject.slug === "medical-thermostat" ? (
+          <ThermostatModal onClose={() => setSelectedProject(null)} />
         ) : (
           <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         )
