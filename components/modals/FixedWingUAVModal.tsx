@@ -125,7 +125,7 @@ export default function FixedWingUAVModal({ onClose }: { onClose: () => void }) 
           {/* Scrolling Content */}
           <div className="overflow-y-auto flex-1 custom-scrollbar pb-10">
             {/* Cover Image */}
-            <div className="relative h-48 sm:h-72 w-full bg-slate-100 dark:bg-slate-800">
+            <div className="relative h-64 sm:h-[400px] w-full bg-slate-100 dark:bg-slate-800">
               <Image
                 src="/projects/uav-drone-thesis/Cover.png"
                 alt="UAV Control System Cover"
