@@ -237,15 +237,28 @@ export const projects: Project[] = [
 
   {
     slug: "n8n-automation",
-    title: "n8n Automated Reporting & Workflow",
-    description: "Architected low-code automation pipelines using n8n to generate daily email summaries and report the status of ongoing projects.",
-    tags: ["n8n", "Low-code", "REST API", "Email Automation", "Workflow"],
+    title: "n8n Enterprise Workflow Automation",
+    description: "Architected a low-code automation pipeline to connect production data to ERP systems and trigger real-time LINE Notify alerts.",
+    tags: ["n8n", "Low-code", "REST API", "LINE Notify", "ERP"],
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
     theme: "purple", isFeatured: true, year: "2026", duration: "Jan 2026 - Present",
     details: {
-      objective: "Automate repetitive reporting tasks such as daily email summaries and project status tracking using n8n.",
-      features: ["Automated generation and distribution of daily email summaries", "Real-time status tracking and reporting for ongoing projects", "Seamless integration with internal databases and communication channels"],
-      results: ["Eliminated manual reporting efforts for daily summaries", "Improved visibility into project progress for stakeholders"],
+      objective: "Streamline factory data workflows and alert systems using n8n to reduce manual data entry and coding overhead.",
+      context: "An enterprise-level workflow automation platform — connects fragmented industrial data from production databases to modern communication tools like LINE Notify and ERP systems.",
+      origin: "A strategic initiative to reduce the high cost and time of developing custom hard-coded integration scripts for routine data synchronization and alerting tasks.",
+      painPoint: "Fragmented data sources and siloed information made it difficult to get real-time insights without manual data extraction and coding overhead.",
+      yourRole: "System Architect & Lead Developer. Responsible for self-hosting n8n, designing resilient workflows with error-handling logic, and integrating various APIs including LINE Notify and corporate ERP.",
+      keySkillsUsed: ["n8n", "Workflow Automation", "API Integration", "Webhooks", "LINE Notify API", "JSON Data Processing", "Self-hosting (Docker)"],
+      features: ["Automated data synchronization between Factory DB and ERP", "Real-time production issue alerts via LINE Notify", "Webhook integrations for IoT sensors"],
+      results: ["Cut development time for new integrations by 70%", "Enabled instant supervisor notifications for critical line down events"],
+      lessonsLearned: [
+        "Low-code does not mean low-logic; structured workflow design and modularity are critical for long-term maintenance.",
+        "Real-time alerts significantly improve operational responsiveness on the production floor."
+      ],
+      nextSteps: [
+        "Implement AI-driven decision nodes (AI Agents) within n8n workflows to automate more complex task routing.",
+        "Integrate with more legacy systems via custom n8n nodes or specialized adapters."
+      ],
     },
   },
   {
@@ -282,8 +295,21 @@ export const projects: Project[] = [
     theme: "orange", isFeatured: true, year: "2025", duration: "May 2025 - Aug 2025",
     details: {
       objective: "Detect previously unseen 'abnormal' defects that supervised models miss.",
+      context: "An AI-based anomaly detection system — goes beyond standard defect detection by identifying rare and 'unknown' deviations in product quality that haven't been seen before.",
+      origin: "Part of the Zero-defect Manufacturing drive at NMB-Minebea to handle unexpected production anomalies.",
+      painPoint: "Standard AI models (like YOLO) only detect what they've been trained on. Rare defects or new failure modes often went undetected.",
+      yourRole: "Lead AI Engineer. Researched and implemented unsupervised learning algorithms for anomaly detection and integrated them into the existing machine vision pipeline.",
+      keySkillsUsed: ["Python", "OpenCV", "Unsupervised Learning", "Anomaly Detection", "Scikit-learn", "Statistical Modeling"],
       methodology: ["Implement unsupervised learning for anomaly detection", "Integrate with high-speed cameras on the line"],
       results: ["Caught 100% of major unexpected anomalies during test period"],
+      lessonsLearned: [
+        "Hybrid approaches (Supervised + Unsupervised) provide the most robust quality assurance for industrial lines.",
+        "Edge computing is essential for the low-latency requirements of real-time anomaly detection."
+      ],
+      nextSteps: [
+        "Improve model sensitivity to reduce false positives without missing critical defects.",
+        "Automate the feedback loop to retrain supervised models when new anomalies are identified."
+      ],
     },
   },
   {
@@ -295,8 +321,21 @@ export const projects: Project[] = [
     theme: "blue", isFeatured: false, year: "2025", duration: "Sep 2025 - Dec 2025",
     details: {
       objective: "Eliminate paper records for machine oil consumption and standardize data entry.",
+      context: "A digital transformation initiative — replaces legacy paper-based oil tracking logs with a mobile-responsive web application for floor operators.",
+      origin: "An internal efficiency project aimed at reducing waste and improving the accuracy of maintenance data across the factory.",
+      painPoint: "Paper logs were often illegible, prone to manual entry errors, and difficult to aggregate for monthly consumption analysis.",
+      yourRole: "Full-stack Developer. Designed the mobile-first UI for simplicity on the shop floor and built the backend for automated monthly report generation.",
+      keySkillsUsed: ["React", "Tailwind CSS", "Mobile-first Design", "Node.js", "PostgreSQL", "Automated Reporting"],
       features: ["Mobile-first UI for operators on the floor", "Data validation constraints", "Monthly consumption reports generation"],
       results: ["Saved 500+ sheets of paper per month", "Improved data accuracy and visibility for the maintenance team"],
+      lessonsLearned: [
+        "Simple UX is the most important factor for adoption by operators on the production floor.",
+        "Digital validation prevents 'impossible' data entries, significantly improving data quality at the source."
+      ],
+      nextSteps: [
+        "Integrate with IoT flow meters on oil tanks for fully automated recording.",
+        "Add predictive alerts when oil consumption exceeds normal statistical thresholds."
+      ],
     },
   },
   {
@@ -330,24 +369,50 @@ export const projects: Project[] = [
     description: "Real-time Machine Monitoring Systems (MMS) and dashboards for data-driven decision-making in manufacturing operations.",
     tags: ["React", "Node.js", "Firebase", "PostgreSQL"],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: true, year: "2026", duration: "Jan 2025 - Present",
+    theme: "blue", isFeatured: true, year: "2026", duration: "Jan 2025 - 2026",
     details: {
       objective: "Develop a real-time machine status dashboard to support data-driven decision-making in production lines.",
+      context: "A large-scale Smart Factory monitoring system — provides real-time visibility into the status and performance of 134 machines across 25 different types.",
+      origin: "A core project at NMB-Minebea Thai Ltd. to drive digital transformation and achieve real-time OEE (Overall Equipment Effectiveness) tracking.",
+      painPoint: "Lack of real-time data led to slow response times for machine breakdowns and inaccurate production reporting based on manual logs.",
+      yourRole: "Lead Full-stack Developer. Architected the real-time data pipeline, designed the database schema for high-volume telemetry, and developed the React-based visual dashboard.",
+      keySkillsUsed: ["React", "Node.js", "Firebase", "PostgreSQL", "Real-time Dashboards", "Database Optimization", "System Architecture"],
       features: ["Real-time machine status monitoring", "OEE (Overall Equipment Effectiveness) tracking", "Downtime analysis & reporting", "Alert notification system", "Multi-line production overview"],
       results: ["Reduced unplanned downtime by 30%", "Faster anomaly response across production lines", "Remote monitoring accessible via web browser"],
+      lessonsLearned: [
+        "Data scalability is critical when handling hundreds of machines; efficient indexing and data normalization are non-negotiable.",
+        "Visual design should focus on 'glanceability' — allowing supervisors to spot issues in seconds."
+      ],
+      nextSteps: [
+        "Integrate with Predictive Maintenance models to display early warning alerts directly on the dashboard.",
+        "Expand monitoring to include environmental factors (temp, humidity) affecting machine performance."
+      ],
     },
   },
   {
     slug: "predictive-maintenance",
-    title: "Predictive Maintenance Pipeline",
+    title: "Maintenance Application (Tooling, Job Request, PM, PdM)",
     description: "Developed machine learning models to predict equipment failures before they occur, integrated alongside the MMS dashboard.",
     tags: ["Python", "Scikit-Learn", "FastAPI"],
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: true, year: "2024", duration: "Mar 2024 - Present",
+    theme: "orange", isFeatured: true, year: "2024", duration: "Jul 2024 - Dec 2024",
     details: {
       objective: "Build an ML pipeline to predict equipment failures in advance, before actual downtime occurs.",
+      context: "An AI-powered maintenance system — leverages machine learning to analyze historical sensor data and identify patterns that precede equipment failure.",
+      origin: "Developed to move from traditional 'Preventive' (scheduled) maintenance to 'Predictive' maintenance to reduce costs and minimize unplanned downtime.",
+      painPoint: "Unexpected machine failures were causing significant production losses, and scheduled maintenance often replaced parts that still had useful life.",
+      yourRole: "Lead AI Engineer & Data Scientist. Responsible for data collection, feature engineering, model training (XGBoost/Random Forest), and deploying the FastAPI prediction service.",
+      keySkillsUsed: ["Python", "Scikit-Learn", "XGBoost", "FastAPI", "Time-series Analysis", "Feature Engineering", "Data Cleaning"],
       methodology: ["Collect time-series sensor data from machines", "Feature engineering and data preprocessing", "Train models with Scikit-Learn (Random Forest, XGBoost)", "Deploy via FastAPI integrated with MMS Dashboard"],
       results: ["Predicts failures 72+ hours in advance", "Forecast accuracy > 85%", "Reduced emergency maintenance costs significantly"],
+      lessonsLearned: [
+        "Domain knowledge (understanding the physical machine) is just as important as the ML algorithm for feature engineering.",
+        "Model interpretability is key for gaining trust from the maintenance team."
+      ],
+      nextSteps: [
+        "Implement eXplainable AI (XAI) to provide technicians with the specific reason for a predicted failure.",
+        "Automate the retraining pipeline as more failure data is collected over time."
+      ],
     },
   },
   {
@@ -498,17 +563,7 @@ export const projects: Project[] = [
         "Thesis evaluated as Excellent and published in an international journal",
       ],
       videoUrl: "/projects/uav-drone-thesis/Fly_test.mov",
-      visualEvidence: [
-        { url: "/projects/uav-drone-thesis/p060_img01.jpeg", caption: "System Identification and Mathematical Modeling", type: 'image' },
-        { url: "/projects/uav-drone-thesis/p098_img01.jpeg", caption: "Flight Path and L-SHADE Controller Simulation", type: 'image' },
-        { url: "/projects/uav-drone-thesis/p131_img01.jpeg", caption: "Hardware Setup and Real Flight Testing", type: 'image' }
-      ],
-      gallery: [
-        "/projects/uav-drone-thesis/p001_img01.png",
-        "/projects/uav-drone-thesis/p030_img01.png",
-        "/projects/uav-drone-thesis/p141_img01.jpeg",
-        "/projects/uav-drone-thesis/p162_img01.png",
-      ],
+      visualEvidence: [],
       publication: "https://www.tandfonline.com/doi/full/10.1080/23311916.2022.2114196",
       lessonsLearned: [
         "Technique: System Identification using Meta-Heuristics provides high accuracy, but beware of overfitting to the collected dataset.",
