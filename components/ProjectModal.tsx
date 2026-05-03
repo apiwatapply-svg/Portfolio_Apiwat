@@ -54,7 +54,7 @@ export default function ProjectModal({ project, onClose }: Props) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 pt-[80px]">
+      <div className="fixed inset-0 z-[100] flex items-end justify-center p-4 sm:p-6 pt-[80px]">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -70,7 +70,7 @@ export default function ProjectModal({ project, onClose }: Props) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="relative w-full max-w-5xl h-[calc(90vh-80px)] bg-white dark:bg-slate-950 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+          className="relative w-full max-w-5xl h-[calc(100vh-100px)] bg-white dark:bg-slate-950 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
         >
           {/* Fixed Header */}
           <div className="flex-shrink-0 flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 z-30 relative shadow-sm">
