@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, BookOpen, Cpu, Layers, CheckCircle2, Target, User, BarChart2, Activity, PlayCircle, Settings, Award, Lightbulb, ArrowRight, ArrowDown } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, BookOpen, Cpu, Layers, CheckCircle2, Target, User, Activity, Settings, Award, Lightbulb, ArrowRight, ArrowDown } from "lucide-react";
 
 // ---------------------------------------------------------
 // Helper: Image Slider Component for multiple images
@@ -108,7 +108,7 @@ export default function FixedWingUAVModal({ onClose }: { onClose: () => void }) 
               </h2>
               <div className="flex items-center gap-3 text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">
                 <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 font-bold uppercase text-[10px] tracking-wider">
-                  Master's Thesis
+                  Master&apos;s Thesis
                 </span>
                 <span>2020 - 2021</span>
               </div>
@@ -176,7 +176,7 @@ export default function FixedWingUAVModal({ onClose }: { onClose: () => void }) 
                 <div className="p-5 rounded-xl bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/30 shadow-sm">
                   <p className="text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-2"><Lightbulb size={14}/> The Solution</p>
                   <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
-                    Applied 13 Meta-Heuristic Optimization algorithms (such as L-SHADE, CMAES) to perform System Identification. This algorithm-driven approach automatically derives the aircraft's Aerodynamic Stability parameters to precisely design a PID Controller, completely replacing manual tuning.
+                    Applied 13 Meta-Heuristic Optimization algorithms (such as L-SHADE, CMAES) to perform System Identification. This algorithm-driven approach automatically derives the aircraft&apos;s Aerodynamic Stability parameters to precisely design a PID Controller, completely replacing manual tuning.
                   </p>
                 </div>
 
@@ -304,7 +304,7 @@ export default function FixedWingUAVModal({ onClose }: { onClose: () => void }) 
                   <div className="space-y-8 mt-6 pl-0 sm:pl-11">
                     <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                       <h5 className="text-sm font-bold text-slate-900 dark:text-white mb-2">A. Flight Test & Data Collection</h5>
-                      <p className="text-sm text-slate-500 mb-4">Applied disturbance signals (Step, Sine wave) to the aircraft via remote control and recorded the aircraft's dynamic response.</p>
+                      <p className="text-sm text-slate-500 mb-4">Applied disturbance signals (Step, Sine wave) to the aircraft via remote control and recorded the aircraft&apos;s dynamic response.</p>
                       <ImageSlider images={[
                         "/projects/uav-drone-thesis/p054_img01.jpeg",
                         "/projects/uav-drone-thesis/p068_img01.jpeg"
@@ -445,7 +445,7 @@ export default function FixedWingUAVModal({ onClose }: { onClose: () => void }) 
                     <div>
                       <h5 className="font-black text-sm text-amber-900 dark:text-amber-300 mb-2">Academic Success & Low Error</h5>
                       <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                        Real flight error was <span className="font-bold text-red-500">&lt; 10%</span> compared to simulations. Thesis achieved <span className="font-bold underline decoration-amber-400 decoration-2">"Excellent"</span> evaluation and was published in an <span className="italic font-medium">ISI Indexed International Journal</span>.
+                        Real flight error was <span className="font-bold text-red-500">&lt; 10%</span> compared to simulations. Thesis achieved <span className="font-bold underline decoration-amber-400 decoration-2">&quot;Excellent&quot;</span> evaluation and was published in an <span className="italic font-medium">ISI Indexed International Journal</span>.
                       </p>
                     </div>
                   </div>

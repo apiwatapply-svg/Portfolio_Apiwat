@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { ArrowRight, ExternalLink, Calendar } from "lucide-react";
 import ProjectModal from "./ProjectModal";
+import FixedWingUAVModal from "./FixedWingUAVModal";
 import { projects as rawProjects, type Project } from "@/lib/data";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
@@ -312,7 +313,11 @@ export default function ProjectsSection() {
 
       {/* Project Modal */}
       {selectedProject && (
-        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+        selectedProject.slug === "uav-drone" ? (
+          <FixedWingUAVModal onClose={() => setSelectedProject(null)} />
+        ) : (
+          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+        )
       )}
     </motion.section>
   );
