@@ -130,7 +130,7 @@ export default function FixedWingUAVModal({ onClose }: { onClose: () => void }) 
                 src="/projects/uav-drone-thesis/Cover.png"
                 alt="UAV Control System Cover"
                 fill
-                className="object-cover object-top"
+                className="object-cover object-center"
                 sizes="(max-width: 1024px) 100vw, 1024px"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-end p-6 sm:p-8">
