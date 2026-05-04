@@ -214,7 +214,6 @@ export default function CertificatesSection() {
                   fill
                   className="object-contain"
                   sizes="100vw"
-                  quality={100}
                 />
               </div>
               <h3 className="text-white text-xl font-bold mt-6 text-center absolute bottom-0 bg-black/60 px-6 py-2 rounded-full">

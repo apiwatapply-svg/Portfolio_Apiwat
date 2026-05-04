@@ -29,7 +29,7 @@ export default function ThermostatModal({ onClose }: { onClose: () => void }) {
       opacity: 1, 
       rotateX: 0, 
       y: 0,
-      transition: { type: "spring", bounce: 0.4, duration: 0.8 }
+      transition: { type: "spring" as const, bounce: 0.4, duration: 0.8 }
     }
   };
 
@@ -138,7 +138,83 @@ export default function ThermostatModal({ onClose }: { onClose: () => void }) {
                   The system integrates continuous cooling with precise sensor feedback. Here is the operational loop:
                 </p>
 
-                {/* 3D Animated Flow Container */}
+                {/* Animated Flow Schematic (CSS/Framer Motion) */}
+                <div className="relative w-full h-64 sm:h-80 rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl mb-10 flex items-center justify-center p-4">
+                  <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500 via-transparent to-transparent"></div>
+                  
+                  <div className="relative w-full max-w-2xl h-full flex items-center justify-between px-4 sm:px-10 z-10">
+                    
+                    {/* Peltier Unit */}
+                    <div className="relative flex flex-col items-center">
+                      <div className="w-16 h-24 sm:w-20 sm:h-32 bg-slate-800 rounded-lg border-2 border-slate-600 flex flex-col overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                        <div className="flex-1 bg-red-500/20 flex items-center justify-center">
+                          <span className="text-red-400 text-xs font-bold">HOT</span>
+                        </div>
+                        <div className="h-1 w-full bg-slate-400"></div>
+                        <div className="flex-1 bg-blue-500/30 flex items-center justify-center relative overflow-hidden">
+                          <motion.div 
+                            animate={{ y: ["-100%", "100%"] }} 
+                            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                            className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-400/50 to-transparent"
+                          />
+                          <span className="text-blue-300 text-xs font-bold z-10">COLD</span>
+                        </div>
+                      </div>
+                      <p className="text-white text-xs mt-3 font-bold bg-slate-800/80 px-2 py-1 rounded">Peltier Cooler</p>
+                    </div>
+
+                    {/* Flow Tubes */}
+                    <div className="flex-1 h-32 relative mx-4">
+                      {/* Cold Water To Patient (Flows Right) */}
+                      <div className="absolute top-1/4 left-0 w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                        <motion.div 
+                          className="h-full w-[calc(100%+40px)] bg-[repeating-linear-gradient(90deg,transparent,transparent_10px,#3b82f6_10px,#3b82f6_20px)]"
+                          animate={{ x: [-20, 0] }}
+                          transition={{ repeat: Infinity, duration: 0.5, ease: "linear" }}
+                        />
+                      </div>
+                      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-full text-[10px] text-blue-400 font-bold tracking-widest uppercase">
+                        Cooling Flow &rarr;
+                      </div>
+
+                      {/* Warm Water Return (Flows Left) */}
+                      <div className="absolute bottom-1/4 left-0 w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                        <motion.div 
+                          className="h-full w-[calc(100%+40px)] bg-[repeating-linear-gradient(-90deg,transparent,transparent_10px,#ef4444_10px,#ef4444_20px)]"
+                          animate={{ x: [0, -20] }}
+                          transition={{ repeat: Infinity, duration: 0.5, ease: "linear" }}
+                        />
+                      </div>
+                      <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 translate-y-full text-[10px] text-red-400 font-bold tracking-widest uppercase">
+                        &larr; Return Flow
+                      </div>
+                    </div>
+
+                    {/* Patient Head */}
+                    <div className="relative flex flex-col items-center">
+                      <div className="relative w-20 h-24 sm:w-24 sm:h-28 flex items-center justify-center">
+                        {/* Helmet Outline */}
+                        <div className="absolute inset-0 bg-blue-500/10 border-2 border-blue-400/50 rounded-t-3xl rounded-b-xl animate-pulse"></div>
+                        {/* User Silhouette */}
+                        <User size={48} className="text-slate-300 relative z-10" />
+                        {/* Cold aura */}
+                        <motion.div 
+                          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                          transition={{ repeat: Infinity, duration: 2 }}
+                          className="absolute inset-0 bg-blue-400/20 rounded-full blur-xl"
+                        />
+                      </div>
+                      <p className="text-white text-xs mt-3 font-bold bg-slate-800/80 px-2 py-1 rounded">Patient Helmet</p>
+                    </div>
+
+                  </div>
+                  
+                  <div className="absolute top-4 left-4 text-xs font-mono text-slate-400 border border-slate-700 bg-slate-800/50 px-2 py-1 rounded">
+                    Simulation View
+                  </div>
+                </div>
+
+                {/* 3D Animated Flow Container (Cards) */}
                 <motion.div 
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-2"
                   variants={containerVariants}
@@ -224,32 +300,32 @@ export default function ThermostatModal({ onClose }: { onClose: () => void }) {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {/* Item 1 */}
                   <div className="p-4 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm flex flex-col items-center text-center group">
-                    <div className="relative w-20 h-20 mb-3 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800">
-                      <Image src="/projects/Thermostat_for_Brain_Injury_Patients/peltier.jpg" alt="Peltier" fill className="object-cover group-hover:scale-110 transition-transform" />
+                    <div className="relative w-20 h-20 mb-3 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800 bg-white">
+                      <Image src="/projects/Thermostat_for_Brain_Injury_Patients/TEC1-12706.png" alt="Peltier" fill className="object-contain p-1 group-hover:scale-110 transition-transform" sizes="80px" />
                     </div>
                     <h5 className="font-bold text-xs text-slate-800 dark:text-slate-200">Peltier (TEC1-12706)</h5>
                     <p className="text-[10px] text-slate-500 mt-1">Thermoelectric Cooler</p>
                   </div>
                   {/* Item 2 */}
                   <div className="p-4 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm flex flex-col items-center text-center group">
-                    <div className="relative w-20 h-20 mb-3 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800">
-                      <Image src="/projects/Thermostat_for_Brain_Injury_Patients/pump.jpg" alt="Water Pump" fill className="object-cover group-hover:scale-110 transition-transform" />
+                    <div className="relative w-20 h-20 mb-3 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800 bg-white">
+                      <Image src="/projects/Thermostat_for_Brain_Injury_Patients/Water%20Pump.png" alt="Water Pump" fill className="object-contain p-1 group-hover:scale-110 transition-transform" sizes="80px" />
                     </div>
                     <h5 className="font-bold text-xs text-slate-800 dark:text-slate-200">Water Pump</h5>
                     <p className="text-[10px] text-slate-500 mt-1">Closed-loop circulation</p>
                   </div>
                   {/* Item 3 */}
                   <div className="p-4 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm flex flex-col items-center text-center group">
-                    <div className="relative w-20 h-20 mb-3 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800">
-                      <Image src="/projects/Thermostat_for_Brain_Injury_Patients/ds18b20.jpg" alt="Sensor" fill className="object-cover group-hover:scale-110 transition-transform" />
+                    <div className="relative w-20 h-20 mb-3 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800 bg-white">
+                      <Image src="/projects/Thermostat_for_Brain_Injury_Patients/DS18B20%20Sensor.png" alt="Sensor" fill className="object-contain p-1 group-hover:scale-110 transition-transform" sizes="80px" />
                     </div>
                     <h5 className="font-bold text-xs text-slate-800 dark:text-slate-200">DS18B20 Sensor</h5>
                     <p className="text-[10px] text-slate-500 mt-1">High-accuracy temperature</p>
                   </div>
                   {/* Item 4 */}
                   <div className="p-4 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm flex flex-col items-center text-center group">
-                    <div className="relative w-20 h-20 mb-3 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800">
-                      <Image src="/projects/Thermostat_for_Brain_Injury_Patients/arduino.jpg" alt="Arduino" fill className="object-cover group-hover:scale-110 transition-transform" />
+                    <div className="relative w-20 h-20 mb-3 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800 bg-white">
+                      <Image src="/projects/Thermostat_for_Brain_Injury_Patients/Microcontroller%20Arduino.png" alt="Arduino" fill className="object-contain p-1 group-hover:scale-110 transition-transform" sizes="80px" />
                     </div>
                     <h5 className="font-bold text-xs text-slate-800 dark:text-slate-200">Microcontroller</h5>
                     <p className="text-[10px] text-slate-500 mt-1">PID Logic & Relay control</p>
@@ -315,12 +391,13 @@ export default function ThermostatModal({ onClose }: { onClose: () => void }) {
 
               {/* Hardware Prototype Image */}
               <section className="space-y-4">
-                 <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-center p-4">
+                 <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
                   <Image 
                     src="/projects/Thermostat_for_Brain_Injury_Patients/Hardware.png" 
                     alt="Hardware Setup" 
                     fill 
                     className="object-contain p-4"
+                    sizes="(max-width: 1024px) 100vw, 1024px"
                   />
                 </div>
                 <p className="text-center text-xs text-slate-500">Hardware Prototype Setup</p>

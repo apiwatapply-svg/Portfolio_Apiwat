@@ -88,7 +88,6 @@ export default function HeroSection() {
             src={personalInfo.avatar}
             alt={personalInfo.fullName}
             fill
-            quality={100}
             unoptimized
             priority
             className="object-cover object-center"

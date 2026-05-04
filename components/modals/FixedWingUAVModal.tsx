@@ -253,14 +253,16 @@ export default function FixedWingUAVModal({ onClose }: { onClose: () => void }) 
                 <div className="flex flex-col md:flex-row gap-6 items-center">
                   <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800">
                     <div className="relative h-48 w-full bg-slate-100 dark:bg-slate-800">
-                      <Image 
-                        src="/projects/uav-drone-thesis/p051_img01.jpeg" 
-                        alt="Hardware Setup" 
-                        fill 
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
+                      <div className="relative w-full h-full">
+                        <Image
+                          src="/projects/uav-drone-thesis/p051_img01.jpeg"
+                          alt="Hardware Setup"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      </div>
+                    </div>                  </div>
                   <div className="w-full md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="p-4 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900">
                       <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Main Controller</p>

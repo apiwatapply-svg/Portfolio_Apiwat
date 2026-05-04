@@ -7,6 +7,7 @@ import ProjectModal from "./ProjectModal";
 import FixedWingUAVModal from "./modals/FixedWingUAVModal";
 import PIDControlModal from "./modals/PIDControlModal";
 import ThermostatModal from "./modals/ThermostatModal";
+import PLCDoorModal from "./modals/PLCDoorModal";
 import { projects as rawProjects, type Project } from "@/lib/data";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
@@ -142,11 +143,13 @@ export default function ProjectsSection() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const savedTab = localStorage.getItem("portfolio-projects-tab") as "featured" | "all-grid" | "timeline" | null;
+    const savedTab = localStorage.getItem("portfolio-projects-tab");
     const savedYear = localStorage.getItem("portfolio-projects-year");
     const savedPage = localStorage.getItem("portfolio-projects-page");
 
-    if (savedTab) setTab(savedTab);
+    if (savedTab && ["featured", "all-grid", "timeline"].includes(savedTab)) {
+      setTab(savedTab as "featured" | "all-grid" | "timeline");
+    }
     if (savedYear) setSelectedYear(savedYear);
     if (savedPage) setCurrentPage(parseInt(savedPage, 10));
     setIsMounted(true);
@@ -321,6 +324,8 @@ export default function ProjectsSection() {
           <PIDControlModal onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "medical-thermostat" ? (
           <ThermostatModal onClose={() => setSelectedProject(null)} />
+        ) : selectedProject.slug === "plc-door-system" ? (
+          <PLCDoorModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : (
           <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         )

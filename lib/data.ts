@@ -355,7 +355,7 @@ export const projects: Project[] = [
     title: "PID Control System Designer",
     description: "Designed a software interface to simulate and tune Proportional-Integral-Derivative controllers for various dynamic systems.",
     tags: ["MATLAB", "Control Systems", "Simulation"],
-    image: "https://images.unsplash.com/photo-1581092334245-d812bdc14106?auto=format&fit=crop&w=800&q=80",
+    image: "/projects/PID_Control_System_Designer/cover.png",
     theme: "blue", isFeatured: false, year: "2018", duration: "Sep 2018 - Oct 2018",
     details: {
       objective: "Create a simulation tool to quickly tune PID gains for hardware projects.",
@@ -519,7 +519,7 @@ export const projects: Project[] = [
     title: "Fixed-Wing UAV Control System",
     description: "Mathematical modeling and PID control system design for fixed-wing UAV using meta-heuristic optimization. Thesis evaluated 'Excellent'.",
     tags: ["MATLAB", "Python", "PID Control", "Raspberry Pi", "UAV"],
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80",
+    image: "/projects/uav-drone-thesis/Cover.png",
     theme: "purple", isFeatured: true, year: "2020", duration: "Jan 2020 - Jun 2021",
     details: {
       context: "An autonomous Fixed-Wing UAV control system — flies without a pilot by using mathematical algorithms to derive an aircraft model and design a PID controller, replacing manual tuning.",
@@ -655,7 +655,7 @@ export const projects: Project[] = [
     title: "Thermostat for Brain Injury Patients",
     description: "Collaborated with Faculty of Nursing KKU to develop a thermostat device for brain injury patients with high fever.",
     tags: ["Embedded Systems", "Sensors", "Medical Device", "Hardware Design"],
-    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=800&q=80",
+    image: "/projects/Thermostat_for_Brain_Injury_Patients/cover.jpg",
     theme: "emerald", isFeatured: false, year: "2018", duration: "Jun 2018 - Aug 2018",
     details: {
       objective: "Collaborate with the Faculty of Nursing at Khon Kaen University to develop a temperature control device for brain injury patients suffering from high fever.",
@@ -669,29 +669,11 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "servo-robot-arm",
-    title: "Servo Robot Arm (4 DOF)",
-    description: "Designed a 4 DOF robot arm using SolidWorks and 3D printing, with Inverse Kinematics and PID control system.",
-    tags: ["SolidWorks", "3D Printing", "PID Control", "Inverse Kinematics"],
-    image: "https://images.unsplash.com/photo-1563207153-f403bf289096?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: false, year: "2018", duration: "2017 - 2018",
-    details: {
-      objective: "Design and build a 4-DOF Robot Arm using SolidWorks and a 3D Printer, then develop a control system using Inverse Kinematics and PID.",
-      methodology: ["Design 4-DOF structure in SolidWorks", "Print components using a 3D Printer", "Compute Inverse Kinematics", "Design PID Control for each Servo Motor joint"],
-      hardware: [
-        { name: "Servo Motors", icon: "Activity", description: "4-axis robotic actuation" },
-        { name: "Microcontroller", icon: "Cpu", description: "Joint position control" },
-        { name: "3D Printed Body", icon: "Layers", description: "Custom structural chassis" }
-      ],
-      results: ["Successfully moved to target coordinates using Inverse Kinematics", "Implemented Master-Slave system to control two robot arms moving synchronously"],
-    },
-  },
-  {
     slug: "plc-door-system",
     title: "Warehouse Door System (PLC)",
     description: "Industrial internship project: PLC-controlled warehouse door with 4-digit password security and pneumatic actuation at NHK Spring.",
     tags: ["Mitsubishi PLC", "Pneumatic System", "Ladder Logic", "Industrial Automation"],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+    image: "/projects/Warehouse_Door_System_(PLC)/cover.png",
     theme: "orange", isFeatured: false, year: "2018", duration: "Mar 2018 - May 2018",
     details: {
       context: "A PLC-controlled warehouse door system — requires a 4-digit password via a Keypad. Upon validation, the system triggers a Pneumatic Valve to automatically open/close the door, with an auto-lock mechanism to prevent repeated unauthorized attempts.",
