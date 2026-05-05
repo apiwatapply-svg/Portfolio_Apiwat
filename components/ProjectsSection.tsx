@@ -25,7 +25,6 @@ import OilRecordingPaperlessModal from "./modals/OilRecordingPaperlessModal";
 import MmsDashboardModal from "./modals/MmsDashboardModal";
 import PredictiveMaintenanceModal from "./modals/PredictiveMaintenanceModal";
 import AiDefectInspectionModal from "./modals/AiDefectInspectionModal";
-import WarehouseApiModal from "./modals/WarehouseApiModal";
 import RosAutomationModal from "./modals/RosAutomationModal";
 import SmartAgricultureModal from "./modals/SmartAgricultureModal";
 import PingPongRobotModal from "./modals/PingPongRobotModal";
