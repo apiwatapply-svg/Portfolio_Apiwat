@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Presentation, Target, User, TrendingUp, GraduationCap, BarChart2, Workflow, Camera, Server, Activity, Wifi, Bot, Cloud, Code } from "lucide-react";
 import { type Project } from "@/lib/data";
 import AnimationFlow from "@/components/AnimationFlow";
-import Workflow3D from "@/components/Workflow3D";
 
 const getHardwareIcon = (iconName: string, className: string) => {
   switch (iconName) {
@@ -35,7 +34,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function ProjectModal({ project, onClose }: Props) {
+export default function OilRecordingPaperlessModal({ project, onClose }: Props) {
   const [activeTab, setActiveTab] = useState<"overview" | "technical" | "presentation" | "visuals">("overview");
 
   // Prevent body scroll when modal is open
@@ -253,16 +252,48 @@ export default function ProjectModal({ project, onClose }: Props) {
                     </section>
                   )}
 
-                  {/* End-to-End Workflow 3D Animation */}
+                {/* Methodology & Challenges */}
+                {(d?.methodology || d?.features || d?.challenges) && (
                   <section>
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                       <Layers size={20} className="text-purple-500" />
-                      End-to-End Workflow
+                      {d.methodology ? "Methodology & Development" : "Key Features"}
                     </h3>
-                    <div className="w-full">
-                      <Workflow3D />
+                    
+                    <div className="space-y-4">
+                      {(d.methodology || d.features) && (
+                        <div className="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+                          <ol className="space-y-4">
+                            {(d.methodology ?? d.features ?? []).map((item, i) => (
+                              <li key={i} className="flex gap-4">
+                                <span className={`mt-0.5 w-6 h-6 rounded-full ${t.badge} flex-shrink-0 flex items-center justify-center text-[11px] font-bold`}>
+                                  {d.methodology ? i + 1 : "✓"}
+                                </span>
+                                <span className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed pt-0.5">{item}</span>
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
+                      )}
+                      
+                      {d?.challenges && d.challenges.length > 0 && (
+                        <div className="p-5 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30">
+                          <p className="text-xs font-black text-red-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <AlertTriangle size={14} /> Challenges & Solutions
+                          </p>
+                          <div className="space-y-4">
+                            {d.challenges.map((ch, i) => (
+                              <div key={i} className="text-sm bg-white dark:bg-slate-900 p-4 rounded-lg border border-red-100 dark:border-red-900/20 shadow-sm">
+                                <p className="font-bold text-slate-800 dark:text-slate-200 mb-2">Problem: <span className="font-normal text-slate-600 dark:text-slate-400">{ch.issue}</span></p>
+                                <p className="font-bold text-emerald-600 dark:text-emerald-400">Solution: <span className="font-normal text-slate-600 dark:text-slate-400">{ch.solution}</span></p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </section>
+                )}
 
                   {/* Hardware Components */}
                   {d?.hardware && (

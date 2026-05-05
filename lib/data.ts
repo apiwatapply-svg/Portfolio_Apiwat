@@ -163,18 +163,6 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "ecommerce-platform",
-    title: "E-Commerce Platform",
-    description: "Built a full-stack online storefront with a seamless checkout experience, inventory management, and payment gateway integration.",
-    tags: ["React", "Node.js", "Stripe", "PostgreSQL"],
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
-    theme: "purple", isFeatured: false, year: "2025", duration: "Apr 2025 - Jun 2025",
-    details: {
-      objective: "Develop a modern e-commerce solution for retail businesses to expand their digital footprint.",
-      features: ["Shopping cart and secure Stripe checkout", "Admin dashboard for inventory tracking", "Automated email receipts and shipping updates"],
-    },
-  },
-  {
     slug: "coffee-shop-pos",
     title: "Coffee Shop POS System",
     description: "Engineered a modern Point-of-Sale (POS) system tailored for coffee shops, featuring quick order entry, loyalty programs, and sales analytics.",
@@ -216,7 +204,7 @@ export const projects: Project[] = [
     description: "Built a comprehensive Point-of-Sale solution for full-service restaurants, including table management and kitchen display systems (KDS).",
     tags: ["React Native", "Node.js", "Firebase", "Redux"],
     image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: false, year: "2026", duration: "Aug 2026 - Oct 2026",
+    theme: "orange", isFeatured: false, year: "2024", duration: "Aug 2024 - Oct 2024",
     details: {
       objective: "Enhance restaurant operations by connecting front-of-house orders directly to the kitchen.",
       features: ["Visual table layout and status tracking", "Kitchen Display System (KDS) integration", "Split bill and multi-payment support"],
@@ -341,13 +329,48 @@ export const projects: Project[] = [
   {
     slug: "student-attendance",
     title: "Student Attendance Management System",
-    description: "Built a management platform for tracking student attendance using RFID and web technologies.",
-    tags: ["PHP", "MySQL", "RFID", "IoT"],
-    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80",
+    description: "Developed a comprehensive web-based and PWA-enabled application to streamline student attendance tracking using NFC/RFID technology.",
+    tags: ["Next.js", "Supabase", "RFID", "IoT"],
+    image: "/projects/Student_Attendance_Management_System/NFC.png",
     theme: "purple", isFeatured: false, year: "2021", duration: "Jul 2021 - Dec 2021",
     details: {
-      objective: "Develop a reliable attendance tracking system for educational institutions.",
-      features: ["RFID card scanning integration", "Real-time attendance dashboard", "Automated absence alerts"],
+      objective: "Develop a fast attendance checking system that reduces teachers' workload, featuring real-time dashboards for administrators and teachers to monitor attendance statistics.",
+      context: "A modern student attendance system designed to simplify the traditional check-in process. It utilizes RFID/NFC cards or student ID input to record attendance instead of manual roll calls.",
+      painPoint: "Traditional paper-based roll calls are slow, burdensome for teachers, and make it difficult to collect and analyze attendance statistics in a timely manner.",
+      yourRole: "Full-stack Developer & Hardware Integration. Responsible for designing the database, developing the backend, and integrating the system with RFID/NFC readers.",
+      features: [
+        "Kiosk Mode: Interface for students to check-in using NFC/RFID cards or student ID",
+        "Role-Based Access Control: Segregated access for Admins, Teachers, and Students",
+        "Admin Dashboard: Manage users, subjects, classes, and NFC card registration",
+        "Teacher Controls: Manual override for attendance, history editing, and class statistics",
+        "Student Portal: Students can check their attendance percentage and history",
+        "Real-time Dashboard: Attendance summary for school administrators"
+      ],
+      hardware: [
+        { name: "RFID/NFC Reader", icon: "Wifi", description: "Reads student cards for check-in" },
+        { name: "LCD Display / Tablet", icon: "Monitor", description: "Displays check-in confirmation" }
+      ],
+      results: [
+        "Significantly reduced the time spent on roll calls during each class",
+        "Highly accurate attendance data, reducing human error",
+        "Teachers and administrators can track attendance behavior in real-time"
+      ],
+      lessonsLearned: [
+        "A simple User Interface (UI) is crucial for Kiosk devices with high repetitive usage",
+        "Connection stability between the Hardware Reader and Web Server is the heart of the system"
+      ],
+      gallery: [
+        "/projects/Student_Attendance_Management_System/login.png",
+        "/projects/Student_Attendance_Management_System/admin_dashboard.png",
+        "/projects/Student_Attendance_Management_System/admin_users.png",
+        "/projects/Student_Attendance_Management_System/admin_subjects.png",
+        "/projects/Student_Attendance_Management_System/admin_classes.png",
+        "/projects/Student_Attendance_Management_System/admin_enrollments.png",
+        "/projects/Student_Attendance_Management_System/admin_cards.png",
+        "/projects/Student_Attendance_Management_System/NFC.png",
+        "/projects/Student_Attendance_Management_System/teacher_dashboard.png",
+        "/projects/Student_Attendance_Management_System/student_dashboard.png",
+      ]
     },
   },
   {
@@ -395,7 +418,7 @@ export const projects: Project[] = [
     description: "Developed machine learning models to predict equipment failures before they occur, integrated alongside the MMS dashboard.",
     tags: ["Python", "Scikit-Learn", "FastAPI"],
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: true, year: "2024", duration: "Jul 2024 - Dec 2024",
+    theme: "orange", isFeatured: true, year: "2026", duration: "Jul 2026 - Dec 2026",
     details: {
       objective: "Build an ML pipeline to predict equipment failures in advance, before actual downtime occurs.",
       context: "An AI-powered maintenance system — leverages machine learning to analyze historical sensor data and identify patterns that precede equipment failure.",
@@ -435,7 +458,7 @@ export const projects: Project[] = [
         { name: "Industrial PC", icon: "Server", description: "Runs YOLOv8 locally on edge" }
       ],
       methodology: ["Collect and label real defective parts dataset from the production line", "Train YOLO model and tune hyperparameters to achieve mAP > 95%", "Integrate with HIKROBOT SDK for camera I/O", "Deploy on edge device and validate on live production line"],
-      results: ["Defect detection accuracy > 95%", "Significantly reduced defect rate reaching customers", "Inference speed < 50ms per part — no impact on Takt Time"],
+      results: ["Defect detection accuracy > 95%", "Significantly reduced defect rate reaching customers", "Inference speed < 50ms per part — no impact Takt Time"],
       challenges: [
         { issue: "Very limited defective part samples in production caused model overfitting to training data", solution: "Applied Data Augmentation (rotation, brightness, noise) and Transfer Learning from pre-trained YOLO to improve model performance with a small dataset" },
         { issue: "Variable lighting conditions on the production line degraded model accuracy at certain times", solution: "Installed a controlled LED lighting system and fixed camera exposure to remove lighting as a variable" },
@@ -449,19 +472,6 @@ export const projects: Project[] = [
         "Add Anomaly Detection for new defect types not seen in training data",
         "Integrate with MES to trigger alerts and auto-stop the line when defect rate exceeds threshold",
       ],
-    },
-  },
-  {
-    slug: "warehouse-api",
-    title: "Automated Warehouse API",
-    description: "Built robust RESTful APIs to handle inventory tracking and communicate with automated guided vehicles (AGVs) in real-time.",
-    tags: ["Node.js", "Express", "PostgreSQL"],
-    image: "https://images.unsplash.com/photo-1586528116311-ad8ed7ce3040?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: false, year: "2023", duration: "Jun 2023 - Dec 2023",
-    details: {
-      objective: "Build RESTful APIs for inventory management and real-time AGV communication.",
-      features: ["Inventory tracking & management", "Real-time AGV communication via WebSocket", "Location mapping & route optimization", "Transaction logging & audit trail"],
-      results: ["Supports simultaneous communication with 10+ AGVs", "Reduced item search and storage time by 40%"],
     },
   },
   {
@@ -484,34 +494,66 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "production-apps",
-    title: "Digital Production Support Apps",
-    description: "Developed comprehensive applications (maintenance, job request, master job control) to optimize daily operations.",
-    tags: ["Next.js", "Tailwind", "REST API"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: false, year: "2022", duration: "May 2022 - Oct 2022",
-    details: {
-      objective: "Develop a suite of digital applications to support daily factory operations.",
-      features: ["Maintenance Request System", "Job Request & Tracking", "Master Job Control Dashboard", "Work Order Management", "Report Generation"],
-      results: ["Eliminated paper-based maintenance requests (100% paperless)", "Reduced work order processing time by 50%"],
-    },
-  },
-  {
     slug: "smart-agriculture",
-    title: "Smart Agricultural Machinery (IoT)",
-    description: "Applied IoT technologies and sensor integration to engineer and develop smart agricultural machinery concepts for Kubota.",
-    tags: ["IoT", "Hardware Integration", "Sensors"],
-    image: "https://images.unsplash.com/photo-1628186175949-366f030bc39e?auto=format&fit=crop&w=800&q=80",
-    theme: "emerald", isFeatured: false, year: "2022", duration: "Jan 2022 - Dec 2022",
+    title: "Smart Agricultural Machinery & Auto Steering",
+    description: "Tested and developed IoT-integrated agricultural machinery, focusing on drones and tractor Auto Steering systems to boost customer trust and sales.",
+    tags: ["IoT", "Auto Steering", "Drone", "Performance Testing"],
+    image: "/projects/smart-agriculture/p17_img08.jpeg",
+    theme: "emerald", isFeatured: true, year: "2022", duration: "Sep 2021 - Aug 2023",
     details: {
-      objective: "Research and develop smart agricultural machinery concepts with IoT technology for Kubota.",
-      methodology: ["Market feasibility study for agricultural machinery", "Design new product concepts", "Integrate sensors and IoT into machinery", "Performance testing in real field conditions"],
-      hardware: [
-        { name: "IoT Sensors", icon: "Activity", description: "Collects Temp, Humidity, GPS" },
-        { name: "Microcontroller", icon: "Cpu", description: "ESP32 data processing unit" },
-        { name: "Cloud Platform", icon: "Cloud", description: "AWS IoT Core for data sync" }
+      context: "A Research & Development initiative at Kubota to integrate IoT into agricultural machinery, specifically focusing on Drone performance and Tractor Auto Steering systems.",
+      origin: "Driven by the need to increase market share against tech-first competitors by proving Kubota's superior durability and reliability.",
+      painPoint: "Farmers were hesitant to adopt new smart farming tech unless it met the rugged 'heavy machinery' standards they expected from traditional tractors.",
+      objective: "Rigorously test the performance of agricultural drones and Auto Steering systems in real field conditions to validate their durability and precision.",
+      yourRole: "IoT Engineer. Responsible for conducting field tests, data logging, analyzing performance metrics, and co-developing improvements with partners.",
+      methodology: [
+        "Market feasibility study for agricultural machinery",
+        "Integrate sensors and IoT telemetry into machinery",
+        "Conduct rigorous performance testing in real field conditions",
+        "Analyze data to validate durability and precision"
       ],
-      results: ["Developed approved product concept", "Reduced crop losses in farming process"],
+      hardware: [
+        { name: "IoT Sensors", icon: "Activity", description: "Collect Temp, Humidity, GPS" },
+        { name: "Drone Flight System", icon: "Bot", description: "Agricultural spraying drone" },
+        { name: "Auto Steering", icon: "Cpu", description: "Tractor GPS navigation" },
+        { name: "Data Logger", icon: "Server", description: "Real-time telemetry recording" }
+      ],
+      workflow: [
+        "Setup machinery with IoT data loggers",
+        "Define testing parameters and field conditions",
+        "Execute automated flight/driving paths",
+        "Collect real-time telemetry and error rates",
+        "Generate performance and durability reports"
+      ],
+      programFlow: [
+        { id: "setup", label: "Equip Tractor/Drone with Sensors", icon: "⚙️", type: "action" as const, detail: "Install GPS & Telemetry" },
+        { id: "test", label: "Execute Field Test", icon: "🚜", type: "process" as const, detail: "Auto Steering / Auto Flight" },
+        { id: "log", label: "Data Logging (IoT)", icon: "📡", type: "process" as const, detail: "Record deviation & stress" },
+        { id: "analyze", label: "Performance Analysis", icon: "📊", type: "decision" as const, branches: [
+          { condition: "Pass", type: "success", steps: [{ id: "certify", label: "Verify Durability", icon: "✅", type: "success" }] },
+          { condition: "Fail", type: "error", steps: [{ id: "redesign", label: "Hardware/Software Tweak", icon: "🔧", type: "warning" }] }
+        ]},
+      ],
+      results: [
+        "Built immense customer trust by proving 'heavy machinery' durability",
+        "Contributed to a 20-25% higher sales growth compared to tech-only competitors",
+        "Successfully validated Tractor Auto Steering precision for commercial release"
+      ],
+      gallery: [
+        "/projects/smart-agriculture/p17_img01.jpeg",
+        "/projects/smart-agriculture/p17_img02.jpeg",
+        "/projects/smart-agriculture/p17_img03.jpeg",
+        "/projects/smart-agriculture/p17_img04.jpeg",
+        "/projects/smart-agriculture/p17_img05.jpeg",
+        "/projects/smart-agriculture/p17_img06.jpeg",
+        "/projects/smart-agriculture/p17_img07.jpeg",
+        "/projects/smart-agriculture/p17_img08.jpeg",
+        "/projects/smart-agriculture/p17_img09.jpeg",
+        "/projects/smart-agriculture/p17_img10.jpeg",
+        "/projects/smart-agriculture/p17_img11.jpeg",
+        "/projects/smart-agriculture/p17_img12.jpeg",
+        "/projects/smart-agriculture/p17_img13.jpeg"
+      ]
     },
   },
   {
@@ -582,7 +624,7 @@ export const projects: Project[] = [
     title: "Ping Pong Robot Arm",
     description: "Developed a Ping Pong playing robot utilizing LabVIEW and NI myRIO for precise mechanical control and computer vision (Senior Project).",
     tags: ["LabVIEW", "NI myRIO", "Computer Vision", "PID Control", "SolidWorks"],
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
+    image: "/projects/ping-pong-robot/p003_img01.jpeg",
     theme: "purple", isFeatured: false, year: "2019", duration: "Jan 2019 - May 2019",
     details: {
       context: "An automated robotic arm capable of playing ping pong with a human — uses a camera to track the ball in real-time, predicts its landing point, and moves the arm to hit it.",
@@ -630,24 +672,6 @@ export const projects: Project[] = [
         "Implement Stereo Vision camera to acquire 3D positions directly without estimating Z.",
         "Increase the robot arm's Degree of Freedom to 6 DOF to handle more complex interactions.",
       ],
-    },
-  },
-  {
-    slug: "air-hockey-robot",
-    title: "Air Hockey Robot Arm",
-    description: "Extended the Ping Pong Robot system to play Air Hockey, applying computer vision and real-time motor control.",
-    tags: ["LabVIEW", "NI myRIO", "Image Processing", "DC Motor"],
-    image: "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: false, year: "2019", duration: "2019",
-    details: {
-      objective: "Extend the Ping Pong Robot system to play Air Hockey, adapting the tracking algorithm for 2D planar motion.",
-      methodology: ["Adapt Computer Vision algorithm for Air Hockey Puck", "Adjust 2D (X, Y) control system", "Test response speed capabilities"],
-      hardware: [
-        { name: "USB Camera", icon: "Camera", description: "Tracks puck in real-time" },
-        { name: "NI myRIO", icon: "Cpu", description: "Main logic controller" },
-        { name: "DC Motors", icon: "Activity", description: "X and Y axis actuation" }
-      ],
-      results: ["Achieved real-time interaction with the puck", "Response speed was sufficient for playing Air Hockey"],
     },
   },
   {
