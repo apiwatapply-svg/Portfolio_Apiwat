@@ -868,8 +868,25 @@ export const projects: Project[] = [
         { url: "/projects/ros-automation/agv-web-control.png", caption: "React web control panel connected to ROSBridge with station commands and Map2D viewer", type: "image" }
       ],
       videos: [
-        { url: "/projects/ros-automation/HmGA6tf8itk.mp4", caption: "AGV working system demonstration" },
-        { url: "/projects/ros-automation/yPlYCydJhrE.mp4", caption: "Point-to-point navigation test" }
+        { url: "/projects/ros-automation/HmGA6tf8itk.mp4", caption: "AGV working system demonstration: real movement, station command behavior, and robot response" },
+        { url: "/projects/ros-automation/yPlYCydJhrE.mp4", caption: "Point-to-point navigation test: AGV moving between predefined warehouse points" }
+      ],
+      imageStory: [
+        {
+          url: "/projects/ros-automation/cover.png",
+          title: "1. Full AGV Automation Scope",
+          caption: "The project combines the real AGV specification, warehouse movement logic, ROS navigation, and a web control panel into one machine-side automation system."
+        },
+        {
+          url: "/projects/ros-automation/overall-agv-spec.png",
+          title: "2. Machine & Hardware Specification",
+          caption: "This image shows the AGV body, dimensions, payload, navigation device, speed, communication method, and safety-device notes used to frame the software requirements."
+        },
+        {
+          url: "/projects/ros-automation/agv-web-control.png",
+          title: "3. Operator Web Control",
+          caption: "The React web UI connects through ROSBridge, shows robot connection state, renders a Map2D view, and lets operators command HOME or station A-E movement."
+        }
       ],
       gallery: [
         "/projects/ros-automation/cover.png",
