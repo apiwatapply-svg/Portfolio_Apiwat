@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, BookOpen, Cpu, Layers, CheckCircle2, Target, Activity, Settings, Lightbulb, ArrowRight, ArrowDown, ImageIcon, Video } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, BookOpen, Cpu, CheckCircle2, Target, Activity, Settings, Lightbulb, Video } from "lucide-react";
 
 // ---------------------------------------------------------
 // Helper: Image Slider Component for multiple images

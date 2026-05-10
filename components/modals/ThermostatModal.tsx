@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, BookOpen, Cpu, CheckCircle2, Target, Activity, Settings, Lightbulb, User, Stethoscope, Droplets, Snowflake, Repeat } from "lucide-react";
+import { X, BookOpen, Cpu, CheckCircle2, Target, Activity, Settings, User, Stethoscope, Snowflake, Repeat } from "lucide-react";
 
 // ---------------------------------------------------------
 // Main Modal Component

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Target, User, BarChart2, Workflow, Camera, Server, Activity, Wifi, Bot, Cloud, Code } from "lucide-react";
+import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Target, User, BarChart2, Camera, Server, Activity, Wifi, Bot, Cloud, Code } from "lucide-react";
 import { type Project } from "@/lib/data";
 import AnimationFlow from "@/components/AnimationFlow";
 
@@ -45,9 +45,6 @@ export default function SmartAgricultureModal({ project, onClose }: Props) {
 
   const t = themeMap[project.theme];
   const d = project.details;
-
-  const hasTechnicalData = d?.workflow?.length || d?.technicalHighlights?.length || d?.challenges?.length;
-  const hasVisualData = d?.metrics?.length || d?.userFlow?.length || d?.programFlow?.length || d?.hardware?.length;
 
   return (
     <AnimatePresence>

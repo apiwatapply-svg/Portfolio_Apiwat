@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRight, ExternalLink, Calendar } from "lucide-react";
+import { ArrowRight, ExternalLink, Calendar, Code2, GitBranch, ShieldCheck, PackageCheck, Rocket, FileText } from "lucide-react";
 import ProjectModal from "./ProjectModal";
 import Workflow3D from "@/components/Workflow3D";
 import { Layers } from "lucide-react";
@@ -13,15 +13,12 @@ import PLCDoorModal from "./modals/PLCDoorModal";
 import StudentAttendanceModal from "./modals/StudentAttendanceModal";
 import OnlineDocumentStorageModal from "./modals/OnlineDocumentStorageModal";
 import CoffeeShopPosModal from "./modals/CoffeeShopPosModal";
+import UnclonedEcommerceModal from "./modals/UnclonedEcommerceModal";
 import FieldBookingSystemModal from "./modals/FieldBookingSystemModal";
-import MaterialRequisitionModal from "./modals/MaterialRequisitionModal";
 import RestaurantPosModal from "./modals/RestaurantPosModal";
 import BarbershopBookingModal from "./modals/BarbershopBookingModal";
-import N8nAutomationModal from "./modals/N8nAutomationModal";
-import AutoSettingMachineModal from "./modals/AutoSettingMachineModal";
 import BookingMeetingRoomModal from "./modals/BookingMeetingRoomModal";
 import AbnormalDefectDetectionModal from "./modals/AbnormalDefectDetectionModal";
-import OilRecordingPaperlessModal from "./modals/OilRecordingPaperlessModal";
 import MmsDashboardModal from "./modals/MmsDashboardModal";
 import PredictiveMaintenanceModal from "./modals/PredictiveMaintenanceModal";
 import AiDefectInspectionModal from "./modals/AiDefectInspectionModal";
@@ -50,8 +47,104 @@ const themeMap = {
   orange: "text-orange-600 dark:text-orange-400",
 };
 
+const devOpsWorkflowSteps = [
+  {
+    title: "Coding",
+    detail: "Develop machine-side features, service scripts, and web modules with clear structure, environment separation, and local validation.",
+    deliverable: "Ready-to-review code",
+    icon: Code2,
+    color: "bg-blue-600",
+  },
+  {
+    title: "Git Workflow",
+    detail: "Define repository structure, branch strategy, commit convention, pull request review, and merge policy.",
+    deliverable: "Traceable repository workflow",
+    icon: GitBranch,
+    color: "bg-purple-600",
+  },
+  {
+    title: "CI",
+    detail: "Run dependency install, lint, type checks, tests, build validation, and artifact packaging before release.",
+    deliverable: "Validated build artifact",
+    icon: PackageCheck,
+    color: "bg-emerald-600",
+  },
+  {
+    title: "CD",
+    detail: "Automate release steps, manage environment configuration, prepare rollback notes, and control deployment approvals.",
+    deliverable: "Release automation",
+    icon: ShieldCheck,
+    color: "bg-orange-600",
+  },
+  {
+    title: "Deploy",
+    detail: "Deploy with PM2 for offline machine servers, Azure when cloud infrastructure is required, or Vercel for web applications.",
+    deliverable: "PM2 offline / Azure / Vercel deployment",
+    icon: Rocket,
+    color: "bg-cyan-600",
+  },
+  {
+    title: "Staging & Documentation",
+    detail: "Validate staging and SIT results, then document deployment guides, operating procedures, and handover checklists.",
+    deliverable: "Operation Manual",
+    icon: FileText,
+    color: "bg-slate-600",
+  },
+];
+
+function DevOpsWorkflowSection() {
+  return (
+    <div className="bg-slate-950 text-white rounded-2xl p-6 md:p-10 shadow-sm overflow-hidden">
+      <div className="max-w-3xl mb-8">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-200 text-xs font-bold uppercase tracking-wider mb-4">
+          Coding / Git / CI-CD / Deploy
+        </div>
+        <h3 className="text-2xl md:text-3xl font-black mb-4 flex items-center gap-3">
+          <GitBranch className="text-blue-300" size={28} />
+          DevOps Workflow for Machine-side Software
+        </h3>
+        <p className="text-slate-300 leading-relaxed text-lg">
+          A practical delivery flow for factory applications: from coding and Git control to CI/CD automation, PM2 offline deployment, optional cloud deployment, staging validation, and operation manuals.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {devOpsWorkflowSteps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <motion.div
+              key={step.title}
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+              }}
+              className="border border-white/10 bg-white/[0.04] rounded-xl p-5"
+            >
+              <div className="flex items-start gap-3 mb-4">
+                <div className={`w-10 h-10 ${step.color} rounded-lg flex items-center justify-center shrink-0`}>
+                  <Icon size={20} />
+                </div>
+                <div>
+                  <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Step {index + 1}</div>
+                  <h4 className="font-black text-white leading-tight">{step.title}</h4>
+                </div>
+              </div>
+              <p className="text-sm text-slate-300 leading-relaxed mb-4">{step.detail}</p>
+              <div className="text-xs font-bold text-blue-200 bg-blue-500/10 border border-blue-400/20 rounded-lg px-3 py-2">
+                Deliverable: {step.deliverable}
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 
 function WorkflowSection() {
+  const [workflowView, setWorkflowView] = useState<"end-to-end" | "devops">("end-to-end");
+
   return (
     <motion.div
       initial="hidden"
@@ -60,8 +153,34 @@ function WorkflowSection() {
         hidden: { opacity: 0 },
         visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
       }}
-      className="mt-8 space-y-12"
+      className="mt-8 space-y-8"
     >
+      <div className="flex flex-wrap gap-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-1 w-fit">
+        <button
+          type="button"
+          onClick={() => setWorkflowView("end-to-end")}
+          className={`px-4 py-2 rounded-lg text-sm font-bold transition-colors ${
+            workflowView === "end-to-end"
+              ? "bg-blue-600 text-white"
+              : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+          }`}
+        >
+          End-to-End Workflow
+        </button>
+        <button
+          type="button"
+          onClick={() => setWorkflowView("devops")}
+          className={`px-4 py-2 rounded-lg text-sm font-bold transition-colors ${
+            workflowView === "devops"
+              ? "bg-blue-600 text-white"
+              : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+          }`}
+        >
+          DevOps Workflow
+        </button>
+      </div>
+
+      {workflowView === "end-to-end" && (
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-10 shadow-sm">
         <div className="max-w-3xl mb-8">
           <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-4 flex items-center gap-3">
@@ -140,6 +259,9 @@ function WorkflowSection() {
           </div>
         </div>
       </div>
+      )}
+
+      {workflowView === "devops" && <DevOpsWorkflowSection />}
     </motion.div>
   );
 }
@@ -170,9 +292,6 @@ function FeaturedGrid({ items, onSelect }: { items: Project[], onSelect: (p: Pro
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 {project.isFeatured && (
                   <div className="absolute top-3 right-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-md shadow-sm">Featured</div>
-                )}
-                {Number(project.year) >= 2023 && Number(project.year) <= 2026 && (
-                  <div className="absolute top-3 left-3 bg-amber-500 text-white text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md shadow-sm">Upcoming</div>
                 )}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <button onClick={() => onSelect(project)} className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/50 hover:bg-white hover:text-slate-900 transition-colors" aria-label={`View ${project.title}`}>
@@ -236,9 +355,6 @@ function TimelineList({ items, onSelect }: { items: Project[], onSelect: (p: Pro
                     </div>
                     <div className={`text-xs font-semibold mb-3 flex items-center gap-2 ${themeMap[project.theme]}`}>
                       <span>{project.duration}</span>
-                      {Number(project.year) >= 2023 && Number(project.year) <= 2026 && (
-                        <span className="bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wider">Upcoming</span>
-                      )}
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {project.tags.map((tag) => (
@@ -381,24 +497,18 @@ export default function ProjectsSection() {
           <OnlineDocumentStorageModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "coffee-shop-pos" ? (
           <CoffeeShopPosModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+        ) : selectedProject.slug === "uncloned-ecommerce" ? (
+          <UnclonedEcommerceModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "field-booking-system" ? (
           <FieldBookingSystemModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-        ) : selectedProject.slug === "material-requisition" ? (
-          <MaterialRequisitionModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "restaurant-pos" ? (
           <RestaurantPosModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "barbershop-booking" ? (
           <BarbershopBookingModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-        ) : selectedProject.slug === "n8n-automation" ? (
-          <N8nAutomationModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-        ) : selectedProject.slug === "auto-setting-machine" ? (
-          <AutoSettingMachineModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "booking-meeting-room" ? (
           <BookingMeetingRoomModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "abnormal-defect-detection" ? (
           <AbnormalDefectDetectionModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-        ) : selectedProject.slug === "oil-recording-paperless" ? (
-          <OilRecordingPaperlessModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "mms-dashboard" ? (
           <MmsDashboardModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "predictive-maintenance" ? (

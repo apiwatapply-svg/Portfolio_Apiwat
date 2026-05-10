@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, MessageCircle } from "lucide-react";
 import { personalInfo } from "@/lib/data";
 
@@ -147,9 +148,11 @@ export default function ContactFooter() {
                   {/* QR Code Tooltip */}
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                     <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col items-center gap-1.5 min-w-[140px]">
-                      <img 
+                      <Image
                         src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://line.me/ti/p/~${personalInfo.lineId}`} 
                         alt="Line QR Code" 
+                        width={112}
+                        height={112}
                         className="w-28 h-28 rounded-lg bg-white p-1"
                       />
                       <span className="text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap mt-1">

@@ -157,7 +157,7 @@ export default function PingPongRobotModal({ project, onClose }: Props) {
                           <Cpu size={18} className="text-blue-500" /> Inverse Kinematics
                         </h4>
                         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                          Once the Computer Vision system calculates the target X, Y, Z coordinates of the ball's landing point, these coordinates are converted into Joint Angles for each axis via Inverse Kinematics equations.
+                          Once the Computer Vision system calculates the target X, Y, Z coordinates of the ball&apos;s landing point, these coordinates are converted into Joint Angles for each axis via Inverse Kinematics equations.
                         </p>
                       </div>
 
@@ -216,7 +216,7 @@ export default function PingPongRobotModal({ project, onClose }: Props) {
                         />
                       </div>
                       <p className="text-xs text-center text-slate-500 font-medium">
-                        Linear Prediction results for the ping pong ball's trajectory.
+                        Linear Prediction results for the ping pong ball&apos;s trajectory.
                       </p>
                     </div>
 
@@ -226,7 +226,7 @@ export default function PingPongRobotModal({ project, onClose }: Props) {
                           <Eye size={18} className="text-blue-500" /> Color Blob Tracking
                         </h4>
                         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                          LabVIEW processes images from a USB camera in real-time at 30 FPS, utilizing Color Thresholding techniques to detect the ping pong ball's color and extract its (X, Y) coordinates.
+                          LabVIEW processes images from a USB camera in real-time at 30 FPS, utilizing Color Thresholding techniques to detect the ping pong ball&apos;s color and extract its (X, Y) coordinates.
                         </p>
                       </div>
 

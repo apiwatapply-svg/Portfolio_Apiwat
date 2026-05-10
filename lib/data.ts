@@ -5,7 +5,7 @@
 export const personalInfo = {
   name: "Apiwat",
   fullName: "Apiwat Nonut",
-  role: "Developer Engineer",
+  role: "Industrial Software & DevOps Engineer",
   email: "apiwat.apply@gmail.com",
   phone: "092-5853800",
   location: "Suratthani, Thailand",
@@ -13,7 +13,7 @@ export const personalInfo = {
   facebook: "https://www.facebook.com/apiwat.nonut",
   line: "0925853800",
   lineId: "oatza38",
-  bio: "Passionate about bridging the gap between Software Engineering and Industrial Automation. I design and develop intelligent solutions that enhance decision-making and resolve complex production challenges.",
+  bio: "Industrial software developer focused on machine-side applications, factory systems, and DevOps workflows. I bridge production requirements, software architecture, Git workflow, CI/CD, and deployment automation for reliable factory operations.",
   availability: "Available for new opportunities",
   yearsOfExperience: "5+",
   avatar: "/Apiwat.png",
@@ -70,11 +70,16 @@ export const skillCategories: SkillCategory[] = [
     iconKey: "devops",
     theme: "orange",
     skills: [
+      { name: "Azure DevOps", iconKey: "azure" },
+      { name: "YAML Pipeline", iconKey: "pipeline" },
+      { name: "CI/CD", iconKey: "pipeline" },
+      { name: "Git Workflow", iconKey: "git" },
+      { name: "Release Pipeline", iconKey: "release" },
       { name: "Git", iconKey: "git" },
       { name: "Docker", iconKey: "docker" },
       { name: "Linux Server", iconKey: "linux" },
-      { name: "REST API", iconKey: "api" },
-      { name: "Cloud (Vercel)", iconKey: "vercel" },
+      { name: "Artifact Publish", iconKey: "artifact" },
+      { name: "Deployment Scripts", iconKey: "terminal" },
     ],
   },
 ];
@@ -117,6 +122,7 @@ export type ProjectDetails = {
   technicalHighlights?: { title: string; description: string }[];
   gallery?: string[];
   videoUrl?: string;
+  videos?: { url: string; caption: string }[];
   visualEvidence?: {
     url: string;
     caption: string;
@@ -133,6 +139,7 @@ export type ProjectDetails = {
   keySkillsUsed?: string[];
   lessonsLearned?: string[];
   nextSteps?: string[];
+  demoCredentials?: { role: string; email: string; password: string }[];
 };
 
 export type Project = {
@@ -146,6 +153,7 @@ export type Project = {
   year: string;
   duration: string;
   link?: string;
+  githubUrl?: string;
   details?: ProjectDetails;
 };
 
@@ -165,13 +173,208 @@ export const projects: Project[] = [
   {
     slug: "coffee-shop-pos",
     title: "Coffee Shop POS System",
-    description: "Engineered a modern Point-of-Sale (POS) system tailored for coffee shops, featuring quick order entry, loyalty programs, and sales analytics.",
-    tags: ["Vue.js", "Express", "MongoDB", "WebSocket"],
-    image: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: false, year: "2025", duration: "Jul 2025 - Sep 2025",
+    description: "Built a production-ready coffee shop POS web app with cashier checkout, live barista queue, product management, reporting, SQL Server persistence, and PM2-ready customer-machine deployment.",
+    tags: ["Next.js", "TypeScript", "SQL Server", "PM2", "Vitest", "Playwright"],
+    image: "/projects/coffee-shop-pos/cover.png",
+    theme: "orange", isFeatured: true, year: "2026", duration: "Apr 2026 - May 2026",
+    githubUrl: "https://github.com/apiwatapply-svg/POS_coffee",
     details: {
-      objective: "Streamline the ordering and payment process for fast-paced coffee shop environments.",
-      features: ["Touch-friendly quick order interface", "Integration with receipt printers and cash drawers", "Real-time daily sales analytics dashboard"],
+      objective: "Deliver a reliable POS system that keeps cashier checkout, barista preparation, product catalog management, order history, and sales reporting in one operational workflow.",
+      context: "A full-stack coffee shop POS application designed for small cafe teams and customer-side deployment. The system uses Next.js App Router, SQL Server, server actions, protected layouts, role-based access, and documented deployment steps.",
+      origin: "Created as a practical production-style business system with a clean path for deployment on a customer machine using PM2 and Microsoft SQL Server.",
+      painPoint: "Small shops often rely on manual orders, spreadsheet summaries, and disconnected cashier/barista communication, making it hard to track order status, receipts, and daily sales accurately.",
+      yourRole: "Full-stack Developer. Responsible for requirements, system architecture, database schema, role-based access, POS cart flow, server actions, tests, documentation, and PM2-ready deployment preparation.",
+      keySkillsUsed: ["Next.js 16", "React 19", "TypeScript", "SQL Server", "Server Actions", "Zustand", "Zod", "Recharts", "Vitest", "Playwright", "PM2 Deployment"],
+      demoCredentials: [
+        { role: "Admin", email: "admin@example.com", password: "password123" },
+        { role: "Manager", email: "manager@example.com", password: "password123" },
+        { role: "Cashier", email: "cashier@example.com", password: "password123" },
+        { role: "Barista", email: "barista@example.com", password: "password123" }
+      ],
+      features: [
+        "Fast cashier POS with product search, category filters, modifiers, cart totals, and checkout validation",
+        "Live barista queue for paid orders, preparation status, and pickup completion",
+        "Product management for categories, menu items, prices, availability, and modifiers",
+        "Order history, receipt pages, cancellation flow, and operational traceability",
+        "Dashboard summary metrics and charts for manager/admin sales visibility",
+        "Role-based access for Admin, Manager, Cashier, and Barista workflows"
+      ],
+      workflow: [
+        "Staff Login",
+        "Role Redirect",
+        "POS Checkout",
+        "SQL Server Transaction",
+        "Receipt",
+        "Barista Queue",
+        "Dashboard & Reports",
+        "PM2 Deployment"
+      ],
+      technicalHighlights: [
+        {
+          title: "SQL Server Operational Database",
+          description: "Designed schema and seed data for products, modifiers, orders, payments, staff profiles, and sessions with SQL Server as the system of record."
+        },
+        {
+          title: "Protected Role-Based Workflows",
+          description: "Separated Admin, Manager, Cashier, and Barista flows with protected layouts, service-layer permission checks, and HTTP-only session cookies."
+        },
+        {
+          title: "Transaction-Safe Checkout",
+          description: "Order creation persists order header, order items, selected modifiers, and payment records through server-side services and database transactions."
+        },
+        {
+          title: "Customer-Machine Deployment",
+          description: "Prepared for on-site deployment with environment configuration, SQL Server setup, production build verification, and PM2 process management."
+        }
+      ],
+      results: [
+        "Completed MVP foundation with cashier, barista, product, order, dashboard, and authentication areas",
+        "Documented requirements, system architecture, API/service contracts, and deployment checklist",
+        "Added unit tests for calculations, validations, role guards, permissions, and dashboard summary",
+        "Added Playwright E2E coverage for the checkout flow when SQL Server runtime configuration is available",
+        "Verified real local login and protected pages for Admin demo access"
+      ],
+      challenges: [
+        {
+          issue: "The POS must feel fast while still keeping payment and order persistence reliable.",
+          solution: "Kept cart state local with Zustand before checkout, then moved persistence into server-side services and SQL Server transactions."
+        },
+        {
+          issue: "The same app needs different screens and permissions for cashier, barista, manager, and admin users.",
+          solution: "Implemented role-aware navigation, protected layouts, and permission checks in service functions before sensitive operations."
+        },
+        {
+          issue: "Customer-machine deployment needs repeatable setup rather than manual ad hoc startup.",
+          solution: "Documented environment variables, SQL Server setup, build checks, and a PM2-ready start flow for local production hosting."
+        }
+      ],
+      visualEvidence: [
+        { url: "/projects/coffee-shop-pos/pos.png", caption: "Cashier POS product grid and current order panel", type: "image" },
+        { url: "/projects/coffee-shop-pos/dashboard.png", caption: "Admin dashboard with sales summary and reporting view", type: "image" },
+        { url: "/projects/coffee-shop-pos/barista.png", caption: "Barista queue for order preparation workflow", type: "image" },
+        { url: "/projects/coffee-shop-pos/products.png", caption: "Product management for menu and availability control", type: "image" },
+        { url: "/projects/coffee-shop-pos/login.png", caption: "Staff login screen with role-based redirect", type: "image" }
+      ],
+      gallery: [
+        "/projects/coffee-shop-pos/pos.png",
+        "/projects/coffee-shop-pos/dashboard.png",
+        "/projects/coffee-shop-pos/barista.png",
+        "/projects/coffee-shop-pos/products.png"
+      ],
+      lessonsLearned: [
+        "POS systems need short cashier interactions, but the backend still needs strict validation and transaction boundaries.",
+        "Role-based workflow design improves usability because each staff type sees only the screens needed for their work.",
+        "Deployment documentation is part of the product when the system will run on a customer machine."
+      ],
+      nextSteps: [
+        "Add PM2 ecosystem configuration and Windows startup service notes for customer-site deployment.",
+        "Add inventory deduction and low-stock alerts after each completed order.",
+        "Add receipt printer integration and branch-level reporting for multi-store usage."
+      ],
+    },
+  },
+  {
+    slug: "uncloned-ecommerce",
+    title: "UNCLONED E-Commerce Storefront",
+    description: "Built a Supabase-backed handmade apparel storefront with bilingual product browsing, cart checkout, PromptPay QR flow, admin inventory, customer orders, and analytics.",
+    tags: ["Next.js", "TypeScript", "Supabase", "RLS", "PromptPay QR", "Zustand", "Playwright", "Vercel"],
+    image: "/projects/uncloned/cover.png",
+    theme: "orange", isFeatured: true, year: "2025", duration: "Sep 2025 - Nov 2025",
+    githubUrl: "https://github.com/ApiwatN/UNCLONED",
+    details: {
+      objective: "Create a retail-ready e-commerce platform for handmade clothing that connects customer browsing, checkout, product stock, order tracking, and admin analysis in one workflow.",
+      context: "UNCLONED is a Next.js 16 storefront for handmade apparel with Thai/English UI, Supabase data storage, product variants, cart state, PromptPay QR checkout, and a protected admin back office.",
+      origin: "Added to the portfolio as a practical e-commerce and customer-facing web system, with real Supabase data restored, seeded, and verified for demonstration.",
+      painPoint: "Small fashion brands need more than a static catalog: they need stock-aware product pages, checkout records, order follow-up, and admin visibility without a heavy enterprise platform.",
+      yourRole: "Full-stack Developer. Responsible for system review, Supabase recovery, demo data preparation, product image repair, storefront/admin verification, real screenshot capture, and portfolio case-study documentation.",
+      keySkillsUsed: ["Next.js 16", "React 19", "TypeScript", "Supabase", "PostgreSQL RLS", "Zustand", "PromptPay QR", "Cloudinary-ready Upload", "Playwright", "Vercel"],
+      demoCredentials: [
+        { role: "Admin Basic Auth", email: "admin", password: "uncloned2026" }
+      ],
+      features: [
+        "Bilingual storefront with hero, story section, collection grid, category filter, product detail, and responsive retail UX",
+        "Supabase product catalog with categories, product variants, stock quantities, low-stock badges, and unique real product images",
+        "Cart and checkout flow with quantity control, customer shipping form, PromptPay QR payment flow, and order persistence",
+        "Protected admin area for inventory management, product visibility, order status, tracking number updates, and sales analytics",
+        "SEO-oriented product page structure with metadata and structured data support for product discovery",
+        "Portfolio-ready data recovery workflow after Supabase pause, including seed verification and screenshot evidence from the live app"
+      ],
+      workflow: [
+        "Customer Browsing",
+        "Product Search & Filter",
+        "Product Detail",
+        "Cart",
+        "Checkout & PromptPay",
+        "Supabase Order",
+        "Admin Inventory",
+        "Orders & Analytics",
+        "Vercel Deployment"
+      ],
+      technicalHighlights: [
+        {
+          title: "Supabase Storefront Data Model",
+          description: "Uses Supabase tables for products, variants, orders, and order items with RLS-aware access patterns for storefront and admin workflows."
+        },
+        {
+          title: "Retail UX With Real Product Evidence",
+          description: "Product grid, product detail, and admin pages were verified against restored Supabase data with 12 unique product images and 16 product variants."
+        },
+        {
+          title: "Checkout And Order Operations",
+          description: "Checkout records customer shipping details, line items, PromptPay payment state, and order status for admin follow-up."
+        },
+        {
+          title: "Admin Analytics Dashboard",
+          description: "Admin analytics summarizes revenue, completed orders, drop-off count, payment conversion, customer segments, and top-selling products."
+        }
+      ],
+      results: [
+        "Restored the paused Supabase-backed demo and verified that the production server responds correctly",
+        "Prepared demo inventory with 12 products, 16 variants, 6 orders, and 9 order items for realistic admin and analytics views",
+        "Repaired broken product image links and verified every product image returned HTTP 200 before screenshot capture",
+        "Captured real storefront, product detail, inventory, order, and analytics screenshots from the running web app",
+        "Verified the UNCLONED production build before adding the project into the portfolio"
+      ],
+      challenges: [
+        {
+          issue: "Supabase project was paused because it had not been used for a while.",
+          solution: "Restored the Supabase project from the dashboard, then rechecked product, variant, order, and order item reads from the live app."
+        },
+        {
+          issue: "Some external product image URLs were broken after data restoration.",
+          solution: "Updated the affected product image URLs with unique working product images and re-captured the portfolio screenshots."
+        },
+        {
+          issue: "Admin order and analytics pages need protected server-side access to operational data.",
+          solution: "For demo verification, read access was enabled for portfolio evidence; production should use a service-role server environment variable for admin API routes."
+        }
+      ],
+      visualEvidence: [
+        { url: "/projects/uncloned/home.png", caption: "Live UNCLONED storefront hero with bilingual navigation", type: "image" },
+        { url: "/projects/uncloned/collection.png", caption: "Collection grid populated from Supabase with unique product images", type: "image" },
+        { url: "/projects/uncloned/product-detail.png", caption: "Product detail page with variants, stock, quantity control, and add-to-cart flow", type: "image" },
+        { url: "/projects/uncloned/admin-products.png", caption: "Admin inventory management with restored product data", type: "image" },
+        { url: "/projects/uncloned/admin-orders.png", caption: "Admin order workflow with demo customer orders and fulfillment status", type: "image" },
+        { url: "/projects/uncloned/admin-analytics.png", caption: "Admin analytics dashboard using restored Supabase order data", type: "image" }
+      ],
+      gallery: [
+        "/projects/uncloned/home.png",
+        "/projects/uncloned/collection.png",
+        "/projects/uncloned/product-detail.png",
+        "/projects/uncloned/admin-products.png",
+        "/projects/uncloned/admin-orders.png",
+        "/projects/uncloned/admin-analytics.png"
+      ],
+      lessonsLearned: [
+        "Portfolio screenshots should be captured from the real running app after data recovery, not from mock or stale states.",
+        "Supabase RLS is useful for security, but admin reporting should be planned around server-only credentials.",
+        "E-commerce demos look more credible when product images, inventory counts, and admin orders are all consistent."
+      ],
+      nextSteps: [
+        "Move admin read/write access to SUPABASE_SERVICE_ROLE_KEY in the server runtime before production use.",
+        "Replace basic auth with a stronger admin authentication flow and role-based authorization.",
+        "Add automated payment confirmation, shipping notifications, and richer sales trend exports."
+      ],
     },
   },
   {
@@ -184,18 +387,6 @@ export const projects: Project[] = [
     details: {
       objective: "Digitize sports facility reservations to prevent double-booking and automate payments.",
       features: ["Real-time availability calendar", "Automated booking confirmations via SMS/Email", "Dynamic pricing based on peak hours"],
-    },
-  },
-  {
-    slug: "material-requisition",
-    title: "Material Requisition System",
-    description: "Developed an internal inventory and requisition system for factories to track material usage and automate restock alerts.",
-    tags: ["React", "GraphQL", "PostgreSQL", "Docker"],
-    image: "https://images.unsplash.com/photo-1586528116311-ad8ed7ce3040?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: false, year: "2026", duration: "Jul 2026 - Sep 2026",
-    details: {
-      objective: "Optimize internal supply chain and prevent material shortages in the production line.",
-      features: ["Barcode scanning for material check-in/out", "Approval workflow for high-value items", "Low stock automated email alerts"],
     },
   },
   {
@@ -224,54 +415,105 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "n8n-automation",
-    title: "n8n Enterprise Workflow Automation",
-    description: "Architected a low-code automation pipeline to connect production data to ERP systems and trigger real-time LINE Notify alerts.",
-    tags: ["n8n", "Low-code", "REST API", "LINE Notify", "ERP"],
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    theme: "purple", isFeatured: true, year: "2026", duration: "Jan 2026 - Present",
-    details: {
-      objective: "Streamline factory data workflows and alert systems using n8n to reduce manual data entry and coding overhead.",
-      context: "An enterprise-level workflow automation platform — connects fragmented industrial data from production databases to modern communication tools like LINE Notify and ERP systems.",
-      origin: "A strategic initiative to reduce the high cost and time of developing custom hard-coded integration scripts for routine data synchronization and alerting tasks.",
-      painPoint: "Fragmented data sources and siloed information made it difficult to get real-time insights without manual data extraction and coding overhead.",
-      yourRole: "System Architect & Lead Developer. Responsible for self-hosting n8n, designing resilient workflows with error-handling logic, and integrating various APIs including LINE Notify and corporate ERP.",
-      keySkillsUsed: ["n8n", "Workflow Automation", "API Integration", "Webhooks", "LINE Notify API", "JSON Data Processing", "Self-hosting (Docker)"],
-      features: ["Automated data synchronization between Factory DB and ERP", "Real-time production issue alerts via LINE Notify", "Webhook integrations for IoT sensors"],
-      results: ["Cut development time for new integrations by 70%", "Enabled instant supervisor notifications for critical line down events"],
-      lessonsLearned: [
-        "Low-code does not mean low-logic; structured workflow design and modularity are critical for long-term maintenance.",
-        "Real-time alerts significantly improve operational responsiveness on the production floor."
-      ],
-      nextSteps: [
-        "Implement AI-driven decision nodes (AI Agents) within n8n workflows to automate more complex task routing.",
-        "Integrate with more legacy systems via custom n8n nodes or specialized adapters."
-      ],
-    },
-  },
-  {
-    slug: "auto-setting-machine",
-    title: "Auto Setting Machine",
-    description: "Engineered an automated configuration system for manufacturing machines to drastically reduce setup time and operator errors.",
-    tags: ["PLC", "HMI", "C#", "Automation"],
-    image: "https://images.unsplash.com/photo-1565439390235-c335e9f8546b?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: false, year: "2026", duration: "Mar 2026 - Present",
-    details: {
-      objective: "Automate machine parameter configuration for new production batches.",
-      features: ["Barcode scanning for automatic recipe loading", "Direct parameter injection to PLC", "Audit logs for setting changes"],
-      results: ["Reduced machine setup time by 40%", "Zero parameter input errors across deployed lines"],
-    },
-  },
-  {
     slug: "booking-meeting-room",
     title: "Booking Meeting Room",
-    description: "Developed a responsive web application for managing factory meeting room reservations and schedules.",
-    tags: ["Next.js", "Tailwind", "PostgreSQL"],
-    image: "https://images.unsplash.com/photo-1497215840616-091a14151770?auto=format&fit=crop&w=800&q=80",
-    theme: "emerald", isFeatured: false, year: "2025", duration: "Feb 2025 - Apr 2025",
+    description: "Built a meeting room booking system with real-time room availability, calendar scheduling, admin room/user management, SQL Server data, realistic room images, and PM2-ready single-port deployment.",
+    tags: ["Next.js", "Express", "Prisma", "SQL Server", "Socket.IO", "PM2"],
+    image: "/projects/booking-meeting-room/cover.png",
+    theme: "emerald", isFeatured: true, year: "2025", duration: "Apr 2025 - Jun 2025",
+    githubUrl: "https://github.com/ApiwatN/meetng_room_project",
     details: {
-      objective: "Provide a centralized platform for staff to book meeting rooms and avoid schedule conflicts.",
-      features: ["Real-time availability calendar", "Automated email confirmations", "Admin dashboard for room management"],
+      objective: "Provide a centralized platform for staff to check meeting room availability, reserve rooms, prevent schedule conflicts, and let admins manage rooms, users, and usage reports.",
+      context: "A factory-style internal booking system with a Next.js static frontend served by an Express backend on one port. The backend uses Prisma with SQL Server and exposes booking, room, user, and report APIs.",
+      origin: "Created to replace manual room reservation tracking with a browser-based workflow that is easier to deploy on a customer or internal Windows server with PM2.",
+      painPoint: "Manual meeting room booking creates duplicated reservations, unclear availability, and limited visibility for admins who need to manage rooms, users, and daily schedules.",
+      yourRole: "Full-stack Developer. Responsible for frontend booking UX, Express API integration, Prisma/SQL Server data model, admin management pages, mock schedule data, realistic meeting room image assets, and PM2-ready deployment shape.",
+      keySkillsUsed: ["Next.js", "React", "TypeScript", "Express", "Prisma", "SQL Server", "Socket.IO", "Static Export", "PM2 Deployment"],
+      demoCredentials: [
+        { role: "Admin", email: "admin", password: "admin" }
+      ],
+      features: [
+        "Room dashboard showing 5 meeting rooms with capacity, facilities, availability, realistic room images, and upcoming bookings",
+        "Timeline schedule for checking room usage across working hours",
+        "Booking form with topic, date/time, attendee, private booking, and recurring booking support",
+        "Admin room management for room name, capacity, facilities, image, and room status",
+        "Admin user management and usage reporting for booking activity",
+        "Single-port production deployment where Express serves the static Next.js export and API together"
+      ],
+      workflow: [
+        "Admin Login",
+        "Dashboard Availability",
+        "Select Room",
+        "Create Booking",
+        "Conflict Validation",
+        "Calendar Update",
+        "Admin Reports",
+        "PM2 Deployment"
+      ],
+      technicalHighlights: [
+        {
+          title: "Single-Port Deployment",
+          description: "Configured the frontend as a static export and served it from the Express backend, keeping app pages and APIs under one PM2 process."
+        },
+        {
+          title: "SQL Server Mock Data",
+          description: "Seeded admin login, sample users, 5 meeting rooms, realistic room images, one-time bookings, and recurring weekly bookings."
+        },
+        {
+          title: "Real-Time Refresh",
+          description: "Used Socket.IO events for booking and room updates so the dashboard can refresh availability when reservations change."
+        },
+        {
+          title: "Admin Operations",
+          description: "Included room, user, calendar, and report views so admins can maintain the booking system after deployment."
+        }
+      ],
+      results: [
+        "Verified admin login with admin/admin",
+        "Created 5 mock meeting rooms with realistic local room images",
+        "Created realistic booking mock data for today and future dates",
+        "Verified API rooms endpoint and static frontend served from the Express backend",
+        "Captured real web screenshots for portfolio evidence"
+      ],
+      challenges: [
+        {
+          issue: "The backend schema relation names did not match the JavaScript controllers.",
+          solution: "Adjusted controllers to query Prisma relation fields correctly and map responses back to the lowercase shape expected by the frontend."
+        },
+        {
+          issue: "Local SQL Server rejected the original encrypted Prisma connection string.",
+          solution: "Updated the local development connection string to use Prisma's plaintext SQL Server setting for localhost while keeping trustServerCertificate enabled."
+        },
+        {
+          issue: "The project needed believable room content without relying on missing uploaded assets.",
+          solution: "Generated 5 photorealistic meeting room images and referenced them from seed data through the backend uploads route."
+        }
+      ],
+      visualEvidence: [
+        { url: "/projects/booking-meeting-room/dashboard.png", caption: "Dashboard with timeline schedule and 5 available rooms", type: "image" },
+        { url: "/projects/booking-meeting-room/booking-modal.png", caption: "Booking modal opened from a real room card", type: "image" },
+        { url: "/projects/booking-meeting-room/meeting-room-executive.png", caption: "Executive Boardroom image used by seed data", type: "image" },
+        { url: "/projects/booking-meeting-room/meeting-room-focus.png", caption: "Focus Room image used by seed data", type: "image" },
+        { url: "/projects/booking-meeting-room/meeting-room-hybrid.png", caption: "Hybrid Conference Room image used by seed data", type: "image" }
+      ],
+      gallery: [
+        "/projects/booking-meeting-room/meeting-room-executive.png",
+        "/projects/booking-meeting-room/meeting-room-focus.png",
+        "/projects/booking-meeting-room/meeting-room-project.png",
+        "/projects/booking-meeting-room/meeting-room-training.png",
+        "/projects/booking-meeting-room/meeting-room-hybrid.png",
+        "/projects/booking-meeting-room/meeting-room-photoreal-collage.png"
+      ],
+      lessonsLearned: [
+        "Single-port deployment is simpler for internal tools because PM2 only has to supervise one backend process.",
+        "Mock data should demonstrate realistic work patterns, not only empty tables.",
+        "Generated realistic local assets make the demo stable even when external image URLs are unavailable."
+      ],
+      nextSteps: [
+        "Add PM2 ecosystem configuration and Windows startup notes.",
+        "Add room approval workflow for high-priority or executive rooms.",
+        "Add email or Teams notifications for booking confirmation and cancellation."
+      ],
     },
   },
   {
@@ -301,37 +543,11 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "oil-recording-paperless",
-    title: "Oil Recording (Paperless)",
-    description: "Digitized the factory's oil recording process, replacing clipboards with a mobile-friendly web application.",
-    tags: ["React", "Mobile Web", "Node.js"],
-    image: "https://images.unsplash.com/photo-1507914372368-b2b085ca822c?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: false, year: "2025", duration: "Sep 2025 - Dec 2025",
-    details: {
-      objective: "Eliminate paper records for machine oil consumption and standardize data entry.",
-      context: "A digital transformation initiative — replaces legacy paper-based oil tracking logs with a mobile-responsive web application for floor operators.",
-      origin: "An internal efficiency project aimed at reducing waste and improving the accuracy of maintenance data across the factory.",
-      painPoint: "Paper logs were often illegible, prone to manual entry errors, and difficult to aggregate for monthly consumption analysis.",
-      yourRole: "Full-stack Developer. Designed the mobile-first UI for simplicity on the shop floor and built the backend for automated monthly report generation.",
-      keySkillsUsed: ["React", "Tailwind CSS", "Mobile-first Design", "Node.js", "PostgreSQL", "Automated Reporting"],
-      features: ["Mobile-first UI for operators on the floor", "Data validation constraints", "Monthly consumption reports generation"],
-      results: ["Saved 500+ sheets of paper per month", "Improved data accuracy and visibility for the maintenance team"],
-      lessonsLearned: [
-        "Simple UX is the most important factor for adoption by operators on the production floor.",
-        "Digital validation prevents 'impossible' data entries, significantly improving data quality at the source."
-      ],
-      nextSteps: [
-        "Integrate with IoT flow meters on oil tanks for fully automated recording.",
-        "Add predictive alerts when oil consumption exceeds normal statistical thresholds."
-      ],
-    },
-  },
-  {
     slug: "student-attendance",
     title: "Student Attendance Management System",
     description: "Developed a comprehensive web-based and PWA-enabled application to streamline student attendance tracking using NFC/RFID technology.",
     tags: ["Next.js", "Supabase", "RFID", "IoT"],
-    image: "/projects/Student_Attendance_Management_System/NFC.png",
+    image: "/projects/Student_Attendance_Management_System/cover.png",
     theme: "purple", isFeatured: false, year: "2021", duration: "Jul 2021 - Dec 2021",
     details: {
       objective: "Develop a fast attendance checking system that reduces teachers' workload, featuring real-time dashboards for administrators and teachers to monitor attendance statistics.",
@@ -477,20 +693,112 @@ export const projects: Project[] = [
   {
     slug: "ros-automation",
     title: "ROS-based Automation Systems",
-    description: "Designed and developed ROS-based automation systems (AGV, Robot Arms) aligned with Industry 4.0 standards.",
-    tags: ["ROS", "Python", "Linux", "IoT"],
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
-    theme: "emerald", isFeatured: true, year: "2023", duration: "Jun 2023 - Sep 2023",
+    description: "Built a ROS-based AGV automation system with LiDAR navigation, point-to-point warehouse movement, MQTT/ROS bridge scripts, CAD deliverables, and a React web control panel.",
+    tags: ["ROS", "Python", "React", "ROSBridge", "MQTT", "LiDAR", "Arduino", "CAD"],
+    image: "/projects/ros-automation/cover.png",
+    theme: "emerald", isFeatured: true, year: "2024", duration: "May 2024 - Jul 2024",
+    githubUrl: "https://github.com/OatApiwat/ROS_agv",
     details: {
-      objective: "Design and develop ROS-based automation systems (AGV, Robot Arms) for Industry 4.0 factory environments.",
+      objective: "Design and validate an AGV system that can move between predefined warehouse stations while operators monitor and command the robot through a web dashboard.",
+      context: "A factory automation project combining a ROS catkin workspace, LiDAR mapping/navigation, Arduino motor control, MQTT/ROS bridge scripts, CAD files, and field test reports from warehouse validation.",
+      origin: "Developed as a practical AGV prototype for warehouse point-to-point movement and operator-friendly control during 2024 test activities.",
+      painPoint: "Manual material movement in warehouse areas is repetitive and hard to monitor consistently. The system needed a simple operator UI while still keeping ROS navigation, map feedback, and robot command state visible.",
+      yourRole: "Robotics / Industrial Software Developer. Responsible for ROS navigation setup, map and parameter configuration, web control integration, MQTT/ROS bridge scripts, test documentation, and repository cleanup for GitHub handover.",
+      keySkillsUsed: ["ROS 1", "Python", "React", "ROSBridge", "ROSLIB", "ROS2D", "NAV2D", "MQTT", "Arduino", "LiDAR", "FreeCAD", "Warehouse Testing"],
       hardware: [
-        { name: "LiDAR & Depth Camera", icon: "Camera", description: "3D vision & obstacle avoidance" },
-        { name: "AGV Platform", icon: "Cpu", description: "Mobile robotic base" },
-        { name: "Robot Arm", icon: "Bot", description: "6-DOF manipulator" },
-        { name: "Linux Server", icon: "Server", description: "ROS master node" }
+        { name: "AGV Platform", icon: "Bot", description: "Mobile robot base for warehouse point-to-point movement" },
+        { name: "LiDAR Scanner", icon: "Camera", description: "Mapping, localization, obstacle awareness, and navigation feedback" },
+        { name: "Arduino Controller", icon: "Cpu", description: "Motor-control firmware and hardware I/O integration" },
+        { name: "ROSBridge Server", icon: "Server", description: "WebSocket bridge between the React operator UI and ROS topics" }
       ],
-      methodology: ["Design ROS node architecture", "Develop AGV navigation stack", "Control robot arm via MoveIt!", "Integrate with factory MES"],
-      results: ["AGV navigates autonomously throughout the factory floor", "Reduced manual material handling labor by 60%"],
+      features: [
+        "ROS navigation stack with map, AMCL, move_base, costmap, global planner, and DWA local planner configuration",
+        "React web control panel for HOME and station A-E point-to-point commands",
+        "ROSBridge, ROSLIB, ROS2D, and NAV2D integration for web-based map and goal interaction",
+        "Robot connection status, command status, success/failure feedback, and reset workflow",
+        "MQTT/ROS bridge scripts for connecting robot state with external systems",
+        "CAD, STEP, STL, presentation, and warehouse test report deliverables organized for handover"
+      ],
+      workflow: [
+        "AGV Bring-up",
+        "LiDAR Mapping",
+        "Map & Costmap Configuration",
+        "ROSBridge Connection",
+        "Web Station Command",
+        "move_base Navigation",
+        "Feedback Topic",
+        "Warehouse Field Test",
+        "Documentation & Git Handover"
+      ],
+      technicalHighlights: [
+        {
+          title: "ROS Navigation Workspace",
+          description: "The AGV workspace contains launch files, maps, RViz configs, and planner parameters for warehouse navigation and web-connected operation."
+        },
+        {
+          title: "Web Control Through ROSBridge",
+          description: "A React dashboard connects to ROSBridge over WebSocket, publishes target station commands, subscribes to robot feedback, and renders the 2D map viewer."
+        },
+        {
+          title: "Hardware-Oriented Integration",
+          description: "Arduino scripts, LiDAR maps, MQTT bridge scripts, and CAD files keep the software connected to real AGV hardware and mechanical design constraints."
+        },
+        {
+          title: "Repository Cleanup For Handover",
+          description: "Generated catkin build/devel output was removed from Git tracking while source files, maps, CAD, reports, and presentation assets were kept organized."
+        }
+      ],
+      methodology: [
+        "Build AGV hardware and collect warehouse map data with LiDAR",
+        "Configure ROS launch files, maps, planner parameters, and RViz views",
+        "Connect web dashboard to ROSBridge for operator station commands",
+        "Publish target goals and subscribe to pose, odometry, and feedback topics",
+        "Validate point-to-point operation through warehouse test reports"
+      ],
+      results: [
+        "Built a working AGV control flow for HOME and stations A-E",
+        "Created a React web UI showing robot connection, point commands, map viewer, and command feedback",
+        "Organized warehouse test reports, CAD files, and presentation deliverables for portfolio and GitHub handover",
+        "Removed generated catkin build/devel output from Git tracking to keep the repository source-focused"
+      ],
+      challenges: [
+        {
+          issue: "The operator UI needed to communicate with ROS without exposing users to terminal-based commands.",
+          solution: "Used ROSBridge, ROSLIB, ROS2D, and NAV2D so station commands and map feedback could be handled from a browser UI."
+        },
+        {
+          issue: "AGV navigation requires consistent map, localization, costmap, and planner settings for real warehouse conditions.",
+          solution: "Kept maps, launch files, RViz configs, and planner parameter files versioned together in the ROS workspace."
+        },
+        {
+          issue: "The repository contained generated catkin output that made the Git history noisy and hard to review.",
+          solution: "Added ROS/React ignore rules and removed `AGV1/build` and `AGV1/devel` from Git tracking while preserving them locally."
+        }
+      ],
+      visualEvidence: [
+        { url: "/projects/ros-automation/cover.png", caption: "Generated portfolio cover using real AGV specification and web-control evidence", type: "image" },
+        { url: "/projects/ros-automation/overall-agv-spec.png", caption: "AGV specification with dimensions, payload, navigation, speed, communication, and safety device notes", type: "image" },
+        { url: "/projects/ros-automation/agv-web-control.png", caption: "React web control panel connected to ROSBridge with station commands and Map2D viewer", type: "image" }
+      ],
+      videos: [
+        { url: "/projects/ros-automation/HmGA6tf8itk.mp4", caption: "AGV working system demonstration" },
+        { url: "/projects/ros-automation/yPlYCydJhrE.mp4", caption: "Point-to-point navigation test" }
+      ],
+      gallery: [
+        "/projects/ros-automation/cover.png",
+        "/projects/ros-automation/overall-agv-spec.png",
+        "/projects/ros-automation/agv-web-control.png"
+      ],
+      lessonsLearned: [
+        "Robotics projects need software, mechanical design, and test evidence to be organized together for reliable handover.",
+        "Browser-based robot control is easier for operators, but the ROS topic contract must be kept simple and predictable.",
+        "Generated build output should stay out of Git so reviewers can focus on source code, launch files, maps, and documentation."
+      ],
+      nextSteps: [
+        "Add a startup checklist for ROS master, LiDAR driver, rosbridge server, and web dashboard.",
+        "Add diagrams for ROS topic flow, MQTT bridge flow, and AGV station command sequence.",
+        "Add production safety checklist for emergency stop, obstacle detection validation, and battery monitoring."
+      ],
     },
   },
   {
@@ -624,7 +932,7 @@ export const projects: Project[] = [
     title: "Ping Pong Robot Arm",
     description: "Developed a Ping Pong playing robot utilizing LabVIEW and NI myRIO for precise mechanical control and computer vision (Senior Project).",
     tags: ["LabVIEW", "NI myRIO", "Computer Vision", "PID Control", "SolidWorks"],
-    image: "/projects/ping-pong-robot/p003_img01.jpeg",
+    image: "/projects/ping-pong-robot/cover.png",
     theme: "purple", isFeatured: false, year: "2019", duration: "Jan 2019 - May 2019",
     details: {
       context: "An automated robotic arm capable of playing ping pong with a human — uses a camera to track the ball in real-time, predicts its landing point, and moves the arm to hit it.",
@@ -814,6 +1122,7 @@ export const experience: Experience[] = [
       "Implemented AI-based Machine Vision solutions utilizing HIKROBOT technologies for smart inspection.",
       "Engineered end-to-end smart factory solutions, including real-time Machine Monitoring Systems (MMS).",
       "Developed web applications to support production operations and drive paperless initiatives.",
+      "Designed Git-based development workflows, release readiness steps, and deployment documentation for factory software delivery.",
     ],
   },
   {
@@ -871,4 +1180,17 @@ export const certificates: Certificate[] = [
   { id: 1, title: "Mastering Indoor Vertical Farming for Cannabis (6 Hrs)", image: "/certificate/01.png" },
   { id: 2, title: "Test Case Design Techniques", image: "/certificate/02.png" },
   { id: 3, title: "BASIC STM32 MICROCONTROLLER PROGRAMMER", image: "/certificate/03.png" },
+  { id: 4, title: "KOBDEMY - Figma (UI/UX Design & Prototyping)", image: "/certificate/kobdemy-01.png" },
+  { id: 5, title: "KOBDEMY - Python Fundamentals (Syntax, Data Structures)", image: "/certificate/kobdemy-02.png" },
+  { id: 6, title: "KOBDEMY - SQL Concepts & ORM Fundamentals", image: "/certificate/kobdemy-03.png" },
+  { id: 7, title: "KOBDEMY - React (Hooks, Context API, State Management)", image: "/certificate/kobdemy-04.png" },
+  { id: 8, title: "KOBDEMY - Next.js (SSR, Static Site Generation, App Router)", image: "/certificate/kobdemy-05.png" },
+  { id: 9, title: "KOBDEMY - Django Framework (Full-stack features & Admin)", image: "/certificate/kobdemy-06.png" },
+  { id: 10, title: "KOBDEMY - Flask (Micro-framework basics)", image: "/certificate/kobdemy-07.png" },
+  { id: 11, title: "KOBDEMY - FastAPI (High-performance API Development)", image: "/certificate/kobdemy-08.png" },
+  { id: 12, title: "KOBDEMY - Node.js & ORM (Express.js, Prisma/Sequelize)", image: "/certificate/kobdemy-09.png" },
+  { id: 13, title: "KOBDEMY - Java Programming (OOP & Collections)", image: "/certificate/kobdemy-10.png" },
+  { id: 14, title: "KOBDEMY - Spring Boot Framework (Security, JPA, REST APIs)", image: "/certificate/kobdemy-11.png" },
+  { id: 15, title: "KOBDEMY - Docker (Containerization & Deployment)", image: "/certificate/kobdemy-12.png" },
+  { id: 16, title: "KOBDEMY - Final Integration Project & Portfolio", image: "/certificate/kobdemy-13.png" },
 ];

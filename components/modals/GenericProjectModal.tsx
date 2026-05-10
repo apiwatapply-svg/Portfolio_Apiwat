@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Presentation, Target, User, TrendingUp, GraduationCap, BarChart2, Workflow, Camera, Server, Activity, Wifi, Bot, Cloud, Code } from "lucide-react";
+import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Target, User, BarChart2, Workflow, Camera, Server, Activity, Wifi, Bot, Cloud, Code, ExternalLink, KeyRound, Video } from "lucide-react";
 import { type Project } from "@/lib/data";
 import AnimationFlow from "@/components/AnimationFlow";
 
@@ -34,8 +34,9 @@ type Props = {
   onClose: () => void;
 };
 
-export default function AutoSettingMachineModal({ project, onClose }: Props) {
+export default function GenericProjectModal({ project, onClose }: Props) {
   const [activeTab, setActiveTab] = useState<"overview" | "technical" | "presentation" | "visuals">("overview");
+  const [previewImage, setPreviewImage] = useState<{ src: string; alt: string } | null>(null);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -49,7 +50,6 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
   const d = project.details;
 
   const hasTechnicalData = d?.workflow?.length || d?.technicalHighlights?.length || d?.challenges?.length;
-  const hasPresentationData = d?.context || d?.yourRole;
   const hasVisualData = d?.metrics?.length || d?.userFlow?.length || d?.programFlow?.length;
 
   return (
@@ -99,7 +99,12 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
           {/* Scrolling Content */}
           <div className="overflow-y-auto flex-1 custom-scrollbar">
             {/* Header Image */}
-            <div className="relative h-48 sm:h-72 w-full bg-slate-100 dark:bg-slate-800">
+            <button
+              type="button"
+              onClick={() => setPreviewImage({ src: project.image, alt: project.title })}
+              className="relative h-48 sm:h-72 w-full bg-slate-100 dark:bg-slate-800 block focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label={`View full image: ${project.title}`}
+            >
               <Image
                 src={project.image}
                 alt={project.title}
@@ -108,7 +113,7 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                 sizes="(max-width: 1024px) 100vw, 1024px"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            </div>
+            </button>
 
             <div className="p-4 sm:p-8">
               {/* Tech Stack */}
@@ -119,6 +124,41 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                   </span>
                 ))}
               </div>
+
+              {(project.githubUrl || d?.demoCredentials?.length) && (
+                <div className="mb-8 grid gap-3 sm:grid-cols-2">
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm font-bold text-slate-800 dark:text-slate-100 hover:border-slate-400 dark:hover:border-slate-600 transition-colors"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Code size={18} />
+                        GitHub Repository
+                      </span>
+                      <ExternalLink size={16} className="text-slate-400" />
+                    </a>
+                  )}
+
+                  {d?.demoCredentials && d.demoCredentials.length > 0 && (
+                    <div className="rounded-xl border border-amber-200 dark:border-amber-900/40 bg-amber-50 dark:bg-amber-900/10 px-4 py-3">
+                      <div className="mb-2 flex items-center gap-2 text-sm font-black text-amber-700 dark:text-amber-300">
+                        <KeyRound size={16} />
+                        Demo Access
+                      </div>
+                      <div className="space-y-1">
+                        {d.demoCredentials.map((credential) => (
+                          <div key={credential.email} className="text-xs text-slate-700 dark:text-slate-300">
+                            <span className="font-bold">{credential.role}:</span> {credential.email} / {credential.password}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Tabs (Sticky) */}
               {(hasTechnicalData || hasVisualData) && (
@@ -178,6 +218,33 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                         loop 
                         className="absolute inset-0 w-full h-full object-contain"
                       />
+                    </section>
+                  )}
+
+                  {d?.videos && d.videos.length > 0 && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <Video size={20} className="text-emerald-500" />
+                        Operation Videos
+                      </h3>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        {d.videos.map((video, i) => (
+                          <div
+                            key={video.url}
+                            className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-black shadow-sm"
+                          >
+                            <video
+                              src={video.url}
+                              controls
+                              preload={i === 0 ? "metadata" : "none"}
+                              className="aspect-video w-full object-contain"
+                            />
+                            <div className="border-t border-slate-200 dark:border-slate-800 bg-white px-4 py-3 dark:bg-slate-900">
+                              <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">{video.caption}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </section>
                   )}
 
@@ -267,7 +334,7 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                             {(d.methodology ?? d.features ?? []).map((item, i) => (
                               <li key={i} className="flex gap-4">
                                 <span className={`mt-0.5 w-6 h-6 rounded-full ${t.badge} flex-shrink-0 flex items-center justify-center text-[11px] font-bold`}>
-                                  {d.methodology ? i + 1 : "✓"}
+                                  {d.methodology ? i + 1 : <CheckCircle2 size={14} />}
                                 </span>
                                 <span className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed pt-0.5">{item}</span>
                               </li>
@@ -340,7 +407,13 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {d.visualEvidence.map((ev, i) => (
-                          <div key={i} className="flex flex-col rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm group">
+                          <button
+                            key={i}
+                            type="button"
+                            onClick={() => setPreviewImage({ src: ev.url, alt: ev.caption })}
+                            className="flex flex-col text-left rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm group focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-label={`View full image: ${ev.caption}`}
+                          >
                             <div className="relative w-full h-40 sm:h-48 bg-slate-100 dark:bg-slate-800">
                               <Image 
                                 src={ev.url} 
@@ -353,7 +426,7 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                             <div className="p-3 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
                               <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 text-center">{ev.caption}</p>
                             </div>
-                          </div>
+                          </button>
                         ))}
                       </div>
                     </section>
@@ -371,7 +444,8 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                             <ul className="space-y-3">
                               {d.lessonsLearned.map((l, i) => (
                                 <li key={i} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300">
-                                  <span className="text-indigo-400 mt-0.5 flex-shrink-0">•</span> <span className="leading-relaxed">{l}</span>
+                                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0" aria-hidden="true" />
+                                  <span className="leading-relaxed">{l}</span>
                                 </li>
                               ))}
                             </ul>
@@ -385,7 +459,8 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                             <ul className="space-y-3">
                               {d.nextSteps.map((s, i) => (
                                 <li key={i} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300">
-                                  <span className="text-emerald-400 mt-0.5 flex-shrink-0">→</span> <span className="leading-relaxed">{s}</span>
+                                  <ArrowRight size={14} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+                                  <span className="leading-relaxed">{s}</span>
                                 </li>
                               ))}
                             </ul>
@@ -404,9 +479,15 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         {d.gallery.map((img, i) => (
-                          <div key={i} className="relative h-40 w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 group shadow-sm">
+                          <button
+                            key={i}
+                            type="button"
+                            onClick={() => setPreviewImage({ src: img, alt: `${project.title} gallery image ${i + 1}` })}
+                            className="relative h-40 w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 group shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-label={`View full gallery image ${i + 1}`}
+                          >
                             <Image src={img} alt={`Gallery image ${i+1}`} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="300px" />
-                          </div>
+                          </button>
                         ))}
                       </div>
                     </section>
@@ -559,7 +640,7 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
                         <span className="text-xs font-normal text-slate-400">(Click Replay to watch again)</span>
                       </h3>
                       <AnimationFlow
-                        title="User Steps — Step by Step"
+                        title="User Steps - Step by Step"
                         steps={d.userFlow}
                         autoPlay
                       />
@@ -628,7 +709,44 @@ export default function AutoSettingMachineModal({ project, onClose }: Props) {
             </div>
           </div>
         </motion.div>
+
+        <AnimatePresence>
+          {previewImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[130] flex items-center justify-center bg-slate-950/90 p-4 sm:p-8"
+              onClick={() => setPreviewImage(null)}
+            >
+              <button
+                type="button"
+                onClick={() => setPreviewImage(null)}
+                className="absolute right-4 top-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 transition-colors"
+                aria-label="Close full image preview"
+              >
+                <X size={22} />
+              </button>
+              <motion.div
+                initial={{ scale: 0.96, y: 12 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.96, y: 12 }}
+                className="relative h-full w-full max-w-6xl"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <Image
+                  src={previewImage.src}
+                  alt={previewImage.alt}
+                  fill
+                  className="object-contain"
+                  sizes="100vw"
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </AnimatePresence>
   );
 }
+

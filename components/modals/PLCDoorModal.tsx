@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Cpu, CheckCircle2, Target, Activity, Settings, Lightbulb, AlertTriangle, ArrowRight, Shield, Clock, Key, DoorOpen, Lock, Check } from "lucide-react";
+import { X, Cpu, CheckCircle2, Target, Activity, Settings, AlertTriangle, Shield, Clock, Key, DoorOpen, Lock, Check } from "lucide-react";
 import { type Project } from "@/lib/data";
 
 type Props = {
@@ -11,68 +11,12 @@ type Props = {
   onClose: () => void;
 };
 
-const FlowStep = ({ icon: Icon, title, desc, delay, active, status = 'default' }: { icon: any, title: string, desc: string, delay: number, active: boolean, status?: 'default' | 'success' | 'error' }) => {
-  let borderColor = "border-slate-200 dark:border-slate-800";
-  let bgColor = "bg-slate-50 dark:bg-slate-900";
-  let iconBg = "bg-slate-100 dark:bg-slate-800 text-slate-400";
-  let textColor = "text-slate-500";
-  let glowColor = "bg-slate-500/5";
+const keypadButtonTimings = Array.from({ length: 9 }, (_, i) => ({
+  delay: (i % 3) * 0.12 + Math.floor(i / 3) * 0.08,
+  repeatDelay: 0.35 + (i % 4) * 0.08,
+}));
 
-  if (active) {
-    if (status === 'success') {
-      borderColor = "border-emerald-500";
-      bgColor = "bg-white dark:bg-slate-800";
-      iconBg = "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600";
-      textColor = "text-slate-900 dark:text-white";
-      glowColor = "bg-emerald-500/10";
-    } else if (status === 'error') {
-      borderColor = "border-red-500";
-      bgColor = "bg-white dark:bg-slate-800";
-      iconBg = "bg-red-100 dark:bg-red-900/30 text-red-600";
-      textColor = "text-slate-900 dark:text-white";
-      glowColor = "bg-red-500/10";
-    } else {
-      borderColor = "border-orange-500";
-      bgColor = "bg-white dark:bg-slate-800";
-      iconBg = "bg-orange-100 dark:bg-orange-900/30 text-orange-600";
-      textColor = "text-slate-900 dark:text-white";
-      glowColor = "bg-orange-500/10";
-    }
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20, rotateX: -20 }}
-      animate={{ 
-        opacity: active ? 1 : 0.4, 
-        y: 0, 
-        rotateX: 0,
-        scale: active ? 1.05 : 1,
-        z: active ? 20 : 0
-      }}
-      transition={{ delay, duration: 0.5 }}
-      className={`relative p-4 rounded-xl border-2 transition-all duration-500 shadow-lg ${borderColor} ${bgColor}`}
-      style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
-    >
-      <div className={`p-2 rounded-lg mb-3 inline-block transition-colors duration-300 ${iconBg}`}>
-        <Icon size={20} />
-      </div>
-      <h4 className={`text-sm font-bold mb-1 transition-colors duration-300 ${textColor}`}>{title}</h4>
-      <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">{desc}</p>
-      
-      {active && (
-        <motion.div
-          layoutId="glow"
-          className={`absolute inset-0 rounded-xl -z-10 blur-xl ${glowColor}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        />
-      )}
-    </motion.div>
-  );
-};
-
-export default function PLCDoorModal({ project, onClose }: Props) {
+export default function PLCDoorModal({ onClose }: Props) {
   const [activeStep, setActiveStep] = useState(0);
   const [cycle, setCycle] = useState<'success' | 'fail'>('success');
   const [isAuto, setIsAuto] = useState(true);
@@ -238,8 +182,8 @@ export default function PLCDoorModal({ project, onClose }: Props) {
                         </motion.div>
                       </div>
                       <div className="flex flex-wrap gap-1 justify-center w-16">
-                      {[...Array(9)].map((_, i) => (
-                        <motion.div key={i} animate={activeStep === 0 ? { y: [0, 2, 0], backgroundColor: ["#f8fafc", "#e2e8f0", "#f8fafc"] } : {}} transition={{ duration: 0.3, repeat: Infinity, delay: Math.random() * 2, repeatDelay: Math.random() * 2 }} className="w-4 h-4 bg-slate-100 dark:bg-slate-700 rounded border-b border-slate-300 dark:border-slate-600" />
+                      {keypadButtonTimings.map((timing, i) => (
+                        <motion.div key={i} animate={activeStep === 0 ? { y: [0, 2, 0], backgroundColor: ["#f8fafc", "#e2e8f0", "#f8fafc"] } : {}} transition={{ duration: 0.3, repeat: Infinity, delay: timing.delay, repeatDelay: timing.repeatDelay }} className="w-4 h-4 bg-slate-100 dark:bg-slate-700 rounded border-b border-slate-300 dark:border-slate-600" />
                       ))}
                       </div>
                     </motion.div>
@@ -510,3 +454,4 @@ export default function PLCDoorModal({ project, onClose }: Props) {
     </AnimatePresence>
   );
 }
+

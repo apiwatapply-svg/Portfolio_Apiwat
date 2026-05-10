@@ -32,8 +32,6 @@ export default function HeroSection() {
               sequence={[
                 "Developer Engineer",
                 2000,
-                "IoT Engineer",
-                2000,
               ]}
               wrapper="span"
               speed={50}
