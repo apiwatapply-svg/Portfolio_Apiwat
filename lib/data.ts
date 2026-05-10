@@ -126,6 +126,7 @@ export type ProjectDetails = {
   imageStory?: { url: string; title: string; caption: string }[];
   documents?: { title: string; url: string; description: string }[];
   caseStudyPages?: {
+    labels?: { scope: string; jobProcess: string };
     scope: {
       story?: { headline: string; pitch: string; points: string[] };
       metrics?: { label: string; value: string; unit?: string; icon?: string }[];
@@ -135,13 +136,17 @@ export type ProjectDetails = {
       };
       userFlow?: FlowStep[];
       visuals?: { url: string; title: string; caption: string }[];
+      screenshots?: { url: string; title: string; caption: string }[];
       benefits?: string[];
+      skillGroups?: { title: string; items: string[] }[];
+      lessons?: string[];
     };
     jobProcess: {
       techStack?: {
         summary: string;
         layers: { layer: string; tech: string; reason: string }[];
       };
+      projectFlowTitle?: string;
       projectFlow?: FlowStep[];
       developmentFlow?: FlowStep[];
       visuals?: { url: string; title: string; caption: string }[];
@@ -757,108 +762,137 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/apiwatapply-svg/MMS_project",
     details: {
       objective: "Turn machine-side signals into clear production visibility: realtime status, output vs target, OEE, downtime, NG, daily reports, and monthly reports by area/type/machine.",
-      context: "An on-premise Smart Factory MMS dashboard for production monitoring. The database master currently covers 207 active machines across 27 machine types, with portfolio demo data seeded for 2026-05-01 to 2026-06-30.",
+      context: "An on-premise Smart Factory MMS dashboard for production monitoring. The system is designed around a machine master of 207 active machines across 27 machine types, with realtime machine visibility and historical reporting for production review.",
       origin: "Built to replace delayed manual reporting with a connected dashboard that production, maintenance, and management can read from the same source of truth.",
       painPoint: "Before MMS, output, downtime, and OEE were checked through manual logs and spreadsheets. The team could see problems after the loss already happened, and reports were hard to compare across machine type.",
       yourRole: "Full-stack developer responsible for system analysis, machine-data flow design, SQL Server schema usage, backend APIs, realtime dashboard, report pages, CI test workflow, PM2 deployment plan, and portfolio documentation.",
       keySkillsUsed: ["Next.js", "Node.js", "Express", "Prisma", "SQL Server", "MQTT", "InfluxDB", "Socket.IO", "PM2", "GitHub Actions"],
       caseStudyPages: {
+        labels: {
+          scope: "Project Detail",
+          jobProcess: "Tech Detail",
+        },
         scope: {
           story: {
-            headline: "From delayed manual reports to same-shift production visibility",
-            pitch: "MMS is best presented as a factory problem-solving project, not only a dashboard. The story starts with manual machine checks and spreadsheet reports, then shows how an on-premise web system turns machine-side data into faster decisions for production, maintenance, and management.",
+            headline: "Smart Factory MMS Dashboard for 207 production machines",
+            pitch: "This project turns machine-side production data into realtime visibility and historical reports. Instead of waiting for manual notes and spreadsheet consolidation, supervisors can open one on-premise web dashboard to see machine status, output, target, NG, OEE, daily reports, and monthly reports.",
             points: [
-              "Problem: output, downtime, NG, and OEE were hard to compare across many machine types when data was checked manually.",
-              "Solution: centralize machine data into SQL Server reports and visual dashboards that can be opened inside the factory network.",
-              "Result: supervisors move from checking data manually to seeing status, reports, and loss patterns in one workflow."
+              "What is Project: an on-premise MMS web system for production monitoring, report review, and machine-performance analysis.",
+              "Pain Point: manual machine checks made data late, difficult to compare by zone/type, and vulnerable to human error.",
+              "New Working Method: machine data flows to realtime dashboards and SQL Server reports so users monitor exceptions instead of copying values from every machine."
             ]
           },
           metrics: [
             { label: "Active machines", value: "207" },
+            { label: "Factory zones", value: "4" },
             { label: "Machine types", value: "27" },
-            { label: "Main report pages", value: "6" },
-            { label: "Deployment mode", value: "PM2" },
+            { label: "Manual round", value: "~207", unit: "min" },
           ],
           beforeAfter: {
-            summary: "Estimated from the old manual workflow compared with the MMS dashboard workflow. The value is not only faster reporting, but faster response when output drops, NG rises, or machine downtime repeats.",
+            summary: "Old working method: an operator assigned to each machine area had to read values from machine displays. With 207 machines across 4 zones, 1 minute per machine means about 207 minutes of manual recording per full round. The check interval is around 25 minutes, based on average cycle time 3 seconds and 512 pieces per round.",
             items: [
-              { task: "Check machine status across lines", before: "15-30 min / round", after: "1-3 min", impact: "80-90% faster visibility" },
-              { task: "Prepare daily production summary", before: "30-60 min / day", after: "5-10 min", impact: "70-85% less manual consolidation" },
-              { task: "Find low-output machines", before: "20-40 min", after: "3-5 min", impact: "Same-shift bottleneck detection" },
-              { task: "Review NG / defect trend", before: "30-45 min", after: "5-10 min", impact: "Faster quality investigation" },
-              { task: "Create daily/monthly report", before: "1-2 hr", after: "10-20 min", impact: "Around 80% reporting time reduction" },
-              { task: "Trace historical machine data", before: "20-30 min", after: "1-3 min", impact: "Quicker audit and root-cause review" }
+              { task: "Collect values from all machines", before: "207 machines x 1 min = ~207 min / round", after: "Dashboard opens in ~1-3 min", impact: "Manual recording workload reduced by about 204 min per full round" },
+              { task: "Cover 4 production zones", before: "~52 min / zone / round", after: "All zones visible from one screen", impact: "Equivalent to reducing repetitive checking work from about 8.3 full-time operators per 25-min cycle to exception monitoring" },
+              { task: "Paper and spreadsheet recording", before: "Paper notes and manual Excel consolidation", after: "Digital dashboard and database reports", impact: "Paperless workflow and fewer transcription mistakes" },
+              { task: "Detect output loss", before: "After the next manual round or report consolidation", after: "Realtime dashboard and report drill-down", impact: "Faster response to low output, downtime, NG, and target gaps" },
+              { task: "Management analysis", before: "Delayed daily/monthly summary", after: "Daily, monthly, machine, and NG reports", impact: "More accurate analysis from one source of truth" }
             ]
           },
           userFlow: [
-            { id: "open", label: "Open Dashboard", detail: "Supervisor opens realtime MMS dashboard", type: "action" },
-            { id: "filter", label: "Filter Machine", detail: "Select area, type, machine, and date", type: "process" },
-            { id: "compare", label: "Compare KPI", detail: "Check target vs actual, OEE, NG, status", type: "decision" },
-            { id: "drill", label: "Open Report", detail: "Review daily, monthly, machine, and NG reports", type: "process" },
-            { id: "action", label: "Take Action", detail: "Production or maintenance responds in the same shift", type: "success" },
+            { id: "manual", label: "Old Method", detail: "Operator writes machine values by zone", type: "warning" },
+            { id: "late", label: "Delayed Report", detail: "Paper / Excel before analysis", type: "process" },
+            { id: "dashboard", label: "New Method", detail: "Open MMS dashboard", type: "action" },
+            { id: "filter", label: "Select View", detail: "Area, type, machine, date", type: "process" },
+            { id: "action", label: "Same-shift Action", detail: "Act on realtime and historical loss", type: "success" },
           ],
           visuals: [
-            { url: "/projects/mms-dashboard/scope-problem-solution.png", title: "Current Problem, Solution, and Benefit", caption: "Shows the current manual-reporting problem, the MMS machine-data solution, and measurable coverage numbers used for portfolio validation." },
-            { url: "/projects/mms-dashboard/web-user-flow.png", title: "User Flow of MMS Web", caption: "Explains how a supervisor uses the web app: open dashboard, filter machines, compare KPIs, drill into reports, and take action." },
-            { url: "/projects/mms-dashboard/network-flow.png", title: "Machine Network to Database", caption: "Machine-side data flows from PLC/sensor and edge gateway into MQTT/Influx, then to Express API and SQL Server for realtime dashboards." },
-            { url: "/projects/mms-dashboard/web-layout-dashboard.png", title: "Realtime Layout Dashboard", caption: "Actual web screenshot captured from the running MMS system. This page shows factory areas and machine status color groups so users can see where losses happen." },
-            { url: "/projects/mms-dashboard/web-daily-report.png", title: "Daily Report Page", caption: "Actual web screenshot captured from the running MMS system. This page helps supervisors compare downtime, alarms, target, actual output, and cycle time in one day." },
+            { url: "/projects/mms-dashboard/before-after.png", title: "Old Method vs New Method", caption: "Visual summary of the working method change: manual machine-value recording becomes dashboard monitoring, report drill-down, and same-shift response." },
+            { url: "/projects/mms-dashboard/web-user-flow.png", title: "User Flow in MMS Web", caption: "Shows how the user moves from dashboard overview to filtered machine views and report analysis." },
+          ],
+          screenshots: [
+            { url: "/projects/mms-dashboard/web-layout-dashboard.png", title: "Layout Dashboard", caption: "Actual MMS web screen for machine-area visibility. It shows machine status by area/zone so users can locate running, downtime, plan stop, and no-data machines without walking to every machine." },
+            { url: "/projects/mms-dashboard/web-home.png", title: "OEE Dashboard Entry", caption: "Actual MMS web screen used as the entry point for production monitoring. Users can select working area and machine type before reading OEE and production indicators." },
+            { url: "/projects/mms-dashboard/web-daily-report.png", title: "Daily Report", caption: "Actual MMS report screen for daily production analysis. It compares output, target, downtime, alarms, and cycle-time behavior for the selected day." },
+            { url: "/projects/mms-dashboard/web-monthly-report.png", title: "Monthly Report", caption: "Actual MMS report screen for monthly trend analysis. Management can compare output and OEE trend after improvement actions." },
+            { url: "/projects/mms-dashboard/web-machine-report.png", title: "Machine Output Report", caption: "Actual MMS web screen for machine-level historical rows: target, output, availability, performance, quality, OEE, and export review." },
+            { url: "/projects/mms-dashboard/web-machine-ng.png", title: "Machine NG Report", caption: "Actual MMS web screen for quality traceability. It helps production and QC review NG quantity by machine, model, date, and station/process source." },
           ],
           benefits: [
-            "Supervisors can see production loss by area, type, machine, and date instead of waiting for manual spreadsheet consolidation.",
-            "Machine data is separated into target, actual, runtime, OEE, NG, status, and alarm tables so report numbers are easier to audit.",
-            "The web flow reduces manual follow-up because users can move from realtime status to report drill-down in the same interface.",
+            "Reduced repetitive manual recording: the old workflow needs about 207 minutes per full round, while the new workflow lets users see all zones from one dashboard.",
+            "Reduced manpower dependency: 207 minutes of work every 25 minutes is roughly 8.3 operator-equivalents if the factory wants continuous full coverage.",
+            "Paperless and more accurate: data is stored digitally and reduces retyping mistakes from paper notes or spreadsheet consolidation.",
+            "Realtime analysis: supervisors can detect low output, downtime, NG, and target gaps during the same shift.",
+            "Historical analysis: daily, monthly, machine, and NG reports support root-cause review and improvement tracking.",
+          ],
+          skillGroups: [
+            {
+              title: "Hard Skills",
+              items: ["Next.js", "React", "Node.js", "Express", "SQL Server", "Prisma", "MQTT", "InfluxDB", "Socket.IO", "PM2", "GitHub Actions", "CI/CD"],
+            },
+            {
+              title: "Soft Skills",
+              items: ["Requirement gathering", "Factory process analysis", "Operator workflow design", "Cross-functional communication", "Problem solving", "Deployment planning"],
+            },
+          ],
+          lessons: [
+            "Factory software must explain machine loss visually because production users need quick decisions, not long raw tables.",
+            "Realtime data and historical reports should have clear responsibilities: realtime for current status, SQL Server reports for audit and trend review.",
+            "Benefit should be calculated from the real working method, such as machine count, check frequency, and operator time per machine.",
+            "On-premise deployment needs CI, PM2, environment control, health checks, and rollback planning before it is reliable for a customer server.",
           ],
         },
         jobProcess: {
           techStack: {
-            summary: "The stack is selected for a factory/on-premise environment: run locally, connect to SQL Server, support report-heavy queries, keep deployment simple with PM2, and stay ready for real machine integration when MQTT/InfluxDB are available.",
+            summary: "The stack is selected for an on-premise factory system: realtime machine visibility, SQL Server historical reports, controlled deployment through PM2, and CI/CD before production update.",
             layers: [
-              { layer: "Frontend Dashboard", tech: "Next.js / React", reason: "Build multi-page dashboard/report UI with reusable components and static export for customer-server hosting." },
-              { layer: "Backend API", tech: "Node.js / Express", reason: "Serve REST APIs, business logic, report endpoints, and Socket.IO events in a simple PM2-friendly process." },
-              { layer: "Database", tech: "SQL Server / Prisma", reason: "Store production targets, actual output, OEE, NG, status, alarm, and machine master data for auditable reports." },
-              { layer: "Machine I/O Ready", tech: "MQTT / InfluxDB", reason: "Prepared for realtime machine signals and time-series data; disabled in demo mode so the portfolio can run without factory network dependencies." },
-              { layer: "Deployment", tech: "PM2", reason: "Run on an on-premise customer server with process restart, logs, and local network access." },
-              { layer: "Quality Workflow", tech: "Git + CI Unit Tests", reason: "Use branch/commit discipline and tests for OEE/report logic before deployment." }
+              { layer: "Machine Layer", tech: "PLC / Machine Signal", reason: "207 production machines provide status, output, cycle-time, model, alarm, and NG-related machine data." },
+              { layer: "Realtime Transport", tech: "MQTT", reason: "Move machine status/output events quickly from the machine network to the server layer." },
+              { layer: "Time-series Layer", tech: "InfluxDB", reason: "Store machine telemetry in time order before normalized reporting and historical analysis." },
+              { layer: "Reporting Database", tech: "SQL Server / Prisma", reason: "Store target, actual, runtime, OEE, NG, status, alarm, and machine master data for auditable reports." },
+              { layer: "Backend API", tech: "Node.js / Express / Socket.IO", reason: "Serve REST APIs for histories and push realtime updates to the dashboard." },
+              { layer: "Frontend", tech: "Next.js / React", reason: "Render dashboard, layout, daily/monthly reports, machine reports, and NG reports." },
+              { layer: "Deployment", tech: "GitHub Actions / SSH / PM2", reason: "CI validates code, CD updates the customer server over SSH, and PM2 restarts the app process." },
             ]
           },
+          projectFlowTitle: "Machine data flow: realtime and historical paths",
           projectFlow: [
-            { id: "requirements", label: "Requirements", detail: "Collect production reporting pain points and dashboard scope", type: "action" },
-            { id: "architecture", label: "Tech & ER Design", detail: "Design API, database tables, network flow, and source of truth", type: "process" },
-            { id: "mock-ui", label: "Mock UI", detail: "Plan dashboard, daily report, monthly report, and machine views", type: "process" },
-            { id: "development", label: "Development", detail: "Build Next.js frontend, Express API, Prisma queries, Socket.IO", type: "process" },
-            { id: "testing", label: "Testing", detail: "Run OEE unit tests and production build", type: "decision" },
-            { id: "deploy", label: "Deploy", detail: "Release to customer server with PM2", type: "success" },
-            { id: "maintenance", label: "Maintenance", detail: "Monitor logs, tune reports, and improve data reliability", type: "warning" },
-          ],
-          developmentFlow: [
-            { id: "code", label: "Coding", detail: "Develop small focused changes locally", type: "action" },
-            { id: "branch", label: "Git Branch", detail: "Create feature branch and commit intentionally", type: "process" },
-            { id: "pr", label: "Pull Request", detail: "Review changes before merge", type: "decision" },
-            { id: "ci", label: "CI", detail: "Run backend unit tests and frontend build", type: "process" },
-            { id: "cd", label: "CD", detail: "Prepare release package", type: "process" },
-            { id: "pm2", label: "PM2 Deploy", detail: "Run backend and exported frontend on customer server", type: "success" },
+            { id: "plc", label: "PLC 207 Machines", detail: "Machine status, output, CT, alarm", type: "action" },
+            { id: "mqtt", label: "MQTT", detail: "Machine event transport", type: "process" },
+            {
+              id: "split",
+              label: "Data Path",
+              detail: "Realtime + histories",
+              type: "decision",
+              branches: [
+                {
+                  condition: "Realtime",
+                  type: "success",
+                  steps: [
+                    { id: "socket", label: "Socket.IO", detail: "Live status/output", type: "process" },
+                    { id: "realtime-web", label: "Web Dashboard", detail: "Current machine view", type: "success" },
+                  ],
+                },
+                {
+                  condition: "Histories",
+                  type: "warning",
+                  steps: [
+                    { id: "influx", label: "InfluxDB", detail: "Time-series telemetry", type: "process" },
+                    { id: "mssql", label: "SQL Server", detail: "Target, actual, OEE, NG, status", type: "process" },
+                    { id: "report-web", label: "Website Reports", detail: "Daily / monthly / machine histories", type: "success" },
+                  ],
+                },
+              ],
+            },
           ],
           visuals: [
-            { url: "/projects/mms-dashboard/project-lifecycle-flow.png", title: "Project Lifecycle Flow", caption: "Flow from requirements to architecture, mock UI, development, testing, deployment, and maintenance." },
-            { url: "/projects/mms-dashboard/er-diagram.png", title: "Actual ER Diagram", caption: "Core SQL Server tables used by the project: machine master, target, actual, OEE, runtime, NG, status, and alarm." },
-            { url: "/projects/mms-dashboard/git-cicd-flow.png", title: "Development, Git, CI/CD Flow", caption: "Shows coding, Git workflow, PR review, CI testing/build, CD release, and PM2 deployment." },
-            { url: "/projects/mms-dashboard/issue-solution.png", title: "Problems and Fix Approach", caption: "Summarizes key engineering problems around data mismatch and report performance, plus the solution used." },
-          ],
-          screenshots: [
-            { url: "/projects/mms-dashboard/web-home.png", title: "Home / OEE Dashboard", caption: "Actual web screenshot from MMS. This is the entry page for production monitoring, giving users access to OEE dashboard and production modules." },
-            { url: "/projects/mms-dashboard/web-layout-dashboard.png", title: "Layout Dashboard", caption: "Actual web screenshot from MMS. It maps machine areas and status modes so users can visually locate running, downtime, plan stop, and no-data zones." },
-            { url: "/projects/mms-dashboard/web-daily-report.png", title: "Daily Report", caption: "Actual web screenshot from MMS. It explains daily performance through downtime bars, alarm pie chart, output vs target, and cycle-time comparison." },
-            { url: "/projects/mms-dashboard/web-monthly-report.png", title: "Monthly Report", caption: "Actual web screenshot from MMS. It summarizes trend by month so management can compare production output and OEE after improvement actions." },
-            { url: "/projects/mms-dashboard/web-machine-report.png", title: "Machine Output Report", caption: "Actual web screenshot from MMS. It shows machine-by-machine monthly rows for target, output, availability, performance, quality, OEE, and export-to-Excel review." },
-            { url: "/projects/mms-dashboard/web-machine-ng.png", title: "Machine NG Report", caption: "Actual web screenshot from MMS. It helps production and quality teams trace NG quantity by machine, model, date, and station/process source." },
-            { url: "/projects/mms-dashboard/web-production-planning.png", title: "Production Planning", caption: "Actual web screenshot from MMS. Users configure targets, machine plans, model settings, cycle time, efficiency target, and working hours before comparing actual production." },
-            { url: "/projects/mms-dashboard/web-update-oee.png", title: "Update OEE", caption: "Actual web screenshot from MMS. This page supports manual review/update of OEE-related data such as NG mode, manual NG, and calculated quality/OEE values." },
-            { url: "/projects/mms-dashboard/web-machine-working.png", title: "Machine Working", caption: "Actual web screenshot from MMS. It tracks operator or machine working history so production activity can be checked alongside machine performance." },
+            { url: "/projects/mms-dashboard/project-lifecycle-flow.png", title: "Project Work Process", caption: "How the work was handled from requirement gathering, architecture, ER/API/tech design, mock UI, development, testing, deploy, and maintenance." },
+            { url: "/projects/mms-dashboard/er-diagram.png", title: "ER Diagram and Data Structure", caption: "Core SQL Server tables used for machine master, target, actual, OEE, runtime, NG, status, and alarm history." },
+            { url: "/projects/mms-dashboard/git-cicd-flow.png", title: "Git, CI/CD, and PM2 Deploy", caption: "Development flow used in the project: code, Git push, GitHub Actions CI, SSH deployment, and PM2 restart on the customer server." },
           ],
           challenges: [
-            { issue: "Machine data can come from multiple sources and update at different times, which can create mismatched report numbers.", solution: "Separated source-of-truth tables by target, actual, runtime, OEE, NG, status, and alarm, then documented which table each report should trust." },
-            { issue: "Large machine count makes dashboard/report queries expensive when users filter by area, type, and date.", solution: "Used indexed SQL Server tables, Prisma filter queries, cached dashboard paths, and pre-aggregated report data where appropriate." },
+            { issue: "Realtime and historical data have different timing behavior, so current machine views and historical reports can become confusing if they use the same path.", solution: "Separated realtime data flow from historical report flow: MQTT/Socket.IO for current machine status and InfluxDB/SQL Server for histories." },
+            { issue: "The project must run on an on-premise customer server, not only on a developer machine.", solution: "Prepared PM2 process config, `/api/health`, CI checks, SSH-based deployment workflow, and a repeatable `scripts/deploy_pm2.sh` script." },
+            { issue: "GitHub Actions runs on Linux while local development was on Windows, causing case-sensitive import and timezone issues.", solution: "Fixed import casing and made date/shift calculation deterministic so CI catches cross-platform problems before deployment." },
           ],
         },
       },
@@ -883,7 +917,7 @@ export const projects: Project[] = [
         { label: "Active machines in DB", value: "207" },
         { label: "Machine types", value: "27" },
         { label: "Main report pages", value: "6" },
-        { label: "Demo date range", value: "May-Jun", unit: "2026" },
+        { label: "Report period shown", value: "May-Jun", unit: "2026" },
         { label: "Core report tables covered", value: "7" },
         { label: "Deployment mode", value: "PM2" },
       ],
@@ -899,7 +933,7 @@ export const projects: Project[] = [
         { title: "Networked Machine Data Pipeline", description: "Machine-side output, status, cycle time, and alarm data are collected through MQTT/Influx paths and normalized into SQL Server reporting tables." },
         { title: "Database by Machine Type", description: "Machine master data separates area, type, and machine name, allowing reports to compare production performance by line, type, or individual machine." },
         { title: "Realtime and Report Data Together", description: "Socket.IO supports live dashboard updates while Prisma queries serve daily, monthly, machine, and NG reports from the same SQL Server source." },
-        { title: "Deployable for Customer Machines", description: "The project includes PM2 process config, CI workflow, documentation, and seeded demo data for on-premise validation." },
+        { title: "Deployable for Customer Machines", description: "The project includes PM2 process config, CI workflow, SSH deployment path, documentation, and health-check verification for on-premise operation." },
       ],
       results: [
         "Created a visual portfolio-ready explanation with network flow, program flow, before/after workflow, DevOps flow, and real dashboard screenshots.",

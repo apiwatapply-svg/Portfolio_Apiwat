@@ -166,8 +166,8 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                 <section className="mb-8">
                   <div className="mb-6 grid grid-cols-2 gap-2 rounded-xl border border-slate-200 bg-slate-50 p-1 dark:border-slate-800 dark:bg-slate-900/50">
                     {[
-                      { id: "scope" as const, label: "Scope of work", icon: Target },
-                      { id: "jobProcess" as const, label: "Job Process", icon: Workflow },
+                      { id: "scope" as const, label: d.caseStudyPages.labels?.scope ?? "Scope of work", icon: Target },
+                      { id: "jobProcess" as const, label: d.caseStudyPages.labels?.jobProcess ?? "Job Process", icon: Workflow },
                     ].map((page) => {
                       const Icon = page.icon;
                       const isActive = activeCaseStudyPage === page.id;
@@ -287,6 +287,33 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                         </button>
                       ))}
 
+                      {d.caseStudyPages.scope.screenshots && (
+                        <section>
+                          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white">
+                            <ImageIcon size={20} className="text-purple-500" />
+                            Program Pages
+                          </h3>
+                          <div className="grid gap-4 lg:grid-cols-2">
+                            {d.caseStudyPages.scope.screenshots.map((shot) => (
+                              <button
+                                key={shot.url}
+                                type="button"
+                                onClick={() => setPreviewImage({ src: shot.url, alt: shot.title })}
+                                className="overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 dark:border-slate-800 dark:bg-slate-900"
+                              >
+                                <div className="relative h-64 bg-slate-100 dark:bg-slate-800">
+                                  <Image src={shot.url} alt={shot.title} fill className="object-contain p-2" sizes="(max-width: 1024px) 100vw, 50vw" />
+                                </div>
+                                <div className="border-t border-slate-200 p-4 dark:border-slate-800">
+                                  <p className="font-black text-slate-900 dark:text-white">{shot.title}</p>
+                                  <p className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{shot.caption}</p>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </section>
+                      )}
+
                       {d.caseStudyPages.scope.userFlow && (
                         <section className="rounded-xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-900/50">
                           <h3 className="mb-4 flex items-center gap-2 text-base font-black text-slate-900 dark:text-white">
@@ -307,6 +334,43 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                             {d.caseStudyPages.scope.benefits.map((benefit) => (
                               <div key={benefit} className="rounded-xl border border-emerald-100 bg-emerald-50 p-4 text-sm font-semibold leading-relaxed text-slate-700 dark:border-emerald-900/40 dark:bg-emerald-900/10 dark:text-slate-300">
                                 {benefit}
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+                      )}
+
+                      {d.caseStudyPages.scope.skillGroups && (
+                        <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white">
+                            <Cpu size={20} className="text-blue-500" />
+                            Skills Used
+                          </h3>
+                          <div className="grid gap-4 md:grid-cols-2">
+                            {d.caseStudyPages.scope.skillGroups.map((group) => (
+                              <div key={group.title} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950/50">
+                                <p className="mb-3 text-sm font-black text-slate-900 dark:text-white">{group.title}</p>
+                                <div className="flex flex-wrap gap-2">
+                                  {group.items.map((item) => (
+                                    <span key={item} className={`rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>{item}</span>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+                      )}
+
+                      {d.caseStudyPages.scope.lessons && (
+                        <section className="rounded-xl border border-indigo-100 bg-indigo-50 p-5 dark:border-indigo-900/40 dark:bg-indigo-900/10">
+                          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white">
+                            <Lightbulb size={20} className="text-indigo-500" />
+                            Lessons Learned
+                          </h3>
+                          <div className="grid gap-3 md:grid-cols-2">
+                            {d.caseStudyPages.scope.lessons.map((lesson) => (
+                              <div key={lesson} className="rounded-lg border border-indigo-100 bg-white p-4 text-sm font-semibold leading-relaxed text-slate-700 shadow-sm dark:border-indigo-900/40 dark:bg-slate-900 dark:text-slate-300">
+                                {lesson}
                               </div>
                             ))}
                           </div>
@@ -350,7 +414,7 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                             <Workflow size={18} className="text-blue-500" />
                             Project Flow Animation
                           </h3>
-                          <AnimationFlow title="Requirements to maintenance" steps={d.caseStudyPages.jobProcess.projectFlow} autoPlay />
+                          <AnimationFlow title={d.caseStudyPages.jobProcess.projectFlowTitle ?? "Requirements to maintenance"} steps={d.caseStudyPages.jobProcess.projectFlow} autoPlay />
                         </section>
                       )}
 
