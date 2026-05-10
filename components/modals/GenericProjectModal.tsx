@@ -215,6 +215,58 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                         </div>
                       )}
 
+                      {d.caseStudyPages.scope.story && (
+                        <section className="rounded-xl border border-blue-100 bg-blue-50 p-5 dark:border-blue-900/40 dark:bg-blue-900/10">
+                          <h3 className="mb-3 flex items-center gap-2 text-base font-black text-slate-900 dark:text-white">
+                            <BookOpen size={18} className="text-blue-500" />
+                            Interview Story
+                          </h3>
+                          <p className="text-xl font-black leading-snug text-slate-950 dark:text-white">
+                            {d.caseStudyPages.scope.story.headline}
+                          </p>
+                          <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                            {d.caseStudyPages.scope.story.pitch}
+                          </p>
+                          <div className="mt-4 grid gap-3 md:grid-cols-3">
+                            {d.caseStudyPages.scope.story.points.map((point) => (
+                              <div key={point} className="rounded-lg border border-blue-100 bg-white p-4 text-sm font-semibold leading-relaxed text-slate-700 shadow-sm dark:border-blue-900/40 dark:bg-slate-900 dark:text-slate-300">
+                                {point}
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+                      )}
+
+                      {d.caseStudyPages.scope.beforeAfter && (
+                        <section className="rounded-xl border border-emerald-100 bg-white p-5 shadow-sm dark:border-emerald-900/40 dark:bg-slate-900">
+                          <h3 className="mb-3 flex items-center gap-2 text-base font-black text-slate-900 dark:text-white">
+                            <BarChart2 size={18} className="text-emerald-500" />
+                            Before / After Impact
+                          </h3>
+                          <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                            {d.caseStudyPages.scope.beforeAfter.summary}
+                          </p>
+                          <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800">
+                            <div className="hidden grid-cols-[1.25fr_1fr_1fr_1.2fr] bg-slate-100 text-xs font-black uppercase tracking-wider text-slate-500 dark:bg-slate-800 dark:text-slate-400 md:grid">
+                              <div className="p-3">Work</div>
+                              <div className="p-3">Before</div>
+                              <div className="p-3">After</div>
+                              <div className="p-3">Benefit</div>
+                            </div>
+                            <div className="divide-y divide-slate-200 dark:divide-slate-800">
+                              {d.caseStudyPages.scope.beforeAfter.items.map((item) => (
+                                <div key={item.task} className="grid gap-2 p-4 text-sm md:grid-cols-[1.25fr_1fr_1fr_1.2fr] md:gap-0 md:p-0">
+                                  <div className="font-bold text-slate-900 dark:text-white md:p-3">{item.task}</div>
+                                  <div className="text-slate-600 dark:text-slate-300 md:p-3"><span className="font-bold md:hidden">Before: </span>{item.before}</div>
+                                  <div className="text-emerald-600 dark:text-emerald-300 md:p-3"><span className="font-bold md:hidden">After: </span>{item.after}</div>
+                                  <div className="font-semibold text-slate-700 dark:text-slate-300 md:p-3"><span className="font-bold md:hidden">Benefit: </span>{item.impact}</div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </section>
+                      )}
+
                       {d.caseStudyPages.scope.visuals?.map((item, i) => (
                         <button
                           key={item.url}
@@ -269,6 +321,29 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                       animate={{ opacity: 1, y: 0 }}
                       className="space-y-8"
                     >
+                      {d.caseStudyPages.jobProcess.techStack && (
+                        <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                          <h3 className="mb-3 flex items-center gap-2 text-base font-black text-slate-900 dark:text-white">
+                            <Server size={18} className="text-cyan-500" />
+                            Tech Strategy
+                          </h3>
+                          <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                            {d.caseStudyPages.jobProcess.techStack.summary}
+                          </p>
+                          <div className="grid gap-3 md:grid-cols-2">
+                            {d.caseStudyPages.jobProcess.techStack.layers.map((layer) => (
+                              <div key={layer.layer} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950/50">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <span className="text-sm font-black text-slate-900 dark:text-white">{layer.layer}</span>
+                                  <span className={`rounded-full px-2 py-1 text-[11px] font-bold ${t.badge}`}>{layer.tech}</span>
+                                </div>
+                                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{layer.reason}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+                      )}
+
                       {d.caseStudyPages.jobProcess.projectFlow && (
                         <section className="rounded-xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-900/50">
                           <h3 className="mb-4 flex items-center gap-2 text-base font-black text-slate-900 dark:text-white">

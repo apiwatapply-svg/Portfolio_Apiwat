@@ -127,12 +127,21 @@ export type ProjectDetails = {
   documents?: { title: string; url: string; description: string }[];
   caseStudyPages?: {
     scope: {
+      story?: { headline: string; pitch: string; points: string[] };
       metrics?: { label: string; value: string; unit?: string; icon?: string }[];
+      beforeAfter?: {
+        summary: string;
+        items: { task: string; before: string; after: string; impact: string }[];
+      };
       userFlow?: FlowStep[];
       visuals?: { url: string; title: string; caption: string }[];
       benefits?: string[];
     };
     jobProcess: {
+      techStack?: {
+        summary: string;
+        layers: { layer: string; tech: string; reason: string }[];
+      };
       projectFlow?: FlowStep[];
       developmentFlow?: FlowStep[];
       visuals?: { url: string; title: string; caption: string }[];
@@ -755,12 +764,32 @@ export const projects: Project[] = [
       keySkillsUsed: ["Next.js", "Node.js", "Express", "Prisma", "SQL Server", "MQTT", "InfluxDB", "Socket.IO", "PM2", "GitHub Actions"],
       caseStudyPages: {
         scope: {
+          story: {
+            headline: "From delayed manual reports to same-shift production visibility",
+            pitch: "MMS is best presented as a factory problem-solving project, not only a dashboard. The story starts with manual machine checks and spreadsheet reports, then shows how an on-premise web system turns machine-side data into faster decisions for production, maintenance, and management.",
+            points: [
+              "Problem: output, downtime, NG, and OEE were hard to compare across many machine types when data was checked manually.",
+              "Solution: centralize machine data into SQL Server reports and visual dashboards that can be opened inside the factory network.",
+              "Result: supervisors move from checking data manually to seeing status, reports, and loss patterns in one workflow."
+            ]
+          },
           metrics: [
             { label: "Active machines", value: "207" },
             { label: "Machine types", value: "27" },
             { label: "Main report pages", value: "6" },
             { label: "Deployment mode", value: "PM2" },
           ],
+          beforeAfter: {
+            summary: "Estimated from the old manual workflow compared with the MMS dashboard workflow. The value is not only faster reporting, but faster response when output drops, NG rises, or machine downtime repeats.",
+            items: [
+              { task: "Check machine status across lines", before: "15-30 min / round", after: "1-3 min", impact: "80-90% faster visibility" },
+              { task: "Prepare daily production summary", before: "30-60 min / day", after: "5-10 min", impact: "70-85% less manual consolidation" },
+              { task: "Find low-output machines", before: "20-40 min", after: "3-5 min", impact: "Same-shift bottleneck detection" },
+              { task: "Review NG / defect trend", before: "30-45 min", after: "5-10 min", impact: "Faster quality investigation" },
+              { task: "Create daily/monthly report", before: "1-2 hr", after: "10-20 min", impact: "Around 80% reporting time reduction" },
+              { task: "Trace historical machine data", before: "20-30 min", after: "1-3 min", impact: "Quicker audit and root-cause review" }
+            ]
+          },
           userFlow: [
             { id: "open", label: "Open Dashboard", detail: "Supervisor opens realtime MMS dashboard", type: "action" },
             { id: "filter", label: "Filter Machine", detail: "Select area, type, machine, and date", type: "process" },
@@ -782,6 +811,17 @@ export const projects: Project[] = [
           ],
         },
         jobProcess: {
+          techStack: {
+            summary: "The stack is selected for a factory/on-premise environment: run locally, connect to SQL Server, support report-heavy queries, keep deployment simple with PM2, and stay ready for real machine integration when MQTT/InfluxDB are available.",
+            layers: [
+              { layer: "Frontend Dashboard", tech: "Next.js / React", reason: "Build multi-page dashboard/report UI with reusable components and static export for customer-server hosting." },
+              { layer: "Backend API", tech: "Node.js / Express", reason: "Serve REST APIs, business logic, report endpoints, and Socket.IO events in a simple PM2-friendly process." },
+              { layer: "Database", tech: "SQL Server / Prisma", reason: "Store production targets, actual output, OEE, NG, status, alarm, and machine master data for auditable reports." },
+              { layer: "Machine I/O Ready", tech: "MQTT / InfluxDB", reason: "Prepared for realtime machine signals and time-series data; disabled in demo mode so the portfolio can run without factory network dependencies." },
+              { layer: "Deployment", tech: "PM2", reason: "Run on an on-premise customer server with process restart, logs, and local network access." },
+              { layer: "Quality Workflow", tech: "Git + CI Unit Tests", reason: "Use branch/commit discipline and tests for OEE/report logic before deployment." }
+            ]
+          },
           projectFlow: [
             { id: "requirements", label: "Requirements", detail: "Collect production reporting pain points and dashboard scope", type: "action" },
             { id: "architecture", label: "Tech & ER Design", detail: "Design API, database tables, network flow, and source of truth", type: "process" },
