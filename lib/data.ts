@@ -125,6 +125,21 @@ export type ProjectDetails = {
   videos?: { url: string; caption: string }[];
   imageStory?: { url: string; title: string; caption: string }[];
   documents?: { title: string; url: string; description: string }[];
+  caseStudyPages?: {
+    scope: {
+      metrics?: { label: string; value: string; unit?: string; icon?: string }[];
+      userFlow?: FlowStep[];
+      visuals?: { url: string; title: string; caption: string }[];
+      benefits?: string[];
+    };
+    jobProcess: {
+      projectFlow?: FlowStep[];
+      developmentFlow?: FlowStep[];
+      visuals?: { url: string; title: string; caption: string }[];
+      screenshots?: { url: string; title: string; caption: string }[];
+      challenges?: { issue: string; solution: string }[];
+    };
+  };
   visualEvidence?: {
     url: string;
     caption: string;
@@ -738,13 +753,68 @@ export const projects: Project[] = [
       painPoint: "Before MMS, output, downtime, and OEE were checked through manual logs and spreadsheets. The team could see problems after the loss already happened, and reports were hard to compare across machine type.",
       yourRole: "Full-stack developer responsible for system analysis, machine-data flow design, SQL Server schema usage, backend APIs, realtime dashboard, report pages, CI test workflow, PM2 deployment plan, and portfolio documentation.",
       keySkillsUsed: ["Next.js", "Node.js", "Express", "Prisma", "SQL Server", "MQTT", "InfluxDB", "Socket.IO", "PM2", "GitHub Actions"],
-      documents: [
-        { title: "Requirements PRD", url: "/projects/mms-dashboard/docs/PRD.md", description: "Scope, users, pain points, functional requirements, and deliverables." },
-        { title: "System Architecture", url: "/projects/mms-dashboard/docs/System-Architecture.md", description: "Network flow, ER diagram, API spec, tech stack, and deployment architecture." },
-        { title: "User Manual", url: "/projects/mms-dashboard/docs/User-Manual.md", description: "How supervisors and engineers use dashboard, reports, target, OEE, and timeline pages." },
-        { title: "Git & DevOps Workflow", url: "/projects/mms-dashboard/docs/Git-DevOps-Workflow.md", description: "Branching, CI, CD, PM2 deployment, and release checklist." },
-        { title: "Data Source of Truth", url: "/projects/mms-dashboard/docs/data-source-of-truth.md", description: "Notes for separating target, actual, runtime, OEE, and reporting data." },
-      ],
+      caseStudyPages: {
+        scope: {
+          metrics: [
+            { label: "Active machines", value: "207" },
+            { label: "Machine types", value: "27" },
+            { label: "Demo coverage", value: "61", unit: "days" },
+            { label: "Machine-days seeded", value: "12,627" },
+          ],
+          userFlow: [
+            { id: "open", label: "Open Dashboard", detail: "Supervisor opens realtime MMS dashboard", type: "action" },
+            { id: "filter", label: "Filter Machine", detail: "Select area, type, machine, and date", type: "process" },
+            { id: "compare", label: "Compare KPI", detail: "Check target vs actual, OEE, NG, status", type: "decision" },
+            { id: "drill", label: "Open Report", detail: "Review daily, monthly, machine, and NG reports", type: "process" },
+            { id: "action", label: "Take Action", detail: "Production or maintenance responds in the same shift", type: "success" },
+          ],
+          visuals: [
+            { url: "/projects/mms-dashboard/scope-problem-solution.png", title: "Current Problem, Solution, and Benefit", caption: "Shows the current manual-reporting problem, the MMS machine-data solution, and measurable coverage numbers used for portfolio validation." },
+            { url: "/projects/mms-dashboard/web-user-flow.png", title: "User Flow of MMS Web", caption: "Explains how a supervisor uses the web app: open dashboard, filter machines, compare KPIs, drill into reports, and take action." },
+            { url: "/projects/mms-dashboard/network-flow.png", title: "Machine Network to Database", caption: "Machine-side data flows from PLC/sensor and edge gateway into MQTT/Influx, then to Express API and SQL Server for realtime dashboards." },
+            { url: "/projects/mms-dashboard/Daily.png", title: "Daily Report Page", caption: "A real program screen for daily review of target, actual output, OEE, downtime, and alarm information." },
+            { url: "/projects/mms-dashboard/Monthly.png", title: "Monthly Report Page", caption: "A real program screen for comparing production and OEE trend over a longer period." },
+          ],
+          benefits: [
+            "Supervisors can see production loss by area, type, machine, and date instead of waiting for manual spreadsheet consolidation.",
+            "Machine data is separated into target, actual, runtime, OEE, NG, status, and alarm tables so report numbers are easier to audit.",
+            "Seeded demo data covers every active machine and type from May 2026 through June 2026 for realistic portfolio testing.",
+          ],
+        },
+        jobProcess: {
+          projectFlow: [
+            { id: "requirements", label: "Requirements", detail: "Collect production reporting pain points and dashboard scope", type: "action" },
+            { id: "architecture", label: "Tech & ER Design", detail: "Design API, database tables, network flow, and source of truth", type: "process" },
+            { id: "mock-ui", label: "Mock UI", detail: "Plan dashboard, daily report, monthly report, and machine views", type: "process" },
+            { id: "development", label: "Development", detail: "Build Next.js frontend, Express API, Prisma queries, Socket.IO", type: "process" },
+            { id: "testing", label: "Testing", detail: "Run OEE unit tests and production build", type: "decision" },
+            { id: "deploy", label: "Deploy", detail: "Release to customer server with PM2", type: "success" },
+            { id: "maintenance", label: "Maintenance", detail: "Monitor logs, tune reports, and improve data reliability", type: "warning" },
+          ],
+          developmentFlow: [
+            { id: "code", label: "Coding", detail: "Develop small focused changes locally", type: "action" },
+            { id: "branch", label: "Git Branch", detail: "Create feature branch and commit intentionally", type: "process" },
+            { id: "pr", label: "Pull Request", detail: "Review changes before merge", type: "decision" },
+            { id: "ci", label: "CI", detail: "Run backend unit tests and frontend build", type: "process" },
+            { id: "cd", label: "CD", detail: "Prepare release package", type: "process" },
+            { id: "pm2", label: "PM2 Deploy", detail: "Run backend and exported frontend on customer server", type: "success" },
+          ],
+          visuals: [
+            { url: "/projects/mms-dashboard/project-lifecycle-flow.png", title: "Project Lifecycle Flow", caption: "Flow from requirements to architecture, mock UI, development, testing, deployment, and maintenance." },
+            { url: "/projects/mms-dashboard/er-diagram.png", title: "Actual ER Diagram", caption: "Core SQL Server tables used by the project: machine master, target, actual, OEE, runtime, NG, status, and alarm." },
+            { url: "/projects/mms-dashboard/git-cicd-flow.png", title: "Development, Git, CI/CD Flow", caption: "Shows coding, Git workflow, PR review, CI testing/build, CD release, and PM2 deployment." },
+            { url: "/projects/mms-dashboard/issue-solution.png", title: "Problems and Fix Approach", caption: "Summarizes key engineering problems around data mismatch and report performance, plus the solution used." },
+          ],
+          screenshots: [
+            { url: "/projects/mms-dashboard/Daily.png", title: "Daily Dashboard", caption: "Used by supervisors to compare daily target, output, OEE, downtime, and abnormal machine behavior." },
+            { url: "/projects/mms-dashboard/Monthly.png", title: "Monthly Dashboard", caption: "Used by management to compare production trend and check before/after improvement results." },
+          ],
+          challenges: [
+            { issue: "Machine data can come from multiple sources and update at different times, which can create mismatched report numbers.", solution: "Separated source-of-truth tables by target, actual, runtime, OEE, NG, status, and alarm, then documented which table each report should trust." },
+            { issue: "Large machine count makes dashboard/report queries expensive when users filter by area, type, and date.", solution: "Used indexed SQL Server tables, Prisma filter queries, cached dashboard paths, and pre-aggregated report data where appropriate." },
+          ],
+        },
+      },
       imageStory: [
         { url: "/projects/mms-dashboard/network-flow.png", title: "Machine-to-Server Network Flow", caption: "Machine PLC/sensor signals are collected by an edge gateway, sent through MQTT and InfluxDB, normalized by the Node.js backend, then stored in SQL Server for dashboards and reports." },
         { url: "/projects/mms-dashboard/program-flow.png", title: "Program Working Flow", caption: "Users filter by area, type, or machine; the API loads target, actual, OEE, and downtime data; the dashboard renders realtime views and report drill-downs for production action." },

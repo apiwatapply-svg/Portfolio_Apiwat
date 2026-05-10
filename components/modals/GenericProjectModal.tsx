@@ -36,6 +36,7 @@ type Props = {
 
 export default function GenericProjectModal({ project, onClose }: Props) {
   const [activeTab, setActiveTab] = useState<"overview" | "technical" | "presentation" | "visuals">("overview");
+  const [activeCaseStudyPage, setActiveCaseStudyPage] = useState<"scope" | "jobProcess">("scope");
   const [previewImage, setPreviewImage] = useState<{ src: string; alt: string } | null>(null);
 
   // Prevent body scroll when modal is open
@@ -48,6 +49,7 @@ export default function GenericProjectModal({ project, onClose }: Props) {
 
   const t = themeMap[project.theme];
   const d = project.details;
+  const hasCaseStudyPages = Boolean(d?.caseStudyPages);
 
   const hasTechnicalData = d?.workflow?.length || d?.technicalHighlights?.length || d?.challenges?.length;
   const hasVisualData = d?.metrics?.length || d?.userFlow?.length || d?.programFlow?.length;
@@ -160,7 +162,204 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                 </div>
               )}
 
-              {d?.documents && d.documents.length > 0 && (
+              {d?.caseStudyPages && (
+                <section className="mb-8">
+                  <div className="mb-6 grid grid-cols-2 gap-2 rounded-xl border border-slate-200 bg-slate-50 p-1 dark:border-slate-800 dark:bg-slate-900/50">
+                    {[
+                      { id: "scope" as const, label: "Scope of work", icon: Target },
+                      { id: "jobProcess" as const, label: "Job Process", icon: Workflow },
+                    ].map((page) => {
+                      const Icon = page.icon;
+                      const isActive = activeCaseStudyPage === page.id;
+                      return (
+                        <button
+                          key={page.id}
+                          type="button"
+                          onClick={() => setActiveCaseStudyPage(page.id)}
+                          className={`flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-sm font-black transition-colors ${
+                            isActive
+                              ? "bg-white text-slate-950 shadow-sm dark:bg-slate-800 dark:text-white"
+                              : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100"
+                          }`}
+                        >
+                          <Icon size={17} />
+                          {page.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {activeCaseStudyPage === "scope" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="space-y-8"
+                    >
+                      {d.caseStudyPages.scope.metrics && (
+                        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+                          {d.caseStudyPages.scope.metrics.map((metric, i) => (
+                            <motion.div
+                              key={metric.label}
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: i * 0.08 }}
+                              className={`rounded-xl border ${t.border} bg-white p-4 text-center shadow-sm dark:bg-slate-900`}
+                            >
+                              <div className="text-2xl font-black text-slate-950 dark:text-white">
+                                {metric.value}
+                                {metric.unit && <span className="ml-1 text-sm text-slate-500">{metric.unit}</span>}
+                              </div>
+                              <div className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">{metric.label}</div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      )}
+
+                      {d.caseStudyPages.scope.visuals?.map((item, i) => (
+                        <button
+                          key={item.url}
+                          type="button"
+                          onClick={() => setPreviewImage({ src: item.url, alt: item.title })}
+                          className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm transition hover:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-800 dark:bg-slate-900 ${
+                            i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
+                          }`}
+                        >
+                          <div className={`relative min-h-72 bg-slate-100 dark:bg-slate-800 ${i % 2 === 0 ? "" : "lg:order-2"}`}>
+                            <Image src={item.url} alt={item.title} fill className="object-contain p-2" sizes="(max-width: 1024px) 100vw, 55vw" />
+                          </div>
+                          <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
+                            <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Scope {i + 1}</span>
+                            <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
+                            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
+                          </div>
+                        </button>
+                      ))}
+
+                      {d.caseStudyPages.scope.userFlow && (
+                        <section className="rounded-xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-900/50">
+                          <h3 className="mb-4 flex items-center gap-2 text-base font-black text-slate-900 dark:text-white">
+                            <User size={18} className="text-purple-500" />
+                            User Flow Animation
+                          </h3>
+                          <AnimationFlow title="How the web helps solve production visibility" steps={d.caseStudyPages.scope.userFlow} autoPlay />
+                        </section>
+                      )}
+
+                      {d.caseStudyPages.scope.benefits && (
+                        <section>
+                          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white">
+                            <CheckCircle2 size={20} className="text-emerald-500" />
+                            Benefits
+                          </h3>
+                          <div className="grid gap-3 sm:grid-cols-3">
+                            {d.caseStudyPages.scope.benefits.map((benefit) => (
+                              <div key={benefit} className="rounded-xl border border-emerald-100 bg-emerald-50 p-4 text-sm font-semibold leading-relaxed text-slate-700 dark:border-emerald-900/40 dark:bg-emerald-900/10 dark:text-slate-300">
+                                {benefit}
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+                      )}
+                    </motion.div>
+                  )}
+
+                  {activeCaseStudyPage === "jobProcess" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="space-y-8"
+                    >
+                      {d.caseStudyPages.jobProcess.projectFlow && (
+                        <section className="rounded-xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-900/50">
+                          <h3 className="mb-4 flex items-center gap-2 text-base font-black text-slate-900 dark:text-white">
+                            <Workflow size={18} className="text-blue-500" />
+                            Project Flow Animation
+                          </h3>
+                          <AnimationFlow title="Requirements to maintenance" steps={d.caseStudyPages.jobProcess.projectFlow} autoPlay />
+                        </section>
+                      )}
+
+                      {d.caseStudyPages.jobProcess.developmentFlow && (
+                        <section className="rounded-xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-900/50">
+                          <h3 className="mb-4 flex items-center gap-2 text-base font-black text-slate-900 dark:text-white">
+                            <GitMerge size={18} className="text-orange-500" />
+                            Development Flow Animation
+                          </h3>
+                          <AnimationFlow title="Coding, Git workflow, CI/CD, PM2 deploy" steps={d.caseStudyPages.jobProcess.developmentFlow} autoPlay />
+                        </section>
+                      )}
+
+                      {d.caseStudyPages.jobProcess.visuals?.map((item, i) => (
+                        <button
+                          key={item.url}
+                          type="button"
+                          onClick={() => setPreviewImage({ src: item.url, alt: item.title })}
+                          className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm transition hover:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-800 dark:bg-slate-900 ${
+                            i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
+                          }`}
+                        >
+                          <div className={`relative min-h-72 bg-slate-100 dark:bg-slate-800 ${i % 2 === 0 ? "" : "lg:order-2"}`}>
+                            <Image src={item.url} alt={item.title} fill className="object-contain p-2" sizes="(max-width: 1024px) 100vw, 55vw" />
+                          </div>
+                          <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
+                            <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Process {i + 1}</span>
+                            <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
+                            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
+                          </div>
+                        </button>
+                      ))}
+
+                      {d.caseStudyPages.jobProcess.screenshots && (
+                        <section>
+                          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white">
+                            <ImageIcon size={20} className="text-purple-500" />
+                            Program Pages
+                          </h3>
+                          <div className="grid gap-4 lg:grid-cols-2">
+                            {d.caseStudyPages.jobProcess.screenshots.map((shot) => (
+                              <button
+                                key={shot.url}
+                                type="button"
+                                onClick={() => setPreviewImage({ src: shot.url, alt: shot.title })}
+                                className="overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 dark:border-slate-800 dark:bg-slate-900"
+                              >
+                                <div className="relative h-64 bg-slate-100 dark:bg-slate-800">
+                                  <Image src={shot.url} alt={shot.title} fill className="object-contain p-2" sizes="(max-width: 1024px) 100vw, 50vw" />
+                                </div>
+                                <div className="border-t border-slate-200 p-4 dark:border-slate-800">
+                                  <p className="font-black text-slate-900 dark:text-white">{shot.title}</p>
+                                  <p className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{shot.caption}</p>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </section>
+                      )}
+
+                      {d.caseStudyPages.jobProcess.challenges && (
+                        <section>
+                          <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white">
+                            <AlertTriangle size={20} className="text-red-500" />
+                            Problems & Solutions
+                          </h3>
+                          <div className="space-y-4">
+                            {d.caseStudyPages.jobProcess.challenges.map((challenge) => (
+                              <div key={challenge.issue} className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+                                <p className="text-sm font-bold text-red-500">Problem</p>
+                                <p className="mt-1 text-sm leading-relaxed text-slate-700 dark:text-slate-300">{challenge.issue}</p>
+                                <p className="mt-4 text-sm font-bold text-emerald-500">Solution</p>
+                                <p className="mt-1 text-sm leading-relaxed text-slate-700 dark:text-slate-300">{challenge.solution}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </section>
+                      )}
+                    </motion.div>
+                  )}
+                </section>
+              )}
+
+              {!hasCaseStudyPages && d?.documents && d.documents.length > 0 && (
                 <section className="mb-8">
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                     <FileText size={20} className="text-blue-500" />
@@ -186,7 +385,7 @@ export default function GenericProjectModal({ project, onClose }: Props) {
               )}
 
               {/* Tabs (Sticky) */}
-              {(hasTechnicalData || hasVisualData) && (
+              {!hasCaseStudyPages && (hasTechnicalData || hasVisualData) && (
                 <div className="sticky top-0 z-20 flex flex-wrap border-b border-slate-200 dark:border-slate-800 mb-8 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md pt-2 -mx-4 px-4 sm:-mx-8 sm:px-8">
                   <button
                     onClick={() => setActiveTab("overview")}
@@ -226,7 +425,7 @@ export default function GenericProjectModal({ project, onClose }: Props) {
               )}
 
               {/* TAB 1: OVERVIEW & RESULTS */}
-              {activeTab === "overview" && (
+              {!hasCaseStudyPages && activeTab === "overview" && (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -560,7 +759,7 @@ export default function GenericProjectModal({ project, onClose }: Props) {
               )}
 
               {/* TAB 2: TECHNICAL DETAILS */}
-              {hasTechnicalData && activeTab === "technical" && (
+              {!hasCaseStudyPages && hasTechnicalData && activeTab === "technical" && (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -663,7 +862,7 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                 </motion.div>
               )}
               {/* TAB 4: VISUALS & FLOW */}
-              {hasVisualData && activeTab === "visuals" && (
+              {!hasCaseStudyPages && hasVisualData && activeTab === "visuals" && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
