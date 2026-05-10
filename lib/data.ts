@@ -758,8 +758,8 @@ export const projects: Project[] = [
           metrics: [
             { label: "Active machines", value: "207" },
             { label: "Machine types", value: "27" },
-            { label: "Demo coverage", value: "61", unit: "days" },
-            { label: "Machine-days seeded", value: "12,627" },
+            { label: "Main report pages", value: "6" },
+            { label: "Deployment mode", value: "PM2" },
           ],
           userFlow: [
             { id: "open", label: "Open Dashboard", detail: "Supervisor opens realtime MMS dashboard", type: "action" },
@@ -772,13 +772,13 @@ export const projects: Project[] = [
             { url: "/projects/mms-dashboard/scope-problem-solution.png", title: "Current Problem, Solution, and Benefit", caption: "Shows the current manual-reporting problem, the MMS machine-data solution, and measurable coverage numbers used for portfolio validation." },
             { url: "/projects/mms-dashboard/web-user-flow.png", title: "User Flow of MMS Web", caption: "Explains how a supervisor uses the web app: open dashboard, filter machines, compare KPIs, drill into reports, and take action." },
             { url: "/projects/mms-dashboard/network-flow.png", title: "Machine Network to Database", caption: "Machine-side data flows from PLC/sensor and edge gateway into MQTT/Influx, then to Express API and SQL Server for realtime dashboards." },
-            { url: "/projects/mms-dashboard/Daily.png", title: "Daily Report Page", caption: "A real program screen for daily review of target, actual output, OEE, downtime, and alarm information." },
-            { url: "/projects/mms-dashboard/Monthly.png", title: "Monthly Report Page", caption: "A real program screen for comparing production and OEE trend over a longer period." },
+            { url: "/projects/mms-dashboard/web-layout-dashboard.png", title: "Realtime Layout Dashboard", caption: "Actual web screenshot captured from the running MMS system. This page shows factory areas and machine status color groups so users can see where losses happen." },
+            { url: "/projects/mms-dashboard/web-daily-report.png", title: "Daily Report Page", caption: "Actual web screenshot captured from the running MMS system. This page helps supervisors compare downtime, alarms, target, actual output, and cycle time in one day." },
           ],
           benefits: [
             "Supervisors can see production loss by area, type, machine, and date instead of waiting for manual spreadsheet consolidation.",
             "Machine data is separated into target, actual, runtime, OEE, NG, status, and alarm tables so report numbers are easier to audit.",
-            "Seeded demo data covers every active machine and type from May 2026 through June 2026 for realistic portfolio testing.",
+            "The web flow reduces manual follow-up because users can move from realtime status to report drill-down in the same interface.",
           ],
         },
         jobProcess: {
@@ -806,8 +806,15 @@ export const projects: Project[] = [
             { url: "/projects/mms-dashboard/issue-solution.png", title: "Problems and Fix Approach", caption: "Summarizes key engineering problems around data mismatch and report performance, plus the solution used." },
           ],
           screenshots: [
-            { url: "/projects/mms-dashboard/Daily.png", title: "Daily Dashboard", caption: "Used by supervisors to compare daily target, output, OEE, downtime, and abnormal machine behavior." },
-            { url: "/projects/mms-dashboard/Monthly.png", title: "Monthly Dashboard", caption: "Used by management to compare production trend and check before/after improvement results." },
+            { url: "/projects/mms-dashboard/web-home.png", title: "Home / OEE Dashboard", caption: "Actual web screenshot from MMS. This is the entry page for production monitoring, giving users access to OEE dashboard and production modules." },
+            { url: "/projects/mms-dashboard/web-layout-dashboard.png", title: "Layout Dashboard", caption: "Actual web screenshot from MMS. It maps machine areas and status modes so users can visually locate running, downtime, plan stop, and no-data zones." },
+            { url: "/projects/mms-dashboard/web-daily-report.png", title: "Daily Report", caption: "Actual web screenshot from MMS. It explains daily performance through downtime bars, alarm pie chart, output vs target, and cycle-time comparison." },
+            { url: "/projects/mms-dashboard/web-monthly-report.png", title: "Monthly Report", caption: "Actual web screenshot from MMS. It summarizes trend by month so management can compare production output and OEE after improvement actions." },
+            { url: "/projects/mms-dashboard/web-machine-report.png", title: "Machine Output Report", caption: "Actual web screenshot from MMS. It shows machine-by-machine monthly rows for target, output, availability, performance, quality, OEE, and export-to-Excel review." },
+            { url: "/projects/mms-dashboard/web-machine-ng.png", title: "Machine NG Report", caption: "Actual web screenshot from MMS. It helps production and quality teams trace NG quantity by machine, model, date, and station/process source." },
+            { url: "/projects/mms-dashboard/web-production-planning.png", title: "Production Planning", caption: "Actual web screenshot from MMS. Users configure targets, machine plans, model settings, cycle time, efficiency target, and working hours before comparing actual production." },
+            { url: "/projects/mms-dashboard/web-update-oee.png", title: "Update OEE", caption: "Actual web screenshot from MMS. This page supports manual review/update of OEE-related data such as NG mode, manual NG, and calculated quality/OEE values." },
+            { url: "/projects/mms-dashboard/web-machine-working.png", title: "Machine Working", caption: "Actual web screenshot from MMS. It tracks operator or machine working history so production activity can be checked alongside machine performance." },
           ],
           challenges: [
             { issue: "Machine data can come from multiple sources and update at different times, which can create mismatched report numbers.", solution: "Separated source-of-truth tables by target, actual, runtime, OEE, NG, status, and alarm, then documented which table each report should trust." },
@@ -820,8 +827,8 @@ export const projects: Project[] = [
         { url: "/projects/mms-dashboard/program-flow.png", title: "Program Working Flow", caption: "Users filter by area, type, or machine; the API loads target, actual, OEE, and downtime data; the dashboard renders realtime views and report drill-downs for production action." },
         { url: "/projects/mms-dashboard/before-after.png", title: "Before vs After Workflow", caption: "The project changes the working method from manual logs and delayed spreadsheets to realtime machine data, dashboard monitoring, and faster same-shift decisions." },
         { url: "/projects/mms-dashboard/devops-flow.png", title: "CI/CD and PM2 Deployment Flow", caption: "Development follows Git workflow, CI runs backend unit tests and frontend build, then the release is deployed to an on-premise customer server with PM2." },
-        { url: "/projects/mms-dashboard/Daily.png", title: "Daily Dashboard Report", caption: "Daily view compares output target, actual output, OEE, downtime, and alarm patterns so supervisors can review production losses by day." },
-        { url: "/projects/mms-dashboard/Monthly.png", title: "Monthly Dashboard Report", caption: "Monthly view summarizes production and OEE trend over time, making before/after improvement comparison easier for management." },
+        { url: "/projects/mms-dashboard/web-daily-report.png", title: "Daily Dashboard Report", caption: "Actual web screenshot captured from MMS. Daily view compares output target, actual output, OEE, downtime, and alarm patterns so supervisors can review production losses by day." },
+        { url: "/projects/mms-dashboard/web-monthly-report.png", title: "Monthly Dashboard Report", caption: "Actual web screenshot captured from MMS. Monthly view summarizes production and OEE trend over time, making before/after improvement comparison easier for management." },
       ],
       features: [
         "Realtime machine status monitoring with Socket.IO updates",
@@ -835,7 +842,7 @@ export const projects: Project[] = [
       metrics: [
         { label: "Active machines in DB", value: "207" },
         { label: "Machine types", value: "27" },
-        { label: "Seeded machine-days", value: "12,627" },
+        { label: "Main report pages", value: "6" },
         { label: "Demo date range", value: "May-Jun", unit: "2026" },
         { label: "Core report tables covered", value: "7" },
         { label: "Deployment mode", value: "PM2" },
@@ -845,8 +852,8 @@ export const projects: Project[] = [
         { url: "/projects/mms-dashboard/program-flow.png", caption: "Dashboard working flow from filter to action", type: "graph" },
         { url: "/projects/mms-dashboard/before-after.png", caption: "Before and after production reporting workflow", type: "graph" },
         { url: "/projects/mms-dashboard/devops-flow.png", caption: "Git, CI, CD, and PM2 deployment workflow", type: "graph" },
-        { url: "/projects/mms-dashboard/Daily.png", caption: "Real daily dashboard screenshot", type: "image" },
-        { url: "/projects/mms-dashboard/Monthly.png", caption: "Real monthly dashboard screenshot", type: "image" },
+        { url: "/projects/mms-dashboard/web-daily-report.png", caption: "Actual daily dashboard screenshot captured from the running web app", type: "image" },
+        { url: "/projects/mms-dashboard/web-monthly-report.png", caption: "Actual monthly dashboard screenshot captured from the running web app", type: "image" },
       ],
       technicalHighlights: [
         { title: "Networked Machine Data Pipeline", description: "Machine-side output, status, cycle time, and alarm data are collected through MQTT/Influx paths and normalized into SQL Server reporting tables." },
@@ -856,7 +863,7 @@ export const projects: Project[] = [
       ],
       results: [
         "Created a visual portfolio-ready explanation with network flow, program flow, before/after workflow, DevOps flow, and real dashboard screenshots.",
-        "Seeded SQL Server demo data for 207 active machines and 27 machine types across 2026-05-01 to 2026-06-30.",
+        "Captured actual MMS web pages and used them to explain what each screen does in the portfolio.",
         "Added downloadable PRD, System Architecture, User Manual, Git/DevOps workflow, and data source documentation.",
         "Added CI workflow for backend unit tests and frontend build verification before deployment.",
       ],
