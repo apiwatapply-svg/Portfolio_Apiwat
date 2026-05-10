@@ -248,6 +248,45 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                     </section>
                   )}
 
+                  {d?.imageStory && d.imageStory.length > 0 && (
+                    <section>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <ImageIcon size={20} className="text-purple-500" />
+                        Visual Walkthrough
+                      </h3>
+                      <div className="space-y-5">
+                        {d.imageStory.map((item, i) => (
+                          <button
+                            key={item.url}
+                            type="button"
+                            onClick={() => setPreviewImage({ src: item.url, alt: item.title })}
+                            className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm transition hover:border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 dark:border-slate-800 dark:bg-slate-900 ${
+                              i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
+                            }`}
+                            aria-label={`View full image: ${item.title}`}
+                          >
+                            <div className={`relative min-h-72 bg-slate-100 dark:bg-slate-800 ${i % 2 === 0 ? "" : "lg:order-2"}`}>
+                              <Image
+                                src={item.url}
+                                alt={item.title}
+                                fill
+                                className="object-contain p-2"
+                                sizes="(max-width: 1024px) 100vw, 55vw"
+                              />
+                            </div>
+                            <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
+                              <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>
+                                Image {i + 1}
+                              </span>
+                              <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
+                              <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
                   {/* Context & Problem / Basic Overview */}
                   <section className="space-y-4">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">

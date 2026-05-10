@@ -123,6 +123,7 @@ export type ProjectDetails = {
   gallery?: string[];
   videoUrl?: string;
   videos?: { url: string; caption: string }[];
+  imageStory?: { url: string; title: string; caption: string }[];
   visualEvidence?: {
     url: string;
     caption: string;
@@ -694,6 +695,33 @@ export const projects: Project[] = [
         "Draw Visual Result",
         "Save Images",
         "Insert SQL Record"
+      ],
+      imageStory: [
+        {
+          url: "/projects/ai-defect-inspection/device.png",
+          title: "1. Camera & Lighting Fixture",
+          caption: "The inspection starts from a fixed Basler camera setup with controlled blue lighting. This keeps the part position and light condition repeatable before any AI processing starts."
+        },
+        {
+          url: "/projects/ai-defect-inspection/photometric-setup.png",
+          title: "2. Inspection Geometry",
+          caption: "The part, lighting, and camera are aligned so the system can compare the same surface area under controlled capture conditions."
+        },
+        {
+          url: "/projects/ai-defect-inspection/normal-map-result.png",
+          title: "3. Photometric Stereo Output",
+          caption: "Four captured images are converted into a normal-map style image. This makes surface detail easier to inspect than a normal direct-light photo."
+        },
+        {
+          url: "/projects/ai-defect-inspection/training-results.png",
+          title: "4. YOLO Training Evidence",
+          caption: "The OK/NG classifier is trained on cropped ROI images, then checked with training curves and validation results before being used in the inspection script."
+        },
+        {
+          url: "/projects/ai-defect-inspection/final-result.png",
+          title: "5. Final OK/NG Inspection",
+          caption: "The final report compares visual inspection and camera inspection at each point, making the result easy to review with actual inspection evidence."
+        }
       ],
       methodology: [
         "Build the physical camera and lighting setup for repeatable part imaging",
