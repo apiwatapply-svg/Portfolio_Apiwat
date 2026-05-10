@@ -697,7 +697,7 @@ export const projects: Project[] = [
     tags: ["ROS", "Python", "React", "ROSBridge", "MQTT", "LiDAR", "Arduino", "CAD"],
     image: "/projects/ros-automation/cover.png",
     theme: "emerald", isFeatured: true, year: "2024", duration: "May 2024 - Jul 2024",
-    githubUrl: "https://github.com/OatApiwat/ROS_agv",
+    githubUrl: "https://github.com/apiwatapply-svg/ROS_agv",
     details: {
       objective: "Design and validate an AGV system that can move between predefined warehouse stations while operators monitor and command the robot through a web dashboard.",
       context: "A factory automation project combining a ROS catkin workspace, LiDAR mapping/navigation, Arduino motor control, MQTT/ROS bridge scripts, CAD files, and field test reports from warehouse validation.",
