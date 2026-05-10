@@ -662,7 +662,7 @@ export const projects: Project[] = [
     tags: ["Python", "OpenCV", "YOLOv11", "Basler Camera", "Photometric Stereo", "SQL Server"],
     image: "/projects/ai-defect-inspection/cover.png",
     theme: "purple", isFeatured: true, year: "2024", duration: "Dec 2024",
-    githubUrl: "https://github.com/apiwatapply-svg/Camera_Photometic_Stereo",
+    githubUrl: "https://github.com/apiwatapply-svg/Defect_Inspection_System",
     details: {
       context: "A real machine-vision prototype for part inspection. The system captures multiple images from a Basler camera under controlled blue lighting, converts them into photometric stereo normal-map features, crops circular ROI inspection points, classifies each ROI as OK / NG / undefined, and saves both images and inspection records.",
       origin: "Developed as a camera and AI inspection experiment for detecting visual defects on small manufactured parts using physical lighting control plus deep-learning classification.",
