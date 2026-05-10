@@ -210,6 +210,33 @@ export const projects: Project[] = [
         "Dashboard & Reports",
         "PM2 Deployment"
       ],
+      imageStory: [
+        {
+          url: "/projects/coffee-shop-pos/login.png",
+          title: "1. Staff Login & Role Access",
+          caption: "Staff start from a shared login screen, then the system redirects Admin, Manager, Cashier, or Barista users into the workflow that matches their role."
+        },
+        {
+          url: "/projects/coffee-shop-pos/pos.png",
+          title: "2. Cashier Checkout Screen",
+          caption: "The POS view is the main working screen for cashiers: product search, category filters, cart items, modifiers, totals, and checkout all stay visible in one place."
+        },
+        {
+          url: "/projects/coffee-shop-pos/barista.png",
+          title: "3. Barista Preparation Queue",
+          caption: "After payment, orders move into the barista queue so preparation status and pickup completion are separated from the cashier workflow."
+        },
+        {
+          url: "/projects/coffee-shop-pos/products.png",
+          title: "4. Product & Menu Management",
+          caption: "Admin and manager users can manage menu items, categories, prices, availability, and modifiers without touching the cashier screen."
+        },
+        {
+          url: "/projects/coffee-shop-pos/dashboard.png",
+          title: "5. Sales Dashboard",
+          caption: "The dashboard summarizes shop performance with operational metrics and charts so managers can review sales after daily operation."
+        }
+      ],
       technicalHighlights: [
         {
           title: "SQL Server Operational Database",
@@ -281,7 +308,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "TypeScript", "Supabase", "RLS", "PromptPay QR", "Zustand", "Playwright", "Vercel"],
     image: "/projects/uncloned/cover.png",
     theme: "orange", isFeatured: true, year: "2025", duration: "Sep 2025 - Nov 2025",
-    githubUrl: "https://github.com/ApiwatN/UNCLONED",
+    githubUrl: "https://github.com/apiwatapply-svg/UNCLONED",
     details: {
       objective: "Create a retail-ready e-commerce platform for handmade clothing that connects customer browsing, checkout, product stock, order tracking, and admin analysis in one workflow.",
       context: "UNCLONED is a Next.js 16 storefront for handmade apparel with Thai/English UI, Supabase data storage, product variants, cart state, PromptPay QR checkout, and a protected admin back office.",
@@ -310,6 +337,38 @@ export const projects: Project[] = [
         "Admin Inventory",
         "Orders & Analytics",
         "Vercel Deployment"
+      ],
+      imageStory: [
+        {
+          url: "/projects/uncloned/home.png",
+          title: "1. Brand Storefront",
+          caption: "The customer journey starts from a polished bilingual storefront that presents the handmade apparel brand, navigation, and collection entry points."
+        },
+        {
+          url: "/projects/uncloned/collection.png",
+          title: "2. Supabase Product Collection",
+          caption: "Products are rendered from restored Supabase data with unique images, category browsing, and retail-style product cards."
+        },
+        {
+          url: "/projects/uncloned/product-detail.png",
+          title: "3. Product Detail & Cart Flow",
+          caption: "The product detail page shows variants, stock, quantity controls, and add-to-cart behavior that connects browsing to checkout."
+        },
+        {
+          url: "/projects/uncloned/admin-products.png",
+          title: "4. Admin Inventory",
+          caption: "The admin product screen lets the store owner review inventory, product visibility, variants, stock, and image status after data recovery."
+        },
+        {
+          url: "/projects/uncloned/admin-orders.png",
+          title: "5. Order Fulfillment",
+          caption: "Admin users can review customer orders, payment state, fulfillment status, and tracking updates from a dedicated operations screen."
+        },
+        {
+          url: "/projects/uncloned/admin-analytics.png",
+          title: "6. Store Analytics",
+          caption: "Analytics turn restored order data into revenue, conversion, customer, and top-product views for business review."
+        }
       ],
       technicalHighlights: [
         {
@@ -422,7 +481,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "Express", "Prisma", "SQL Server", "Socket.IO", "PM2"],
     image: "/projects/booking-meeting-room/cover.png",
     theme: "emerald", isFeatured: true, year: "2025", duration: "Apr 2025 - Jun 2025",
-    githubUrl: "https://github.com/ApiwatN/meetng_room_project",
+    githubUrl: "https://github.com/apiwatapply-svg/meetng_room_project",
     details: {
       objective: "Provide a centralized platform for staff to check meeting room availability, reserve rooms, prevent schedule conflicts, and let admins manage rooms, users, and usage reports.",
       context: "A factory-style internal booking system with a Next.js static frontend served by an Express backend on one port. The backend uses Prisma with SQL Server and exposes booking, room, user, and report APIs.",
@@ -450,6 +509,33 @@ export const projects: Project[] = [
         "Calendar Update",
         "Admin Reports",
         "PM2 Deployment"
+      ],
+      imageStory: [
+        {
+          url: "/projects/booking-meeting-room/login.png",
+          title: "1. Admin Login",
+          caption: "The internal workflow starts with admin access, keeping room management and booking data behind a simple authenticated entry point."
+        },
+        {
+          url: "/projects/booking-meeting-room/dashboard.png",
+          title: "2. Room Availability Dashboard",
+          caption: "The dashboard shows realistic meeting room cards and a working-hour timeline so staff can scan availability before creating a booking."
+        },
+        {
+          url: "/projects/booking-meeting-room/booking-modal.png",
+          title: "3. Booking Form",
+          caption: "Users open a room card and create a booking with topic, date, time, attendee count, privacy, and recurring booking options."
+        },
+        {
+          url: "/projects/booking-meeting-room/admin.png",
+          title: "4. Admin Management",
+          caption: "Admin pages support room, user, calendar, and report management so the system can be maintained after deployment."
+        },
+        {
+          url: "/projects/booking-meeting-room/meeting-room-photoreal-collage.png",
+          title: "5. Realistic Room Assets",
+          caption: "The seeded rooms use local realistic room images, making the demo stable and easy to understand without relying on external image URLs."
+        }
       ],
       technicalHighlights: [
         {
@@ -550,6 +636,7 @@ export const projects: Project[] = [
     tags: ["Next.js", "Supabase", "RFID", "IoT"],
     image: "/projects/Student_Attendance_Management_System/cover.png",
     theme: "purple", isFeatured: false, year: "2021", duration: "Jul 2021 - Dec 2021",
+    githubUrl: "https://github.com/apiwatapply-svg/Student_Attendance_Management_System",
     details: {
       objective: "Develop a fast attendance checking system that reduces teachers' workload, featuring real-time dashboards for administrators and teachers to monitor attendance statistics.",
       context: "A modern student attendance system designed to simplify the traditional check-in process. It utilizes RFID/NFC cards or student ID input to record attendance instead of manual roll calls.",
@@ -575,6 +662,38 @@ export const projects: Project[] = [
       lessonsLearned: [
         "A simple User Interface (UI) is crucial for Kiosk devices with high repetitive usage",
         "Connection stability between the Hardware Reader and Web Server is the heart of the system"
+      ],
+      imageStory: [
+        {
+          url: "/projects/Student_Attendance_Management_System/login.png",
+          title: "1. Login & Role Entry",
+          caption: "Users enter through the login screen before being routed to admin, teacher, or student workflows."
+        },
+        {
+          url: "/projects/Student_Attendance_Management_System/NFC.png",
+          title: "2. NFC/RFID Attendance Capture",
+          caption: "The NFC/RFID check-in screen is designed for repeated kiosk use, allowing fast student attendance capture with card-based identification."
+        },
+        {
+          url: "/projects/Student_Attendance_Management_System/admin_dashboard.png",
+          title: "3. Admin Attendance Overview",
+          caption: "Admins can review attendance summaries and manage the school-level setup from a central dashboard."
+        },
+        {
+          url: "/projects/Student_Attendance_Management_System/admin_users.png",
+          title: "4. User & Card Management",
+          caption: "Admin pages manage users, student cards, subjects, classes, and enrollments so attendance data stays structured."
+        },
+        {
+          url: "/projects/Student_Attendance_Management_System/teacher_dashboard.png",
+          title: "5. Teacher Class Monitoring",
+          caption: "Teachers can review class attendance status and use manual controls when card-based check-in needs correction."
+        },
+        {
+          url: "/projects/Student_Attendance_Management_System/student_dashboard.png",
+          title: "6. Student Attendance View",
+          caption: "Students can review their attendance status and history, closing the loop between capture, admin management, and personal visibility."
+        }
       ],
       gallery: [
         "/projects/Student_Attendance_Management_System/login.png",
