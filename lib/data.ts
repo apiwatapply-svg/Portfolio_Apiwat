@@ -657,36 +657,95 @@ export const projects: Project[] = [
   {
     slug: "ai-defect-inspection",
     title: "AI Defect Inspection System",
-    description: "Applied AI-based Machine Vision utilizing HIKROBOT technologies to enhance inspection accuracy and decrease defect rate.",
-    tags: ["Python", "YOLO", "Machine Vision"],
-    image: "https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=800&q=80",
-    theme: "purple", isFeatured: true, year: "2023", duration: "Oct 2023 - Dec 2023",
+    description: "Built a machine-vision inspection pipeline using a Basler camera, controlled blue lighting, photometric stereo, ROI extraction, and YOLO OK/NG classification.",
+    tags: ["Python", "OpenCV", "YOLOv11", "Basler Camera", "Photometric Stereo", "SQL Server"],
+    image: "/projects/ai-defect-inspection/cover.png",
+    theme: "purple", isFeatured: true, year: "2024", duration: "Dec 2024",
+    githubUrl: "https://github.com/OatApiwat/Camera_Photometic_Stereo",
     details: {
-      context: "An automated AI-based defect inspection system — uses industrial cameras and Deep Learning to detect anomalies on parts moving through the production line, replacing human visual inspection which is prone to fatigue and errors.",
-      origin: "Internal project at NMB-Minebea Thai Ltd. (2023), an electronics parts manufacturer aiming to upgrade QC processes toward Zero-defect Manufacturing.",
-      painPoint: "The legacy inspection relied entirely on manual visual checks, leading to human error from fatigue and inconsistency in high-volume production.",
-      objective: "Deploy an AI Machine Vision inspection system to improve defect detection accuracy and reduce human error in the QC process.",
-      yourRole: "Lead engineer for the entire project — designed the data collection pipeline, labeled parts dataset, trained YOLO model, integrated with HIKROBOT SDK, and deployed the system on the live production line.",
-      keySkillsUsed: ["Python", "YOLOv8", "HIKROBOT SDK", "OpenCV", "Edge Computing", "Dataset Labeling", "Model Training & Evaluation"],
+      context: "A real machine-vision prototype for part inspection. The system captures multiple images from a Basler camera under controlled blue lighting, converts them into photometric stereo normal-map features, crops circular ROI inspection points, classifies each ROI as OK / NG / undefined, and saves both images and inspection records.",
+      origin: "Developed as a camera and AI inspection experiment for detecting visual defects on small manufactured parts using physical lighting control plus deep-learning classification.",
+      painPoint: "Small surface defects are difficult to judge consistently with normal direct-light images. The inspection needed more stable surface detail, repeatable ROI locations, and a simple OK/NG decision that could be stored for traceability.",
+      objective: "Build an end-to-end defect-inspection workflow from image capture to photometric stereo processing, YOLO classification, visual result overlay, image saving, and SQL Server logging.",
+      yourRole: "Machine Vision / AI Developer. Responsible for the Basler camera capture workflow, photometric stereo processing, ROI crop logic, YOLO model integration, OK/NG decision rules, result image generation, and database logging.",
+      keySkillsUsed: ["Python", "OpenCV", "Ultralytics YOLO", "Photometric Stereo", "Basler Camera", "PyTorch", "pymssql", "Dataset Labeling", "Industrial Lighting"],
       hardware: [
-        { name: "HIKROBOT Camera", icon: "Camera", description: "Captures high-res images" },
-        { name: "LED Lighting", icon: "Lightbulb", description: "Controls lighting environment" },
-        { name: "Industrial PC", icon: "Server", description: "Runs YOLOv8 locally on edge" }
+        { name: "Basler Camera", icon: "Camera", description: "Captures repeated inspection images from the fixture" },
+        { name: "Blue LED Lighting", icon: "Lightbulb", description: "Controlled 12V lighting for surface detail extraction" },
+        { name: "AI Workstation", icon: "Server", description: "Runs OpenCV, PyTorch, and YOLO inference locally" },
+        { name: "SQL Server", icon: "Database", description: "Stores inspection name, date, time, and point results" }
       ],
-      methodology: ["Collect and label real defective parts dataset from the production line", "Train YOLO model and tune hyperparameters to achieve mAP > 95%", "Integrate with HIKROBOT SDK for camera I/O", "Deploy on edge device and validate on live production line"],
-      results: ["Defect detection accuracy > 95%", "Significantly reduced defect rate reaching customers", "Inference speed < 50ms per part — no impact Takt Time"],
+      features: [
+        "Basler camera capture loop with keyboard-triggered inspection cycle",
+        "Four-image photometric stereo processing to generate normal-map visual output",
+        "Circular ROI extraction for two inspection points on each part",
+        "YOLO classification for OK / NG decisions with confidence threshold logic",
+        "Visual overlay that draws inspection circles and labels results on the processed image",
+        "Automatic saving of raw images, normal map, ROI images, prediction images, and final result image",
+        "SQL Server logging for inspection timestamp and point-level results"
+      ],
+      workflow: [
+        "Capture 4 Images",
+        "Convert To Grayscale",
+        "Photometric Stereo",
+        "Normal Map / B Channel",
+        "Crop ROI Points",
+        "YOLO OK/NG Classification",
+        "Draw Visual Result",
+        "Save Images",
+        "Insert SQL Record"
+      ],
+      methodology: [
+        "Build the physical camera and lighting setup for repeatable part imaging",
+        "Capture multiple directional-light images and compute a photometric stereo normal map",
+        "Extract circular ROI regions from fixed inspection coordinates",
+        "Train and validate a YOLO classification model with OK/NG image datasets",
+        "Integrate inference, result drawing, file saving, and SQL Server logging into one Python workflow"
+      ],
+      results: [
+        "Created a working end-to-end inspection script in basler/version_4_save_final/main.py",
+        "Generated visual inspection reports comparing direct light, photometric stereo, visual inspection, and camera inspection results",
+        "Stored full traceability evidence for each inspection cycle: raw images, normal-map image, ROI images, prediction ROI images, and final result image",
+        "Prepared dataset folders for OK/NG training, validation, and testing across multiple ROI samples"
+      ],
+      technicalHighlights: [
+        { title: "Photometric Stereo Preprocessing", description: "The pipeline combines four lighting-direction images to compute a normal-map visualization, then uses the B channel as the inspection feature image." },
+        { title: "Point-Level ROI Decision", description: "Two circular inspection points are cropped from the processed image and classified independently, allowing OK/NG results for each target region." },
+        { title: "YOLO Classification Integration", description: "Ultralytics YOLO is loaded from weight_02.pt, runs on CUDA when available, and classifies cropped ROI images with a confidence threshold before drawing the final result." },
+        { title: "Traceable Output", description: "Each inspection cycle saves raw capture images, normal map, ROI crops, prediction crops, final visual result, and SQL result records." }
+      ],
       challenges: [
-        { issue: "Very limited defective part samples in production caused model overfitting to training data", solution: "Applied Data Augmentation (rotation, brightness, noise) and Transfer Learning from pre-trained YOLO to improve model performance with a small dataset" },
-        { issue: "Variable lighting conditions on the production line degraded model accuracy at certain times", solution: "Installed a controlled LED lighting system and fixed camera exposure to remove lighting as a variable" },
+        { issue: "Direct-light images did not expose small surface differences clearly enough for reliable visual judgment.", solution: "Added controlled directional lighting and photometric stereo processing to create stronger surface-feature images before classification." },
+        { issue: "The inspection target had fixed circular regions that needed consistent point-level decisions.", solution: "Implemented coordinate-based circular ROI cropping and independent classification for each inspection point." },
+        { issue: "Inspection results needed traceability beyond a single screen output.", solution: "Saved all processing stages into result folders and inserted timestamped OK/NG records into SQL Server." }
+      ],
+      visualEvidence: [
+        { url: "/projects/ai-defect-inspection/cover.png", caption: "Portfolio cover composed from the real device, final result, normal map, and training evidence", type: "image" },
+        { url: "/projects/ai-defect-inspection/device.png", caption: "Physical Basler camera and blue-light inspection fixture", type: "image" },
+        { url: "/projects/ai-defect-inspection/final-result.png", caption: "Final inspection report comparing visual and camera inspection for two points", type: "image" },
+        { url: "/projects/ai-defect-inspection/normal-map-result.png", caption: "Photometric stereo normal-map output used for surface-feature extraction", type: "image" },
+        { url: "/projects/ai-defect-inspection/train-result.png", caption: "YOLOv11 training result summary from the project slides", type: "image" }
+      ],
+      gallery: [
+        "/projects/ai-defect-inspection/cover.png",
+        "/projects/ai-defect-inspection/device.png",
+        "/projects/ai-defect-inspection/photometric-setup.png",
+        "/projects/ai-defect-inspection/photometric-geometry.png",
+        "/projects/ai-defect-inspection/normal-map-result.png",
+        "/projects/ai-defect-inspection/training-results.png",
+        "/projects/ai-defect-inspection/training-matrix.png",
+        "/projects/ai-defect-inspection/train-result.png",
+        "/projects/ai-defect-inspection/final-result.png"
       ],
       lessonsLearned: [
-        "Data Quality > Model Complexity — a well-labeled, diverse dataset outperforms a complex model trained on poor data.",
-        "Physical environment factors (lighting, dust, vibration) in factories impact AI more than expected — control the environment before deploying.",
+        "Lighting and image formation are as important as the AI model in factory inspection work.",
+        "Saving intermediate images makes debugging much easier because failures can be traced back to capture, normal-map generation, ROI crop, or classification.",
+        "Point-level inspection data should be logged with timestamps so production teams can review trends and compare AI decisions with human inspection."
       ],
       nextSteps: [
-        "Expand to other part types in the factory by reusing the existing pipeline",
-        "Add Anomaly Detection for new defect types not seen in training data",
-        "Integrate with MES to trigger alerts and auto-stop the line when defect rate exceeds threshold",
+        "Move camera, lighting, ROI coordinates, model path, and database credentials into a config file.",
+        "Add a small operator UI for live status, latest result image, and SQL connection health.",
+        "Add model/version metadata to each inspection record for auditability."
       ],
     },
   },
