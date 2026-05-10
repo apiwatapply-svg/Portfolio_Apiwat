@@ -124,6 +124,7 @@ export type ProjectDetails = {
   videoUrl?: string;
   videos?: { url: string; caption: string }[];
   imageStory?: { url: string; title: string; caption: string }[];
+  documents?: { title: string; url: string; description: string }[];
   visualEvidence?: {
     url: string;
     caption: string;
@@ -724,27 +725,78 @@ export const projects: Project[] = [
 
   {
     slug: "mms-dashboard",
-    title: "Smart Factory MMS Dashboard (25 type 134 machine)",
-    description: "Real-time Machine Monitoring Systems (MMS) and dashboards for data-driven decision-making in manufacturing operations.",
-    tags: ["React", "Node.js", "Firebase", "PostgreSQL"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: true, year: "2026", duration: "Jan 2025 - 2026",
+    title: "Smart Factory MMS Dashboard",
+    description: "Built an on-premise machine monitoring and OEE dashboard for 207 machines across 27 machine types, connecting machine-side data to SQL Server reports and realtime production views.",
+    tags: ["Next.js", "Node.js", "SQL Server", "Prisma", "MQTT", "InfluxDB", "Socket.IO", "PM2"],
+    image: "/projects/mms-dashboard/cover.png",
+    theme: "blue", isFeatured: true, year: "2026", duration: "May 2026 - Jun 2026",
+    githubUrl: "https://github.com/apiwatapply-svg/MMS_project",
     details: {
-      objective: "Develop a real-time machine status dashboard to support data-driven decision-making in production lines.",
-      context: "A large-scale Smart Factory monitoring system — provides real-time visibility into the status and performance of 134 machines across 25 different types.",
-      origin: "A core project at NMB-Minebea Thai Ltd. to drive digital transformation and achieve real-time OEE (Overall Equipment Effectiveness) tracking.",
-      painPoint: "Lack of real-time data led to slow response times for machine breakdowns and inaccurate production reporting based on manual logs.",
-      yourRole: "Lead Full-stack Developer. Architected the real-time data pipeline, designed the database schema for high-volume telemetry, and developed the React-based visual dashboard.",
-      keySkillsUsed: ["React", "Node.js", "Firebase", "PostgreSQL", "Real-time Dashboards", "Database Optimization", "System Architecture"],
-      features: ["Real-time machine status monitoring", "OEE (Overall Equipment Effectiveness) tracking", "Downtime analysis & reporting", "Alert notification system", "Multi-line production overview"],
-      results: ["Reduced unplanned downtime by 30%", "Faster anomaly response across production lines", "Remote monitoring accessible via web browser"],
+      objective: "Turn machine-side signals into clear production visibility: realtime status, output vs target, OEE, downtime, NG, daily reports, and monthly reports by area/type/machine.",
+      context: "An on-premise Smart Factory MMS dashboard for production monitoring. The database master currently covers 207 active machines across 27 machine types, with portfolio demo data seeded for 2026-05-01 to 2026-06-30.",
+      origin: "Built to replace delayed manual reporting with a connected dashboard that production, maintenance, and management can read from the same source of truth.",
+      painPoint: "Before MMS, output, downtime, and OEE were checked through manual logs and spreadsheets. The team could see problems after the loss already happened, and reports were hard to compare across machine type.",
+      yourRole: "Full-stack developer responsible for system analysis, machine-data flow design, SQL Server schema usage, backend APIs, realtime dashboard, report pages, CI test workflow, PM2 deployment plan, and portfolio documentation.",
+      keySkillsUsed: ["Next.js", "Node.js", "Express", "Prisma", "SQL Server", "MQTT", "InfluxDB", "Socket.IO", "PM2", "GitHub Actions"],
+      documents: [
+        { title: "Requirements PRD", url: "/projects/mms-dashboard/docs/PRD.md", description: "Scope, users, pain points, functional requirements, and deliverables." },
+        { title: "System Architecture", url: "/projects/mms-dashboard/docs/System-Architecture.md", description: "Network flow, ER diagram, API spec, tech stack, and deployment architecture." },
+        { title: "User Manual", url: "/projects/mms-dashboard/docs/User-Manual.md", description: "How supervisors and engineers use dashboard, reports, target, OEE, and timeline pages." },
+        { title: "Git & DevOps Workflow", url: "/projects/mms-dashboard/docs/Git-DevOps-Workflow.md", description: "Branching, CI, CD, PM2 deployment, and release checklist." },
+        { title: "Data Source of Truth", url: "/projects/mms-dashboard/docs/data-source-of-truth.md", description: "Notes for separating target, actual, runtime, OEE, and reporting data." },
+      ],
+      imageStory: [
+        { url: "/projects/mms-dashboard/network-flow.png", title: "Machine-to-Server Network Flow", caption: "Machine PLC/sensor signals are collected by an edge gateway, sent through MQTT and InfluxDB, normalized by the Node.js backend, then stored in SQL Server for dashboards and reports." },
+        { url: "/projects/mms-dashboard/program-flow.png", title: "Program Working Flow", caption: "Users filter by area, type, or machine; the API loads target, actual, OEE, and downtime data; the dashboard renders realtime views and report drill-downs for production action." },
+        { url: "/projects/mms-dashboard/before-after.png", title: "Before vs After Workflow", caption: "The project changes the working method from manual logs and delayed spreadsheets to realtime machine data, dashboard monitoring, and faster same-shift decisions." },
+        { url: "/projects/mms-dashboard/devops-flow.png", title: "CI/CD and PM2 Deployment Flow", caption: "Development follows Git workflow, CI runs backend unit tests and frontend build, then the release is deployed to an on-premise customer server with PM2." },
+        { url: "/projects/mms-dashboard/Daily.png", title: "Daily Dashboard Report", caption: "Daily view compares output target, actual output, OEE, downtime, and alarm patterns so supervisors can review production losses by day." },
+        { url: "/projects/mms-dashboard/Monthly.png", title: "Monthly Dashboard Report", caption: "Monthly view summarizes production and OEE trend over time, making before/after improvement comparison easier for management." },
+      ],
+      features: [
+        "Realtime machine status monitoring with Socket.IO updates",
+        "Machine filters by area, type, and machine name",
+        "Output target vs actual output by hour/day/month",
+        "OEE calculation using availability, performance, quality, and NG quantity",
+        "Daily dashboard, monthly dashboard, machine report, and NG report",
+        "PM2-ready deployment for on-premise customer server",
+      ],
+      workflow: ["Get requirements", "Design PRD and architecture", "Code backend/frontend", "Use Git workflow", "Run CI unit tests and build", "Deploy with PM2", "Verify dashboard reports"],
+      metrics: [
+        { label: "Active machines in DB", value: "207" },
+        { label: "Machine types", value: "27" },
+        { label: "Seeded machine-days", value: "12,627" },
+        { label: "Demo date range", value: "May-Jun", unit: "2026" },
+        { label: "Core report tables covered", value: "7" },
+        { label: "Deployment mode", value: "PM2" },
+      ],
+      visualEvidence: [
+        { url: "/projects/mms-dashboard/network-flow.png", caption: "Network connection from machine to server and database", type: "graph" },
+        { url: "/projects/mms-dashboard/program-flow.png", caption: "Dashboard working flow from filter to action", type: "graph" },
+        { url: "/projects/mms-dashboard/before-after.png", caption: "Before and after production reporting workflow", type: "graph" },
+        { url: "/projects/mms-dashboard/devops-flow.png", caption: "Git, CI, CD, and PM2 deployment workflow", type: "graph" },
+        { url: "/projects/mms-dashboard/Daily.png", caption: "Real daily dashboard screenshot", type: "image" },
+        { url: "/projects/mms-dashboard/Monthly.png", caption: "Real monthly dashboard screenshot", type: "image" },
+      ],
+      technicalHighlights: [
+        { title: "Networked Machine Data Pipeline", description: "Machine-side output, status, cycle time, and alarm data are collected through MQTT/Influx paths and normalized into SQL Server reporting tables." },
+        { title: "Database by Machine Type", description: "Machine master data separates area, type, and machine name, allowing reports to compare production performance by line, type, or individual machine." },
+        { title: "Realtime and Report Data Together", description: "Socket.IO supports live dashboard updates while Prisma queries serve daily, monthly, machine, and NG reports from the same SQL Server source." },
+        { title: "Deployable for Customer Machines", description: "The project includes PM2 process config, CI workflow, documentation, and seeded demo data for on-premise validation." },
+      ],
+      results: [
+        "Created a visual portfolio-ready explanation with network flow, program flow, before/after workflow, DevOps flow, and real dashboard screenshots.",
+        "Seeded SQL Server demo data for 207 active machines and 27 machine types across 2026-05-01 to 2026-06-30.",
+        "Added downloadable PRD, System Architecture, User Manual, Git/DevOps workflow, and data source documentation.",
+        "Added CI workflow for backend unit tests and frontend build verification before deployment.",
+      ],
       lessonsLearned: [
-        "Data scalability is critical when handling hundreds of machines; efficient indexing and data normalization are non-negotiable.",
-        "Visual design should focus on 'glanceability' — allowing supervisors to spot issues in seconds."
+        "Factory dashboards must be visual first: supervisors need to understand loss and status at a glance.",
+        "Machine data needs strict source-of-truth separation between raw telemetry, targets, actuals, runtime, OEE, and reporting summaries."
       ],
       nextSteps: [
-        "Integrate with Predictive Maintenance models to display early warning alerts directly on the dashboard.",
-        "Expand monitoring to include environmental factors (temp, humidity) affecting machine performance."
+        "Add predictive maintenance signals on top of the existing downtime and OEE data.",
+        "Add automated release package generation for customer-server deployment."
       ],
     },
   },

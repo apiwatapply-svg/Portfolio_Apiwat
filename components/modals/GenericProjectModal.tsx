@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Target, User, BarChart2, Workflow, Camera, Server, Activity, Wifi, Bot, Cloud, Code, ExternalLink, KeyRound, Video } from "lucide-react";
+import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Target, User, BarChart2, Workflow, Camera, Server, Activity, Wifi, Bot, Cloud, Code, ExternalLink, KeyRound, Video, FileText, Download } from "lucide-react";
 import { type Project } from "@/lib/data";
 import AnimationFlow from "@/components/AnimationFlow";
 
@@ -158,6 +158,31 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                     </div>
                   )}
                 </div>
+              )}
+
+              {d?.documents && d.documents.length > 0 && (
+                <section className="mb-8">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                    <FileText size={20} className="text-blue-500" />
+                    Project Documents
+                  </h3>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {d.documents.map((doc) => (
+                      <a
+                        key={doc.url}
+                        href={doc.url}
+                        download
+                        className="flex items-start justify-between gap-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left transition-colors hover:border-blue-300 hover:bg-blue-50 dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-blue-900/70 dark:hover:bg-blue-950/20"
+                      >
+                        <span>
+                          <span className="block text-sm font-black text-slate-900 dark:text-white">{doc.title}</span>
+                          <span className="mt-1 block text-xs leading-relaxed text-slate-500 dark:text-slate-400">{doc.description}</span>
+                        </span>
+                        <Download size={17} className="mt-0.5 shrink-0 text-slate-400" />
+                      </a>
+                    ))}
+                  </div>
+                </section>
               )}
 
               {/* Tabs (Sticky) */}
