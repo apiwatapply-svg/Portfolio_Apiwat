@@ -185,50 +185,76 @@ function ProjectProcessDiagram() {
 
 function ErStructureDiagram() {
   const tables = [
-    ["tbm_machine", "machine master"],
-    ["tb_output_target", "target per hour"],
-    ["tb_output_actual", "actual output"],
-    ["tb_oee", "A / P / Q / OEE"],
-    ["tb_MCStatus", "machine status"],
-    ["tb_MCAlarm", "alarm history"],
-    ["tb_machine_ng", "NG history"],
-    ["Report API", "daily / machine reports"],
-  ];
+    ["tb_output_target", "target per hour", "green"],
+    ["tb_output_actual", "actual output", "violet"],
+    ["tb_oee", "A / P / Q / OEE", "amber"],
+    ["tb_MCStatus", "machine status", "green"],
+    ["tb_MCAlarm", "alarm history", "violet"],
+    ["tb_machine_ng", "NG history", "amber"],
+  ] as const;
+  const lineTargets = [9, 25, 41, 57, 73, 89];
 
   return (
     <AnimatedShell>
-      <div className="relative z-10 flex h-full flex-col justify-center gap-3">
-        <div className="mx-auto w-full max-w-[220px]">
+      <div className="relative z-10 min-h-[360px]">
+        <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <marker id="mms-er-arrow" markerHeight="4" markerWidth="5" orient="auto" refX="4" refY="2">
+              <path d="M0,0 L5,2 L0,4 Z" fill="rgba(34,211,238,0.8)" />
+            </marker>
+          </defs>
+          {lineTargets.map((targetY, index) => (
+            <motion.path
+              key={`master-${targetY}`}
+              d={`M 28 50 C 34 50, 30 ${targetY}, 36 ${targetY}`}
+              fill="none"
+              stroke="rgba(34,211,238,0.42)"
+              strokeWidth="0.45"
+              markerEnd="url(#mms-er-arrow)"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: [0, 1, 1], opacity: [0.25, 0.85, 0.45] }}
+              transition={{ duration: 2.4, repeat: Infinity, delay: index * 0.12 }}
+            />
+          ))}
+          {lineTargets.map((targetY, index) => (
+            <motion.path
+              key={`report-${targetY}`}
+              d={`M 64 ${targetY} C 72 ${targetY}, 68 50, 76 50`}
+              fill="none"
+              stroke="rgba(16,185,129,0.38)"
+              strokeWidth="0.45"
+              markerEnd="url(#mms-er-arrow)"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: [0, 1, 1], opacity: [0.2, 0.75, 0.4] }}
+              transition={{ duration: 2.4, repeat: Infinity, delay: 0.45 + index * 0.12 }}
+            />
+          ))}
+        </svg>
+
+        <div className="absolute left-0 top-1/2 z-10 w-[30%] -translate-y-1/2">
           <DiagramNode label="tbm_machine" detail="area, type, machine name" tone="cyan" icon={<HardDrive size={14} />} />
         </div>
 
-        <div className="mx-auto flex w-full max-w-[360px] justify-center">
-          <FlowLine vertical delay={0.1} />
-        </div>
-
-        <div className="mx-auto grid w-full max-w-[460px] grid-cols-2 gap-3">
-          {tables.slice(1, 7).map(([label, detail], index) => (
-            <DiagramNode
-              key={label}
-              label={label}
-              detail={detail}
-              tone={index % 3 === 0 ? "green" : index % 3 === 1 ? "violet" : "amber"}
-              icon={<Database size={14} />}
-              delay={index * 0.07}
-            />
+        <div className="absolute left-[36%] top-0 z-10 grid w-[30%] gap-2">
+          {tables.map(([label, detail, tone], index) => (
+            <div key={label} className="relative">
+              <DiagramNode
+                label={label}
+                detail={detail}
+                tone={tone}
+                icon={<Database size={14} />}
+                delay={index * 0.07}
+              />
+            </div>
           ))}
         </div>
 
-        <div className="mx-auto flex w-full max-w-[360px] justify-center">
-          <FlowLine vertical delay={0.35} />
-        </div>
-
-        <div className="mx-auto w-full max-w-[220px]">
+        <div className="absolute right-0 top-1/2 z-10 w-[24%] -translate-y-1/2">
           <DiagramNode label="Report API" detail="daily / machine reports" tone="cyan" icon={<Server size={14} />} delay={0.5} />
         </div>
 
         <motion.div
-          className="pointer-events-none absolute inset-x-12 top-1/2 h-px bg-cyan-300/20"
+          className="pointer-events-none absolute inset-x-10 top-1/2 z-0 h-px bg-cyan-300/20"
           animate={{ opacity: [0.25, 0.9, 0.25] }}
           transition={{ duration: 1.4, repeat: Infinity }}
         />
