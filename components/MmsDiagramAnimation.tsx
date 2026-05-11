@@ -10,8 +10,8 @@ type Props = {
   title: string;
 };
 
-const nodeStyle = "relative z-10 rounded-lg border bg-slate-950/70 px-3 py-2 shadow-lg shadow-slate-950/30 backdrop-blur";
-const labelStyle = "text-[11px] font-black text-white sm:text-xs";
+const nodeStyle = "relative z-10 min-w-0 rounded-lg border bg-slate-950/70 px-3 py-2 shadow-lg shadow-slate-950/30 backdrop-blur";
+const labelStyle = "min-w-0 break-words text-[11px] font-black leading-tight text-white sm:text-xs";
 const detailStyle = "mt-1 text-[9px] leading-tight text-slate-300 sm:text-[10px]";
 
 function resolveKind(title: string): DiagramKind {
@@ -64,8 +64,8 @@ function DiagramNode({
       transition={{ duration: 0.45, delay }}
       className={`${nodeStyle} ${colors[tone]}`}
     >
-      <div className="flex items-center gap-2">
-        <span className="text-cyan-300">{icon}</span>
+      <div className="flex min-w-0 items-center gap-2">
+        <span className="shrink-0 text-cyan-300">{icon}</span>
         <span className={labelStyle}>{label}</span>
       </div>
       <p className={detailStyle}>{detail}</p>
@@ -197,9 +197,16 @@ function ErStructureDiagram() {
 
   return (
     <AnimatedShell>
-      <div className="relative z-10 grid h-full items-center gap-4 md:grid-cols-[0.9fr_1.2fr_0.9fr]">
-        <DiagramNode label="tbm_machine" detail="area, type, machine name" tone="cyan" icon={<HardDrive size={14} />} />
-        <div className="grid gap-3 sm:grid-cols-2">
+      <div className="relative z-10 flex h-full flex-col justify-center gap-3">
+        <div className="mx-auto w-full max-w-[220px]">
+          <DiagramNode label="tbm_machine" detail="area, type, machine name" tone="cyan" icon={<HardDrive size={14} />} />
+        </div>
+
+        <div className="mx-auto flex w-full max-w-[360px] justify-center">
+          <FlowLine vertical delay={0.1} />
+        </div>
+
+        <div className="mx-auto grid w-full max-w-[460px] grid-cols-2 gap-3">
           {tables.slice(1, 7).map(([label, detail], index) => (
             <DiagramNode
               key={label}
@@ -211,9 +218,17 @@ function ErStructureDiagram() {
             />
           ))}
         </div>
-        <DiagramNode label="Report API" detail="daily / machine reports" tone="cyan" icon={<Server size={14} />} delay={0.5} />
+
+        <div className="mx-auto flex w-full max-w-[360px] justify-center">
+          <FlowLine vertical delay={0.35} />
+        </div>
+
+        <div className="mx-auto w-full max-w-[220px]">
+          <DiagramNode label="Report API" detail="daily / machine reports" tone="cyan" icon={<Server size={14} />} delay={0.5} />
+        </div>
+
         <motion.div
-          className="pointer-events-none absolute left-[22%] right-[22%] top-1/2 h-px bg-cyan-300/40"
+          className="pointer-events-none absolute inset-x-12 top-1/2 h-px bg-cyan-300/20"
           animate={{ opacity: [0.25, 0.9, 0.25] }}
           transition={{ duration: 1.4, repeat: Infinity }}
         />
