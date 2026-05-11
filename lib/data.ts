@@ -59,6 +59,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "LLM Integration", iconKey: "llm" },
       { name: "RAG & AI Agents", iconKey: "rag" },
+      { name: "Vibe Coding", iconKey: "prompt" },
       { name: "AI Workflow (n8n)", iconKey: "workflow" },
       { name: "Machine Vision & Edge AI", iconKey: "vision" },
       { name: "Predictive Maintenance", iconKey: "predictive" },
