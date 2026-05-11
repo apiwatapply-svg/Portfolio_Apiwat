@@ -761,7 +761,7 @@ export const projects: Project[] = [
     theme: "blue", isFeatured: true, year: "2026", duration: "May 2026 - Jun 2026",
     githubUrl: "https://github.com/apiwatapply-svg/MMS_project",
     details: {
-      objective: "Turn machine-side signals into clear production visibility: realtime status, output vs target, OEE, downtime, NG, daily reports, and monthly reports by area/type/machine.",
+      objective: "Turn machine-side signals into clear production visibility: realtime status, output vs target, OEE, downtime, NG, and daily reports by area/type/machine.",
       context: "An on-premise Smart Factory MMS dashboard for production monitoring. The system is designed around a machine master of 207 active machines across 27 machine types, with realtime machine visibility and historical reporting for production review.",
       origin: "Built to replace delayed manual reporting with a connected dashboard that production, maintenance, and management can read from the same source of truth.",
       painPoint: "Before MMS, output, downtime, and OEE were checked through manual logs and spreadsheets. The team could see problems after the loss already happened, and reports were hard to compare across machine type.",
@@ -775,7 +775,7 @@ export const projects: Project[] = [
         scope: {
           story: {
             headline: "Smart Factory MMS Dashboard for 207 production machines",
-            pitch: "This project turns machine-side production data into realtime visibility and historical reports. Instead of waiting for manual notes and spreadsheet consolidation, supervisors can open one on-premise web dashboard to see machine status, output, target, NG, OEE, daily reports, and monthly reports.",
+            pitch: "This project turns machine-side production data into realtime visibility and historical reports. Instead of waiting for manual notes and spreadsheet consolidation, supervisors can open one on-premise web dashboard to see machine status, output, target, NG, OEE, and daily reports.",
             points: [
               "What is Project: an on-premise MMS web system for production monitoring, report review, and machine-performance analysis.",
               "Pain Point: manual machine checks made data late, difficult to compare by zone/type, and vulnerable to human error.",
@@ -795,7 +795,7 @@ export const projects: Project[] = [
               { task: "Cover 4 production zones", before: "~52 min / zone / round", after: "All zones visible from one screen", impact: "Equivalent to reducing repetitive checking work from about 8.3 full-time operators per 25-min cycle to exception monitoring" },
               { task: "Paper and spreadsheet recording", before: "Paper notes and manual Excel consolidation", after: "Digital dashboard and database reports", impact: "Paperless workflow and fewer transcription mistakes" },
               { task: "Detect output loss", before: "After the next manual round or report consolidation", after: "Realtime dashboard and report drill-down", impact: "Faster response to low output, downtime, NG, and target gaps" },
-              { task: "Management analysis", before: "Delayed daily/monthly summary", after: "Daily, monthly, machine, and NG reports", impact: "More accurate analysis from one source of truth" }
+              { task: "Management analysis", before: "Delayed summary", after: "Daily, machine, and NG reports", impact: "More accurate analysis from one source of truth" }
             ]
           },
           userFlow: [
@@ -815,7 +815,6 @@ export const projects: Project[] = [
             { url: "/projects/mms-dashboard/web-overall-abr.png", title: "ABR Machine Group View", caption: "Actual MMS screen for one machine type group. The page compares six ABR machines on the same date with output, target, cycle time, availability, OEE, and operator visibility." },
             { url: "/projects/mms-dashboard/web-machine-abr003.png", title: "ABR-003 Machine Detail", caption: "Actual MMS machine detail screen. It explains one machine from summary table to hourly output monitor and CT/availability monitor, making target gaps and cycle-time loss easier to review." },
             { url: "/projects/mms-dashboard/web-daily-report.png", title: "Daily Report", caption: "Actual MMS report screen for daily production analysis. It compares output, target, downtime, alarms, and cycle-time behavior for the selected day." },
-            { url: "/projects/mms-dashboard/web-monthly-report.png", title: "Monthly Report", caption: "Actual MMS report screen for monthly trend analysis. Management can compare output and OEE trend after improvement actions." },
             { url: "/projects/mms-dashboard/web-machine-report.png", title: "Machine Output Report", caption: "Actual MMS web screen for machine-level historical rows: target, output, availability, performance, quality, OEE, and export review." },
             { url: "/projects/mms-dashboard/web-machine-ng.png", title: "Machine NG Report", caption: "Actual MMS web screen for quality traceability. It helps production and QC review NG quantity by machine, model, date, and station/process source." },
           ],
@@ -824,7 +823,7 @@ export const projects: Project[] = [
             "Reduced manpower dependency: 207 minutes of work every 25 minutes is roughly 8.3 operator-equivalents if the factory wants continuous full coverage.",
             "Paperless and more accurate: data is stored digitally and reduces retyping mistakes from paper notes or spreadsheet consolidation.",
             "Realtime analysis: supervisors can detect low output, downtime, NG, and target gaps during the same shift.",
-            "Historical analysis: daily, monthly, machine, and NG reports support root-cause review and improvement tracking.",
+            "Historical analysis: daily, machine, and NG reports support root-cause review and improvement tracking.",
           ],
           skillGroups: [
             {
@@ -852,7 +851,7 @@ export const projects: Project[] = [
               { layer: "Time-series Layer", tech: "InfluxDB", reason: "Store machine telemetry in time order before normalized reporting and historical analysis." },
               { layer: "Reporting Database", tech: "SQL Server / Prisma", reason: "Store target, actual, runtime, OEE, NG, status, alarm, and machine master data for auditable reports." },
               { layer: "Backend API", tech: "Node.js / Express / Socket.IO", reason: "Serve REST APIs for histories and push realtime updates to the dashboard." },
-              { layer: "Frontend", tech: "Next.js / React", reason: "Render dashboard, layout, daily/monthly reports, machine reports, and NG reports." },
+              { layer: "Frontend", tech: "Next.js / React", reason: "Render dashboard, layout, daily reports, machine reports, and NG reports." },
               { layer: "Deployment", tech: "GitHub Actions / SSH / PM2", reason: "CI validates code, CD updates the customer server over SSH, and PM2 restarts the app process." },
             ]
           },
@@ -880,7 +879,7 @@ export const projects: Project[] = [
                   steps: [
                     { id: "influx", label: "InfluxDB", detail: "Time-series telemetry", type: "process" },
                     { id: "mssql", label: "SQL Server", detail: "Target, actual, OEE, NG, status", type: "process" },
-                    { id: "report-web", label: "Website Reports", detail: "Daily / monthly / machine histories", type: "success" },
+                    { id: "report-web", label: "Website Reports", detail: "Daily / machine histories", type: "success" },
                   ],
                 },
               ],
@@ -907,14 +906,13 @@ export const projects: Project[] = [
         { url: "/projects/mms-dashboard/web-overall-abr.png", title: "Machine Group Monitoring", caption: "Actual MMS machine group screen. Users can compare multiple machines in one type, check OEE by machine, and inspect output/CT trends before opening a single machine detail." },
         { url: "/projects/mms-dashboard/web-machine-abr003.png", title: "Single Machine Detail", caption: "Actual MMS machine detail screen with output monitor and CT/availability monitor. It helps explain how the system turns raw machine values into readable production analysis." },
         { url: "/projects/mms-dashboard/web-daily-report.png", title: "Daily Dashboard Report", caption: "Actual web screenshot captured from MMS. Daily view compares output target, actual output, OEE, downtime, and alarm patterns so supervisors can review production losses by day." },
-        { url: "/projects/mms-dashboard/web-monthly-report.png", title: "Monthly Dashboard Report", caption: "Actual web screenshot captured from MMS. Monthly view summarizes production and OEE trend over time, making before/after improvement comparison easier for management." },
       ],
       features: [
         "Realtime machine status monitoring with Socket.IO updates",
         "Machine filters by area, type, and machine name",
         "Output target vs actual output by hour/day/month",
         "OEE calculation using availability, performance, quality, and NG quantity",
-        "Daily dashboard, monthly dashboard, machine report, and NG report",
+        "Daily dashboard, machine report, and NG report",
         "PM2-ready deployment for on-premise customer server",
       ],
       workflow: ["Get requirements", "Design PRD and architecture", "Code backend/frontend", "Use Git workflow", "Run CI unit tests and build", "Deploy with PM2", "Verify dashboard reports"],
@@ -935,12 +933,11 @@ export const projects: Project[] = [
         { url: "/projects/mms-dashboard/web-overall-abr.png", caption: "Actual machine group monitoring screenshot from MMS", type: "image" },
         { url: "/projects/mms-dashboard/web-machine-abr003.png", caption: "Actual single-machine output and cycle-time monitor screenshot from MMS", type: "image" },
         { url: "/projects/mms-dashboard/web-daily-report.png", caption: "Actual daily dashboard screenshot captured from the running web app", type: "image" },
-        { url: "/projects/mms-dashboard/web-monthly-report.png", caption: "Actual monthly dashboard screenshot captured from the running web app", type: "image" },
       ],
       technicalHighlights: [
         { title: "Networked Machine Data Pipeline", description: "Machine-side output, status, cycle time, and alarm data are collected through MQTT/Influx paths and normalized into SQL Server reporting tables." },
         { title: "Database by Machine Type", description: "Machine master data separates area, type, and machine name, allowing reports to compare production performance by line, type, or individual machine." },
-        { title: "Realtime and Report Data Together", description: "Socket.IO supports live dashboard updates while Prisma queries serve daily, monthly, machine, and NG reports from the same SQL Server source." },
+        { title: "Realtime and Report Data Together", description: "Socket.IO supports live dashboard updates while Prisma queries serve daily, machine, and NG reports from the same SQL Server source." },
         { title: "Deployable for Customer Machines", description: "The project includes PM2 process config, CI workflow, SSH deployment path, documentation, and health-check verification for on-premise operation." },
       ],
       results: [
