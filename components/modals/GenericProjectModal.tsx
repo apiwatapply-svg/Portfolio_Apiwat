@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Calendar, BookOpen, Cpu, CheckCircle2, Layers, GitMerge, ArrowRight, ArrowDown, Lightbulb, AlertTriangle, ImageIcon, Target, User, BarChart2, Workflow, Camera, Server, Activity, Wifi, Bot, Cloud, Code, ExternalLink, KeyRound, Video, FileText, Download } from "lucide-react";
 import { type Project } from "@/lib/data";
 import AnimationFlow from "@/components/AnimationFlow";
+import MmsDiagramAnimation from "@/components/MmsDiagramAnimation";
 
 const getHardwareIcon = (iconName: string, className: string) => {
   switch (iconName) {
@@ -50,6 +51,7 @@ export default function GenericProjectModal({ project, onClose }: Props) {
   const t = themeMap[project.theme];
   const d = project.details;
   const hasCaseStudyPages = Boolean(d?.caseStudyPages);
+  const isMmsDashboard = project.title === "Smart Factory MMS Dashboard";
 
   const hasTechnicalData = d?.workflow?.length || d?.technicalHighlights?.length || d?.challenges?.length;
   const hasVisualData = d?.metrics?.length || d?.userFlow?.length || d?.programFlow?.length;
@@ -267,25 +269,51 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                         </section>
                       )}
 
-                      {d.caseStudyPages.scope.visuals?.map((item, i) => (
-                        <button
-                          key={item.url}
-                          type="button"
-                          onClick={() => setPreviewImage({ src: item.url, alt: item.title })}
-                          className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm transition hover:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-800 dark:bg-slate-900 ${
-                            i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
-                          }`}
-                        >
-                          <div className={`relative min-h-72 bg-slate-100 dark:bg-slate-800 ${i % 2 === 0 ? "" : "lg:order-2"}`}>
+                      {d.caseStudyPages.scope.visuals?.map((item, i) => {
+                        const visualContent = isMmsDashboard ? (
+                          <MmsDiagramAnimation title={item.title} />
+                        ) : (
+                          <div className="relative min-h-72 bg-slate-100 dark:bg-slate-800">
                             <Image src={item.url} alt={item.title} fill className="object-contain p-2" sizes="(max-width: 1024px) 100vw, 55vw" />
                           </div>
-                          <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
-                            <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Scope {i + 1}</span>
-                            <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
-                            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
-                          </div>
-                        </button>
-                      ))}
+                        );
+
+                        if (isMmsDashboard) {
+                          return (
+                            <div
+                              key={item.url}
+                              className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm dark:border-slate-800 dark:bg-slate-900 ${
+                                i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
+                              }`}
+                            >
+                              <div className={i % 2 === 0 ? "" : "lg:order-2"}>{visualContent}</div>
+                              <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
+                                <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Scope {i + 1}</span>
+                                <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
+                                <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <button
+                            key={item.url}
+                            type="button"
+                            onClick={() => setPreviewImage({ src: item.url, alt: item.title })}
+                            className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm transition hover:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-800 dark:bg-slate-900 ${
+                              i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
+                            }`}
+                          >
+                            <div className={i % 2 === 0 ? "" : "lg:order-2"}>{visualContent}</div>
+                            <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
+                              <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Scope {i + 1}</span>
+                              <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
+                              <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
+                            </div>
+                          </button>
+                        );
+                      })}
 
                       {d.caseStudyPages.scope.screenshots && (
                         <section>
@@ -428,25 +456,51 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                         </section>
                       )}
 
-                      {d.caseStudyPages.jobProcess.visuals?.map((item, i) => (
-                        <button
-                          key={item.url}
-                          type="button"
-                          onClick={() => setPreviewImage({ src: item.url, alt: item.title })}
-                          className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm transition hover:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-800 dark:bg-slate-900 ${
-                            i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
-                          }`}
-                        >
-                          <div className={`relative min-h-72 bg-slate-100 dark:bg-slate-800 ${i % 2 === 0 ? "" : "lg:order-2"}`}>
+                      {d.caseStudyPages.jobProcess.visuals?.map((item, i) => {
+                        const visualContent = isMmsDashboard ? (
+                          <MmsDiagramAnimation title={item.title} />
+                        ) : (
+                          <div className="relative min-h-72 bg-slate-100 dark:bg-slate-800">
                             <Image src={item.url} alt={item.title} fill className="object-contain p-2" sizes="(max-width: 1024px) 100vw, 55vw" />
                           </div>
-                          <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
-                            <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Process {i + 1}</span>
-                            <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
-                            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
-                          </div>
-                        </button>
-                      ))}
+                        );
+
+                        if (isMmsDashboard) {
+                          return (
+                            <div
+                              key={item.url}
+                              className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm dark:border-slate-800 dark:bg-slate-900 ${
+                                i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
+                              }`}
+                            >
+                              <div className={i % 2 === 0 ? "" : "lg:order-2"}>{visualContent}</div>
+                              <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
+                                <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Process {i + 1}</span>
+                                <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
+                                <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <button
+                            key={item.url}
+                            type="button"
+                            onClick={() => setPreviewImage({ src: item.url, alt: item.title })}
+                            className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm transition hover:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-800 dark:bg-slate-900 ${
+                              i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
+                            }`}
+                          >
+                            <div className={i % 2 === 0 ? "" : "lg:order-2"}>{visualContent}</div>
+                            <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
+                              <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Process {i + 1}</span>
+                              <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
+                              <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
+                            </div>
+                          </button>
+                        );
+                      })}
 
                       {d.caseStudyPages.jobProcess.screenshots && (
                         <section>
