@@ -184,6 +184,8 @@ export type Project = {
   isFeatured: boolean;
   year: string;
   duration: string;
+  status?: "Completed" | "Upcoming";
+  hidden?: boolean;
   link?: string;
   githubUrl?: string;
   details?: ProjectDetails;
@@ -196,7 +198,7 @@ export const projects: Project[] = [
     description: "Developed a secure, cloud-based document storage system enabling paperless workflows, version control, and role-based access.",
     tags: ["Next.js", "Supabase", "AWS S3", "Tailwind CSS"],
     image: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=800&q=80",
-    theme: "blue", isFeatured: false, year: "2025", duration: "Jan 2025 - Mar 2025",
+    theme: "blue", isFeatured: false, year: "2026", duration: "Upcoming", status: "Upcoming", hidden: true,
     details: {
       objective: "Provide a centralized and secure online storage solution for corporate documents.",
       features: ["Role-based access control (RBAC)", "File versioning and history tracking", "Full-text search using OCR"],
@@ -474,7 +476,7 @@ export const projects: Project[] = [
     description: "Created a reservation platform for sports facilities, allowing users to book football fields and tennis courts in real-time.",
     tags: ["Next.js", "Prisma", "TypeScript", "Vercel"],
     image: "https://images.unsplash.com/photo-1518605368461-1e92211eb717?auto=format&fit=crop&w=800&q=80",
-    theme: "emerald", isFeatured: false, year: "2024", duration: "May 2024 - Jul 2024",
+    theme: "emerald", isFeatured: false, year: "2026", duration: "Upcoming", status: "Upcoming", hidden: true,
     details: {
       objective: "Digitize sports facility reservations to prevent double-booking and automate payments.",
       features: ["Real-time availability calendar", "Automated booking confirmations via SMS/Email", "Dynamic pricing based on peak hours"],
@@ -498,7 +500,7 @@ export const projects: Project[] = [
     description: "Designed a mobile-first booking application for barbershops, enabling clients to choose their preferred barber and time slot.",
     tags: ["Flutter", "Firebase", "Google Calendar API"],
     image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=800&q=80",
-    theme: "purple", isFeatured: false, year: "2026", duration: "Oct 2026 - Dec 2026",
+    theme: "purple", isFeatured: false, year: "2026", duration: "Upcoming", status: "Upcoming", hidden: true,
     details: {
       objective: "Reduce walk-in wait times and help barbers manage their daily schedules efficiently.",
       features: ["Customer profiles and haircut history", "Barber-specific calendar availability", "Automated appointment reminders"],
@@ -631,32 +633,6 @@ export const projects: Project[] = [
         "Add PM2 ecosystem configuration and Windows startup notes.",
         "Add room approval workflow for high-priority or executive rooms.",
         "Add email or Teams notifications for booking confirmation and cancellation."
-      ],
-    },
-  },
-  {
-    slug: "abnormal-defect-detection",
-    title: "Abnormal Defect Detection",
-    description: "Deployed anomaly detection algorithms to identify rare and unknown production defects outside standard parameters.",
-    tags: ["Python", "OpenCV", "Anomaly Detection"],
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: true, year: "2025", duration: "May 2025 - Aug 2025",
-    details: {
-      objective: "Detect previously unseen 'abnormal' defects that supervised models miss.",
-      context: "An AI-based anomaly detection system — goes beyond standard defect detection by identifying rare and 'unknown' deviations in product quality that haven't been seen before.",
-      origin: "Part of the Zero-defect Manufacturing drive at NMB-Minebea to handle unexpected production anomalies.",
-      painPoint: "Standard AI models (like YOLO) only detect what they've been trained on. Rare defects or new failure modes often went undetected.",
-      yourRole: "Lead AI Engineer. Researched and implemented unsupervised learning algorithms for anomaly detection and integrated them into the existing machine vision pipeline.",
-      keySkillsUsed: ["Python", "OpenCV", "Unsupervised Learning", "Anomaly Detection", "Scikit-learn", "Statistical Modeling"],
-      methodology: ["Implement unsupervised learning for anomaly detection", "Integrate with high-speed cameras on the line"],
-      results: ["Caught 100% of major unexpected anomalies during test period"],
-      lessonsLearned: [
-        "Hybrid approaches (Supervised + Unsupervised) provide the most robust quality assurance for industrial lines.",
-        "Edge computing is essential for the low-latency requirements of real-time anomaly detection."
-      ],
-      nextSteps: [
-        "Improve model sensitivity to reduce false positives without missing critical defects.",
-        "Automate the feedback loop to retrain supervised models when new anomalies are identified."
       ],
     },
   },

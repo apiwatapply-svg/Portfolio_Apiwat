@@ -18,7 +18,6 @@ import FieldBookingSystemModal from "./modals/FieldBookingSystemModal";
 import RestaurantPosModal from "./modals/RestaurantPosModal";
 import BarbershopBookingModal from "./modals/BarbershopBookingModal";
 import BookingMeetingRoomModal from "./modals/BookingMeetingRoomModal";
-import AbnormalDefectDetectionModal from "./modals/AbnormalDefectDetectionModal";
 import MmsDashboardModal from "./modals/MmsDashboardModal";
 import PredictiveMaintenanceModal from "./modals/PredictiveMaintenanceModal";
 import AiDefectInspectionModal from "./modals/AiDefectInspectionModal";
@@ -30,7 +29,7 @@ import { projects as rawProjects, type Project } from "@/lib/data";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 
-const projects = [...rawProjects].sort((a, b) => {
+const projects = rawProjects.filter((project) => !project.hidden).sort((a, b) => {
   const yearDiff = parseInt(b.year) - parseInt(a.year);
   if (yearDiff !== 0) return yearDiff;
   const aPresent = a.duration.toLowerCase().includes("present");
@@ -507,8 +506,6 @@ export default function ProjectsSection() {
           <BarbershopBookingModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "booking-meeting-room" ? (
           <BookingMeetingRoomModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-        ) : selectedProject.slug === "abnormal-defect-detection" ? (
-          <AbnormalDefectDetectionModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "mms-dashboard" ? (
           <MmsDashboardModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         ) : selectedProject.slug === "predictive-maintenance" ? (
