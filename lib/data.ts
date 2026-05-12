@@ -756,7 +756,8 @@ export const projects: Project[] = [
             points: [
               "What is Project: an on-premise MMS web system for production monitoring, report review, and machine-performance analysis.",
               "Pain Point: manual machine checks made data late, difficult to compare by zone/type, and vulnerable to human error.",
-              "New Working Method: machine data flows to realtime dashboards and SQL Server reports so users monitor exceptions instead of copying values from every machine."
+              "New Working Method: machine data flows to realtime dashboards and SQL Server reports so users monitor exceptions instead of copying values from every machine.",
+              "System Structure: machine groups are separated by Machine Type, collected by Collector PCs over LAN, and sent to the Merlin Server for realtime display and historical reporting."
             ]
           },
           metrics: [
@@ -775,16 +776,9 @@ export const projects: Project[] = [
               { task: "Management analysis", before: "Delayed summary", after: "Daily, machine, and NG reports", impact: "More accurate analysis from one source of truth" }
             ]
           },
-          userFlow: [
-            { id: "manual", label: "Old Method", detail: "Operator writes machine values by zone", type: "warning" },
-            { id: "late", label: "Delayed Report", detail: "Paper / Excel before analysis", type: "process" },
-            { id: "dashboard", label: "New Method", detail: "Open MMS dashboard", type: "action" },
-            { id: "filter", label: "Select View", detail: "Area, type, machine, date", type: "process" },
-            { id: "action", label: "Same-shift Action", detail: "Act on realtime and historical loss", type: "success" },
-          ],
           visuals: [
+            { url: "/projects/mms-dashboard/machine-type-network-flow.svg", title: "Machine Type Network Structure", caption: "Network overview of MMS data collection. Each machine group is organized by Machine Type, Collector PCs collect data from machine-side signals, and the Merlin Server receives data over LAN for dashboard monitoring and database reporting." },
             { url: "/projects/mms-dashboard/before-after.png", title: "Old Method vs New Method", caption: "Visual summary of the working method change: manual machine-value recording becomes dashboard monitoring, report drill-down, and same-shift response." },
-            { url: "/projects/mms-dashboard/web-user-flow.png", title: "User Flow in MMS Web", caption: "Shows how the user moves from dashboard overview to filtered machine views and report analysis." },
           ],
           screenshots: [
             { url: "/projects/mms-dashboard/web-layout-dashboard.png", title: "Layout Dashboard", caption: "Actual MMS web screen for full factory visibility. It shows machine status, area grouping, output count, and machine location so users can locate abnormal machines without walking to every station." },
@@ -875,7 +869,7 @@ export const projects: Project[] = [
         },
       },
       imageStory: [
-        { url: "/projects/mms-dashboard/network-flow.png", title: "Machine-to-Server Network Flow", caption: "Machine PLC/sensor signals are collected by an edge gateway, sent through MQTT and InfluxDB, normalized by the Node.js backend, then stored in SQL Server for dashboards and reports." },
+        { url: "/projects/mms-dashboard/machine-type-network-flow.svg", title: "Machine-to-Server Network Flow", caption: "Machine-side signals are grouped by Machine Type, collected by Collector PCs, sent through LAN to the Merlin Server, then used by the MMS web system for realtime dashboards and historical reports." },
         { url: "/projects/mms-dashboard/program-flow.png", title: "Program Working Flow", caption: "Users filter by area, type, or machine; the API loads target, actual, OEE, and downtime data; the dashboard renders realtime views and report drill-downs for production action." },
         { url: "/projects/mms-dashboard/before-after.png", title: "Before vs After Workflow", caption: "The project changes the working method from manual logs and delayed spreadsheets to realtime machine data, dashboard monitoring, and faster same-shift decisions." },
         { url: "/projects/mms-dashboard/devops-flow.png", title: "CI/CD and PM2 Deployment Flow", caption: "Development follows Git workflow, CI runs backend unit tests and frontend build, then the release is deployed to an on-premise customer server with PM2." },
@@ -902,7 +896,7 @@ export const projects: Project[] = [
         { label: "Deployment mode", value: "PM2" },
       ],
       visualEvidence: [
-        { url: "/projects/mms-dashboard/network-flow.png", caption: "Network connection from machine to server and database", type: "graph" },
+        { url: "/projects/mms-dashboard/machine-type-network-flow.svg", caption: "Network structure from machine type groups to collector PCs and Merlin Server", type: "graph" },
         { url: "/projects/mms-dashboard/program-flow.png", caption: "Dashboard working flow from filter to action", type: "graph" },
         { url: "/projects/mms-dashboard/before-after.png", caption: "Before and after production reporting workflow", type: "graph" },
         { url: "/projects/mms-dashboard/devops-flow.png", caption: "Git, CI, CD, and PM2 deployment workflow", type: "graph" },

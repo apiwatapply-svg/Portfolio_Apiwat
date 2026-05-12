@@ -1,0 +1,73 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#020817"/>
+  <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(255 560) rotate(-45) scale(360)">
+    <stop stop-color="#0F766E" stop-opacity="0.36"/>
+    <stop offset="1" stop-color="#0F172A" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(905 70) rotate(135) scale(320)">
+    <stop stop-color="#0284C7" stop-opacity="0.32"/>
+    <stop offset="1" stop-color="#0F172A" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="630" fill="url(#glowA)"/>
+  <rect width="1200" height="630" fill="url(#glowB)"/>
+
+  <style>
+    .box { fill: #0F172A; stroke: #0891B2; stroke-width: 1.5; }
+    .main { fill: #0F172A; stroke: #10B981; stroke-width: 1.8; }
+    .line { stroke: #06B6D4; stroke-width: 2; }
+    .text { fill: white; font: 700 18px Arial, sans-serif; }
+    .small { fill: #BAE6FD; font: 600 13px Arial, sans-serif; }
+    .lan { fill: #0369A1; stroke: #22D3EE; stroke-width: 1.2; }
+    .icon { stroke: #22D3EE; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <rect class="main" x="420" y="35" width="360" height="105" rx="14"/>
+  <path class="icon" d="M579 62h42v18h-42zM579 92h42v18h-42zM589 71h1M589 101h1"/>
+  <text class="text" x="600" y="118" text-anchor="middle">Merlin Server</text>
+
+  <path class="line" d="M600 140v52"/>
+  <rect class="lan" x="565" y="188" width="70" height="28" rx="14"/>
+  <text class="small" x="600" y="207" text-anchor="middle">LAN</text>
+  <path class="line" d="M285 216v50M915 216v50M285 216h630"/>
+
+  <rect class="box" x="110" y="265" width="350" height="105" rx="12"/>
+  <path class="icon" d="M270 292h30v22h-30zM285 314v14M272 328h26"/>
+  <text class="text" x="285" y="338" text-anchor="middle">Collector PC 01</text>
+
+  <rect class="box" x="740" y="265" width="350" height="105" rx="12"/>
+  <path class="icon" d="M900 292h30v22h-30zM915 314v14M902 328h26"/>
+  <text class="text" x="915" y="338" text-anchor="middle">Collector PC 02</text>
+
+  <path class="line" d="M140 370v55M285 370v55M430 370v55M770 370v55M915 370v55M1060 370v55"/>
+
+  <g>
+    <rect class="box" x="55" y="425" width="170" height="86" rx="12"/>
+    <path class="icon" d="M112 471v-21l12 10 12-18 12 16 12-8v21M112 471h48"/>
+    <text class="text" x="140" y="493" text-anchor="middle">Machine Type 01</text>
+  </g>
+  <g>
+    <rect class="box" x="200" y="425" width="170" height="86" rx="12"/>
+    <path class="icon" d="M257 471v-21l12 10 12-18 12 16 12-8v21M257 471h48"/>
+    <text class="text" x="285" y="493" text-anchor="middle">Machine Type 02</text>
+  </g>
+  <g>
+    <rect class="box" x="345" y="425" width="170" height="86" rx="12"/>
+    <path class="icon" d="M402 471v-21l12 10 12-18 12 16 12-8v21M402 471h48"/>
+    <text class="text" x="430" y="493" text-anchor="middle">Machine Type 03</text>
+  </g>
+  <g>
+    <rect class="box" x="685" y="425" width="170" height="86" rx="12"/>
+    <path class="icon" d="M742 471v-21l12 10 12-18 12 16 12-8v21M742 471h48"/>
+    <text class="text" x="770" y="493" text-anchor="middle">Machine Type 04</text>
+  </g>
+  <g>
+    <rect class="box" x="830" y="425" width="170" height="86" rx="12"/>
+    <path class="icon" d="M887 471v-21l12 10 12-18 12 16 12-8v21M887 471h48"/>
+    <text class="text" x="915" y="493" text-anchor="middle">Machine Type 05</text>
+  </g>
+  <g>
+    <rect class="box" x="975" y="425" width="170" height="86" rx="12"/>
+    <path class="icon" d="M1032 471v-21l12 10 12-18 12 16 12-8v21M1032 471h48"/>
+    <text class="text" x="1060" y="493" text-anchor="middle">Machine Type 06</text>
+  </g>
+</svg>

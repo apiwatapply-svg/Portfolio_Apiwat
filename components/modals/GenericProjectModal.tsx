@@ -52,6 +52,12 @@ export default function GenericProjectModal({ project, onClose }: Props) {
   const d = project.details;
   const hasCaseStudyPages = Boolean(d?.caseStudyPages);
   const isMmsDashboard = project.title === "Smart Factory MMS Dashboard";
+  const getMmsVisualGridClass = (index: number) => {
+    const textFirst = index % 2 !== 0;
+    return textFirst
+      ? "xl:grid-cols-[minmax(260px,0.85fr)_minmax(0,1.45fr)]"
+      : "xl:grid-cols-[minmax(0,1.45fr)_minmax(260px,0.85fr)]";
+  };
 
   const hasTechnicalData = d?.workflow?.length || d?.technicalHighlights?.length || d?.challenges?.length;
   const hasVisualData = d?.metrics?.length || d?.userFlow?.length || d?.programFlow?.length;
@@ -283,13 +289,13 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                             <div
                               key={item.url}
                               className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm dark:border-slate-800 dark:bg-slate-900 ${
-                                i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
+                                getMmsVisualGridClass(i)
                               }`}
                             >
-                              <div className={i % 2 === 0 ? "" : "lg:order-2"}>{visualContent}</div>
-                              <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
+                              <div className={i % 2 === 0 ? "" : "xl:order-2"}>{visualContent}</div>
+                              <div className="flex min-w-0 flex-col justify-center gap-3 p-5 sm:p-6">
                                 <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Scope {i + 1}</span>
-                                <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
+                                <p className="text-lg font-black leading-tight text-slate-900 dark:text-white sm:text-xl">{item.title}</p>
                                 <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
                               </div>
                             </div>
@@ -470,13 +476,13 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                             <div
                               key={item.url}
                               className={`grid w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm dark:border-slate-800 dark:bg-slate-900 ${
-                                i % 2 === 0 ? "lg:grid-cols-[1.45fr_1fr]" : "lg:grid-cols-[1fr_1.45fr]"
+                                getMmsVisualGridClass(i)
                               }`}
                             >
-                              <div className={i % 2 === 0 ? "" : "lg:order-2"}>{visualContent}</div>
-                              <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
+                              <div className={i % 2 === 0 ? "" : "xl:order-2"}>{visualContent}</div>
+                              <div className="flex min-w-0 flex-col justify-center gap-3 p-5 sm:p-6">
                                 <span className={`w-fit rounded-full px-3 py-1 text-xs font-bold ${t.badge}`}>Process {i + 1}</span>
-                                <p className="text-xl font-black text-slate-900 dark:text-white">{item.title}</p>
+                                <p className="text-lg font-black leading-tight text-slate-900 dark:text-white sm:text-xl">{item.title}</p>
                                 <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item.caption}</p>
                               </div>
                             </div>

@@ -2,9 +2,9 @@
 
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { AlertTriangle, BarChart3, CheckCircle2, Code2, Database, FileText, GitBranch, HardDrive, MonitorDot, Network, Server, ShieldCheck, Wrench } from "lucide-react";
+import { AlertTriangle, BarChart3, CheckCircle2, Code2, Database, Factory, FileText, GitBranch, HardDrive, MonitorDot, Network, Server, ShieldCheck, Wrench } from "lucide-react";
 
-type DiagramKind = "before-after" | "user-flow" | "project-process" | "er-structure" | "devops";
+type DiagramKind = "before-after" | "user-flow" | "project-process" | "er-structure" | "network" | "devops";
 
 type Props = {
   title: string;
@@ -20,6 +20,7 @@ function resolveKind(title: string): DiagramKind {
   if (normalized.includes("user flow")) return "user-flow";
   if (normalized.includes("work process") || normalized.includes("project work")) return "project-process";
   if (normalized.includes("er diagram")) return "er-structure";
+  if (normalized.includes("network") || normalized.includes("machine-to-server") || normalized.includes("machine type")) return "network";
   return "devops";
 }
 
@@ -75,7 +76,7 @@ function DiagramNode({
 
 function AnimatedShell({ children }: { children: ReactNode }) {
   return (
-    <div className="relative min-h-72 overflow-hidden bg-slate-950 p-5 text-white">
+    <div className="relative min-h-72 overflow-hidden bg-slate-950 p-4 text-white sm:p-5">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_90%,rgba(20,184,166,0.24),transparent_30%),radial-gradient(circle_at_82%_10%,rgba(14,165,233,0.24),transparent_28%)]" />
       <motion.div
         className="absolute inset-x-0 top-1/2 h-px bg-cyan-400/20"
@@ -165,7 +166,7 @@ function ProjectProcessDiagram() {
 
   return (
     <AnimatedShell>
-      <div className="relative z-10 flex h-full flex-col justify-center gap-5">
+      <div className="relative z-10 flex h-full flex-col justify-center gap-5 py-2">
         <div className="flex flex-col gap-3 md:flex-row md:items-center">
           {steps.map(([label, detail, tone, icon], index) => (
             <div key={label} className="flex flex-1 flex-col gap-3 md:flex-row md:items-center">
@@ -175,7 +176,9 @@ function ProjectProcessDiagram() {
           ))}
         </div>
         <div className="mx-auto flex w-full max-w-xs flex-col items-center">
-          <FlowLine vertical delay={0.2} />
+          <div className="hidden md:block">
+            <FlowLine vertical delay={0.2} />
+          </div>
           <DiagramNode label="Maintenance" detail="Monitor logs, tune data, improve reports" tone="green" icon={<Wrench size={14} />} delay={0.45} />
         </div>
       </div>
@@ -263,6 +266,46 @@ function ErStructureDiagram() {
   );
 }
 
+function MachineTypeNetworkDiagram() {
+  const collectorGroups = [
+    { collector: "Collector PC 01", machines: ["Machine Type 01", "Machine Type 02", "Machine Type 03"] },
+    { collector: "Collector PC 02", machines: ["Machine Type 04", "Machine Type 05", "Machine Type 06"] },
+  ];
+
+  return (
+    <AnimatedShell>
+      <div className="relative z-10 flex min-h-[360px] flex-col items-center justify-center gap-4">
+        <DiagramNode label="Merlin Server" detail="Central MMS server and database gateway" tone="green" icon={<Server size={16} />} />
+        <FlowLine vertical delay={0.1} />
+        <motion.div
+          className="rounded-full border border-cyan-300/60 bg-cyan-400/10 px-4 py-1 text-xs font-black text-cyan-100"
+          animate={{ boxShadow: ["0 0 0 rgba(34,211,238,0)", "0 0 22px rgba(34,211,238,0.45)", "0 0 0 rgba(34,211,238,0)"] }}
+          transition={{ duration: 1.8, repeat: Infinity }}
+        >
+          LAN
+        </motion.div>
+
+        <div className="grid w-full gap-6 md:grid-cols-2">
+          {collectorGroups.map((group, groupIndex) => (
+            <div key={group.collector} className="flex flex-col items-center gap-4">
+              <FlowLine vertical delay={0.2 + groupIndex * 0.15} />
+              <DiagramNode label={group.collector} detail="Collects machine-side data and forwards to server" tone="cyan" icon={<MonitorDot size={16} />} delay={0.15 + groupIndex * 0.1} />
+              <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-3">
+                {group.machines.map((machine, index) => (
+                  <div key={machine} className="flex flex-col items-center gap-3">
+                    <FlowLine vertical delay={0.35 + index * 0.12} />
+                    <DiagramNode label={machine} detail="Output, status, CT, NG" tone="cyan" icon={<Factory size={15} />} delay={0.3 + index * 0.08} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </AnimatedShell>
+  );
+}
+
 function DevopsDiagram() {
   const steps = [
     ["Coding", "Local feature work", "cyan", <Code2 size={14} />],
@@ -303,5 +346,6 @@ export default function MmsDiagramAnimation({ title }: Props) {
   if (kind === "user-flow") return <UserFlowDiagram />;
   if (kind === "project-process") return <ProjectProcessDiagram />;
   if (kind === "er-structure") return <ErStructureDiagram />;
+  if (kind === "network") return <MachineTypeNetworkDiagram />;
   return <DevopsDiagram />;
 }
