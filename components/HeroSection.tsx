@@ -46,6 +46,16 @@ export default function HeroSection() {
 
         <div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-4 w-full">
           <a
+            href="/CV_APIWAT_NONUT.pdf"
+            download="CV_APIWAT_NONUT.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex justify-center items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-emerald-700 transition-colors group w-full sm:w-auto"
+          >
+            Download CV
+            <Download size={18} className="group-hover:-translate-y-1 transition-transform" />
+          </a>
+          <a
             href="/Resume_Apiwat_Nonut.pdf"
             download="Resume_Apiwat_Nonut.pdf"
             target="_blank"

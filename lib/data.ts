@@ -758,7 +758,7 @@ export const projects: Project[] = [
     title: "Smart Factory MMS Dashboard",
     description: "Built an on-premise machine monitoring and OEE dashboard for 207 machines across 27 machine types, connecting machine-side data to SQL Server reports and realtime production views.",
     tags: ["Next.js", "Node.js", "SQL Server", "Prisma", "MQTT", "InfluxDB", "Socket.IO", "PM2"],
-    image: "/projects/mms-dashboard/cover.png",
+    image: "/projects/mms-dashboard/cover-v2.png",
     theme: "blue", isFeatured: true, year: "2026", duration: "May 2026 - Jun 2026",
     githubUrl: "https://github.com/apiwatapply-svg/MMS_project",
     details: {
