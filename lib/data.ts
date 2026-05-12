@@ -929,27 +929,101 @@ export const projects: Project[] = [
   },
   {
     slug: "predictive-maintenance",
-    title: "Maintenance Application (Tooling, Job Request, PM, PdM)",
-    description: "Developed machine learning models to predict equipment failures before they occur, integrated alongside the MMS dashboard.",
-    tags: ["Python", "Scikit-Learn", "FastAPI"],
+    title: "Smart Factory Operations Platform",
+    description: "Planned factory operations platform that connects MES-style production visibility, production planning, job request, maintenance, PM/PdM roadmap, tooling, spare parts, QC, and production confirmation workflows.",
+    tags: ["Next.js", "Node.js", "SQL Server", "Socket.IO", "MES", "Maintenance", "Tooling", "QC"],
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: true, year: "2026", duration: "Mar 2026 - Present",
+    theme: "orange", isFeatured: true, year: "2026", duration: "Mar 2026 - Present", status: "Upcoming",
     details: {
-      objective: "Build an ML pipeline to predict equipment failures in advance, before actual downtime occurs.",
-      context: "An AI-powered maintenance system — leverages machine learning to analyze historical sensor data and identify patterns that precede equipment failure.",
-      origin: "Developed to move from traditional 'Preventive' (scheduled) maintenance to 'Predictive' maintenance to reduce costs and minimize unplanned downtime.",
-      painPoint: "Unexpected machine failures were causing significant production losses, and scheduled maintenance often replaced parts that still had useful life.",
-      yourRole: "Lead AI Engineer & Data Scientist. Responsible for data collection, feature engineering, model training (XGBoost/Random Forest), and deploying the FastAPI prediction service.",
-      keySkillsUsed: ["Python", "Scikit-Learn", "XGBoost", "FastAPI", "Time-series Analysis", "Feature Engineering", "Data Cleaning"],
-      methodology: ["Collect time-series sensor data from machines", "Feature engineering and data preprocessing", "Train models with Scikit-Learn (Random Forest, XGBoost)", "Deploy via FastAPI integrated with MMS Dashboard"],
-      results: ["Predicts failures 72+ hours in advance", "Forecast accuracy > 85%", "Reduced emergency maintenance costs significantly"],
+      objective: "Design a modular Smart Factory Operations Platform that connects production planning, machine operation, job request, maintenance response, tooling control, spare part inventory, QC confirmation, and future PM/PdM analytics in one operational workflow.",
+      context: "The project direction expands from a maintenance app into a factory operations platform. The current maintenance_project already contains Next.js/Node.js structure, admin resources, Job Request pages for Production / Maintenance / QC, Preventive Maintenance entry points, Tooling Store modules, Socket.IO realtime notification design, and SQL Server-oriented backend APIs.",
+      origin: "Based on real factory workflow needs where Production, Maintenance, Tooling, QC, and management often work in separate spreadsheets, paper forms, chat messages, and disconnected systems.",
+      painPoint: "Factory operations lose time when production issues, repair requests, PM plans, tooling availability, spare part stock, QC confirmation, and production follow-up are not connected. The result is delayed response, duplicated entry, unclear job ownership, stock surprises, and weak traceability.",
+      yourRole: "System Designer / Full-stack Developer. Responsible for platform scope, module separation, user workflow design, backend API structure, SQL Server data flow, realtime notification concept, role-based access, and future expansion plan toward PM/PdM and MES integration.",
+      keySkillsUsed: ["Next.js", "React", "Node.js", "Express MVC", "SQL Server", "Socket.IO", "Axios", "Tailwind CSS", "SweetAlert2", "Factory Workflow Design", "Role-Based Access", "Dashboard Design"],
+      features: [
+        "MES-style operations hub for production visibility, production plan, machine status, and shop-floor follow-up",
+        "Production Plan module for connecting plan, line, machine, target, and production progress with MMS-style monitoring",
+        "Job Request workflow: Production creates a request, Maintenance accepts and repairs, QC checks, and Production confirms or rejects",
+        "Maintenance module for repair work tracking, repair detail recording, responsible person, image attachment, and history log",
+        "PM / PdM roadmap: PM scheduling first, then future predictive maintenance using machine runtime, downtime, abnormal history, and spare-part usage",
+        "Tooling Store module for tool master, borrow/return, overdue tracking, calibration due date, and tool availability",
+        "Spare Part module for stock in, stock out, stock balance, movement history, low-stock alert, and usage traceability by job/PM/work order",
+        "QC / Production confirmation flow so repaired work can be checked, rejected, looped back to Maintenance, or closed with traceable history"
+      ],
+      workflow: [
+        "Production Plan / MES View",
+        "Production Issue",
+        "Job Request",
+        "Maintenance Accept",
+        "Repair / Spare Part Usage",
+        "QC Check",
+        "Production Confirm",
+        "Close Job",
+        "History / Dashboard",
+        "PM/PdM Expansion"
+      ],
+      methodology: [
+        "Separate platform into modules: MES, Production Plan, Job Request, Maintenance, Tooling, Spare Part, QC/Production, PM/PdM",
+        "Reuse common master data such as employee, department, area, machine type, and machine number instead of duplicating data in every module",
+        "Use status-driven workflow for Job Request: WAIT_MM, MM_REPAIR, WAIT_QC, WAIT_PROD_CONFIRM, COMPLETED, and CANCELLED",
+        "Keep rejection as an action history and return the job to Maintenance repair status, making rework loops simple and traceable",
+        "Use Socket.IO realtime notifications so Maintenance, QC, and Production know immediately when ownership changes",
+        "Design Tooling Store separately between borrowable tools and consumable spare parts because they follow different business rules"
+      ],
+      technicalHighlights: [
+        {
+          title: "Modular Factory Platform",
+          description: "MES, production plan, maintenance, tooling, spare part, QC, and production confirmation are designed as connected modules instead of isolated pages."
+        },
+        {
+          title: "Status-Driven Job Request",
+          description: "Production, Maintenance, and QC share a clear workflow: request, accept, repair, QC check, production confirm, reject loop, and close."
+        },
+        {
+          title: "Tooling And Spare Part Separation",
+          description: "Borrowable tools are tracked by availability, borrow, return, overdue, and calibration; consumable spare parts are tracked by stock in/out, balance, and movement history."
+        },
+        {
+          title: "Realtime Ownership Change",
+          description: "Socket.IO notification design helps reduce waiting time between departments when jobs move from Production to Maintenance to QC and back."
+        },
+        {
+          title: "Future PM / PdM Expansion",
+          description: "PM can start from schedule and history, then PdM can be expanded using MMS runtime, downtime, alarm, NG, spare part usage, and repeated failure patterns."
+        }
+      ],
+      results: [
+        "Expected to reduce paper/chat-based job request follow-up by centralizing job status, owner, action history, and attachments",
+        "Expected to reduce maintenance response delay through realtime notification and clear job ownership",
+        "Expected to reduce spare part shortage risk by linking stock balance, issue history, and job/PM reference",
+        "Expected to improve QC and Production accountability by forcing pass/reject/confirm decisions into a traceable workflow",
+        "Expected to give management one operational view across production issues, maintenance work, tooling risk, spare part usage, and PM/PdM readiness"
+      ],
+      challenges: [
+        {
+          issue: "Factory departments work with different language and ownership: Production focuses output, Maintenance focuses repair, QC focuses judgement, and Tooling focuses inventory.",
+          solution: "Designed the platform around shared status, shared master data, and section-specific screens so each department sees only the workflow it needs."
+        },
+        {
+          issue: "Tools and spare parts look similar in a simple store system, but they behave differently in real operation.",
+          solution: "Separated borrowable tools from consumable spare parts, with borrow/return/calibration for tools and stock in/out/balance for spare parts."
+        },
+        {
+          issue: "Rejected jobs should not create confusing extra terminal statuses.",
+          solution: "Treat QC/Production reject as history actions and return the job to Maintenance repair state so rework stays visible and simple."
+        }
+      ],
       lessonsLearned: [
-        "Domain knowledge (understanding the physical machine) is just as important as the ML algorithm for feature engineering.",
-        "Model interpretability is key for gaining trust from the maintenance team."
+        "Factory platforms should be designed around actual handover points between departments, not only around database tables.",
+        "The biggest benefit comes from reducing waiting, duplicated entry, and unclear ownership between Production, Maintenance, QC, and Tooling.",
+        "PM/PdM should grow from clean maintenance history and spare-part usage data before jumping into advanced prediction."
       ],
       nextSteps: [
-        "Implement eXplainable AI (XAI) to provide technicians with the specific reason for a predicted failure.",
-        "Automate the retraining pipeline as more failure data is collected over time."
+        "Connect Production Plan and MMS machine status into the MES-style operations dashboard.",
+        "Complete Job Request realtime workflow with Production, Maintenance, QC, reject loop, and close-job history.",
+        "Expand PM scheduling and machine history into PdM readiness using downtime, runtime, repeated failures, and spare part usage.",
+        "Add management dashboards for response time, MTTR, repeated failure, spare part risk, overdue tools, and PM completion rate."
       ],
     },
   },
