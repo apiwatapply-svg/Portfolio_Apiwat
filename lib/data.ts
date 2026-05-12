@@ -642,7 +642,7 @@ export const projects: Project[] = [
     description: "Developed a comprehensive web-based and PWA-enabled application to streamline student attendance tracking using NFC/RFID technology.",
     tags: ["Next.js", "Supabase", "RFID", "IoT"],
     image: "/projects/Student_Attendance_Management_System/cover.png",
-    theme: "purple", isFeatured: false, year: "2021", duration: "Jul 2021 - Dec 2021",
+    theme: "purple", isFeatured: false, year: "2024", duration: "Portfolio refactor: Nov 2024 - Dec 2024",
     githubUrl: "https://github.com/apiwatapply-svg/Student_Attendance_Management_System",
     details: {
       objective: "Develop a fast attendance checking system that reduces teachers' workload, featuring real-time dashboards for administrators and teachers to monitor attendance statistics.",
@@ -722,7 +722,7 @@ export const projects: Project[] = [
     description: "Designed a software interface to simulate and tune Proportional-Integral-Derivative controllers for various dynamic systems.",
     tags: ["MATLAB", "Control Systems", "Simulation"],
     image: "/projects/PID_Control_System_Designer/cover.png",
-    theme: "blue", isFeatured: false, year: "2018", duration: "Sep 2018 - Oct 2018",
+    theme: "blue", isFeatured: false, year: "2018", duration: "Sep 2018 - Oct 2018", hidden: true,
     details: {
       objective: "Create a simulation tool to quickly tune PID gains for hardware projects.",
       features: ["Step response graphing", "Root locus analysis", "Gain scheduling presets"],
@@ -735,7 +735,7 @@ export const projects: Project[] = [
     description: "Built an on-premise machine monitoring and OEE dashboard for 207 machines across 27 machine types, connecting machine-side data to SQL Server reports and realtime production views.",
     tags: ["Next.js", "Node.js", "SQL Server", "Prisma", "MQTT", "InfluxDB", "Socket.IO", "PM2"],
     image: "/projects/mms-dashboard/cover-v2.png",
-    theme: "blue", isFeatured: true, year: "2026", duration: "May 2026 - Jun 2026",
+    theme: "blue", isFeatured: true, year: "2026", duration: "Mar 2026 - Present",
     githubUrl: "https://github.com/apiwatapply-svg/MMS_project",
     details: {
       objective: "Turn machine-side signals into clear production visibility: realtime status, output vs target, OEE, downtime, NG, and daily reports by area/type/machine.",
@@ -933,7 +933,7 @@ export const projects: Project[] = [
     description: "Developed machine learning models to predict equipment failures before they occur, integrated alongside the MMS dashboard.",
     tags: ["Python", "Scikit-Learn", "FastAPI"],
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: true, year: "2026", duration: "Jul 2026 - Dec 2026",
+    theme: "orange", isFeatured: true, year: "2026", duration: "Mar 2026 - Present",
     details: {
       objective: "Build an ML pipeline to predict equipment failures in advance, before actual downtime occurs.",
       context: "An AI-powered maintenance system — leverages machine learning to analyze historical sensor data and identify patterns that precede equipment failure.",
@@ -959,7 +959,7 @@ export const projects: Project[] = [
     description: "Built a machine-vision inspection pipeline using a Basler camera, controlled blue lighting, photometric stereo, ROI extraction, and YOLO OK/NG classification.",
     tags: ["Python", "OpenCV", "YOLOv11", "Basler Camera", "Photometric Stereo", "SQL Server"],
     image: "/projects/ai-defect-inspection/cover.png",
-    theme: "purple", isFeatured: true, year: "2024", duration: "Dec 2024",
+    theme: "purple", isFeatured: true, year: "2024", duration: "Mar 2024 - Jun 2024",
     githubUrl: "https://github.com/apiwatapply-svg/Defect_Inspection_System",
     details: {
       context: "A real machine-vision prototype for part inspection. The system captures multiple images from a Basler camera under controlled blue lighting, converts them into photometric stereo normal-map features, crops circular ROI inspection points, classifies each ROI as OK / NG / undefined, and saves both images and inspection records.",
@@ -1081,7 +1081,7 @@ export const projects: Project[] = [
     description: "Built a ROS-based AGV automation system with LiDAR navigation, point-to-point warehouse movement, MQTT/ROS bridge scripts, CAD deliverables, and a React web control panel.",
     tags: ["ROS", "Python", "React", "ROSBridge", "MQTT", "LiDAR", "Arduino", "CAD"],
     image: "/projects/ros-automation/cover.png",
-    theme: "emerald", isFeatured: true, year: "2024", duration: "May 2024 - Jul 2024",
+    theme: "emerald", isFeatured: true, year: "2024", duration: "Sep 2023 - Feb 2024",
     githubUrl: "https://github.com/apiwatapply-svg/ROS_agv",
     details: {
       objective: "Design and validate an AGV system that can move between predefined warehouse stations while operators monitor and command the robot through a web dashboard.",
@@ -1209,7 +1209,7 @@ export const projects: Project[] = [
     description: "Tested and developed IoT-integrated agricultural machinery, focusing on drones and tractor Auto Steering systems to boost customer trust and sales.",
     tags: ["IoT", "Auto Steering", "Drone", "Performance Testing"],
     image: "/projects/smart-agriculture/p17_img08.jpeg",
-    theme: "emerald", isFeatured: true, year: "2022", duration: "Sep 2021 - Aug 2023",
+    theme: "emerald", isFeatured: true, year: "2023", duration: "Jan 2023 - Aug 2023",
     details: {
       context: "A Research & Development initiative at Kubota to integrate IoT into agricultural machinery, specifically focusing on Drone performance and Tractor Auto Steering systems.",
       origin: "Driven by the need to increase market share against tech-first competitors by proving Kubota's superior durability and reliability.",
@@ -1272,7 +1272,7 @@ export const projects: Project[] = [
     description: "Mathematical modeling and PID control system design for fixed-wing UAV using meta-heuristic optimization. Thesis evaluated 'Excellent'.",
     tags: ["MATLAB", "Python", "PID Control", "Raspberry Pi", "UAV"],
     image: "/projects/uav-drone-thesis/Cover.png",
-    theme: "purple", isFeatured: true, year: "2020", duration: "Jan 2020 - Jun 2021",
+    theme: "purple", isFeatured: true, year: "2020", duration: "Jan 2020 - Jun 2021", hidden: true,
     details: {
       context: "An autonomous Fixed-Wing UAV control system — flies without a pilot by using mathematical algorithms to derive an aircraft model and design a PID controller, replacing manual tuning.",
       origin: "Master's thesis in Mechanical Engineering at Khon Kaen University (2019–2021), completed solo under thesis advisor supervision.",
@@ -1335,7 +1335,7 @@ export const projects: Project[] = [
     description: "Developed a Ping Pong playing robot utilizing LabVIEW and NI myRIO for precise mechanical control and computer vision (Senior Project).",
     tags: ["LabVIEW", "NI myRIO", "Computer Vision", "PID Control", "SolidWorks"],
     image: "/projects/ping-pong-robot/cover.png",
-    theme: "purple", isFeatured: false, year: "2019", duration: "Jan 2019 - May 2019",
+    theme: "purple", isFeatured: false, year: "2019", duration: "Jan 2019 - May 2019", hidden: true,
     details: {
       context: "An automated robotic arm capable of playing ping pong with a human — uses a camera to track the ball in real-time, predicts its landing point, and moves the arm to hit it.",
       origin: "Senior Project for Bachelor's Degree in Electrical Engineering at Khon Kaen University (Jan–May 2019). Done in a team of 3; I was primarily responsible for Software and Control Systems.",
@@ -1390,7 +1390,7 @@ export const projects: Project[] = [
     description: "Collaborated with Faculty of Nursing KKU to develop a thermostat device for brain injury patients with high fever.",
     tags: ["Embedded Systems", "Sensors", "Medical Device", "Hardware Design"],
     image: "/projects/Thermostat_for_Brain_Injury_Patients/cover.jpg",
-    theme: "emerald", isFeatured: false, year: "2018", duration: "Jun 2018 - Aug 2018",
+    theme: "emerald", isFeatured: false, year: "2018", duration: "Jun 2018 - Aug 2018", hidden: true,
     details: {
       objective: "Collaborate with the Faculty of Nursing at Khon Kaen University to develop a temperature control device for brain injury patients suffering from high fever.",
       methodology: ["Analyze medical requirements with nursing specialists", "Design closed-loop temperature control circuit", "Test for accuracy and safety compliance"],
@@ -1408,7 +1408,7 @@ export const projects: Project[] = [
     description: "Industrial internship project: PLC-controlled warehouse door with 4-digit password security and pneumatic actuation at NHK Spring.",
     tags: ["Mitsubishi PLC", "Pneumatic System", "Ladder Logic", "Industrial Automation"],
     image: "/projects/Warehouse_Door_System_(PLC)/cover.png",
-    theme: "orange", isFeatured: false, year: "2018", duration: "Mar 2018 - May 2018",
+    theme: "orange", isFeatured: false, year: "2018", duration: "Mar 2018 - May 2018", hidden: true,
     details: {
       context: "A PLC-controlled warehouse door system — requires a 4-digit password via a Keypad. Upon validation, the system triggers a Pneumatic Valve to automatically open/close the door, with an auto-lock mechanism to prevent repeated unauthorized attempts.",
       origin: "Summer Internship at NHK Spring Co., Ltd. (2018), tasked with designing and developing a security system for warehouse doors.",
