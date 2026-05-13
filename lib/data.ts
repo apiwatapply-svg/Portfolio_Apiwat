@@ -720,7 +720,7 @@ export const projects: Project[] = [
     description: "Designed a software interface to simulate and tune Proportional-Integral-Derivative controllers for various dynamic systems.",
     tags: ["MATLAB", "Control Systems", "Simulation"],
     image: "/projects/PID_Control_System_Designer/cover.png",
-    theme: "blue", isFeatured: false, year: "2018", duration: "Sep 2018 - Oct 2018", hidden: true,
+    theme: "blue", isFeatured: false, year: "2018", duration: "Sep 2018 - Oct 2018",
     details: {
       objective: "Create a simulation tool to quickly tune PID gains for hardware projects.",
       features: ["Step response graphing", "Root locus analysis", "Gain scheduling presets"],
@@ -1344,7 +1344,7 @@ export const projects: Project[] = [
     description: "Mathematical modeling and PID control system design for fixed-wing UAV using meta-heuristic optimization. Thesis evaluated 'Excellent'.",
     tags: ["MATLAB", "Python", "PID Control", "Raspberry Pi", "UAV"],
     image: "/projects/uav-drone-thesis/Cover.png",
-    theme: "purple", isFeatured: true, year: "2020", duration: "Jan 2020 - Jun 2021", hidden: true,
+    theme: "purple", isFeatured: true, year: "2020", duration: "Jan 2020 - Jun 2021",
     details: {
       context: "An autonomous Fixed-Wing UAV control system — flies without a pilot by using mathematical algorithms to derive an aircraft model and design a PID controller, replacing manual tuning.",
       origin: "Master's thesis in Mechanical Engineering at Khon Kaen University (2019–2021), completed solo under thesis advisor supervision.",
@@ -1407,7 +1407,7 @@ export const projects: Project[] = [
     description: "Developed a Ping Pong playing robot utilizing LabVIEW and NI myRIO for precise mechanical control and computer vision (Senior Project).",
     tags: ["LabVIEW", "NI myRIO", "Computer Vision", "PID Control", "SolidWorks"],
     image: "/projects/ping-pong-robot/cover.png",
-    theme: "purple", isFeatured: false, year: "2019", duration: "Jan 2019 - May 2019", hidden: true,
+    theme: "purple", isFeatured: false, year: "2019", duration: "Jan 2019 - May 2019",
     details: {
       context: "An automated robotic arm capable of playing ping pong with a human — uses a camera to track the ball in real-time, predicts its landing point, and moves the arm to hit it.",
       origin: "Senior Project for Bachelor's Degree in Electrical Engineering at Khon Kaen University (Jan–May 2019). Done in a team of 3; I was primarily responsible for Software and Control Systems.",
@@ -1462,7 +1462,7 @@ export const projects: Project[] = [
     description: "Collaborated with Faculty of Nursing KKU to develop a thermostat device for brain injury patients with high fever.",
     tags: ["Embedded Systems", "Sensors", "Medical Device", "Hardware Design"],
     image: "/projects/Thermostat_for_Brain_Injury_Patients/cover.jpg",
-    theme: "emerald", isFeatured: false, year: "2018", duration: "Jun 2018 - Aug 2018", hidden: true,
+    theme: "emerald", isFeatured: false, year: "2018", duration: "Jun 2018 - Aug 2018",
     details: {
       objective: "Collaborate with the Faculty of Nursing at Khon Kaen University to develop a temperature control device for brain injury patients suffering from high fever.",
       methodology: ["Analyze medical requirements with nursing specialists", "Design closed-loop temperature control circuit", "Test for accuracy and safety compliance"],
@@ -1480,7 +1480,7 @@ export const projects: Project[] = [
     description: "Industrial internship project: PLC-controlled warehouse door with 4-digit password security and pneumatic actuation at NHK Spring.",
     tags: ["Mitsubishi PLC", "Pneumatic System", "Ladder Logic", "Industrial Automation"],
     image: "/projects/Warehouse_Door_System_(PLC)/cover.png",
-    theme: "orange", isFeatured: false, year: "2018", duration: "Mar 2018 - May 2018", hidden: true,
+    theme: "orange", isFeatured: false, year: "2018", duration: "Mar 2018 - May 2018",
     details: {
       context: "A PLC-controlled warehouse door system — requires a 4-digit password via a Keypad. Upon validation, the system triggers a Pneumatic Valve to automatically open/close the door, with an auto-lock mechanism to prevent repeated unauthorized attempts.",
       origin: "Summer Internship at NHK Spring Co., Ltd. (2018), tasked with designing and developing a security system for warehouse doors.",
