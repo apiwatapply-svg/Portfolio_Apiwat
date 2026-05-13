@@ -71,8 +71,6 @@ export const skillCategories: SkillCategory[] = [
     iconKey: "devops",
     theme: "orange",
     skills: [
-      { name: "Azure DevOps", iconKey: "azure" },
-      { name: "YAML Pipeline", iconKey: "pipeline" },
       { name: "CI/CD", iconKey: "pipeline" },
       { name: "Git Workflow", iconKey: "git" },
       { name: "Release Pipeline", iconKey: "release" },
