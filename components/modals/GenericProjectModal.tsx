@@ -248,6 +248,22 @@ export default function GenericProjectModal({ project, onClose }: Props) {
                           <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                             {d.caseStudyPages.scope.beforeAfter.summary}
                           </p>
+                          {d.caseStudyPages.scope.beforeAfter.benefitMetrics && (
+                            <div className="mb-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                              {d.caseStudyPages.scope.beforeAfter.benefitMetrics.map((metric) => (
+                                <div
+                                  key={`${metric.label}-${metric.value}`}
+                                  className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-center shadow-sm dark:border-emerald-900/50 dark:bg-emerald-950/20"
+                                >
+                                  <div className="text-2xl font-black text-slate-950 dark:text-white">
+                                    {metric.value}
+                                    {metric.unit && <span className="ml-1 text-xs font-black text-emerald-700 dark:text-emerald-300">{metric.unit}</span>}
+                                  </div>
+                                  <div className="mt-1 text-xs font-black uppercase tracking-wide text-slate-500 dark:text-slate-400">{metric.label}</div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                           <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800">
                             <div className="hidden grid-cols-[1.25fr_1fr_1fr_1.2fr] bg-slate-100 text-xs font-black uppercase tracking-wider text-slate-500 dark:bg-slate-800 dark:text-slate-400 md:grid">
                               <div className="p-3">Work</div>

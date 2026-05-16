@@ -132,6 +132,7 @@ export type ProjectDetails = {
       beforeAfter?: {
         summary: string;
         items: { task: string; before: string; after: string; impact: string }[];
+        benefitMetrics?: { label: string; value: string; unit?: string }[];
       };
       userFlow?: FlowStep[];
       visuals?: { url: string; title: string; caption: string }[];
@@ -762,16 +763,54 @@ export const projects: Project[] = [
             { label: "Active machines", value: "207" },
             { label: "Factory zones", value: "4" },
             { label: "Machine types", value: "27" },
-            { label: "Manual round", value: "~207", unit: "min" },
           ],
           beforeAfter: {
-            summary: "Old working method: an operator assigned to each machine area had to read values from machine displays. With 207 machines across 4 zones, 1 minute per machine means about 207 minutes of manual recording per full round. The check interval is around 25 minutes, based on average cycle time 3 seconds and 512 pieces per round.",
+            summary: "The old method required operators to walk to machine areas, read machine values, write them down, and consolidate reports later. MMS changes this into exception monitoring: users open one dashboard to see status, output, target, OEE, downtime, alarm, and NG information by area, machine type, or machine. The estimate below uses the real MMS scope of 207 active machines, 27 machine types, 4 zones, 1 minute manual check per machine, about 3 minutes dashboard review per full round, 25-minute check interval, 8-hour shift, 180 THB/hour labor cost, and 22 workdays per month.",
+            benefitMetrics: [
+              { label: "Saved per round", value: "204", unit: "min" },
+              { label: "Saved per shift", value: "65.3", unit: "hr" },
+              { label: "Saving / shift", value: "11,754", unit: "THB" },
+              { label: "Saving / month", value: "258,588", unit: "THB" },
+              { label: "Saving / year", value: "3.1M", unit: "THB" },
+              { label: "Reduced workload", value: "8.3", unit: "operator eq." },
+            ],
             items: [
-              { task: "Collect values from all machines", before: "207 machines x 1 min = ~207 min / round", after: "Dashboard opens in ~1-3 min", impact: "Manual recording workload reduced by about 204 min per full round" },
-              { task: "Cover 4 production zones", before: "~52 min / zone / round", after: "All zones visible from one screen", impact: "Equivalent to reducing repetitive checking work from about 8.3 full-time operators per 25-min cycle to exception monitoring" },
-              { task: "Paper and spreadsheet recording", before: "Paper notes and manual Excel consolidation", after: "Digital dashboard and database reports", impact: "Paperless workflow and fewer transcription mistakes" },
-              { task: "Detect output loss", before: "After the next manual round or report consolidation", after: "Realtime dashboard and report drill-down", impact: "Faster response to low output, downtime, NG, and target gaps" },
-              { task: "Management analysis", before: "Delayed summary", after: "Daily, machine, and NG reports", impact: "More accurate analysis from one source of truth" }
+              {
+                task: "Full factory machine check",
+                before: "207 machines x 1 min = 207 min per full round",
+                after: "Dashboard review takes about 3 min per full round",
+                impact: "Saving = 207 - 3 = 204 min per round",
+              },
+              {
+                task: "Continuous 25-minute coverage",
+                before: "8 hr shift x 60 / 25 min interval = 19.2 rounds per shift",
+                after: "Users monitor exceptions from one dashboard instead of repeating every machine check",
+                impact: "204 min saved/round x 19.2 rounds = 3,917 min, or 65.3 hr saved per shift",
+              },
+              {
+                task: "Operator workload",
+                before: "207 min manual round / 25 min interval = about 8.3 operator-equivalents for continuous coverage",
+                after: "Dashboard centralizes 4 zones and 27 machine types into one monitoring workflow",
+                impact: "Repetitive checking changes into exception-based monitoring",
+              },
+              {
+                task: "Labor-time saving",
+                before: "Manual checking consumes 65.3 hr per shift in repeated work",
+                after: "MMS removes most of that repeated recording time",
+                impact: "65.3 hr x 180 THB/hr = about 11,754 THB saved per shift",
+              },
+              {
+                task: "Monthly and yearly estimate",
+                before: "Manual checking repeats every working day",
+                after: "Dashboard data is available during the same shift and stored for reports",
+                impact: "11,754 x 22 = 258,588 THB/month; x 12 = 3,103,056 THB/year",
+              },
+              {
+                task: "Report quality and response",
+                before: "Paper notes, Excel consolidation, and delayed comparison by machine type",
+                after: "Daily report, machine report, NG report, OEE, downtime, alarm, and target gap views",
+                impact: "Faster same-shift response and fewer transcription mistakes. This benefit is additional to the labor-time estimate.",
+              }
             ]
           },
           visuals: [
