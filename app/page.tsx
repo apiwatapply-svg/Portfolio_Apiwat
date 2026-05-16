@@ -31,9 +31,9 @@ export default function Home() {
 
       <main className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-24 md:pt-32 pb-16 md:pb-20 space-y-16 md:space-y-24">
         <HeroSection />
+        <ExperienceSection />
         <SkillsSection />
         <ProjectsSection />
-        <ExperienceSection />
         <CertificatesSection />
       </main>
 
