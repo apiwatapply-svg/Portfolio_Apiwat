@@ -34,7 +34,7 @@ export default function HeroSection() {
                 1800,
                 "Smart Factory Developer",
                 1800,
-                "Automation & DevOps Engineer",
+                "IoT Engineer",
                 2000,
               ]}
               wrapper="span"
