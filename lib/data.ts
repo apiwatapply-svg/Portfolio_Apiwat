@@ -1,5 +1,5 @@
 // ============================================================
-// Portfolio Data — Apiwat Nonut
+// Portfolio Data - Apiwat Nonut
 // ============================================================
 
 export const personalInfo = {
@@ -13,7 +13,7 @@ export const personalInfo = {
   facebook: "https://www.facebook.com/apiwat.nonut",
   line: "0925853800",
   lineId: "oatza38",
-  bio: "Industrial software developer focused on machine-side applications, factory systems, and DevOps workflows. I bridge production requirements, software architecture, Git workflow, CI/CD, and deployment automation for reliable factory operations.",
+  bio: "Industrial software developer focused on automation, IoT, AI vision, smart factory systems, and DevOps delivery. I connect production requirements with software architecture, machine-side data, Git workflow, CI/CD, and deployment automation for reliable factory operations.",
   availability: "Available for new opportunities",
   yearsOfExperience: "5+",
   avatar: "/Apiwat.png",
@@ -64,6 +64,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Machine Vision & Edge AI", iconKey: "vision" },
       { name: "Predictive Maintenance", iconKey: "predictive" },
       { name: "ROS / Robotics", iconKey: "ros" },
+      { name: "Arduino / IoT", iconKey: "arduino" },
     ],
   },
   {
@@ -131,8 +132,8 @@ export type ProjectDetails = {
       metrics?: { label: string; value: string; unit?: string; icon?: string }[];
       beforeAfter?: {
         summary: string;
-        items: { task: string; before: string; after: string; impact: string }[];
         benefitMetrics?: { label: string; value: string; unit?: string }[];
+        items: { task: string; before: string; after: string; impact: string }[];
       };
       userFlow?: FlowStep[];
       visuals?: { url: string; title: string; caption: string }[];
@@ -641,7 +642,7 @@ export const projects: Project[] = [
     description: "Developed a comprehensive web-based and PWA-enabled application to streamline student attendance tracking using NFC/RFID technology.",
     tags: ["Next.js", "Supabase", "RFID", "IoT"],
     image: "/projects/Student_Attendance_Management_System/cover.png",
-    theme: "purple", isFeatured: false, year: "2024", duration: "Portfolio refactor: Nov 2024 - Dec 2024",
+    theme: "purple", isFeatured: false, year: "2020", duration: "2020",
     githubUrl: "https://github.com/apiwatapply-svg/Student_Attendance_Management_System",
     details: {
       objective: "Develop a fast attendance checking system that reduces teachers' workload, featuring real-time dashboards for administrators and teachers to monitor attendance statistics.",
@@ -734,7 +735,7 @@ export const projects: Project[] = [
     description: "Built an on-premise machine monitoring and OEE dashboard for 207 machines across 27 machine types, connecting machine-side data to SQL Server reports and realtime production views.",
     tags: ["Next.js", "Node.js", "SQL Server", "Prisma", "MQTT", "InfluxDB", "Socket.IO", "PM2"],
     image: "/projects/mms-dashboard/cover-v2.png",
-    theme: "blue", isFeatured: true, year: "2026", duration: "Mar 2026 - Present",
+    theme: "blue", isFeatured: true, year: "2025", duration: "Jan 2025 - Jul 2025",
     githubUrl: "https://github.com/apiwatapply-svg/MMS_project",
     details: {
       objective: "Turn machine-side signals into clear production visibility: realtime status, output vs target, OEE, downtime, NG, and daily reports by area/type/machine.",
@@ -967,101 +968,12 @@ export const projects: Project[] = [
   {
     slug: "predictive-maintenance",
     title: "Smart Factory Operations Platform",
-    description: "Planned factory operations platform that connects MES-style production visibility, production planning, job request, maintenance, PM/PdM roadmap, tooling, spare parts, QC, and production confirmation workflows.",
-    tags: ["Next.js", "Node.js", "SQL Server", "Socket.IO", "MES", "Maintenance", "Tooling", "QC"],
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    theme: "orange", isFeatured: true, year: "2026", duration: "Mar 2026 - Present", status: "Upcoming",
+    description: "Smart factory operations case study draft. Modal content is being rewritten section by section from verified maintenance_project evidence.",
+    tags: ["Next.js", "Node.js", "SQL Server", "Socket.IO", "IoT", "Arduino", "MMS", "Maintenance", "Tooling"],
+    image: "/projects/smart-factory-operations/cover.png",
+    theme: "orange", isFeatured: true, year: "2026", duration: "Jan 2026 - Present", status: "Completed",
     details: {
-      objective: "Design a modular Smart Factory Operations Platform that connects production planning, machine operation, job request, maintenance response, tooling control, spare part inventory, QC confirmation, and future PM/PdM analytics in one operational workflow.",
-      context: "The project direction expands from a maintenance app into a factory operations platform. The current maintenance_project already contains Next.js/Node.js structure, admin resources, Job Request pages for Production / Maintenance / QC, Preventive Maintenance entry points, Tooling Store modules, Socket.IO realtime notification design, and SQL Server-oriented backend APIs.",
-      origin: "Based on real factory workflow needs where Production, Maintenance, Tooling, QC, and management often work in separate spreadsheets, paper forms, chat messages, and disconnected systems.",
-      painPoint: "Factory operations lose time when production issues, repair requests, PM plans, tooling availability, spare part stock, QC confirmation, and production follow-up are not connected. The result is delayed response, duplicated entry, unclear job ownership, stock surprises, and weak traceability.",
-      yourRole: "System Designer / Full-stack Developer. Responsible for platform scope, module separation, user workflow design, backend API structure, SQL Server data flow, realtime notification concept, role-based access, and future expansion plan toward PM/PdM and MES integration.",
-      keySkillsUsed: ["Next.js", "React", "Node.js", "Express MVC", "SQL Server", "Socket.IO", "Axios", "Tailwind CSS", "SweetAlert2", "Factory Workflow Design", "Role-Based Access", "Dashboard Design"],
-      features: [
-        "MES-style operations hub for production visibility, production plan, machine status, and shop-floor follow-up",
-        "Production Plan module for connecting plan, line, machine, target, and production progress with MMS-style monitoring",
-        "Job Request workflow: Production creates a request, Maintenance accepts and repairs, QC checks, and Production confirms or rejects",
-        "Maintenance module for repair work tracking, repair detail recording, responsible person, image attachment, and history log",
-        "PM / PdM roadmap: PM scheduling first, then future predictive maintenance using machine runtime, downtime, abnormal history, and spare-part usage",
-        "Tooling Store module for tool master, borrow/return, overdue tracking, calibration due date, and tool availability",
-        "Spare Part module for stock in, stock out, stock balance, movement history, low-stock alert, and usage traceability by job/PM/work order",
-        "QC / Production confirmation flow so repaired work can be checked, rejected, looped back to Maintenance, or closed with traceable history"
-      ],
-      workflow: [
-        "Production Plan / MES View",
-        "Production Issue",
-        "Job Request",
-        "Maintenance Accept",
-        "Repair / Spare Part Usage",
-        "QC Check",
-        "Production Confirm",
-        "Close Job",
-        "History / Dashboard",
-        "PM/PdM Expansion"
-      ],
-      methodology: [
-        "Separate platform into modules: MES, Production Plan, Job Request, Maintenance, Tooling, Spare Part, QC/Production, PM/PdM",
-        "Reuse common master data such as employee, department, area, machine type, and machine number instead of duplicating data in every module",
-        "Use status-driven workflow for Job Request: WAIT_MM, MM_REPAIR, WAIT_QC, WAIT_PROD_CONFIRM, COMPLETED, and CANCELLED",
-        "Keep rejection as an action history and return the job to Maintenance repair status, making rework loops simple and traceable",
-        "Use Socket.IO realtime notifications so Maintenance, QC, and Production know immediately when ownership changes",
-        "Design Tooling Store separately between borrowable tools and consumable spare parts because they follow different business rules"
-      ],
-      technicalHighlights: [
-        {
-          title: "Modular Factory Platform",
-          description: "MES, production plan, maintenance, tooling, spare part, QC, and production confirmation are designed as connected modules instead of isolated pages."
-        },
-        {
-          title: "Status-Driven Job Request",
-          description: "Production, Maintenance, and QC share a clear workflow: request, accept, repair, QC check, production confirm, reject loop, and close."
-        },
-        {
-          title: "Tooling And Spare Part Separation",
-          description: "Borrowable tools are tracked by availability, borrow, return, overdue, and calibration; consumable spare parts are tracked by stock in/out, balance, and movement history."
-        },
-        {
-          title: "Realtime Ownership Change",
-          description: "Socket.IO notification design helps reduce waiting time between departments when jobs move from Production to Maintenance to QC and back."
-        },
-        {
-          title: "Future PM / PdM Expansion",
-          description: "PM can start from schedule and history, then PdM can be expanded using MMS runtime, downtime, alarm, NG, spare part usage, and repeated failure patterns."
-        }
-      ],
-      results: [
-        "Expected to reduce paper/chat-based job request follow-up by centralizing job status, owner, action history, and attachments",
-        "Expected to reduce maintenance response delay through realtime notification and clear job ownership",
-        "Expected to reduce spare part shortage risk by linking stock balance, issue history, and job/PM reference",
-        "Expected to improve QC and Production accountability by forcing pass/reject/confirm decisions into a traceable workflow",
-        "Expected to give management one operational view across production issues, maintenance work, tooling risk, spare part usage, and PM/PdM readiness"
-      ],
-      challenges: [
-        {
-          issue: "Factory departments work with different language and ownership: Production focuses output, Maintenance focuses repair, QC focuses judgement, and Tooling focuses inventory.",
-          solution: "Designed the platform around shared status, shared master data, and section-specific screens so each department sees only the workflow it needs."
-        },
-        {
-          issue: "Tools and spare parts look similar in a simple store system, but they behave differently in real operation.",
-          solution: "Separated borrowable tools from consumable spare parts, with borrow/return/calibration for tools and stock in/out/balance for spare parts."
-        },
-        {
-          issue: "Rejected jobs should not create confusing extra terminal statuses.",
-          solution: "Treat QC/Production reject as history actions and return the job to Maintenance repair state so rework stays visible and simple."
-        }
-      ],
-      lessonsLearned: [
-        "Factory platforms should be designed around actual handover points between departments, not only around database tables.",
-        "The biggest benefit comes from reducing waiting, duplicated entry, and unclear ownership between Production, Maintenance, QC, and Tooling.",
-        "PM/PdM should grow from clean maintenance history and spare-part usage data before jumping into advanced prediction."
-      ],
-      nextSteps: [
-        "Connect Production Plan and MMS machine status into the MES-style operations dashboard.",
-        "Complete Job Request realtime workflow with Production, Maintenance, QC, reject loop, and close-job history.",
-        "Expand PM scheduling and machine history into PdM readiness using downtime, runtime, repeated failures, and spare part usage.",
-        "Add management dashboards for response time, MTTR, repeated failure, spare part risk, overdue tools, and PM completion rate."
-      ],
+      objective: "",
     },
   },
   {
@@ -1385,16 +1297,16 @@ export const projects: Project[] = [
     image: "/projects/uav-drone-thesis/Cover.png",
     theme: "purple", isFeatured: true, year: "2020", duration: "Jan 2020 - Jun 2021",
     details: {
-      context: "An autonomous Fixed-Wing UAV control system — flies without a pilot by using mathematical algorithms to derive an aircraft model and design a PID controller, replacing manual tuning.",
-      origin: "Master's thesis in Mechanical Engineering at Khon Kaen University (2019–2021), completed solo under thesis advisor supervision.",
-      painPoint: "Traditional UAV control design requires experts to manually compute mathematical models — a slow, error-prone process that is difficult to reuse for new aircraft prototypes.",
-      objective: "Build a mathematical model and PID control system for a fixed-wing UAV using meta-heuristic optimization (Master's thesis — graded Excellent).",
-      yourRole: "Sole researcher and control systems engineer — responsible for experiment design, real flight data collection, MATLAB/Python coding for system identification and optimization, real flight testing, and thesis writing.",
+      context: "An autonomous Fixed-Wing UAV control system - flies without a pilot by using mathematical algorithms to derive an aircraft model and design a PID controller, replacing manual tuning.",
+      origin: "Master's thesis in Mechanical Engineering at Khon Kaen University (2019-2021), completed solo under thesis advisor supervision.",
+      painPoint: "Traditional UAV control design requires experts to manually compute mathematical models - a slow, error-prone process that is difficult to reuse for new aircraft prototypes.",
+      objective: "Build a mathematical model and PID control system for a fixed-wing UAV using meta-heuristic optimization (Master's thesis - graded Excellent).",
+      yourRole: "Sole researcher and control systems engineer - responsible for experiment design, real flight data collection, MATLAB/Python coding for system identification and optimization, real flight testing, and thesis writing.",
       keySkillsUsed: ["MATLAB", "Python", "PID Control Design", "Meta-Heuristic Optimization (L-SHADE)", "System Identification", "Raspberry Pi", "Data Analysis", "Academic Writing"],
       methodology: [
-        "Step 1 — System Identification: Inject excitation signals, collect real data, and determine Mathematical Model via Meta-Heuristics (87–98% accuracy)",
-        "Step 2 — PID Control Design: Design PID Controller using L-SHADE Optimization Algorithm for both Longitudinal and Lateral Dynamics",
-        "Step 3 — Real Flight Test: Conduct actual flight tests comparing with Simulation, achieving Error < 10%",
+        "Step 1 - System Identification: Inject excitation signals, collect real data, and determine Mathematical Model via Meta-Heuristics (87-98% accuracy)",
+        "Step 2 - PID Control Design: Design PID Controller using L-SHADE Optimization Algorithm for both Longitudinal and Lateral Dynamics",
+        "Step 3 - Real Flight Test: Conduct actual flight tests comparing with Simulation, achieving Error < 10%",
       ],
       hardware: [
         { name: "Raspberry Pi", icon: "Server", description: "High-level flight control" },
@@ -1403,23 +1315,23 @@ export const projects: Project[] = [
         { name: "FrSky Receiver", icon: "Wifi", description: "Radio communication" }
       ],
       metrics: [
-        { label: "Model Accuracy", value: "87–98", unit: "%", icon: "🎯" },
-        { label: "Real Flight Error", value: "<10", unit: "%", icon: "✈️" },
+        { label: "Model Accuracy", value: "87-98", unit: "%", icon: "Target" },
+        { label: "Real Flight Error", value: "<10", unit: "%", icon: "Flight" },
         { label: "Longitudinal Rise Time", value: "0.15", unit: "s", icon: "⏱️" },
         { label: "Lateral Settling Time", value: "3.15", unit: "s", icon: "⏱️" },
         { label: "Thesis Evaluation", value: "Excellent", unit: "", icon: "🏆" },
         { label: "Intl Publication", value: "ISI", unit: "Indexed", icon: "📚" },
       ],
       programFlow: [
-        { id: "excite", label: "Excite actual UAV with signal", icon: "✈️", type: "action" as const, detail: "Input: Chirp signal → record Response" },
-        { id: "sysid", label: "Meta-Heuristics System ID", icon: "🧠", type: "process" as const, detail: "L-SHADE Algorithm → Model 87–98%" },
+        { id: "excite", label: "Excite actual UAV with signal", icon: "Flight", type: "action" as const, detail: "Input: Chirp signal -> record Response" },
+        { id: "sysid", label: "Meta-Heuristics System ID", icon: "Brain", type: "process" as const, detail: "L-SHADE Algorithm -> Model 87-98%" },
         { id: "pid_design", label: "PID Controller Design", icon: "⚙️", type: "process" as const, detail: "Optimize Kp, Ki, Kd for Long + Lat" },
         { id: "sim", label: "Simulate in MATLAB", icon: "🖥️", type: "process" as const, detail: "Verify against Spec" },
         { id: "embed", label: "Deploy on Raspberry Pi", icon: "🍓", type: "action" as const, detail: "Python PID loop" },
-        { id: "flight", label: "Real Flight Test", icon: "✈️", type: "success" as const, detail: "Error < 10% vs Simulation" },
+        { id: "flight", label: "Real Flight Test", icon: "Flight", type: "success" as const, detail: "Error < 10% vs Simulation" },
       ],
       results: [
-        "Mathematical Model achieved 87–98% accuracy",
+        "Mathematical Model achieved 87-98% accuracy",
         "Longitudinal PID: Rise Time 0.15s, Overshoot 11.1%, Settling Time 5.0s",
         "Lateral PID: Rise Time 0.52s, Overshoot 5.0%, Settling Time 3.15s",
         "Real Flight Error < 10% compared to Simulation",
@@ -1448,14 +1360,14 @@ export const projects: Project[] = [
     image: "/projects/ping-pong-robot/cover.png",
     theme: "purple", isFeatured: false, year: "2019", duration: "Jan 2019 - May 2019",
     details: {
-      context: "An automated robotic arm capable of playing ping pong with a human — uses a camera to track the ball in real-time, predicts its landing point, and moves the arm to hit it.",
-      origin: "Senior Project for Bachelor's Degree in Electrical Engineering at Khon Kaen University (Jan–May 2019). Done in a team of 3; I was primarily responsible for Software and Control Systems.",
+      context: "An automated robotic arm capable of playing ping pong with a human - uses a camera to track the ball in real-time, predicts its landing point, and moves the arm to hit it.",
+      origin: "Senior Project for Bachelor's Degree in Electrical Engineering at Khon Kaen University (Jan-May 2019). Done in a team of 3; I was primarily responsible for Software and Control Systems.",
       painPoint: "The project needed to overcome system latency caused by image processing, which could prevent the robot from reacting quickly enough to a fast-moving ping pong ball.",
       objective: "Develop an automated ping pong playing robotic arm integrating Computer Vision for ball detection and trajectory prediction (Undergraduate Senior Project).",
-      yourRole: "Lead for Software & Control — developed Computer Vision system in LabVIEW, wrote Linear Prediction Algorithm, calculated Inverse Kinematics, designed and tuned PID Controllers for all DC motor axes.",
+      yourRole: "Lead for Software & Control - developed Computer Vision system in LabVIEW, wrote Linear Prediction Algorithm, calculated Inverse Kinematics, designed and tuned PID Controllers for all DC motor axes.",
       metrics: [
         { label: "Time Delay", value: "0.35", unit: "s", icon: "⏱️" },
-        { label: "Prediction Error", value: "3.82–5.3", unit: "cm", icon: "🎯" },
+        { label: "Prediction Error", value: "3.82-5.3", unit: "cm", icon: "Target" },
         { label: "Robot Arm DOF", value: "4", unit: "DOF", icon: "🤖" },
         { label: "Versions Built", value: "4", unit: "versions", icon: "🔄" },
         { label: "Tracking", value: "3D", unit: "X,Y,Z", icon: "📍" },
@@ -1465,16 +1377,16 @@ export const projects: Project[] = [
         { id: "ball_thrown", label: "Player serves ping pong ball", icon: "🏓", type: "action" as const },
         { id: "camera", label: "Real-time Camera Capture", icon: "📹", type: "process" as const, detail: "30 fps" },
         { id: "detect", label: "LabVIEW Detects X,Y", icon: "🔍", type: "process" as const, detail: "Color Blob Detection" },
-        { id: "predict", label: "Predict landing from 2 points", icon: "🧠", type: "process" as const, detail: "Linear Prediction" },
+        { id: "predict", label: "Predict landing from 2 points", icon: "Brain", type: "process" as const, detail: "Linear Prediction" },
         { id: "ik", label: "Calculate Inverse Kinematics", icon: "⚙️", type: "process" as const, detail: "Convert X,Y,Z to Joint Angles" },
         { id: "pid", label: "PID Controls 4-axis motors", icon: "🏓", type: "action" as const, detail: "via NI myRIO" },
         { id: "hit", label: "Robot hits ball back", icon: "✨", type: "success" as const },
       ],
       programFlow: [
-        { id: "img_acq", label: "Image Acquisition", icon: "📷", type: "action" as const, detail: "USB Camera → LabVIEW" },
+        { id: "img_acq", label: "Image Acquisition", icon: "Camera", type: "action" as const, detail: "USB Camera -> LabVIEW" },
         { id: "proc", label: "Image Processing (PC)", icon: "🖥️", type: "process" as const, detail: "Color Threshold + Blob" },
         { id: "coord", label: "Send X,Y coordinates to myRIO", icon: "📡", type: "action" as const, detail: "TCP/IP (Low Latency)" },
-        { id: "predict2", label: "Linear Prediction Algorithm", icon: "🧠", type: "process" as const, detail: "Calculate Z landing point" },
+        { id: "predict2", label: "Linear Prediction Algorithm", icon: "Brain", type: "process" as const, detail: "Calculate Z landing point" },
         { id: "ik2", label: "Inverse Kinematics", icon: "⚙️", type: "process" as const, detail: "Calculate 4 Joint Angles" },
         { id: "pid2", label: "PID Motor Control", icon: "🏓", type: "action" as const, detail: "DC Motor Encoder Feedback" },
       ],
@@ -1521,10 +1433,10 @@ export const projects: Project[] = [
     image: "/projects/Warehouse_Door_System_(PLC)/cover.png",
     theme: "orange", isFeatured: false, year: "2018", duration: "Mar 2018 - May 2018",
     details: {
-      context: "A PLC-controlled warehouse door system — requires a 4-digit password via a Keypad. Upon validation, the system triggers a Pneumatic Valve to automatically open/close the door, with an auto-lock mechanism to prevent repeated unauthorized attempts.",
+      context: "A PLC-controlled warehouse door system - requires a 4-digit password via a Keypad. Upon validation, the system triggers a Pneumatic Valve to automatically open/close the door, with an auto-lock mechanism to prevent repeated unauthorized attempts.",
       origin: "Summer Internship at NHK Spring Co., Ltd. (2018), tasked with designing and developing a security system for warehouse doors.",
       painPoint: "The previous warehouse doors had no security system, allowing unrestricted access and risking material loss and safety hazards.",
-      yourRole: "Lead engineer for the project — designed the entire Ladder Logic on a Mitsubishi PLC, including Security, Timeout, Auto-lock, and Alert systems, and tested it with actual pneumatic hardware.",
+      yourRole: "Lead engineer for the project - designed the entire Ladder Logic on a Mitsubishi PLC, including Security, Timeout, Auto-lock, and Alert systems, and tested it with actual pneumatic hardware.",
       keySkillsUsed: ["Mitsubishi PLC", "Ladder Logic Programming", "Pneumatic System", "Sequential Control Design", "Safety System Design"],
       objective: "Develop a warehouse door control system using a Mitsubishi PLC and pneumatics, secured by a 4-digit password (Summer Internship at NHK Spring Co., Ltd.).",
       features: ["Supports 4 distinct password sets (4 digits each)", "10-second automatic timeout if no input is detected", "Auto-lock triggered after 3 consecutive failed attempts", "Alert System notifies when auto-lock is engaged"],
@@ -1536,7 +1448,7 @@ export const projects: Project[] = [
       ],
       metrics: [
         { label: "Supported Passwords", value: "4", unit: "sets", icon: "🔑" },
-        { label: "Length", value: "4", unit: "digits", icon: "🔢" },
+        { label: "Length", value: "4", unit: "digits", icon: "Digits" },
         { label: "Timeout", value: "10", unit: "sec", icon: "⏱️" },
         { label: "Auto-lock Limit", value: "3", unit: "fails", icon: "🔒" },
         { label: "Response Time", value: "<1", unit: "sec", icon: "⚡" },
@@ -1545,7 +1457,7 @@ export const projects: Project[] = [
       userFlow: [
         { id: "approach", label: "User approaches door", icon: "🚶", type: "action" },
         { id: "keypad", label: "Press Keypad to enter password", icon: "⌨️", type: "action", detail: "10-sec timeout starts" },
-        { id: "enter4", label: "Enter 4 digits", icon: "🔢", type: "action" },
+        { id: "enter4", label: "Enter 4 digits", icon: "Digits", type: "action" },
         {
           id: "check",
           label: "PLC validates password",
@@ -1565,7 +1477,7 @@ export const projects: Project[] = [
               condition: "❌ Incorrect",
               type: "error",
               steps: [
-                { id: "count", label: "Increment error counter", icon: "🔢", type: "warning" },
+                { id: "count", label: "Increment error counter", icon: "Counter", type: "warning" },
                 {
                   id: "lockcheck",
                   label: "Failed 3 times?",
@@ -1597,15 +1509,15 @@ export const projects: Project[] = [
       programFlow: [
         { id: "input", label: "Receive Input from Keypad", icon: "⌨️", type: "action", detail: "Ladder Rung: Input Module" },
         { id: "timer", label: "Start Timeout Timer", icon: "⏱️", type: "process", detail: "TON: 10 sec" },
-        { id: "store", label: "Store pass in Data Register", icon: "💾", type: "process", detail: "D100–D103" },
+        { id: "store", label: "Store pass in Data Register", icon: "Save", type: "process", detail: "D100-D103" },
         { id: "compare", label: "Compare with 4 presets", icon: "🔍", type: "decision", detail: "CMP Instruction" },
-        { id: "counter", label: "Update Error Counter", icon: "🔢", type: "process", detail: "C0: 0–3" },
+        { id: "counter", label: "Update Error Counter", icon: "Counter", type: "process", detail: "C0: 0-3" },
         { id: "output", label: "Trigger Output: Valve/Lock/Alert", icon: "⚡", type: "output" as "process", detail: "Y000, Y001, Y002" },
       ],
       results: ["System fully met all operational requirements", "Successfully tested and deployed at NHK Spring facility", "Response Time < 1 second", "Reduced unauthorized access risk by 100%"],
       lessonsLearned: [
         "PLC Ladder Logic: Sequential Control design must account for edge cases such as Timeouts and Power Failures.",
-        "Safety Design: Auto-lock mechanisms require a manual override for emergencies — this was added after supervisor review.",
+        "Safety Design: Auto-lock mechanisms require a manual override for emergencies - this was added after supervisor review.",
       ],
       nextSteps: [
         "Integrate an RFID Card system for authorized personnel",

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Tooling store feature flow</title>
+  <desc id="desc">Tooling Store manages tool master, spare parts, stock in and stock out, borrow and return, calibration, stock balance, and validation.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f97316"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="640" rx="28" fill="url(#bg)"/>
+  <text x="70" y="76" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800" fill="#0f172a">Tooling Store Flow</text>
+  <text x="70" y="112" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="600" fill="#475569">Control spare parts, borrowable tools, returns, overdue cases, calibration, and stock validation.</text>
+  <g filter="url(#shadow)">
+    <rect x="70" y="240" width="170" height="125" rx="16" fill="#ffffff" stroke="#fed7aa" stroke-width="2"/>
+    <text x="155" y="284" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a">Master Data</text>
+    <text x="155" y="316" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">Tools, spare parts,</text>
+    <text x="155" y="338" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">category, location</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="310" y="140" width="170" height="115" rx="16" fill="#ffffff" stroke="#bbf7d0" stroke-width="2"/>
+    <text x="395" y="183" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a">Stock In</text>
+    <text x="395" y="216" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">Receive parts</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="310" y="310" width="170" height="115" rx="16" fill="#ffffff" stroke="#fed7aa" stroke-width="2"/>
+    <text x="395" y="353" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a">Stock Out</text>
+    <text x="395" y="386" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">Issue to job / PM</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="560" y="140" width="170" height="115" rx="16" fill="#ffffff" stroke="#bae6fd" stroke-width="2"/>
+    <text x="645" y="183" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a">Borrow Tool</text>
+    <text x="645" y="216" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">Issue and due date</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="560" y="310" width="170" height="115" rx="16" fill="#ffffff" stroke="#bae6fd" stroke-width="2"/>
+    <text x="645" y="353" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a">Return Tool</text>
+    <text x="645" y="386" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">Condition and history</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="810" y="140" width="170" height="115" rx="16" fill="#ffffff" stroke="#c4b5fd" stroke-width="2"/>
+    <text x="895" y="183" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a">Calibration</text>
+    <text x="895" y="216" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">Due soon / expired</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="810" y="310" width="170" height="115" rx="16" fill="#ffffff" stroke="#c4b5fd" stroke-width="2"/>
+    <text x="895" y="353" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a">Balance</text>
+    <text x="895" y="386" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">Movement history</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="1020" y="240" width="135" height="125" rx="16" fill="#ffffff" stroke="#fecaca" stroke-width="2"/>
+    <text x="1087" y="284" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#0f172a">Validation</text>
+    <text x="1087" y="316" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">Reject over</text>
+    <text x="1087" y="338" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#64748b">stock issue</text>
+  </g>
+  <path d="M240 302 C275 302 275 197 310 197" stroke="#f97316" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M240 302 C275 302 275 367 310 367" stroke="#f97316" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M480 197 H560" stroke="#f97316" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M480 367 H560" stroke="#f97316" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M730 197 H810" stroke="#f97316" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M730 367 H810" stroke="#f97316" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M980 302 H1020" stroke="#ef4444" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="72" y="500" width="1056" height="64" rx="18" fill="#7c2d12"/>
+  <text x="600" y="538" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#ffffff">Value: parts and tools become visible before maintenance work is blocked.</text>
+</svg>

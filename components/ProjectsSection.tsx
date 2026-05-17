@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRight, ExternalLink, Calendar, Code2, GitBranch, ShieldCheck, PackageCheck, Rocket, FileText } from "lucide-react";
+import { ArrowRight, ExternalLink, Calendar, Code2, GitBranch, ShieldCheck, PackageCheck, Rocket, FileText, BriefcaseBusiness, Sparkles } from "lucide-react";
 import ProjectModal from "./ProjectModal";
 import Workflow3D from "@/components/Workflow3D";
 import { Layers } from "lucide-react";
@@ -29,6 +29,21 @@ import { projects as rawProjects, type Project } from "@/lib/data";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 
+type ProjectTrack = "professional" | "hobby";
+
+const projectTrackBySlug: Record<string, ProjectTrack> = {
+  "ros-automation": "professional",
+  "ai-defect-inspection": "professional",
+  "mms-dashboard": "professional",
+  "predictive-maintenance": "professional",
+  "coffee-shop-pos": "hobby",
+  "uncloned-ecommerce": "hobby",
+  "booking-meeting-room": "hobby",
+  "restaurant-pos": "hobby",
+};
+
+const getProjectTrack = (project: Project): ProjectTrack => projectTrackBySlug[project.slug] ?? "professional";
+
 const projects = rawProjects.filter((project) => !project.hidden).sort((a, b) => {
   const yearDiff = parseInt(b.year) - parseInt(a.year);
   if (yearDiff !== 0) return yearDiff;
@@ -45,6 +60,52 @@ const themeMap = {
   purple: "text-purple-600 dark:text-purple-400",
   orange: "text-orange-600 dark:text-orange-400",
 };
+
+type TimelineItem = {
+  kind: "project" | "milestone";
+  track: ProjectTrack;
+  year: string;
+  duration: string;
+  title: string;
+  description: string;
+  tags: string[];
+  theme: Project["theme"];
+  project?: Project;
+};
+
+const careerMilestones: TimelineItem[] = [];
+
+const projectTimelineItems: TimelineItem[] = projects.map((project) => ({
+  kind: "project",
+  track: getProjectTrack(project),
+  year: project.year,
+  duration: project.duration,
+  title: project.title,
+  description: project.description,
+  tags: project.tags,
+  theme: project.theme,
+  project,
+}));
+
+const timelineItems = [...projectTimelineItems, ...careerMilestones].sort((a, b) => {
+  const yearDiff = Number(b.year) - Number(a.year);
+  if (yearDiff !== 0) return yearDiff;
+  if (a.kind === b.kind) return 0;
+  return a.kind === "milestone" ? -1 : 1;
+});
+
+const trackOptions = [
+  { value: "all", label: "All", icon: Layers },
+  { value: "professional", label: "Professional Work", icon: BriefcaseBusiness },
+  { value: "hobby", label: "Hobby Projects", icon: Sparkles },
+] as const;
+
+type TrackFilter = typeof trackOptions[number]["value"];
+
+const trackBadge = {
+  professional: "Professional Work",
+  hobby: "Hobby Project",
+} satisfies Record<ProjectTrack, string>;
 
 const devOpsWorkflowSteps = [
   {
@@ -299,7 +360,12 @@ function FeaturedGrid({ items, onSelect }: { items: Project[], onSelect: (p: Pro
                 </div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <div className={`text-xs font-semibold mb-2 ${themeMap[project.theme]}`}>{project.duration}</div>
+                <div className="mb-2 flex flex-wrap items-center gap-2">
+                  <span className={`text-xs font-semibold ${themeMap[project.theme]}`}>{project.duration}</span>
+                  <span className="rounded-full border border-slate-200 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                    {trackBadge[getProjectTrack(project)]}
+                  </span>
+                </div>
                 <button onClick={() => onSelect(project)} className="text-left">
                   <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">{project.title}</h3>
                 </button>
@@ -318,7 +384,7 @@ function FeaturedGrid({ items, onSelect }: { items: Project[], onSelect: (p: Pro
   );
 }
 
-function TimelineList({ items, onSelect }: { items: Project[], onSelect: (p: Project) => void }) {
+function TimelineList({ items, onSelect }: { items: TimelineItem[], onSelect: (p: Project) => void }) {
   return (
     <motion.div
       initial="hidden"
@@ -330,33 +396,49 @@ function TimelineList({ items, onSelect }: { items: Project[], onSelect: (p: Pro
       className="relative mt-12 max-w-3xl mx-auto"
     >
       <motion.div initial={{ height: 0 }} animate={{ height: "100%" }} transition={{ duration: 1, ease: "easeOut" }} className="absolute left-4 top-0 w-0.5 bg-slate-200 dark:bg-slate-800" />
-      {items.map((project, idx) => {
-        const showYearMarker = idx === 0 || project.year !== items[idx - 1].year;
+      {items.map((item, idx) => {
+        const showYearMarker = idx === 0 || item.year !== items[idx - 1].year;
         return (
-          <div key={`${project.title}-${idx}`}>
+          <div key={`${item.kind}-${item.title}-${idx}`}>
             {showYearMarker && (
               <div className="relative flex items-center mb-8 mt-12 w-full z-10">
-                <div className="px-4 py-1.5 ml-10 rounded-full font-bold text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white border border-slate-200 dark:border-slate-700">{project.year}</div>
+                <div className="px-4 py-1.5 ml-10 rounded-full font-bold text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white border border-slate-200 dark:border-slate-700">{item.year}</div>
               </div>
             )}
             <motion.div variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5 } } }} className="relative flex items-center mb-8 w-full">
-              <div className="absolute left-[11px] w-2.5 h-2.5 rounded-full bg-blue-500 dark:bg-slate-400 border-2 border-white dark:border-slate-900 z-10" />
+              <div className={`absolute left-[11px] w-2.5 h-2.5 rounded-full border-2 border-white dark:border-slate-900 z-10 ${item.kind === "milestone" ? "bg-emerald-500" : "bg-blue-500 dark:bg-slate-400"}`} />
               <div className="w-full pl-10">
                 <Tilt tiltMaxAngleX={2} tiltMaxAngleY={2} scale={1.01} transitionSpeed={2000}>
                   <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm hover:shadow-lg transition-all group">
                     <div className="flex justify-between items-start mb-2">
-                      <button onClick={() => onSelect(project)} className="text-left">
-                        <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors cursor-pointer">{project.title}</h3>
-                      </button>
-                      <button onClick={() => onSelect(project)} className="text-slate-400 hover:text-blue-500 transition-colors" aria-label={`View ${project.title}`}>
-                        <ExternalLink size={16} />
-                      </button>
+                      {item.project ? (
+                        <button onClick={() => onSelect(item.project as Project)} className="text-left">
+                          <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors cursor-pointer">{item.title}</h3>
+                        </button>
+                      ) : (
+                        <h3 className="text-base font-bold text-slate-900 dark:text-white">{item.title}</h3>
+                      )}
+                      {item.project ? (
+                        <button onClick={() => onSelect(item.project as Project)} className="text-slate-400 hover:text-blue-500 transition-colors" aria-label={`View ${item.title}`}>
+                          <ExternalLink size={16} />
+                        </button>
+                      ) : (
+                        <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300">
+                          Milestone
+                        </span>
+                      )}
                     </div>
-                    <div className={`text-xs font-semibold mb-3 flex items-center gap-2 ${themeMap[project.theme]}`}>
-                      <span>{project.duration}</span>
+                    <div className={`text-xs font-semibold mb-3 flex items-center gap-2 ${themeMap[item.theme]}`}>
+                      <span>{item.duration}</span>
+                      <span className="rounded-full border border-slate-200 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                        {trackBadge[item.track]}
+                      </span>
                     </div>
+                    {item.kind === "milestone" && (
+                      <p className="mb-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{item.description}</p>
+                    )}
                     <div className="flex flex-wrap gap-1.5">
-                      {project.tags.map((tag) => (
+                      {item.tags.map((tag) => (
                         <span key={tag} className="text-[10px] font-semibold px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">{tag}</span>
                       ))}
                     </div>
@@ -373,17 +455,22 @@ function TimelineList({ items, onSelect }: { items: Project[], onSelect: (p: Pro
 
 export default function ProjectsSection() {
   const [tab, setTab] = useState<"workflow" | "all-grid" | "timeline">("workflow");
-  const [selectedYear, setSelectedYear] = useState<string>(projects[0]?.year || new Date().getFullYear().toString());
+  const [selectedYear, setSelectedYear] = useState<string>("all");
+  const [selectedTrack, setSelectedTrack] = useState<TrackFilter>("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     const savedTab = localStorage.getItem("portfolio-projects-tab");
     const savedYear = localStorage.getItem("portfolio-projects-year");
+    const savedTrack = localStorage.getItem("portfolio-projects-track");
     if (savedTab && ["workflow", "all-grid", "timeline"].includes(savedTab)) {
       setTimeout(() => setTab(savedTab as "workflow" | "all-grid" | "timeline"), 0);
     }
-    if (savedYear && savedYear !== "all") setTimeout(() => setSelectedYear(savedYear), 0);
+    if (savedYear) setTimeout(() => setSelectedYear(savedYear), 0);
+    if (savedTrack && ["all", "professional", "hobby"].includes(savedTrack)) {
+      setTimeout(() => setSelectedTrack(savedTrack as TrackFilter), 0);
+    }
     setTimeout(() => setIsMounted(true), 0);
   }, []);
 
@@ -391,13 +478,22 @@ export default function ProjectsSection() {
     if (isMounted) {
       localStorage.setItem("portfolio-projects-tab", tab);
       localStorage.setItem("portfolio-projects-year", selectedYear);
+      localStorage.setItem("portfolio-projects-track", selectedTrack);
       }
-  }, [tab, selectedYear, isMounted]);
+  }, [tab, selectedYear, selectedTrack, isMounted]);
 
-  // Sorted unique years from all projects
+  const trackFilteredProjects = selectedTrack === "all"
+    ? projects
+    : projects.filter((project) => getProjectTrack(project) === selectedTrack);
+  const trackFilteredTimelineItems = selectedTrack === "all"
+    ? timelineItems
+    : timelineItems.filter((item) => item.track === selectedTrack);
+
+  // Sorted unique years from the selected professional/hobby track.
   const availableYears = useMemo(() => {
-    return [...new Set(projects.map((p) => p.year))].sort((a, b) => Number(b) - Number(a));
-  }, []);
+    return [...new Set(trackFilteredTimelineItems.map((item) => item.year))].sort((a, b) => Number(b) - Number(a));
+  }, [trackFilteredTimelineItems]);
+  const effectiveSelectedYear = selectedYear === "all" || availableYears.includes(selectedYear) ? selectedYear : "all";
 
   const handleTabChange = (newTab: "workflow" | "all-grid" | "timeline") => {
     setTab(newTab);
@@ -407,10 +503,19 @@ export default function ProjectsSection() {
     setSelectedYear(year);
   };
 
-  const baseProjects = projects;
+  const handleTrackChange = (track: TrackFilter) => {
+    setSelectedTrack(track);
+  };
+
+  const baseProjects = trackFilteredProjects;
   const yearFiltered = tab !== "workflow"
-    ? baseProjects.filter((p) => p.year === selectedYear)
+    ? effectiveSelectedYear === "all" ? baseProjects : baseProjects.filter((p) => p.year === effectiveSelectedYear)
     : baseProjects;
+  const timelineFiltered = effectiveSelectedYear === "all"
+    ? trackFilteredTimelineItems
+    : trackFilteredTimelineItems.filter((item) => item.year === effectiveSelectedYear);
+  const activeCount = tab === "timeline" ? timelineFiltered.length : yearFiltered.length;
+  const activeCountLabel = tab === "timeline" ? "item" : "project";
 
   return (
     <motion.section
@@ -424,7 +529,7 @@ export default function ProjectsSection() {
       <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
         <div>
           <h2 className="text-3xl font-black mb-2 tracking-tight text-slate-900 dark:text-white">Projects & Workflow</h2>
-          <p className="text-slate-600 dark:text-slate-400 font-medium">How I work, and the real-world solutions I&apos;ve built over time.</p>
+          <p className="text-slate-600 dark:text-slate-400 font-medium">Professional factory systems and hobby-built POS/business apps, organized by track and year.</p>
         </div>
 
         {/* Tab toggle */}
@@ -446,30 +551,50 @@ export default function ProjectsSection() {
 
       {/* Year Filter */}
       {tab !== "workflow" && (
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-wrap items-center gap-2 mb-6"
-        >
-          <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-            <Calendar size={13} /> Filter by Year:
-          </span>
-          {availableYears.map((year) => (
-            <button
-              key={year}
-              onClick={() => handleYearChange(year)}
-              className={`px-3 py-1 rounded-full text-xs font-bold transition-colors border ${
-                selectedYear === year
-                  ? "bg-blue-600 text-white border-blue-600"
-                  : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:text-blue-600"
-              }`}
-            >
-              {year}
-            </button>
-          ))}
-          <span className="text-xs text-slate-400 dark:text-slate-500 ml-1">
-            — {yearFiltered.length} project{yearFiltered.length !== 1 ? "s" : ""}
-          </span>
+        <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 space-y-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <BriefcaseBusiness size={13} /> Track:
+            </span>
+            {trackOptions.map((option) => {
+              const Icon = option.icon;
+              return (
+                <button
+                  key={option.value}
+                  onClick={() => handleTrackChange(option.value)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-colors border ${
+                    selectedTrack === option.value
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:text-blue-600"
+                  }`}
+                >
+                  <Icon size={13} />
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <Calendar size={13} /> Filter by Year:
+            </span>
+            {["all", ...availableYears].map((year) => (
+              <button
+                key={year}
+                onClick={() => handleYearChange(year)}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-colors border ${
+                  effectiveSelectedYear === year
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:text-blue-600"
+                }`}
+              >
+                {year === "all" ? "All Years" : year}
+              </button>
+            ))}
+            <span className="text-xs text-slate-400 dark:text-slate-500 ml-1">
+              - {activeCount} {activeCountLabel}{activeCount !== 1 ? "s" : ""}
+            </span>
+          </div>
         </motion.div>
       )}
 
@@ -477,7 +602,7 @@ export default function ProjectsSection() {
       <div className="min-h-[600px] md:min-h-[800px] transition-all duration-300">
         {tab === "workflow" && <WorkflowSection />}
         {tab === "all-grid" && <FeaturedGrid items={yearFiltered} onSelect={setSelectedProject} />}
-        {tab === "timeline" && <TimelineList items={yearFiltered} onSelect={setSelectedProject} />}
+        {tab === "timeline" && <TimelineList items={timelineFiltered} onSelect={setSelectedProject} />}
       </div>
 
       {/* Project Modal */}

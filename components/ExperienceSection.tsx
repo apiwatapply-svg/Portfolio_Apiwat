@@ -9,7 +9,7 @@ const expColorMap = {
 
 export default function ExperienceSection() {
   return (
-    <div id="experience" className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <div id="experience" className="grid grid-cols-1 lg:grid-cols-2 gap-16 scroll-mt-24">
       {/* Experience */}
       <section>
         <h2 className="text-2xl font-black mb-8 flex items-center gap-3 text-slate-900 dark:text-white">
@@ -36,7 +36,7 @@ export default function ExperienceSection() {
                     key={i}
                     className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex gap-2"
                   >
-                    <span className="shrink-0 text-slate-400">—</span>
+                    <span className="shrink-0 text-slate-400">-</span>
                     <span>{bullet}</span>
                   </li>
                 ))}

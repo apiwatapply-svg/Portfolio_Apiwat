@@ -9,7 +9,7 @@ import { TypeAnimation } from "react-type-animation";
 export default function HeroSection() {
   return (
     <section id="home" className="flex flex-col-reverse md:flex-row items-center gap-12 pt-10">
-      {/* Left — Text */}
+      {/* Left - Text */}
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -30,7 +30,11 @@ export default function HeroSection() {
           <span className="text-blue-600 block min-h-[1.2em]">
             <TypeAnimation
               sequence={[
-                "Developer Engineer",
+                "Industrial Software Engineer",
+                1800,
+                "Smart Factory Developer",
+                1800,
+                "Automation & DevOps Engineer",
                 2000,
               ]}
               wrapper="span"
@@ -74,7 +78,7 @@ export default function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Right — Avatar */}
+      {/* Right - Avatar */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}

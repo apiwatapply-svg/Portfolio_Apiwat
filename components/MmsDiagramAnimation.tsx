@@ -124,11 +124,11 @@ function BeforeAfterDiagram() {
 
 function UserFlowDiagram() {
   const steps = [
-    ["Open dashboard", "Factory overview", "cyan", <MonitorDot size={14} />],
-    ["Filter", "Area, type, machine", "green", <Network size={14} />],
-    ["Compare", "Target vs actual", "amber", <BarChart3 size={14} />],
-    ["Drill down", "Daily / machine detail", "violet", <Database size={14} />],
-    ["Take action", "Production response", "red", <CheckCircle2 size={14} />],
+    ["Open dashboard", "Factory overview", "cyan", <MonitorDot key="open-dashboard" size={14} />],
+    ["Filter", "Area, type, machine", "green", <Network key="filter" size={14} />],
+    ["Compare", "Target vs actual", "amber", <BarChart3 key="compare" size={14} />],
+    ["Drill down", "Daily / machine detail", "violet", <Database key="drill-down" size={14} />],
+    ["Take action", "Production response", "red", <CheckCircle2 key="take-action" size={14} />],
   ] as const;
 
   return (
@@ -156,12 +156,12 @@ function UserFlowDiagram() {
 
 function ProjectProcessDiagram() {
   const steps = [
-    ["Requirements", "PRD and scope", "cyan", <FileText size={14} />],
-    ["Tech Design", "ER / API / stack", "green", <Database size={14} />],
-    ["Mock UI", "Dashboard/report UX", "amber", <MonitorDot size={14} />],
-    ["Development", "Frontend and backend", "violet", <Code2 size={14} />],
-    ["Testing", "Unit test and build", "red", <ShieldCheck size={14} />],
-    ["Deploy", "PM2 customer server", "cyan", <Server size={14} />],
+    ["Requirements", "PRD and scope", "cyan", <FileText key="requirements" size={14} />],
+    ["Tech Design", "ER / API / stack", "green", <Database key="tech-design" size={14} />],
+    ["Mock UI", "Dashboard/report UX", "amber", <MonitorDot key="mock-ui" size={14} />],
+    ["Development", "Frontend and backend", "violet", <Code2 key="development" size={14} />],
+    ["Testing", "Unit test and build", "red", <ShieldCheck key="testing" size={14} />],
+    ["Deploy", "PM2 customer server", "cyan", <Server key="deploy" size={14} />],
   ] as const;
 
   return (
@@ -308,12 +308,12 @@ function MachineTypeNetworkDiagram() {
 
 function DevopsDiagram() {
   const steps = [
-    ["Coding", "Local feature work", "cyan", <Code2 size={14} />],
-    ["Feature branch", "Small focused commits", "green", <GitBranch size={14} />],
-    ["Pull request", "Review before merge", "amber", <GitBranch size={14} />],
-    ["CI", "Unit test + build", "violet", <ShieldCheck size={14} />],
-    ["CD", "Release package", "red", <Server size={14} />],
-    ["PM2", "Run on server", "cyan", <MonitorDot size={14} />],
+    ["Coding", "Local feature work", "cyan", <Code2 key="coding" size={14} />],
+    ["Feature branch", "Small focused commits", "green", <GitBranch key="feature-branch" size={14} />],
+    ["Pull request", "Review before merge", "amber", <GitBranch key="pull-request" size={14} />],
+    ["CI", "Unit test + build", "violet", <ShieldCheck key="ci" size={14} />],
+    ["CD", "Release package", "red", <Server key="cd" size={14} />],
+    ["PM2", "Run on server", "cyan", <MonitorDot key="pm2" size={14} />],
   ] as const;
 
   return (

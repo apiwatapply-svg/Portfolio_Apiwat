@@ -10,10 +10,10 @@ const GithubIcon = () => (
 );
 
 const navLinks = [
-  { label: "About", href: "home" },
+  { label: "Profile", href: "home" },
+  { label: "Experience", href: "experience" },
   { label: "Skills", href: "skills" },
   { label: "Projects", href: "projects" },
-  { label: "Experience", href: "experience" },
   { label: "Certificates", href: "certificates" },
   { label: "Contact", href: "contact" },
 ];

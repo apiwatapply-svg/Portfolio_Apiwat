@@ -353,7 +353,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                             <ul className="space-y-3">
                               {d.nextSteps.map((s, i) => (
                                 <li key={i} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300">
-                                  <span className="text-emerald-400 mt-0.5 flex-shrink-0">→</span> <span className="leading-relaxed">{s}</span>
+                                  <span className="text-emerald-400 mt-0.5 flex-shrink-0">-&gt;</span> <span className="leading-relaxed">{s}</span>
                                 </li>
                               ))}
                             </ul>
@@ -527,7 +527,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                         <span className="text-xs font-normal text-slate-400">(Click Replay to watch again)</span>
                       </h3>
                       <AnimationFlow
-                        title="User Steps — Step by Step"
+                        title="User Steps - Step by Step"
                         steps={d.userFlow}
                         autoPlay
                       />
