@@ -1567,8 +1567,11 @@ export const experience: Experience[] = [
     period: "May 2019 - Dec 2019",
     color: "orange",
     bullets: [
-      "Mentored and facilitated soft & hard skills training for over 15 employees, enhancing operational efficiency.",
-      "Supported factory problem-solving, empowering employees to resolve issues independently.",
+      "Facilitated an SCG and Khon Kaen University collaboration program at Phoenix Pulp and Paper, training operator-level employees in soft skills and engineering hard skills.",
+      "Guided employees through practical factory improvement projects, connecting maintenance knowledge, machine failure history, and structured problem-solving methods.",
+      "Supported a maintenance improvement project that collected machine breakdown and repair history, then installed sensors at frequent failure points.",
+      "Helped design monitoring logic and analysis software to detect machine problems earlier and support maintenance decisions.",
+      "Contributed to reducing maintenance working time by 40%, increasing machine availability and production opportunity.",
     ],
   },
 ];
