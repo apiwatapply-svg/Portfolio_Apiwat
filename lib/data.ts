@@ -766,14 +766,14 @@ export const projects: Project[] = [
             { label: "Machine types", value: "27" },
           ],
           beforeAfter: {
-            summary: "The old method required operators to walk to machine areas, read machine values, write them down, and consolidate reports later. MMS changes this into exception monitoring: users open one dashboard to see status, output, target, OEE, downtime, alarm, and NG information by area, machine type, or machine. The estimate below uses the real MMS scope of 207 active machines, 27 machine types, 4 zones, 1 minute manual check per machine, about 3 minutes dashboard review per full round, 25-minute check interval, 8-hour shift, 180 THB/hour labor cost, and 22 workdays per month.",
+            summary: "The old method required operators to walk to machine areas, read machine values, write them down, and consolidate reports later. MMS changes this into exception monitoring: users open one dashboard to see status, output, target, OEE, downtime, alarm, and NG information by area, machine type, or machine. The estimate below uses the real MMS scope of 207 active machines, 27 machine types, 4 zones, 1 minute manual check per machine, about 3 minutes dashboard review per full round, 1 full-factory round per day, 8-hour shift equivalent, 180 THB/hour labor cost, and 22 workdays per month.",
             benefitMetrics: [
               { label: "Saved per round", value: "204", unit: "min" },
-              { label: "Saved per shift", value: "65.3", unit: "hr" },
-              { label: "Saving / shift", value: "11,754", unit: "THB" },
-              { label: "Saving / month", value: "258,588", unit: "THB" },
-              { label: "Saving / year", value: "3.1M", unit: "THB" },
-              { label: "Reduced workload", value: "8.3", unit: "operator eq." },
+              { label: "Saved per day", value: "3.4", unit: "hr" },
+              { label: "Saving / day", value: "612", unit: "THB" },
+              { label: "Saving / month", value: "13,464", unit: "THB" },
+              { label: "Saving / year", value: "161,568", unit: "THB" },
+              { label: "Reduced workload", value: "0.4", unit: "operator eq." },
             ],
             items: [
               {
@@ -783,28 +783,28 @@ export const projects: Project[] = [
                 impact: "Saving = 207 - 3 = 204 min per round",
               },
               {
-                task: "Continuous 25-minute coverage",
-                before: "8 hr shift x 60 / 25 min interval = 19.2 rounds per shift",
+                task: "Daily full-factory coverage",
+                before: "1 full-factory machine check round per working day",
                 after: "Users monitor exceptions from one dashboard instead of repeating every machine check",
-                impact: "204 min saved/round x 19.2 rounds = 3,917 min, or 65.3 hr saved per shift",
+                impact: "204 min saved/round x 1 round/day = 204 min, or 3.4 hr saved per day",
               },
               {
                 task: "Operator workload",
-                before: "207 min manual round / 25 min interval = about 8.3 operator-equivalents for continuous coverage",
+                before: "204 min saved per day / 480 min shift = about 0.4 operator-equivalent of routine checking workload",
                 after: "Dashboard centralizes 4 zones and 27 machine types into one monitoring workflow",
                 impact: "Repetitive checking changes into exception-based monitoring",
               },
               {
                 task: "Labor-time saving",
-                before: "Manual checking consumes 65.3 hr per shift in repeated work",
+                before: "Manual checking consumes 3.4 hr per day in repeated work",
                 after: "MMS removes most of that repeated recording time",
-                impact: "65.3 hr x 180 THB/hr = about 11,754 THB saved per shift",
+                impact: "3.4 hr x 180 THB/hr = about 612 THB saved per day",
               },
               {
                 task: "Monthly and yearly estimate",
                 before: "Manual checking repeats every working day",
                 after: "Dashboard data is available during the same shift and stored for reports",
-                impact: "11,754 x 22 = 258,588 THB/month; x 12 = 3,103,056 THB/year",
+                impact: "612 x 22 = 13,464 THB/month; x 12 = 161,568 THB/year",
               },
               {
                 task: "Report quality and response",
@@ -829,7 +829,7 @@ export const projects: Project[] = [
           ],
           benefits: [
             "Reduced repetitive manual recording: the old workflow needs about 207 minutes per full round, while the new workflow lets users see all zones from one dashboard.",
-            "Reduced manpower dependency: 207 minutes of work every 25 minutes is roughly 8.3 operator-equivalents if the factory wants continuous full coverage.",
+            "Reduced routine checking workload: 204 minutes saved per daily round is roughly 0.4 operator-equivalent of an 8-hour shift.",
             "Paperless and more accurate: data is stored digitally and reduces retyping mistakes from paper notes or spreadsheet consolidation.",
             "Realtime analysis: supervisors can detect low output, downtime, NG, and target gaps during the same shift.",
             "Historical analysis: daily, machine, and NG reports support root-cause review and improvement tracking.",
