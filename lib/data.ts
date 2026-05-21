@@ -766,13 +766,13 @@ export const projects: Project[] = [
             { label: "Machine types", value: "27" },
           ],
           beforeAfter: {
-            summary: "The old method required operators to walk to machine areas, read machine values, write them down, and consolidate reports later. MMS changes this into exception monitoring: users open one dashboard to see status, output, target, OEE, downtime, alarm, and NG information by area, machine type, or machine. The estimate below uses the real MMS scope of 207 active machines, 27 machine types, 4 zones, 1 minute manual check per machine, about 3 minutes dashboard review per full round, 1 full-factory round per day, 8-hour shift equivalent, 180 THB/hour labor cost, and 22 workdays per month.",
+            summary: "The old method required operators to walk to machine areas, read machine values, write them down, and consolidate reports later. MMS changes this into exception monitoring: users open one dashboard to see status, output, target, OEE, downtime, alarm, and NG information by area, machine type, or machine. The estimate below uses the real MMS scope of 207 active machines, 27 machine types, 4 zones, 1 minute manual check per machine, about 3 minutes dashboard review per full round, 1 full-factory round per day, 18,000 THB/month average salary, 8-hour shift equivalent, and 22 workdays per month.",
             benefitMetrics: [
               { label: "Saved per round", value: "204", unit: "min" },
               { label: "Saved per day", value: "3.4", unit: "hr" },
-              { label: "Saving / day", value: "612", unit: "THB" },
-              { label: "Saving / month", value: "13,464", unit: "THB" },
-              { label: "Saving / year", value: "161,568", unit: "THB" },
+              { label: "Saving / day", value: "348", unit: "THB" },
+              { label: "Saving / month", value: "7,650", unit: "THB" },
+              { label: "Saving / year", value: "91,800", unit: "THB" },
               { label: "Reduced workload", value: "0.4", unit: "operator eq." },
             ],
             items: [
@@ -798,13 +798,13 @@ export const projects: Project[] = [
                 task: "Labor-time saving",
                 before: "Manual checking consumes 3.4 hr per day in repeated work",
                 after: "MMS removes most of that repeated recording time",
-                impact: "3.4 hr x 180 THB/hr = about 612 THB saved per day",
+                impact: "18,000 / 22 / 8 = 102.27 THB/hr; 3.4 hr x 102.27 = about 348 THB saved per day",
               },
               {
                 task: "Monthly and yearly estimate",
                 before: "Manual checking repeats every working day",
                 after: "Dashboard data is available during the same shift and stored for reports",
-                impact: "612 x 22 = 13,464 THB/month; x 12 = 161,568 THB/year",
+                impact: "347.73 x 22 = 7,650 THB/month; x 12 = 91,800 THB/year",
               },
               {
                 task: "Report quality and response",

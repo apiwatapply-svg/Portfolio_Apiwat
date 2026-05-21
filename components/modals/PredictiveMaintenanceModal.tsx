@@ -86,9 +86,9 @@ const benefitMetrics = [
   { value: "1,404 min", label: "Saved / Day" },
   { value: "23.4 hr", label: "Manual Work Reduced / Day" },
   { value: "2.9", label: "Person-Shift Workload / Day" },
-  { value: "4,212 THB", label: "Saved / Day" },
-  { value: "92,664 THB", label: "Saved / Month" },
-  { value: "1,111,968 THB", label: "Saved / Year" },
+  { value: "2,393 THB", label: "Saved / Day" },
+  { value: "52,650 THB", label: "Saved / Month" },
+  { value: "631,800 THB", label: "Saved / Year" },
 ];
 
 const platformModules = [
@@ -252,9 +252,9 @@ const summaryImpactMetrics = [
   { value: "1,404 min", label: "Reduced Manual Work / Day" },
   { value: "23.4 hr", label: "Workload Reduction / Day" },
   { value: "2.9", label: "People-Shift Routine Workload" },
-  { value: "4,212 THB", label: "Labor-Time Saving / Day" },
-  { value: "92,664 THB", label: "Labor-Time Saving / Month" },
-  { value: "1,111,968 THB", label: "Labor-Time Saving / Year" },
+  { value: "2,393 THB", label: "Labor-Time Saving / Day" },
+  { value: "52,650 THB", label: "Labor-Time Saving / Month" },
+  { value: "631,800 THB", label: "Labor-Time Saving / Year" },
 ];
 
 const productionRiskMetrics = [
@@ -417,8 +417,8 @@ const mmsBenefits = [
   { label: "Before", value: "Manual checking/reporting: 1.5 min/machine = 150 min/day" },
   { label: "After", value: "Dashboard scan/filter/export: 0.5 min/machine = 50 min/day" },
   { label: "Saving", value: "1 min/machine x 100 machines = 100 min/day" },
-  { label: "Cost", value: "100 / 60 x 180 = 300 THB/day" },
-  { label: "Month / Year", value: "6,600 THB/month | 79,200 THB/year" },
+  { label: "Cost", value: "100 / 60 x 102.27 = 170 THB/day" },
+  { label: "Month / Year", value: "3,750 THB/month | 45,000 THB/year" },
 ];
 
 const mmsFeatureFlow = [
@@ -509,8 +509,8 @@ const toolingBenefits = [
   { label: "Before", value: "Manual stock check: 10 min/item" },
   { label: "After", value: "System lookup and transaction view: 2 min/item" },
   { label: "Saving", value: "8 items/day x 8 min saved = 64 min/day" },
-  { label: "Cost", value: "64 / 60 x 180 = 192 THB/day" },
-  { label: "Month / Year", value: "4,224 THB/month | 50,688 THB/year" },
+  { label: "Cost", value: "64 / 60 x 102.27 = 109 THB/day" },
+  { label: "Month / Year", value: "2,400 THB/month | 28,800 THB/year" },
 ];
 
 const toolingFeatureFlow = [
@@ -608,8 +608,8 @@ const pmBenefits = [
   { label: "Before", value: "35 min/PM record for checklist, manual record, history lookup, and report prep" },
   { label: "After", value: "25 min/PM record with digital checklist and searchable history" },
   { label: "Saving", value: "7.5 records/week x 10 min saved / 5 days = 15 min/day" },
-  { label: "Cost", value: "15 / 60 x 180 = 45 THB/day" },
-  { label: "Month / Year", value: "990 THB/month | 11,880 THB/year" },
+  { label: "Cost", value: "15 / 60 x 102.27 = 26 THB/day" },
+  { label: "Month / Year", value: "563 THB/month | 6,750 THB/year" },
 ];
 
 const pmCapabilityItems = [
@@ -717,8 +717,8 @@ const jobBenefits = [
   { label: "History lookup", value: "5 cases/day x 17 min saved = 85 min/day" },
   { label: "Confirm / check", value: "75 cases/day x 40% x 8 min saved = 240 min/day" },
   { label: "Total", value: "900 + 85 + 240 = 1,225 min/day" },
-  { label: "Cost", value: "1,225 / 60 x 180 = 3,675 THB/day" },
-  { label: "Month / Year", value: "80,850 THB/month | 970,200 THB/year" },
+  { label: "Cost", value: "1,225 / 60 x 102.27 = 2,088 THB/day" },
+  { label: "Month / Year", value: "45,938 THB/month | 551,250 THB/year" },
 ];
 
 const jobSoundItems = [
@@ -801,14 +801,12 @@ const benefitCalculations = [
 ];
 
 const projectWorkingFlow = [
-  { step: "Shopfloor Study", detail: "Observe Production / QC / Maintenance / Tooling" },
-  { step: "Workflow Summary", detail: "Map current work, pain points, and handover rules" },
-  { step: "Master Data Setup", detail: "Prepare users, machines, departments, areas, roles, and permission scope" },
-  { step: "Module Development", detail: "Build MMS Dashboard, Job Request, Preventive Maintenance, Toolling & Store, and Admin mode" },
-  { step: "Realtime Integration", detail: "Connect workflow updates with Socket.IO rooms and realtime alerts" },
-  { step: "User Testing", detail: "Verify job request, reject, handover, PM, tooling, and MMS dashboard flow with users" },
-  { step: "PM2 Deployment", detail: "Release backend and frontend services to the factory server with PM2" },
-  { step: "Monitoring / Hotfix", detail: "Support daily use, check PM2 process and logs, fix issues, and improve production workflow" },
+  { step: "Requirement & Analysis", detail: "Shopfloor Study, Workflow Summary, pain points, handover rules, and user scope" },
+  { step: "System Architecture", detail: "Master data, MSSQL tables, API contract, status flow, Socket.IO, and permission scope" },
+  { step: "Development", detail: "Build MMS Dashboard, Job Request, Preventive Maintenance, Toolling & Store, and Admin mode" },
+  { step: "Testing", detail: "Verify job request, reject loop, handover, PM, tooling, MMS dashboard, and user feedback" },
+  { step: "Deployment", detail: "Release backend and frontend services to the factory server with PM2" },
+  { step: "Maintenance & Monitoring", detail: "Support daily use, check PM2 process and logs, fix issues, and improve production workflow" },
 ];
 
 function AnimatedHorizontalFlow({
@@ -1491,7 +1489,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                       { value: "100", label: "Machines" },
                       { value: "1,404 min", label: "Saved / Day" },
                       { value: "23.4 hr", label: "Reduced / Day" },
-                      { value: "92,664 THB", label: "Saved / Month" },
+                      { value: "52,650 THB", label: "Saved / Month" },
                     ].map((metric) => (
                       <div
                         key={metric.label}
@@ -1589,7 +1587,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           </motion.div>
                         ))}
                         <div className="col-span-2 rounded-xl border border-orange-400/30 bg-orange-400/10 p-4 text-center">
-                          <div className="text-lg font-black text-white">92,664 THB/month | 1,111,968 THB/year</div>
+                          <div className="text-lg font-black text-white">52,650 THB/month | 631,800 THB/year</div>
                           <div className="mt-1 text-[10px] font-black uppercase tracking-wide text-orange-200">
                             Labor-time cost saving from all core features
                           </div>
@@ -1648,7 +1646,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           </p>
                           <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
                             The platform reduces manual coordination and reporting time by 1,404 min/day, equal to
-                            23.4 hr/day or 92,664 THB/month in labor-time saving. The same saved time also reduces
+                            23.4 hr/day or 52,650 THB/month in labor-time saving. The same saved time also reduces
                             production-loss risk by about 1,151 pcs/day, equal to 51,482 THB/day in protected production
                             value.
                           </p>
@@ -1659,7 +1657,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
 
                   <FlowCard
                     title="Project Working Flow"
-                    subtitle="Shopfloor to production support"
+                    subtitle="End-to-end workflow"
                     steps={projectWorkingFlow}
                   />
 
@@ -1712,7 +1710,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                         </h3>
                       </div>
                       <div className="rounded-xl bg-emerald-50 px-4 py-2 text-xs font-black text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300">
-                        Basis: 100 machines | 14 types | 4 areas | 180 THB/hr | 22 days/month
+                        Basis: 100 machines | 14 types | 4 areas | 102.27 THB/hr (from 18,000 THB/month salary) | 22 days/month | 8 hr/day
                       </div>
                     </div>
                     <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800">
@@ -1779,13 +1777,13 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Cost saving</p>
                         <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
-                          1,404 / 60 = 23.4 hr/day; 23.4 x 180 = 4,212 THB/day
+                          18,000 / 22 / 8 = 102.27 THB/hr; 23.4 x 102.27 = 2,393 THB/day
                         </p>
                       </div>
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Month / year</p>
                         <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
-                          4,212 x 22 = 92,664 THB/month; x 12 = 1,111,968 THB/year
+                          2,393.18 x 22 = 52,650 THB/month; x 12 = 631,800 THB/year
                         </p>
                       </div>
                     </div>
@@ -2796,7 +2794,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                         </h3>
                       </div>
                       <div className="rounded-xl bg-emerald-50 px-4 py-2 text-xs font-black text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300">
-                        180 THB/hour | 22 workdays/month
+                        102.27 THB/hour (from 18,000 THB/month salary) | 22 workdays/month
                       </div>
                     </div>
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
