@@ -89,7 +89,6 @@ const benefitMetrics = [
   { value: "4,212 THB", label: "Saved / Day" },
   { value: "92,664 THB", label: "Saved / Month" },
   { value: "1,111,968 THB", label: "Saved / Year" },
-  { value: "90%", label: "Deploy Effort Reduction" },
 ];
 
 const platformModules = [
@@ -256,7 +255,6 @@ const summaryImpactMetrics = [
   { value: "4,212 THB", label: "Labor-Time Saving / Day" },
   { value: "92,664 THB", label: "Labor-Time Saving / Month" },
   { value: "1,111,968 THB", label: "Labor-Time Saving / Year" },
-  { value: "90%", label: "Deploy Effort Reduction" },
 ];
 
 const productionRiskMetrics = [
@@ -304,12 +302,6 @@ const summaryFeatureContributions = [
 ];
 
 const summaryProblems = [
-  {
-    problem: "Deployment was hard",
-    detail: "Early releases required copying code through Drive and installing machine by machine.",
-    solution: "Moved toward Git, CI/CD, and controlled release flow.",
-    result: "Deployment changed from 150 minutes/release to 15 minutes/release.",
-  },
   {
     problem: "Requirements were hard to collect",
     detail: "Production had limited time for IoT and system requirement meetings.",
@@ -1487,22 +1479,49 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
           </div>
 
           <div className="flex-1 overflow-y-auto custom-scrollbar">
-            <button
-              type="button"
-              onClick={() => openLightbox({ src: project.image, title: project.title })}
-              className="relative h-48 w-full cursor-zoom-in bg-slate-100 text-left outline-none transition focus-visible:ring-2 focus-visible:ring-cyan-400 dark:bg-slate-800 sm:h-72"
-              aria-label={`Open ${project.title} image`}
-            >
+            <div className="relative h-80 w-full overflow-hidden bg-slate-950 text-left">
               <Image
                 src={project.image}
                 alt={project.title}
                 fill
-                className="object-cover"
+                className="object-cover opacity-30"
                 sizes="(max-width: 1024px) 100vw, 1024px"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            </button>
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-950/35" />
+              <div className="absolute inset-0 flex flex-col justify-center px-5 sm:px-10">
+                <div className="max-w-2xl">
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-300">
+                    Highlight Project
+                  </p>
+                  <h2 className="mt-2 max-w-xl text-2xl font-black leading-tight text-white sm:text-4xl lg:text-5xl">
+                    Smart Factory Operations Platform
+                  </h2>
+                  <p className="mt-3 max-w-xl text-xs font-bold leading-relaxed text-slate-300 sm:text-sm">
+                    Connects machine data, repair workflow, QC confirmation, PM, tooling, and admin master data into
+                    one traceable real-time platform for a 100-machine operation scope.
+                  </p>
+                  <div className="mt-4 grid max-w-xl grid-cols-2 gap-2 sm:grid-cols-4">
+                    {[
+                      { value: "100", label: "Machines" },
+                      { value: "1,404 min", label: "Saved / Day" },
+                      { value: "23.4 hr", label: "Reduced / Day" },
+                      { value: "92,664 THB", label: "Saved / Month" },
+                    ].map((metric) => (
+                      <div
+                        key={metric.label}
+                        className="rounded-xl border border-cyan-300/25 bg-cyan-300/10 px-3 py-2 text-center backdrop-blur"
+                      >
+                        <p className="text-base font-black text-white sm:text-xl">{metric.value}</p>
+                        <p className="mt-0.5 text-[9px] font-black uppercase tracking-wide text-cyan-200">
+                          {metric.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div className="p-4 sm:p-8">
               <div className="mb-6 flex flex-wrap gap-2">
@@ -1552,11 +1571,10 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           Smart Factory Operations Platform
                         </h3>
                         <p className="mt-4 text-sm leading-relaxed text-slate-300">
-                          A real factory operations system that connects machine data, maintenance workflow, QC
-                          inspection, preventive maintenance, tooling inventory, and admin master data into one
-                          traceable platform. It is not only a dashboard. It connects machine-side data and department
-                          workflow through shared status, shared history, MSSQL Server, backend APIs, and Socket.IO
-                          realtime updates.
+                          A real factory operations system that connects machine data, repair workflow, QC confirmation,
+                          preventive maintenance, tooling inventory, and admin master data into one traceable real-time
+                          platform for a 100-machine operation scope. Machine-side data, shared status, shared history,
+                          MSSQL Server, backend APIs, and Socket.IO updates help teams work from the same source of truth.
                         </p>
                         <div className="mt-5 grid grid-cols-3 gap-3">
                           {scopeMetrics.map((metric) => (
@@ -1622,11 +1640,14 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                       <ul className="space-y-2 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
                         <li className="flex gap-2">
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
-                          <span>Production, Maintenance, QC, PM, and Tooling worked with separate information.</span>
+                          <span>
+                            Production, Maintenance, QC, PM, and Tooling worked with separated data, so teams had to
+                            walk, call, use chat, paper notes, or spreadsheets to follow work status.
+                          </span>
                         </li>
                         <li className="flex gap-2">
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
-                          <span>Job status was followed by walking, phone calls, chat messages, paper forms, or spreadsheets.</span>
+                          <span>Repair ownership and machine condition were difficult to confirm from one source.</span>
                         </li>
                         <li className="flex gap-2">
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
@@ -1642,8 +1663,10 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           Result
                         </p>
                         <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
-                          The platform turns scattered follow-up into one connected workflow with shared status,
-                          ownership, history, and realtime updates.
+                          The platform reduces manual coordination and reporting time by 1,404 min/day, equal to
+                          23.4 hr/day or 92,664 THB/month in labor-time saving. The same saved time also reduces
+                          production-loss risk by about 1,151 pcs/day, equal to 51,482 THB/day in protected production
+                          value.
                         </p>
                       </div>
                     </div>
@@ -1773,10 +1796,6 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           4,212 x 22 = 92,664 THB/month; x 12 = 1,111,968 THB/year
                         </p>
                       </div>
-                    </div>
-                    <div className="mt-3 rounded-xl border border-orange-200 bg-orange-50 p-4 text-sm font-bold text-orange-800 dark:border-orange-900/50 dark:bg-orange-950/20 dark:text-orange-200">
-                      Deployment improved from 150 minutes/release to 15 minutes/release. Saving = 135 minutes/release,
-                      or 135 / 150 = 90% deploy effort reduction.
                     </div>
                   </section>
 
