@@ -801,29 +801,14 @@ const benefitCalculations = [
 ];
 
 const projectWorkingFlow = [
-  { step: "Start", detail: "Requirement request" },
   { step: "Shopfloor Study", detail: "Observe Production / QC / Maintenance / Tooling" },
   { step: "Workflow Summary", detail: "Map current work, pain points, and handover rules" },
-  { step: "Requirement Meeting", detail: "Confirm scope with users using clear questions" },
-  { step: "UI / UX Design", detail: "Design screens around real operator workflow" },
-  { step: "System Design", detail: "Define MSSQL tables, API contract, and status flow" },
-  { step: "Implementation", detail: "Build frontend, backend, Socket.IO, and validation" },
-  { step: "E2E Testing", detail: "Verify every possible flow and reject loop" },
-  { step: "Deploy", detail: "Release to internal server" },
-  { step: "Maintenance", detail: "Monitor, support users, hotfix, and improve" },
-];
-
-const developmentWorkflow = [
-  { step: "Git Branch", detail: "Separate feature work and control version" },
-  { step: "Code", detail: "Implement UI, business rule, API, and SQL logic" },
-  { step: "Local Test", detail: "Check forms, states, validation, and data mapping" },
-  { step: "E2E Test", detail: "Use Playwright for real user flow verification" },
-  { step: "Build Verify", detail: "Run TypeScript/build before release" },
-  { step: "Merge / Release", detail: "Prepare deployable version" },
-  { step: "CI/CD", detail: "Reduce manual copy and control release process" },
-  { step: "PM2 Deploy", detail: "Run app on internal/customer server with PM2" },
-  { step: "Monitor", detail: "Check PM2 process, logs, and production feedback" },
-  { step: "Hotfix / Iteration", detail: "Fix issue and improve next release" },
+  { step: "Master Data Setup", detail: "Prepare users, machines, departments, areas, roles, and permission scope" },
+  { step: "Module Development", detail: "Build MMS Dashboard, Job Request, Preventive Maintenance, Toolling & Store, and Admin mode" },
+  { step: "Realtime Integration", detail: "Connect workflow updates with Socket.IO rooms and realtime alerts" },
+  { step: "User Testing", detail: "Verify job request, reject, handover, PM, tooling, and MMS dashboard flow with users" },
+  { step: "PM2 Deployment", detail: "Release backend and frontend services to the factory server with PM2" },
+  { step: "Monitoring / Hotfix", detail: "Support daily use, check PM2 process and logs, fix issues, and improve production workflow" },
 ];
 
 function AnimatedHorizontalFlow({
@@ -1613,10 +1598,8 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     </div>
                   </section>
 
-                  <AnimatedHorizontalFlow title="Machine Data Flow" steps={machineDataFlow} />
-
-                  <section className="grid items-stretch gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-                    <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                  <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                    <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
                       <button
                         type="button"
                         onClick={() =>
@@ -1625,7 +1608,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                             title: "Old Working Problem",
                           })
                         }
-                        className="relative mb-4 aspect-video w-full cursor-zoom-in overflow-hidden rounded-xl border border-slate-200 bg-slate-100 text-left outline-none transition hover:border-cyan-400 focus-visible:ring-2 focus-visible:ring-cyan-400 dark:border-slate-800 dark:bg-slate-950"
+                        className="relative aspect-video w-full cursor-zoom-in overflow-hidden rounded-xl border border-slate-200 bg-slate-100 text-left outline-none transition hover:border-cyan-400 focus-visible:ring-2 focus-visible:ring-cyan-400 dark:border-slate-800 dark:bg-slate-950"
                         aria-label="Open Old Working Problem image"
                       >
                         <Image
@@ -1636,78 +1619,87 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           sizes="(max-width: 1024px) 100vw, 40vw"
                         />
                       </button>
-                      <h3 className="mb-3 text-lg font-black text-slate-950 dark:text-white">Old Working Problem</h3>
-                      <ul className="space-y-2 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
-                        <li className="flex gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
-                          <span>
-                            Production, Maintenance, QC, PM, and Tooling worked with separated data, so teams had to
-                            walk, call, use chat, paper notes, or spreadsheets to follow work status.
-                          </span>
-                        </li>
-                        <li className="flex gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
-                          <span>Repair ownership and machine condition were difficult to confirm from one source.</span>
-                        </li>
-                        <li className="flex gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
-                          <span>Ownership became unclear after handover between departments.</span>
-                        </li>
-                        <li className="flex gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
-                          <span>Response was slower, and maintenance history was difficult to trace.</span>
-                        </li>
-                      </ul>
-                      <div className="mt-5 flex-1 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950/40">
-                        <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                          Result
-                        </p>
-                        <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
-                          The platform reduces manual coordination and reporting time by 1,404 min/day, equal to
-                          23.4 hr/day or 92,664 THB/month in labor-time saving. The same saved time also reduces
-                          production-loss risk by about 1,151 pcs/day, equal to 51,482 THB/day in protected production
-                          value.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="h-full rounded-2xl border border-orange-300 bg-gradient-to-br from-orange-50 via-white to-cyan-50 p-5 shadow-sm dark:border-orange-900/50 dark:from-orange-950/20 dark:via-slate-900 dark:to-cyan-950/20">
-                      <div className="mb-5">
-                        <div>
-                          <h3 className="text-lg font-black text-slate-950 dark:text-white">Platform Module Connection</h3>
+                      <div>
+                        <h3 className="mb-3 text-lg font-black text-slate-950 dark:text-white">Old Working Problem</h3>
+                        <ul className="space-y-2 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
+                          <li className="flex gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
+                            <span>
+                              Production, Maintenance, QC, PM, and Tooling worked with separated data, so teams had to
+                              walk, call, use chat, paper notes, or spreadsheets to follow work status.
+                            </span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
+                            <span>Repair ownership and machine condition were difficult to confirm from one source.</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
+                            <span>Ownership became unclear after handover between departments.</span>
+                          </li>
+                          <li className="flex gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
+                            <span>Response was slower, and maintenance history was difficult to trace.</span>
+                          </li>
+                        </ul>
+                        <div className="mt-5 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950/40">
+                          <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                            Result
+                          </p>
+                          <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
+                            The platform reduces manual coordination and reporting time by 1,404 min/day, equal to
+                            23.4 hr/day or 92,664 THB/month in labor-time saving. The same saved time also reduces
+                            production-loss risk by about 1,151 pcs/day, equal to 51,482 THB/day in protected production
+                            value.
+                          </p>
                         </div>
                       </div>
-                      <div className="grid gap-3 md:grid-cols-2">
-                        {platformModules.map((module, index) => {
-                          const Icon = module.icon;
-                          return (
-                            <button
-                              key={module.title}
-                              type="button"
-                              onClick={() => handleTabChange(module.tab)}
-                              className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-orange-400 hover:shadow-md dark:border-slate-800 dark:bg-slate-950/70 dark:hover:border-orange-600"
-                            >
-                              <div className="absolute inset-y-0 left-0 w-1 bg-orange-500 opacity-70" />
-                              <div className="flex items-start gap-3">
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-700 transition group-hover:bg-orange-500 group-hover:text-white dark:bg-orange-900/30 dark:text-orange-300">
-                                  <Icon size={19} />
-                                </div>
-                                <div>
-                                  <div className="mb-1 flex items-center gap-2">
-                                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-950 text-[10px] font-black text-white dark:bg-slate-800">
-                                      {index + 1}
-                                    </span>
-                                    <p className="text-sm font-black text-slate-950 dark:text-white">{module.title}</p>
-                                  </div>
-                                  <p className="text-xs font-semibold leading-relaxed text-slate-600 dark:text-slate-300">{module.detail}</p>
-                                  <p className="mt-2 text-[10px] font-black uppercase tracking-wide text-orange-600 opacity-80 dark:text-orange-300">
-                                    Open {module.tab}
-                                  </p>
-                                </div>
+                    </div>
+                  </section>
+
+                  <FlowCard
+                    title="Project Working Flow"
+                    subtitle="Shopfloor to production support"
+                    steps={projectWorkingFlow}
+                  />
+
+                  <AnimatedHorizontalFlow title="Machine Data Flow" steps={machineDataFlow} />
+
+                  <section className="rounded-2xl border border-orange-300 bg-gradient-to-br from-orange-50 via-white to-cyan-50 p-5 shadow-sm dark:border-orange-900/50 dark:from-orange-950/20 dark:via-slate-900 dark:to-cyan-950/20">
+                    <div className="mb-5">
+                      <h3 className="text-lg font-black text-slate-950 dark:text-white">Platform Module Connection</h3>
+                    </div>
+                    <div className="grid gap-3 md:grid-cols-2">
+                      {platformModules.map((module, index) => {
+                        const Icon = module.icon;
+                        return (
+                          <button
+                            key={module.title}
+                            type="button"
+                            onClick={() => handleTabChange(module.tab)}
+                            className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-orange-400 hover:shadow-md dark:border-slate-800 dark:bg-slate-950/70 dark:hover:border-orange-600"
+                          >
+                            <div className="absolute inset-y-0 left-0 w-1 bg-orange-500 opacity-70" />
+                            <div className="flex items-start gap-3">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-700 transition group-hover:bg-orange-500 group-hover:text-white dark:bg-orange-900/30 dark:text-orange-300">
+                                <Icon size={19} />
                               </div>
-                            </button>
-                          );
-                        })}
-                      </div>
+                              <div>
+                                <div className="mb-1 flex items-center gap-2">
+                                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-950 text-[10px] font-black text-white dark:bg-slate-800">
+                                    {index + 1}
+                                  </span>
+                                  <p className="text-sm font-black text-slate-950 dark:text-white">{module.title}</p>
+                                </div>
+                                <p className="text-xs font-semibold leading-relaxed text-slate-600 dark:text-slate-300">{module.detail}</p>
+                                <p className="mt-2 text-[10px] font-black uppercase tracking-wide text-orange-600 opacity-80 dark:text-orange-300">
+                                  Open {module.tab}
+                                </p>
+                              </div>
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
                   </section>
 
@@ -1847,19 +1839,6 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     <p className="mt-3 rounded-xl border border-orange-200 bg-orange-50 p-4 text-sm font-bold leading-relaxed text-orange-800 dark:border-orange-900/50 dark:bg-orange-950/20 dark:text-orange-200">
                       This is equivalent production value protected, not guaranteed additional sales.
                     </p>
-                  </section>
-
-                  <section className="grid gap-4 lg:grid-cols-2">
-                    <FlowCard
-                      title="Project Working Flow"
-                      subtitle="Requirements to maintenance"
-                      steps={projectWorkingFlow}
-                    />
-                    <FlowCard
-                      title="Development Workflow"
-                      subtitle="Code to PM2 deploy"
-                      steps={developmentWorkflow}
-                    />
                   </section>
 
                   <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
