@@ -83,12 +83,12 @@ const scopeMetrics = [
 ];
 
 const benefitMetrics = [
-  { value: "1,234 min", label: "Saved / Day" },
-  { value: "20.6 hr", label: "Manual Work Reduced / Day" },
-  { value: "2.5", label: "Person-Shift Workload / Day" },
-  { value: "3,702 THB", label: "Saved / Day" },
-  { value: "81,444 THB", label: "Saved / Month" },
-  { value: "977,328 THB", label: "Saved / Year" },
+  { value: "1,404 min", label: "Saved / Day" },
+  { value: "23.4 hr", label: "Manual Work Reduced / Day" },
+  { value: "2.9", label: "Person-Shift Workload / Day" },
+  { value: "4,212 THB", label: "Saved / Day" },
+  { value: "92,664 THB", label: "Saved / Month" },
+  { value: "1,111,968 THB", label: "Saved / Year" },
   { value: "90%", label: "Deploy Effort Reduction" },
 ];
 
@@ -250,13 +250,24 @@ const adminImages = [
 ];
 
 const summaryImpactMetrics = [
-  { value: "413 min", label: "Reduced Manual Work / Day" },
-  { value: "6.9 hr", label: "Workload Reduction / Day" },
-  { value: "1-1.5", label: "People-Shift Routine Workload" },
-  { value: "1,242 THB", label: "Labor-Time Saving / Day" },
-  { value: "27,324 THB", label: "Labor-Time Saving / Month" },
-  { value: "327,888 THB", label: "Labor-Time Saving / Year" },
+  { value: "1,404 min", label: "Reduced Manual Work / Day" },
+  { value: "23.4 hr", label: "Workload Reduction / Day" },
+  { value: "2.9", label: "People-Shift Routine Workload" },
+  { value: "4,212 THB", label: "Labor-Time Saving / Day" },
+  { value: "92,664 THB", label: "Labor-Time Saving / Month" },
+  { value: "1,111,968 THB", label: "Labor-Time Saving / Year" },
   { value: "90%", label: "Deploy Effort Reduction" },
+];
+
+const productionRiskMetrics = [
+  { value: "1.22 min/pc", label: "Average Cycle Time" },
+  { value: "44.73 THB/pc", label: "Average Value" },
+  { value: "1,151 pcs", label: "Risk Reduced / Day" },
+  { value: "51,482 THB", label: "Value Protected / Day" },
+  { value: "25,322 pcs", label: "Risk Reduced / Month" },
+  { value: "1.13M THB", label: "Value Protected / Month" },
+  { value: "303,864 pcs", label: "Risk Reduced / Year" },
+  { value: "13.59M THB", label: "Value Protected / Year" },
 ];
 
 const summaryFeatureContributions = [
@@ -339,7 +350,7 @@ const summaryInterviewStory = [
   "This project started from a real factory problem: each department had useful information, but the information was separated.",
   "I designed the platform to connect machine-side data and department workflows into one traceable system using MSSQL, backend APIs, Socket.IO, and shared master data.",
   "The main operational flow is Job Request: Production creates a request, Maintenance repairs it, QC inspects it, and Production confirms it, with rejection loops kept in the same history.",
-  "The platform also includes Preventive Maintenance, Tooling Store, Admin master data, realtime updates, and an estimated workload reduction of 6.9 hours/day across a 100-machine operation.",
+  "The platform also includes Preventive Maintenance, Tooling Store, Admin master data, realtime updates, and an estimated workload reduction of 23.4 hours/day across a 100-machine operation.",
   "The next step is to collect long-term machine history as Big Data and apply AI for anomaly detection, downtime prediction, predictive maintenance, and spare-part forecasting.",
 ];
 
@@ -602,11 +613,11 @@ const pmPainPoints = [
 
 const pmBenefits = [
   { label: "Scope", value: "PM Type, checklist, machine mapping, plan, calendar, inspection, report, reminder" },
-  { label: "Before", value: "Manual record and history check per PM round" },
-  { label: "After", value: "Digital PM Type checklist and searchable history" },
-  { label: "Saving", value: "7.5 records/week x 35 min saved / 5 days = 53 min/day" },
-  { label: "Cost", value: "53 / 60 x 180 = 159 THB/day" },
-  { label: "Month / Year", value: "3,498 THB/month | 41,976 THB/year" },
+  { label: "Before", value: "35 min/PM record for checklist, manual record, history lookup, and report prep" },
+  { label: "After", value: "25 min/PM record with digital checklist and searchable history" },
+  { label: "Saving", value: "7.5 records/week x 10 min saved / 5 days = 15 min/day" },
+  { label: "Cost", value: "15 / 60 x 180 = 45 THB/day" },
+  { label: "Month / Year", value: "990 THB/month | 11,880 THB/year" },
 ];
 
 const pmCapabilityItems = [
@@ -712,10 +723,10 @@ const jobPainPoints = [
 const jobBenefits = [
   { label: "Job follow-up", value: "75 avg cases/day x 12 min saved = 900 min/day" },
   { label: "History lookup", value: "5 cases/day x 17 min saved = 85 min/day" },
-  { label: "Reject / confirm", value: "4 rounds/day x 8 min saved = 32 min/day" },
-  { label: "Total", value: "900 + 85 + 32 = 1,017 min/day" },
-  { label: "Cost", value: "1,017 / 60 x 180 = 3,051 THB/day" },
-  { label: "Month / Year", value: "67,122 THB/month | 805,464 THB/year" },
+  { label: "Confirm / check", value: "75 cases/day x 40% x 8 min saved = 240 min/day" },
+  { label: "Total", value: "900 + 85 + 240 = 1,225 min/day" },
+  { label: "Cost", value: "1,225 / 60 x 180 = 3,675 THB/day" },
+  { label: "Month / Year", value: "80,850 THB/month | 970,200 THB/year" },
 ];
 
 const jobSoundItems = [
@@ -775,18 +786,18 @@ const benefitCalculations = [
     saving: "85 min/day",
   },
   {
-    feature: "Reject/confirm communication",
-    before: "10 min/round phone or chat confirm",
-    after: "2 min/round status update",
-    calculation: "4 rounds/day x 8 min saved",
-    saving: "32 min/day",
+    feature: "QC / Production confirm-check",
+    before: "Phone/chat follow-up for QC or Production confirmation",
+    after: "Status-driven check, reason, and owner history",
+    calculation: "75 cases/day x 40% x 8 min saved",
+    saving: "240 min/day",
   },
   {
     feature: "Preventive Maintenance",
-    before: "Manual record and history check",
-    after: "Digital checklist and searchable history",
-    calculation: "7.5 records/week x 35 min saved / 5 days",
-    saving: "53 min/day",
+    before: "35 min/PM record manual checklist and report prep",
+    after: "25 min/PM record with digital checklist and history",
+    calculation: "7.5 records/week x 10 min saved / 5 days",
+    saving: "15 min/day",
   },
   {
     feature: "Tooling stock check",
@@ -1575,7 +1586,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           </motion.div>
                         ))}
                         <div className="col-span-2 rounded-xl border border-orange-400/30 bg-orange-400/10 p-4 text-center">
-                          <div className="text-lg font-black text-white">81,444 THB/month | 977,328 THB/year</div>
+                          <div className="text-lg font-black text-white">92,664 THB/month | 1,111,968 THB/year</div>
                           <div className="mt-1 text-[10px] font-black uppercase tracking-wide text-orange-200">
                             Labor-time cost saving from all core features
                           </div>
@@ -1747,19 +1758,19 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Total time</p>
                         <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
-                          100 + 900 + 85 + 32 + 53 + 64 = 1,234 min/day
+                          100 + 900 + 85 + 240 + 15 + 64 = 1,404 min/day
                         </p>
                       </div>
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Cost saving</p>
                         <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
-                          1,234 / 60 = 20.6 hr/day; 20.6 x 180 = 3,702 THB/day
+                          1,404 / 60 = 23.4 hr/day; 23.4 x 180 = 4,212 THB/day
                         </p>
                       </div>
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Month / year</p>
                         <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
-                          3,702 x 22 = 81,444 THB/month; x 12 = 977,328 THB/year
+                          4,212 x 22 = 92,664 THB/month; x 12 = 1,111,968 THB/year
                         </p>
                       </div>
                     </div>
@@ -1767,6 +1778,56 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                       Deployment improved from 150 minutes/release to 15 minutes/release. Saving = 135 minutes/release,
                       or 135 / 150 = 90% deploy effort reduction.
                     </div>
+                  </section>
+
+                  <section className="rounded-2xl border border-cyan-200 bg-white p-5 shadow-sm dark:border-cyan-900/50 dark:bg-slate-900">
+                    <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-500">Way 2</p>
+                        <h3 className="mt-1 text-lg font-black text-slate-950 dark:text-white">
+                          Production-loss risk reduction from the same saved time
+                        </h3>
+                      </div>
+                      <div className="rounded-xl bg-cyan-50 px-4 py-2 text-xs font-black leading-relaxed text-cyan-700 dark:bg-cyan-950/30 dark:text-cyan-300">
+                        Cycle time: 480 min/day / 393.5 pcs/man/day = 1.22 min/pc
+                      </div>
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                      {productionRiskMetrics.map((metric) => (
+                        <div
+                          key={`${metric.label}-${metric.value}`}
+                          className="rounded-xl border border-cyan-100 bg-cyan-50 p-4 text-center dark:border-cyan-900/50 dark:bg-cyan-950/20"
+                        >
+                          <p className="text-xl font-black text-slate-950 dark:text-white">{metric.value}</p>
+                          <p className="mt-1 text-xs font-black uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                            {metric.label}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 grid gap-3 md:grid-cols-3">
+                      <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
+                        <p className="text-xs font-black uppercase text-slate-500">Per day</p>
+                        <p className="mt-1 text-sm font-black leading-relaxed text-slate-950 dark:text-white">
+                          1,404 min/day / 1.22 min/pc = 1,151 pcs/day; x 44.73 = 51,482 THB/day
+                        </p>
+                      </div>
+                      <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
+                        <p className="text-xs font-black uppercase text-slate-500">Per month</p>
+                        <p className="mt-1 text-sm font-black leading-relaxed text-slate-950 dark:text-white">
+                          1,151 pcs/day x 22 = 25,322 pcs/month; value protected ~= 1.13M THB/month
+                        </p>
+                      </div>
+                      <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
+                        <p className="text-xs font-black uppercase text-slate-500">Per year</p>
+                        <p className="mt-1 text-sm font-black leading-relaxed text-slate-950 dark:text-white">
+                          25,322 pcs/month x 12 = 303,864 pcs/year; value protected ~= 13.59M THB/year
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mt-3 rounded-xl border border-orange-200 bg-orange-50 p-4 text-sm font-bold leading-relaxed text-orange-800 dark:border-orange-900/50 dark:bg-orange-950/20 dark:text-orange-200">
+                      This is equivalent production value protected, not guaranteed additional sales.
+                    </p>
                   </section>
 
                   <section className="grid gap-4 lg:grid-cols-2">
@@ -2467,7 +2528,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                             PM Benefit
                           </p>
                           <h3 className="text-lg font-black text-slate-950 dark:text-white">
-                            53 min/day aligned with the overall impact summary
+                            15 min/day aligned with the overall impact summary
                           </h3>
                         </div>
                       </div>
@@ -2755,7 +2816,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     </div>
                     <p className="mt-4 rounded-xl border border-orange-200 bg-orange-50 p-4 text-sm font-bold leading-relaxed text-orange-800 dark:border-orange-900/50 dark:bg-orange-950/20 dark:text-orange-200">
                       Use this as workload reduction, not headcount reduction: the platform reduces routine manual
-                      coordination by about 6.9 hours/day, equivalent to 1-1.5 people per shift of follow-up workload.
+                      coordination by about 23.4 hours/day, equivalent to 2.9 people-shift workload per day.
                     </p>
                   </section>
 
@@ -3002,7 +3063,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                             Job Request Benefit
                           </p>
                           <h3 className="text-lg font-black text-slate-950 dark:text-white">
-                            1,017 min/day from follow-up, history, and reject loop control
+                            1,225 min/day from follow-up, history, and confirm-check workflow control
                           </h3>
                         </div>
                       </div>
