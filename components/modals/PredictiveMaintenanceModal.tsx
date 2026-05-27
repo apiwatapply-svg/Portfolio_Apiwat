@@ -446,60 +446,60 @@ const mmsJobConnectionFlow = [
 
 const toolingSlides = [
   {
-    title: "Tooling Dashboard",
+    title: "Dashboard",
     src: "/projects/smart-factory-operations/tooling-dashboard-full.png",
     icon: Store,
     detail:
       "Shows the main entry point for inventory control, master data, tool borrowing, spare part stock, calibration, history, and reports.",
   },
   {
-    title: "Stock Balance Modal",
+    title: "Master Data",
     src: "/projects/smart-factory-operations/tooling-stock-balance-modal-full.png",
     icon: Database,
     detail:
-      "Controls item code, item name, current stock, min/max stock, unit, location, status, and item image in one record screen.",
+      "Controls item code, item name, current stock, min/max stock, unit, location, status, and item image in one master record screen.",
   },
   {
-    title: "Borrow / Issue Tool Modal",
-    src: "/projects/smart-factory-operations/tooling-borrow-issue-modal-full.png",
+    title: "Tool Borrowing",
+    src: "/projects/smart-factory-operations/tooling-sidebar-tool-borrowing.png",
     icon: Wrench,
     detail:
-      "Records tool issue number, request number, selected tool, borrower, issue date, due date, status, image, and remark.",
+      "Shows tool cards, borrow/issue, return tool, overdue borrow, borrower status, and real tool photos for traceability.",
   },
   {
-    title: "Return Tool Modal",
-    src: "/projects/smart-factory-operations/tooling-return-tool-modal-full.png",
-    icon: RotateCcw,
-    detail:
-      "Captures return activity and closes the borrow cycle so Tooling can trace who used the tool and when it came back.",
-  },
-  {
-    title: "Stock In Modal",
-    src: "/projects/smart-factory-operations/tooling-stock-in-modal-full.png",
+    title: "Spare Part Stock",
+    src: "/projects/smart-factory-operations/tooling-sidebar-spare-part-stock.png",
     icon: Store,
     detail:
-      "Records incoming spare part or tool movement, updates quantity, and keeps transaction evidence for stock control.",
+      "Shows stock-in, stock-out, stock balance, low stock, out-of-stock, location filter, and real spare part photos.",
   },
   {
-    title: "Stock Out Modal",
-    src: "/projects/smart-factory-operations/tooling-stock-out-modal-full.png",
-    icon: AlertTriangle,
-    detail:
-      "Records outgoing item usage and reduces stock balance, helping Maintenance see item availability before repair work.",
-  },
-  {
-    title: "Calibration Modal",
-    src: "/projects/smart-factory-operations/tooling-calibration-modal-full.png",
+    title: "Calibration",
+    src: "/projects/smart-factory-operations/tooling-sidebar-calibration.png",
     icon: ClipboardCheck,
     detail:
-      "Tracks last calibration date, calibration interval, next calibration date, and remark for controlled tools.",
+      "Tracks calibration list, due soon, expired tools, last calibration date, next calibration date, owner, and remark.",
   },
   {
-    title: "Movement History",
+    title: "History",
     src: "/projects/smart-factory-operations/tooling-movement-history-full.png",
     icon: Clock,
     detail:
       "Provides traceability for item movement, stock changes, borrow/return activity, and historical investigation.",
+  },
+  {
+    title: "Predictive Usage",
+    src: "/projects/smart-factory-operations/tooling-sidebar-predictive-usage.png",
+    icon: Activity,
+    detail:
+      "Shows predictive analysis with current stock, minimum stock, 7-day and 30-day forecast, confidence, trend, and reorder timing.",
+  },
+  {
+    title: "Reports",
+    src: "/projects/smart-factory-operations/tooling-sidebar-reports.png",
+    icon: FileSpreadsheet,
+    detail:
+      "Shows report list, report type, generated date, rows, export type, and Excel export action for tooling evidence.",
   },
 ];
 
