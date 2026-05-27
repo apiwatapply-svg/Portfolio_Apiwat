@@ -117,8 +117,14 @@ const platformModules = [
     icon: ClipboardCheck,
   },
   {
+    title: "Predictive Maintenance",
+    detail: "Gateway entry for Predictive Tooling Usage, forecasting spare part demand from store history.",
+    tab: "Toolling & Store",
+    icon: Activity,
+  },
+  {
     title: "Toolling & Store",
-    detail: "Stock, tools, borrow/return, overdue, calibration, and movement history.",
+    detail: "Stock, tools, borrow/return, calibration, movement history, and Predictive Tooling Usage.",
     tab: "Toolling & Store",
     icon: Store,
   },
@@ -144,7 +150,7 @@ const overallImages = [
   {
     src: "/projects/smart-factory-operations/gateway-workspace-selector.png",
     title: "System Gateway",
-    caption: "Main entry point that separates PM, Toolling & Store, Job Request, MMS Dashboard, and Admin mode.",
+    caption: "Main entry point that separates PM, Predictive Maintenance, Toolling & Store, Job Request, MMS Dashboard, and Admin mode.",
   },
 ];
 
@@ -417,7 +423,7 @@ const mmsBenefits = [
   { label: "Before", value: "Manual checking/reporting: 1.5 min/machine = 150 min/day" },
   { label: "After", value: "Dashboard scan/filter/export: 0.5 min/machine = 50 min/day" },
   { label: "Saving", value: "1 min/machine x 100 machines = 100 min/day" },
-  { label: "Cost", value: "100 / 60 x 102.27 = 170 THB/day" },
+  { label: "Cost", value: "100 / 60 x 102.27 = 170.45 THB/day" },
   { label: "Month / Year", value: "3,750 THB/month | 45,000 THB/year" },
 ];
 
@@ -509,7 +515,7 @@ const toolingBenefits = [
   { label: "Before", value: "Manual stock check: 10 min/item" },
   { label: "After", value: "System lookup and transaction view: 2 min/item" },
   { label: "Saving", value: "8 items/day x 8 min saved = 64 min/day" },
-  { label: "Cost", value: "64 / 60 x 102.27 = 109 THB/day" },
+  { label: "Cost", value: "64 / 60 x 102.27 = 109.09 THB/day" },
   { label: "Month / Year", value: "2,400 THB/month | 28,800 THB/year" },
 ];
 
@@ -522,9 +528,37 @@ const toolingFeatureFlow = [
   { label: "Report / Movement View", icon: BarChart3 },
 ];
 
+const predictiveToolingFlow = [
+  { label: "Stock Balance", icon: Store },
+  { label: "Stock Out / PM Part Usage", icon: FileSpreadsheet },
+  { label: "Upcoming PM Demand", icon: CalendarDays },
+  { label: "Usage Forecast", icon: Activity },
+  { label: "Reorder Suggestion", icon: BarChart3 },
+];
+
+const predictiveToolingCards = [
+  {
+    label: "Data Sources",
+    value: "Stock balance, stock-out history, PM part usage, and upcoming PM plans",
+  },
+  {
+    label: "Shortage Risk",
+    value: "Flags high or critical items before Maintenance waits for missing parts",
+  },
+  {
+    label: "Reorder Timing",
+    value: "Shows stockout ETA, reorder ETA, and lead-time urgency",
+  },
+  {
+    label: "Suggested Buy Qty",
+    value: "Calculates order quantity from current stock, target stock, and forecast demand",
+  },
+];
+
 const toolingConnectionFlow = [
   { label: "Admin Master Data", icon: Settings },
   { label: "Tooling Stock", icon: Store },
+  { label: "Predictive Tooling Usage", icon: Activity },
   { label: "Job Request Repair Need", icon: Wrench },
   { label: "PM Tool / Spare Part Check", icon: ClipboardCheck },
   { label: "History and Reports", icon: Clock },
@@ -608,8 +642,8 @@ const pmBenefits = [
   { label: "Before", value: "35 min/PM record for checklist, manual record, history lookup, and report prep" },
   { label: "After", value: "25 min/PM record with digital checklist and searchable history" },
   { label: "Saving", value: "7.5 records/week x 10 min saved / 5 days = 15 min/day" },
-  { label: "Cost", value: "15 / 60 x 102.27 = 26 THB/day" },
-  { label: "Month / Year", value: "563 THB/month | 6,750 THB/year" },
+  { label: "Cost", value: "15 / 60 x 102.27 = 25.57 THB/day" },
+  { label: "Month / Year", value: "562.50 THB/month | 6,750 THB/year" },
 ];
 
 const pmCapabilityItems = [
@@ -717,8 +751,8 @@ const jobBenefits = [
   { label: "History lookup", value: "5 cases/day x 17 min saved = 85 min/day" },
   { label: "Confirm / check", value: "75 cases/day x 40% x 8 min saved = 240 min/day" },
   { label: "Total", value: "900 + 85 + 240 = 1,225 min/day" },
-  { label: "Cost", value: "1,225 / 60 x 102.27 = 2,088 THB/day" },
-  { label: "Month / Year", value: "45,938 THB/month | 551,250 THB/year" },
+  { label: "Cost", value: "1,225 / 60 x 102.27 = 2,088.07 THB/day" },
+  { label: "Month / Year", value: "45,937.50 THB/month | 551,250 THB/year" },
 ];
 
 const jobSoundItems = [
@@ -1478,7 +1512,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     Highlight Project
                   </p>
                   <h2 className="mt-2 max-w-xl text-2xl font-black leading-tight text-white sm:text-4xl lg:text-5xl">
-                    Smart Factory Operations Platform
+                    Smart Factory Operation Platform
                   </h2>
                   <p className="mt-3 max-w-xl text-xs font-bold leading-relaxed text-slate-300 sm:text-sm">
                     Connects machine data, repair workflow, QC confirmation, PM, tooling, and admin master data into
@@ -1551,11 +1585,11 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                       <div>
                         <p className="mb-3 text-xs font-black uppercase tracking-[0.18em] text-cyan-300">Over All</p>
                         <h3 className="text-3xl font-black leading-tight">
-                          Smart Factory Operations Platform
+                          Smart Factory Operation Platform
                         </h3>
                         <p className="mt-4 text-sm leading-relaxed text-slate-300">
-                          A real factory operations system that connects machine data, repair workflow, QC confirmation,
-                          preventive maintenance, tooling inventory, and admin master data into one traceable real-time
+                          A real maintenance management system that connects machine data, repair workflow, QC confirmation,
+                          preventive maintenance, predictive tooling usage, tooling inventory, and admin master data into one traceable real-time
                           platform for a 100-machine operation scope. Machine-side data, shared status, shared history,
                           MSSQL Server, backend APIs, and Socket.IO updates help teams work from the same source of truth.
                         </p>
@@ -1701,6 +1735,39 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     </div>
                   </section>
 
+                  <section className="rounded-2xl border border-cyan-200 bg-white p-5 shadow-sm dark:border-cyan-900/50 dark:bg-slate-900">
+                    <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-500">
+                          Tooling Usage Forecast
+                        </p>
+                        <h3 className="mt-1 text-lg font-black text-slate-950 dark:text-white">
+                          Predictive Tooling Usage inside Toolling & Store
+                        </h3>
+                        <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
+                          Toolling & Store also uses stock balance, stock-out history, PM part usage, and upcoming PM
+                          plans to forecast shortage risk, reorder timing, 30-day issue quantity, and suggested buy
+                          quantity before Maintenance waits for missing parts.
+                        </p>
+                      </div>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {predictiveToolingCards.map((item) => (
+                          <div
+                            key={item.label}
+                            className="rounded-xl border border-cyan-100 bg-cyan-50 p-4 dark:border-cyan-900/50 dark:bg-cyan-950/20"
+                          >
+                            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-300">
+                              {item.label}
+                            </p>
+                            <p className="mt-2 text-sm font-black leading-relaxed text-slate-950 dark:text-white">
+                              {item.value}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </section>
+
                   <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                     <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
                       <div>
@@ -1777,7 +1844,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Cost saving</p>
                         <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
-                          18,000 / 22 / 8 = 102.27 THB/hr; 23.4 x 102.27 = 2,393 THB/day
+                          18,000 / 22 / 8 = 102.27 THB/hr; 23.4 x 102.27 = 2,393.18 THB/day
                         </p>
                       </div>
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
@@ -2442,6 +2509,53 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                   <AnimatedHorizontalFlow title="Toolling & Store Workflow" steps={toolingFeatureFlow} />
                   <AnimatedHorizontalFlow title="Tooling Connection With Platform Modules" steps={toolingConnectionFlow} />
 
+                  <section className="rounded-2xl border border-cyan-200 bg-white p-5 shadow-sm dark:border-cyan-900/50 dark:bg-slate-900">
+                    <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-500">
+                          Predictive Tooling Usage
+                        </p>
+                        <h3 className="mt-1 text-2xl font-black text-slate-950 dark:text-white">
+                          Forecast spare part usage before stock becomes a repair blocker
+                        </h3>
+                        <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
+                          This capability extends Toolling & Store from record keeping into planning. The dashboard
+                          highlights shortage risk, reorder-soon items, 30-day forecast quantity, confidence level, and
+                          suggested buy quantity. The analysis view explains the result with actual usage, regression
+                          trend, forecast stock line, calculation cards, and reason text.
+                        </p>
+                      </div>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {predictiveToolingCards.map((item) => (
+                          <div
+                            key={item.label}
+                            className="rounded-xl border border-cyan-100 bg-cyan-50 p-4 dark:border-cyan-900/50 dark:bg-cyan-950/20"
+                          >
+                            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-300">
+                              {item.label}
+                            </p>
+                            <p className="mt-2 text-sm font-black leading-relaxed text-slate-950 dark:text-white">
+                              {item.value}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="mt-5">
+                      <AnimatedHorizontalFlow title="Predictive Tooling Usage Flow" steps={predictiveToolingFlow} />
+                    </div>
+                    <div className="mt-4 rounded-xl border border-dashed border-cyan-200 bg-cyan-50 p-4 dark:border-cyan-900/50 dark:bg-cyan-950/20">
+                      <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">
+                        View Analysis
+                      </p>
+                      <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
+                        View Analysis opens the item-level calculation: current stock, minimum stock, 7-day and 30-day
+                        forecast, confidence, actual usage bars, regression line, forecast stock projection, stockout
+                        ETA, reorder ETA, and calculation reasons.
+                      </p>
+                    </div>
+                  </section>
+
                   <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                     <div className="flex items-start gap-3">
                       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
@@ -2739,7 +2853,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           Summary
                         </p>
                         <h3 className="text-3xl font-black leading-tight">
-                          Smart Factory Operations Platform Summary
+                          Smart Factory Operation Platform Summary
                         </h3>
                         <p className="mt-4 text-sm font-semibold leading-relaxed text-slate-300">
                           A connected factory operations platform that brings machine data, MMS monitoring, Job

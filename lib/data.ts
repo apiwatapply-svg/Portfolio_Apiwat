@@ -967,7 +967,7 @@ export const projects: Project[] = [
   },
   {
     slug: "predictive-maintenance",
-    title: "Smart Factory Operations Platform",
+    title: "Smart Factory Operation Platform",
     description: "Smart factory operations case study draft. Modal content is being rewritten section by section from verified maintenance_project evidence.",
     tags: ["Next.js", "Node.js", "SQL Server", "Socket.IO", "IoT", "Arduino", "MMS", "Maintenance", "Tooling"],
     image: "/projects/smart-factory-operations/cover.png",
