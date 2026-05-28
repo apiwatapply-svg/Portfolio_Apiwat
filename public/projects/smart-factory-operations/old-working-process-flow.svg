@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Old Working Process Flow</title>
+  <desc id="desc">Old factory process flow before the Smart Factory Operation Platform: separated data, manual handover, paper notes, phone calls, chat, and spreadsheet reporting.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="0.55" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0b1020"/>
+    </linearGradient>
+    <linearGradient id="warn" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f97316"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#000000" flood-opacity="0.32"/>
+    </filter>
+    <marker id="arrow" markerHeight="10" markerWidth="10" orient="auto" refX="9" refY="5">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f59e0b"/>
+    </marker>
+    <style>
+      .eyebrow { font: 900 18px Arial, sans-serif; fill: #f59e0b; letter-spacing: 6px; }
+      .title { font: 900 44px Arial, sans-serif; fill: #fff; }
+      .body { font: 700 21px Arial, sans-serif; fill: #cbd5e1; }
+      .small { font: 700 17px Arial, sans-serif; fill: #94a3b8; }
+      .cardTitle { font: 900 24px Arial, sans-serif; fill: #fff; }
+      .tag { font: 900 16px Arial, sans-serif; fill: #fed7aa; letter-spacing: 2px; }
+      .card { fill: rgba(15,23,42,0.9); stroke: rgba(148,163,184,0.38); stroke-width: 2; }
+      .problem { fill: rgba(67,20,7,0.92); stroke: rgba(249,115,22,0.72); stroke-width: 2; }
+      .line { fill: none; stroke: #f59e0b; stroke-width: 4; stroke-dasharray: 9 9; marker-end: url(#arrow); }
+      .thin { fill: none; stroke: rgba(148,163,184,0.65); stroke-width: 2; stroke-dasharray: 7 9; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="720" rx="34" fill="url(#bg)"/>
+  <rect x="18" y="18" width="1244" height="684" rx="28" fill="none" stroke="#f59e0b" stroke-opacity="0.55" stroke-width="3"/>
+
+  <text x="70" y="78" class="eyebrow">OLD PROCESS FLOW</text>
+  <text x="70" y="130" class="title">Before Smart Factory Operation Platform</text>
+  <text x="72" y="168" class="body">Each team worked from separated data, so repair status and history moved by walking, phone calls, chat, paper notes, and spreadsheets.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="238" width="230" height="102" rx="20" class="card"/>
+    <text x="185" y="276" text-anchor="middle" class="cardTitle">Production</text>
+    <text x="185" y="306" text-anchor="middle" class="small">Find machine issue</text>
+    <text x="185" y="328" text-anchor="middle" class="small">Walk / call Maintenance</text>
+
+    <rect x="384" y="238" width="230" height="102" rx="20" class="card"/>
+    <text x="499" y="276" text-anchor="middle" class="cardTitle">Maintenance</text>
+    <text x="499" y="306" text-anchor="middle" class="small">Repair machine</text>
+    <text x="499" y="328" text-anchor="middle" class="small">Write paper / chat update</text>
+
+    <rect x="698" y="238" width="230" height="102" rx="20" class="card"/>
+    <text x="813" y="276" text-anchor="middle" class="cardTitle">QC</text>
+    <text x="813" y="306" text-anchor="middle" class="small">Check repair result</text>
+    <text x="813" y="328" text-anchor="middle" class="small">Pass / reject by handover</text>
+
+    <rect x="1012" y="238" width="198" height="102" rx="20" class="card"/>
+    <text x="1111" y="276" text-anchor="middle" class="cardTitle">Production</text>
+    <text x="1111" y="306" text-anchor="middle" class="small">Confirm result</text>
+    <text x="1111" y="328" text-anchor="middle" class="small">Close manually</text>
+  </g>
+
+  <path class="line" d="M300 289 C330 289 350 289 384 289"/>
+  <path class="line" d="M614 289 C644 289 665 289 698 289"/>
+  <path class="line" d="M928 289 C958 289 982 289 1012 289"/>
+  <path class="line" d="M813 340 C813 398 590 408 505 350"/>
+
+  <g filter="url(#shadow)">
+    <rect x="106" y="468" width="238" height="98" rx="20" class="problem"/>
+    <text x="225" y="504" text-anchor="middle" class="cardTitle">PM</text>
+    <text x="225" y="534" text-anchor="middle" class="small">Paper checklist</text>
+    <text x="225" y="556" text-anchor="middle" class="small">Separate history file</text>
+
+    <rect x="382" y="468" width="238" height="98" rx="20" class="problem"/>
+    <text x="501" y="504" text-anchor="middle" class="cardTitle">Tooling Store</text>
+    <text x="501" y="534" text-anchor="middle" class="small">Ask stock by person</text>
+    <text x="501" y="556" text-anchor="middle" class="small">Borrow/return in separate log</text>
+
+    <rect x="658" y="468" width="238" height="98" rx="20" class="problem"/>
+    <text x="777" y="504" text-anchor="middle" class="cardTitle">Reports</text>
+    <text x="777" y="534" text-anchor="middle" class="small">Collect from many files</text>
+    <text x="777" y="556" text-anchor="middle" class="small">Slow manual summary</text>
+
+    <rect x="934" y="468" width="238" height="98" rx="20" class="problem"/>
+    <text x="1053" y="504" text-anchor="middle" class="cardTitle">History</text>
+    <text x="1053" y="534" text-anchor="middle" class="small">Hard to trace owner</text>
+    <text x="1053" y="556" text-anchor="middle" class="small">No one source of truth</text>
+  </g>
+
+  <path class="thin" d="M225 468 C255 415 319 360 422 328"/>
+  <path class="thin" d="M501 468 C520 420 518 380 505 340"/>
+  <path class="thin" d="M777 468 C790 422 790 377 813 340"/>
+  <path class="thin" d="M1053 468 C1036 420 1068 370 1111 340"/>
+
+  <g>
+    <rect x="427" y="610" width="426" height="54" rx="27" fill="rgba(249,115,22,0.16)" stroke="rgba(249,115,22,0.55)"/>
+    <text x="640" y="644" text-anchor="middle" class="tag">LOST DATA  |  UNCLEAR OWNER  |  SLOW REPORT</text>
+  </g>
+</svg>

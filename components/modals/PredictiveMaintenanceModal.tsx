@@ -21,7 +21,6 @@ import {
   Gauge,
   ListChecks,
   Mail,
-  MapPinned,
   MonitorDot,
   Network,
   RadioTower,
@@ -48,6 +47,10 @@ type Props = {
 type LightboxImage = {
   src: string;
   title: string;
+  detail?: string;
+  points?: string[];
+  userSee?: { title: string; detail: string }[];
+  guide?: "mms-machine-card";
 };
 
 const tabs = [
@@ -83,12 +86,12 @@ const scopeMetrics = [
 ];
 
 const benefitMetrics = [
-  { value: "1,404 min", label: "Saved / Day" },
-  { value: "23.4 hr", label: "Manual Work Reduced / Day" },
-  { value: "2.9", label: "Person-Shift Workload / Day" },
-  { value: "2,393 THB", label: "Saved / Day" },
-  { value: "52,650 THB", label: "Saved / Month" },
-  { value: "631,800 THB", label: "Saved / Year" },
+  { value: "1,025.5 min", label: "Saved / Day" },
+  { value: "17.1 hr", label: "Manual Work Reduced / Day" },
+  { value: "2.1", label: "Person-Shift Workload / Day" },
+  { value: "1,748 THB", label: "Saved / Day" },
+  { value: "38,456 THB", label: "Saved / Month" },
+  { value: "461,475 THB", label: "Saved / Year" },
 ];
 
 const platformModules = [
@@ -105,6 +108,12 @@ const platformModules = [
     icon: MonitorDot,
   },
   {
+    title: "Toolling & Store",
+    detail: "Stock, tools, borrow/return, calibration, movement history, and Predictive Tooling Usage.",
+    tab: "Toolling & Store",
+    icon: Store,
+  },
+  {
     title: "Job Request",
     detail: "Production, Maintenance, and QC in one status-driven repair workflow.",
     tab: "Job Request",
@@ -118,21 +127,43 @@ const platformModules = [
   },
   {
     title: "Predictive Maintenance",
-    detail: "Gateway entry for Predictive Tooling Usage, forecasting spare part demand from store history.",
+    detail: "Upcoming module. Current scope only includes Predictive Tooling Usage inside Toolling & Store.",
     tab: "Toolling & Store",
     icon: Activity,
+    status: "Upcoming",
+  },
+];
+
+const overallNextSteps = [
+  {
+    title: "Email Alert",
+    label: "Alert",
+    detail:
+      "Send email notifications when the platform detects work or machine conditions that need attention.",
+    icon: BellRing,
+    points: [
+      "Machine alarm, abnormal status, or downtime over target",
+      "Job Request waiting for Maintenance, QC, or Production confirmation",
+      "Rejected repair job returned for rework",
+      "PM due soon, overdue PM, or missing inspection record",
+      "Low stock, stock-out, or suggested reorder from Predictive Usage",
+    ],
   },
   {
-    title: "Toolling & Store",
-    detail: "Stock, tools, borrow/return, calibration, movement history, and Predictive Tooling Usage.",
-    tab: "Toolling & Store",
-    icon: Store,
+    title: "Predictive Usage",
+    label: "Tooling & Store",
+    detail:
+      "Use stock balance, issue history, stock-out history, and PM part usage to forecast tool and spare-part demand before shortage happens.",
+    icon: BarChart3,
+    points: ["30-day usage forecast", "Stockout ETA", "Reorder ETA", "Suggested buy quantity"],
   },
   {
-    title: "Socket.IO Integration",
-    detail: "Realtime updates when ownership or machine status changes.",
-    tab: "Summary",
-    icon: RadioTower,
+    title: "Predictive MM",
+    label: "Predictive Maintenance",
+    detail:
+      "Use long-term machine history, downtime, alarm, and repair records to predict maintenance risk and recommend priority before breakdown.",
+    icon: Activity,
+    points: ["Machine risk score", "Downtime prediction", "Maintenance priority", "Repair history pattern"],
   },
 ];
 
@@ -145,23 +176,14 @@ const overallImages = [
   {
     src: "/projects/smart-factory-operations/iot-machine-data-flow.png",
     title: "Machine Data Flow",
-    caption: "PLC > IoT Box / Arduino Link > PC Collector > Switching Hub > MSSQL Server.",
+    caption:
+      "Area 1 uses Modbus TCP through IoT Box / Arduino Link to PC Gateway by MQTT. Areas 2-4 use PC Gateway with MC Protocol.",
   },
   {
     src: "/projects/smart-factory-operations/gateway-workspace-selector.png",
     title: "System Gateway",
     caption: "Main entry point that separates PM, Predictive Maintenance, Toolling & Store, Job Request, MMS Dashboard, and Admin mode.",
   },
-];
-
-const machineDataFlow = [
-  { label: "PLC", icon: Cpu },
-  { label: "IoT Box / Arduino Link", icon: RadioTower },
-  { label: "PC Collector", icon: MonitorDot },
-  { label: "Switching Hub", icon: Network },
-  { label: "MSSQL Server", icon: Database },
-  { label: "Backend API", icon: Server },
-  { label: "Web Dashboard / Socket.IO", icon: Factory },
 ];
 
 const adminDataFlow = [
@@ -216,26 +238,6 @@ const masterDataItems = [
   },
 ];
 
-const adminResponsibilities = [
-  "User, role, and access scope management",
-  "Employee, department, area, and machine master control",
-  "Machine type and machine number data used by every feature",
-  "Permission scope by department and responsibility",
-  "Delete confirmation before changing important records",
-  "Shared master data source for MMS, Job Request, PM, and Toolling & Store",
-];
-
-const adminResponsibilityIcons = [ShieldCheck, Users, Database, Settings, Trash2, Network];
-
-const adminImportance = [
-  "Reduces repeated master data setup across modules.",
-  "Reduces mismatched machine, user, area, and role records.",
-  "Makes access control clearer for Production, Maintenance, QC, Tooling, and Admin users.",
-  "Keeps the platform reliable because each feature reads the same master data source.",
-];
-
-const adminImportanceIcons = [ClipboardCheck, Database, ShieldCheck, Server];
-
 const adminImages = [
   {
     src: "/projects/smart-factory-operations/admin-machine-master.png",
@@ -255,23 +257,23 @@ const adminImages = [
 ];
 
 const summaryImpactMetrics = [
-  { value: "1,404 min", label: "Reduced Manual Work / Day" },
-  { value: "23.4 hr", label: "Workload Reduction / Day" },
-  { value: "2.9", label: "People-Shift Routine Workload" },
-  { value: "2,393 THB", label: "Labor-Time Saving / Day" },
-  { value: "52,650 THB", label: "Labor-Time Saving / Month" },
-  { value: "631,800 THB", label: "Labor-Time Saving / Year" },
+  { value: "1,025.5 min", label: "Reduced Manual Work / Day" },
+  { value: "17.1 hr", label: "Workload Reduction / Day" },
+  { value: "2.1", label: "People-Shift Routine Workload" },
+  { value: "1,748 THB", label: "Labor-Time Saving / Day" },
+  { value: "38,456 THB", label: "Labor-Time Saving / Month" },
+  { value: "461,475 THB", label: "Labor-Time Saving / Year" },
 ];
 
 const productionRiskMetrics = [
   { value: "1.22 min/pc", label: "Average Cycle Time" },
   { value: "44.73 THB/pc", label: "Average Value" },
-  { value: "1,151 pcs", label: "Risk Reduced / Day" },
-  { value: "51,482 THB", label: "Value Protected / Day" },
-  { value: "25,322 pcs", label: "Risk Reduced / Month" },
-  { value: "1.13M THB", label: "Value Protected / Month" },
-  { value: "303,864 pcs", label: "Risk Reduced / Year" },
-  { value: "13.59M THB", label: "Value Protected / Year" },
+  { value: "841 pcs", label: "Risk Reduced / Day" },
+  { value: "37,604 THB", label: "Value Protected / Day" },
+  { value: "18,495 pcs", label: "Risk Reduced / Month" },
+  { value: "827,296 THB", label: "Value Protected / Month" },
+  { value: "221,944 pcs", label: "Risk Reduced / Year" },
+  { value: "9.93M THB", label: "Value Protected / Year" },
 ];
 
 const summaryFeatureContributions = [
@@ -348,7 +350,7 @@ const summaryInterviewStory = [
   "This project started from a real factory problem: each department had useful information, but the information was separated.",
   "I designed the platform to connect machine-side data and department workflows into one traceable system using MSSQL, backend APIs, Socket.IO, and shared master data.",
   "The main operational flow is Job Request: Production creates a request, Maintenance repairs it, QC inspects it, and Production confirms it, with rejection loops kept in the same history.",
-  "The platform also includes Preventive Maintenance, Tooling Store, Admin master data, realtime updates, and an estimated workload reduction of 23.4 hours/day across a 100-machine operation.",
+  "The platform also includes Preventive Maintenance, Tooling Store, Admin master data, realtime updates, and an estimated workload reduction of 17.1 hours/day across a 100-machine operation.",
   "The next step is to collect long-term machine history as Big Data and apply AI for anomaly detection, downtime prediction, predictive maintenance, and spare-part forecasting.",
 ];
 
@@ -357,8 +359,28 @@ const mmsSlides = [
     title: "Dashboard Overview",
     src: "/projects/smart-factory-operations/mms-overview-full-data.png",
     icon: Gauge,
+    summary:
+      "Realtime control-room overview showing factory health, machine status, active jobs, output performance, and the area that needs attention first.",
     detail:
-      "Shows machine status, active jobs, output, OEE, and filters by area, machine type, machine number, MMS status, and job status.",
+      "This screen gives the control room a real-time factory overview for the 07:00-07:00 working day. Users can quickly see factory health, machine status, active repair jobs, output performance, and which area needs attention first.",
+    points: [
+      "Overall machine condition: Running, Alarm, Stopped, and Active Job.",
+      "Production result: Output OK, NG Rate, and OEE Average.",
+      "Machine filtering by Area, Machine Type, Machine No, MMS Status, and Job Status.",
+      "Machine/job status colors such as RUN, ALARM, STOP, MM REPAIR, QC, PLAN STOP, and CLEANING.",
+      "Factory layout grouped by area and machine type.",
+      "Each machine card shows machine no, current status, job context, Job PIC, output, OK, NG, OEE, and PM state.",
+      "Users do not need to walk machine by machine; they can monitor from the dashboard and know which machine is running, stopped, in alarm, or waiting for job follow-up.",
+    ],
+    userSee: [
+      { title: "Machine status", detail: "Running / Alarm / Stopped / Filtered" },
+      { title: "Job status", detail: "Active jobs / Repair / QC follow-up" },
+      { title: "Production result", detail: "Output OK / NG rate / OEE avg" },
+      { title: "Area layout", detail: "Line / type / machine status map" },
+      { title: "Machine card", detail: "Status / PIC / OUT / OK / NG / OEE / PM" },
+      { title: "Action focus", detail: "Machines needing attention first" },
+    ],
+    guide: "mms-machine-card" as const,
   },
   {
     title: "Overall Working",
@@ -366,6 +388,14 @@ const mmsSlides = [
     icon: Factory,
     detail:
       "Summarizes machine working status across areas and machine types so supervisors can compare the whole factory from one view.",
+    userSee: [
+      { title: "Selected scope", detail: "Area / Type / Machine / Date" },
+      { title: "Machine summary", detail: "Operator / Status / OEE" },
+      { title: "Output gap", detail: "Actual / Target / Accum" },
+      { title: "CT gap", detail: "CT actual / CT target" },
+      { title: "Availability gap", detail: "Actual / Target availability" },
+      { title: "Priority machines", detail: "Machines needing support first" },
+    ],
   },
   {
     title: "Machine Working - Status",
@@ -373,6 +403,14 @@ const mmsSlides = [
     icon: Activity,
     detail:
       "Drills into each machine with status timeline, latest event, and working history for troubleshooting and follow-up.",
+    userSee: [
+      { title: "Selected machine", detail: "Area / Type / Machine / Date" },
+      { title: "Current status", detail: "MMS status / Date-time" },
+      { title: "Production result", detail: "Output / Target / OK / NG / Total" },
+      { title: "OEE metrics", detail: "OEE / Achieve / A / P / Q" },
+      { title: "Status timeline", detail: "07:00-07:00 status duration" },
+      { title: "Downtime cause", detail: "Lost time by status %" },
+    ],
   },
   {
     title: "Machine Working - Output",
@@ -380,6 +418,14 @@ const mmsSlides = [
     icon: BarChart3,
     detail:
       "Separates machine output data from status events so users can review OK/NG quantity, production result, and output history clearly.",
+    userSee: [
+      { title: "Selected machine", detail: "Area / Type / Machine / Date" },
+      { title: "Production result", detail: "Output / Target / OK / NG / OEE" },
+      { title: "Output monitor", detail: "Actual / Target / Accum gap" },
+      { title: "CT monitor", detail: "CT actual / CT target" },
+      { title: "Availability monitor", detail: "Availability actual / target" },
+      { title: "Loss focus", detail: "Output / CT / Availability issue" },
+    ],
   },
   {
     title: "Graph Report",
@@ -387,6 +433,14 @@ const mmsSlides = [
     icon: BarChart3,
     detail:
       "Visualizes machine performance, status trend, and historical comparison to support daily review and improvement discussion.",
+    userSee: [
+      { title: "Report scope", detail: "Area / Type / Machine / Period / Month" },
+      { title: "Output trend", detail: "Actual / Target / Accum gap" },
+      { title: "CT & availability", detail: "CT / Availability actual vs target" },
+      { title: "OEE trend", detail: "OEE / Availability / Performance / Quality" },
+      { title: "Quality trend", detail: "NG qty / Over reject" },
+      { title: "Export evidence", detail: "Excel report for review" },
+    ],
   },
   {
     title: "Table Report",
@@ -394,13 +448,14 @@ const mmsSlides = [
     icon: FileSpreadsheet,
     detail:
       "Provides searchable history and export support for daily review, troubleshooting, and production meeting evidence.",
-  },
-  {
-    title: "MMS Simulation - Factory Layout",
-    src: "/projects/smart-factory-operations/mms-simulation-full-data.png",
-    icon: MonitorDot,
-    detail:
-      "Supports machine event testing and status verification before using the same flow with shopfloor data and dashboard updates.",
+    userSee: [
+      { title: "Report scope", detail: "Area / Type / Machine / Period / Month" },
+      { title: "Machine identity", detail: "MC no / Model / Area" },
+      { title: "Daily result", detail: "Metrics by date" },
+      { title: "Monthly total", detail: "Total value by metric" },
+      { title: "Output & quality", detail: "Target / Output / NG / Reject" },
+      { title: "OEE detail", detail: "OEE / A / P / Q / CT" },
+    ],
   },
   {
     title: "MMS Simulation - GOT Panel",
@@ -408,6 +463,15 @@ const mmsSlides = [
     icon: RadioTower,
     detail:
       "Shows the PLC / GOT machine panel used to control machine status, maintenance actions, QC state, production state, output, model, and socket update.",
+    userSee: [
+      { title: "Machine context", detail: "MC status / Machine / Type / Area" },
+      { title: "Maintenance action", detail: "MM Repair / MM Preventive" },
+      { title: "QC action", detail: "QC status update" },
+      { title: "Production action", detail: "Cleaning status update" },
+      { title: "Status scenario", detail: "RUN / WAIT PART / PLAN STOP / STOP" },
+      { title: "Output input", detail: "OK / NG / CT / Model" },
+      { title: "Socket update", detail: "Realtime dashboard update" },
+    ],
   },
 ];
 
@@ -429,7 +493,7 @@ const mmsBenefits = [
 
 const mmsFeatureFlow = [
   { label: "PLC / Machine Signal", icon: Cpu },
-  { label: "IoT Box / PC Collector", icon: MonitorDot },
+  { label: "IoT Box / PC Gateway", icon: MonitorDot },
   { label: "MSSQL Server", icon: Database },
   { label: "Backend API", icon: Server },
   { label: "MMS Dashboard", icon: Gauge },
@@ -447,59 +511,123 @@ const mmsJobConnectionFlow = [
 const toolingSlides = [
   {
     title: "Dashboard",
-    src: "/projects/smart-factory-operations/tooling-dashboard-full.png",
+    src: "/projects/smart-factory-operations/tooling-dashboard-real-20260528.png",
     icon: Store,
     detail:
       "Shows the main entry point for inventory control, master data, tool borrowing, spare part stock, calibration, history, and reports.",
+    userSee: [
+      { title: "Tool status", detail: "Total / Available / Borrowed / Repair" },
+      { title: "Stock risk", detail: "Low stock items" },
+      { title: "Borrow risk", detail: "Overdue borrow count" },
+      { title: "Calibration risk", detail: "Due soon / Expired" },
+      { title: "Stock movement", detail: "Stock in / Stock out by day" },
+      { title: "Availability mix", detail: "Available / Borrowed / Repair" },
+    ],
   },
   {
     title: "Master Data",
-    src: "/projects/smart-factory-operations/tooling-stock-balance-modal-full.png",
+    src: "/projects/smart-factory-operations/tooling-master-data-real-20260528.png",
     icon: Database,
     detail:
       "Controls item code, item name, current stock, min/max stock, unit, location, status, and item image in one master record screen.",
+    userSee: [
+      { title: "Item identity", detail: "Code / Name / Image" },
+      { title: "Stock control", detail: "Current / Min / Max" },
+      { title: "Unit control", detail: "PCS / unit type" },
+      { title: "Location control", detail: "Store / Shelf / Cabinet" },
+      { title: "Stock status", detail: "Normal / Low / Over" },
+      { title: "Master image", detail: "Item photo preview" },
+    ],
   },
   {
     title: "Tool Borrowing",
-    src: "/projects/smart-factory-operations/tooling-sidebar-tool-borrowing.png",
+    src: "/projects/smart-factory-operations/tooling-tool-borrowing-real-20260528.png",
     icon: Wrench,
     detail:
       "Shows tool cards, borrow/issue, return tool, overdue borrow, borrower status, and real tool photos for traceability.",
+    userSee: [
+      { title: "Tool count", detail: "Total / Available / Borrowed" },
+      { title: "Tool risk", detail: "Unavailable / Overdue" },
+      { title: "Tool condition", detail: "Available / Repair / Lost" },
+      { title: "Borrower status", detail: "Ready / Out / Late" },
+      { title: "Search scope", detail: "Tool / Serial / Borrower" },
+      { title: "Tool photo", detail: "Real tool image" },
+    ],
   },
   {
     title: "Spare Part Stock",
-    src: "/projects/smart-factory-operations/tooling-sidebar-spare-part-stock.png",
+    src: "/projects/smart-factory-operations/tooling-spare-part-stock-real-20260528.png",
     icon: Store,
     detail:
       "Shows stock-in, stock-out, stock balance, low stock, out-of-stock, location filter, and real spare part photos.",
+    userSee: [
+      { title: "Stock movement", detail: "Stock In / Stock Out / Balance" },
+      { title: "Stock status", detail: "Normal / Low / Out / Over" },
+      { title: "Stock level", detail: "Current / Min / Max" },
+      { title: "Stock gap", detail: "Need to min / Space to max" },
+      { title: "Location", detail: "Store / Cabinet / Shelf" },
+      { title: "Receive / issue", detail: "Receive / Issue action" },
+    ],
   },
   {
     title: "Calibration",
-    src: "/projects/smart-factory-operations/tooling-sidebar-calibration.png",
+    src: "/projects/smart-factory-operations/tooling-calibration-real-20260528.png",
     icon: ClipboardCheck,
     detail:
       "Tracks calibration list, due soon, expired tools, last calibration date, next calibration date, owner, and remark.",
+    userSee: [
+      { title: "Calibration status", detail: "Normal / Due Soon / Expired" },
+      { title: "Tool identity", detail: "Tool code / Serial number" },
+      { title: "Schedule", detail: "Last / Every days / Next" },
+      { title: "Owner", detail: "Tooling Store / QC Room" },
+      { title: "Calibrate action", detail: "Update calibration date" },
+      { title: "Expired risk", detail: "Blocked tool before use" },
+    ],
   },
   {
     title: "History",
-    src: "/projects/smart-factory-operations/tooling-movement-history-full.png",
+    src: "/projects/smart-factory-operations/tooling-history-real-20260528.png",
     icon: Clock,
     detail:
       "Provides traceability for item movement, stock changes, borrow/return activity, and historical investigation.",
+    userSee: [
+      { title: "Movement type", detail: "Stock In / Stock Out / Borrow" },
+      { title: "Movement date", detail: "Transaction date-time" },
+      { title: "Item identity", detail: "Code / Name / Photo" },
+      { title: "Quantity change", detail: "Plus / Minus quantity" },
+      { title: "Reference", detail: "SIN / JOB / ISS document" },
+      { title: "User trace", detail: "Transaction owner" },
+    ],
   },
   {
     title: "Predictive Usage",
-    src: "/projects/smart-factory-operations/tooling-sidebar-predictive-usage.png",
+    src: "/projects/smart-factory-operations/tooling-predictive-usage-real-20260528.png",
     icon: Activity,
     detail:
       "Shows predictive analysis with current stock, minimum stock, 7-day and 30-day forecast, confidence, trend, and reorder timing.",
+    userSee: [
+      { title: "Stock risk", detail: "Current / Minimum stock" },
+      { title: "Forecast demand", detail: "7D / 30D forecast" },
+      { title: "Confidence", detail: "Prediction confidence %" },
+      { title: "Usage trend", detail: "Actual usage / Regression" },
+      { title: "Stockout ETA", detail: "Days until stockout" },
+      { title: "Reorder timing", detail: "Reorder ETA / Order qty" },
+    ],
   },
   {
     title: "Reports",
-    src: "/projects/smart-factory-operations/tooling-sidebar-reports.png",
+    src: "/projects/smart-factory-operations/tooling-reports-real-20260528.png",
     icon: FileSpreadsheet,
     detail:
       "Shows report list, report type, generated date, rows, export type, and Excel export action for tooling evidence.",
+    userSee: [
+      { title: "Report list", detail: "Tool / Spare / Low stock / Movement" },
+      { title: "Report type", detail: "Master / Stock / Movement" },
+      { title: "Generated date", detail: "Last generated date" },
+      { title: "Rows count", detail: "Report data size" },
+      { title: "Export type", detail: "Excel output" },
+      { title: "Actions", detail: "Edit / Delete / Export" },
+    ],
   },
 ];
 
@@ -512,11 +640,11 @@ const toolingPainPoints = [
 
 const toolingBenefits = [
   { label: "Scope", value: "Tool, spare part, borrow/return, stock movement, calibration, and history" },
-  { label: "Before", value: "Manual stock check: 10 min/item" },
+  { label: "Before", value: "Manual stock check: 3 min/item" },
   { label: "After", value: "System lookup and transaction view: 2 min/item" },
-  { label: "Saving", value: "8 items/day x 8 min saved = 64 min/day" },
-  { label: "Cost", value: "64 / 60 x 102.27 = 109.09 THB/day" },
-  { label: "Month / Year", value: "2,400 THB/month | 28,800 THB/year" },
+  { label: "Saving", value: "8 items/day x 1 min saved = 8 min/day" },
+  { label: "Cost", value: "8 / 60 x 102.27 = 13.64 THB/day" },
+  { label: "Month / Year", value: "300 THB/month | 3,600 THB/year" },
 ];
 
 const toolingFeatureFlow = [
@@ -571,6 +699,14 @@ const pmSlides = [
     icon: Gauge,
     detail:
       "Summarizes total PM plans, due today, overdue, completed, and NG results so Maintenance can see current factory readiness quickly.",
+    userSee: [
+      { title: "PM plan count", detail: "Total active PM plans" },
+      { title: "Due today", detail: "Machines needing inspection today" },
+      { title: "Overdue PM", detail: "PM work requiring follow-up" },
+      { title: "Completed PM", detail: "Finished inspections in cycle" },
+      { title: "NG result", detail: "Abnormal findings from inspection" },
+      { title: "PM health mix", detail: "Completed / Due / Overdue / NG" },
+    ],
   },
   {
     title: "PM Calendar View",
@@ -578,13 +714,14 @@ const pmSlides = [
     icon: CalendarDays,
     detail:
       "Calendar view shows PM work by date, planned events, selected day detail, and action buttons for the next inspection step.",
-  },
-  {
-    title: "Machine Layout View",
-    src: "/projects/smart-factory-operations/pm-machine-layout.png",
-    icon: MapPinned,
-    detail:
-      "Machine layout view groups machines by area so users can scan PM status by machine instead of only reading a table.",
+    userSee: [
+      { title: "PM schedule", detail: "Planned PM by calendar date" },
+      { title: "Selected day", detail: "PM list for chosen date" },
+      { title: "Due work", detail: "Machines waiting for inspection" },
+      { title: "PM status", detail: "Due / Completed / Overdue / NG" },
+      { title: "Inspection action", detail: "Open next PM inspection" },
+      { title: "Planning view", detail: "Upcoming workload by day" },
+    ],
   },
   {
     title: "PM Type Master",
@@ -592,6 +729,14 @@ const pmSlides = [
     icon: ClipboardCheck,
     detail:
       "Users can create PM Type templates with default frequency, advance notification days, and checklist count for repeated inspection work.",
+    userSee: [
+      { title: "PM type list", detail: "Inspection templates by type" },
+      { title: "Frequency", detail: "Daily / Weekly / Monthly cycle" },
+      { title: "Advance notice", detail: "Reminder days before due date" },
+      { title: "Checklist count", detail: "Number of inspection topics" },
+      { title: "Template control", detail: "Add / Edit PM type" },
+      { title: "Standard work", detail: "Reusable PM inspection format" },
+    ],
   },
   {
     title: "Machine Mapping",
@@ -599,6 +744,14 @@ const pmSlides = [
     icon: Network,
     detail:
       "One machine can be mapped to multiple PM Types, such as daily machine check, weekly lubrication, and monthly safety check.",
+    userSee: [
+      { title: "Machine list", detail: "Machines assigned to PM" },
+      { title: "PM type mapping", detail: "PM templates linked to machine" },
+      { title: "Multiple PM", detail: "More than one PM per machine" },
+      { title: "Next due date", detail: "Upcoming inspection date" },
+      { title: "Responsible area", detail: "Machine / area PM scope" },
+      { title: "Mapping control", detail: "Add / Edit machine PM setup" },
+    ],
   },
   {
     title: "Checklist Builder",
@@ -606,13 +759,30 @@ const pmSlides = [
     icon: ListChecks,
     detail:
       "Users define their own checklist topics and input criteria, including OK/NG, number, dropdown, text, image, required fields, and min/max rules.",
+    userSee: [
+      { title: "Checklist topics", detail: "Inspection items by PM type" },
+      { title: "Input type", detail: "OK/NG / Number / Text / Dropdown" },
+      { title: "Required field", detail: "Mandatory inspection answer" },
+      { title: "Min / Max rule", detail: "Numeric control limit" },
+      { title: "Image evidence", detail: "Photo field for inspection proof" },
+      { title: "Checklist control", detail: "Add / Edit inspection item" },
+    ],
   },
   {
     title: "Inspection Form",
     src: "/projects/smart-factory-operations/pm-inspection-form.png",
     icon: ClipboardCheck,
     detail:
-      "The inspection form is generated from the selected PM Type checklist, then stores OK/NG results, remarks, checker, and final submission.",
+      "The inspection form is generated from the selected PM Type checklist, then stores OK/NG judgement, remarks, checker, parts used, and final submission.",
+    userSee: [
+      { title: "Machine context", detail: "Machine / PM type / Due date" },
+      { title: "Checklist answer", detail: "Value / Dropdown / OK-NG input" },
+      { title: "Auto result", detail: "Overall OK / NG judgement" },
+      { title: "Item judgement", detail: "OK / NG / NA per checklist item" },
+      { title: "Inspection remark", detail: "Finding and follow-up note" },
+      { title: "Parts used", detail: "Spare part / Used qty / Return qty" },
+      { title: "Submit result", detail: "Save PM inspection history" },
+    ],
   },
   {
     title: "History / Report",
@@ -620,6 +790,14 @@ const pmSlides = [
     icon: FileSpreadsheet,
     detail:
       "History and report view keeps PM results searchable by date, machine, PM Type, and result, with export support for follow-up evidence.",
+    userSee: [
+      { title: "PM history", detail: "Completed inspection records" },
+      { title: "Search scope", detail: "Date / Machine / PM type / Result" },
+      { title: "Inspection result", detail: "OK / NG / Overdue evidence" },
+      { title: "Checker trace", detail: "Who completed the PM" },
+      { title: "Follow-up proof", detail: "Remark / image / result detail" },
+      { title: "Export report", detail: "Excel evidence for audit" },
+    ],
   },
   {
     title: "Email Reminder",
@@ -627,6 +805,14 @@ const pmSlides = [
     icon: Mail,
     detail:
       "Advance notification days can be used to send email reminders before the PM due date so teams know which machine needs action.",
+    userSee: [
+      { title: "Due reminder", detail: "PM coming soon notification" },
+      { title: "Overdue alert", detail: "PM missed due date" },
+      { title: "NG alert", detail: "Abnormal inspection result" },
+      { title: "Machine target", detail: "Machine needing PM action" },
+      { title: "Receiver list", detail: "Maintenance owner / related team" },
+      { title: "Action link", detail: "Open PM record from email" },
+    ],
   },
 ];
 
@@ -639,11 +825,11 @@ const pmPainPoints = [
 
 const pmBenefits = [
   { label: "Scope", value: "PM Type, checklist, machine mapping, plan, calendar, inspection, report, reminder" },
-  { label: "Before", value: "35 min/PM record for checklist, manual record, history lookup, and report prep" },
-  { label: "After", value: "25 min/PM record with digital checklist and searchable history" },
-  { label: "Saving", value: "7.5 records/week x 10 min saved / 5 days = 15 min/day" },
-  { label: "Cost", value: "15 / 60 x 102.27 = 25.57 THB/day" },
-  { label: "Month / Year", value: "562.50 THB/month | 6,750 THB/year" },
+  { label: "Before", value: "35 min/PM record for manual record entry" },
+  { label: "After", value: "30 min/PM record with digital record entry" },
+  { label: "Saving", value: "7.5 records/week x 5 min saved / 5 days = 7.5 min/day" },
+  { label: "Cost", value: "7.5 / 60 x 102.27 = 12.78 THB/day" },
+  { label: "Month / Year", value: "281.25 THB/month | 3,375 THB/year" },
 ];
 
 const pmCapabilityItems = [
@@ -658,8 +844,8 @@ const pmCapabilityItems = [
     icon: Network,
   },
   {
-    title: "Calendar and layout visibility",
-    detail: "PM Plan supports list, calendar, and machine layout views so users can inspect work by date, area, or machine.",
+    title: "Calendar and machine mapping",
+    detail: "PM Plan supports list and calendar views, while machine mapping shows which PM Types are assigned to each machine.",
     icon: CalendarDays,
   },
   {
@@ -747,12 +933,11 @@ const jobPainPoints = [
 ];
 
 const jobBenefits = [
-  { label: "Job follow-up", value: "75 avg cases/day x 12 min saved = 900 min/day" },
-  { label: "History lookup", value: "5 cases/day x 17 min saved = 85 min/day" },
-  { label: "Confirm / check", value: "75 cases/day x 40% x 8 min saved = 240 min/day" },
-  { label: "Total", value: "900 + 85 + 240 = 1,225 min/day" },
-  { label: "Cost", value: "1,225 / 60 x 102.27 = 2,088.07 THB/day" },
-  { label: "Month / Year", value: "45,937.50 THB/month | 551,250 THB/year" },
+  { label: "Job follow-up / Production confirm-check", value: "75 avg cases/day x 12 min saved = 900 min/day" },
+  { label: "History lookup", value: "5 cases/day x 2 min saved = 10 min/day" },
+  { label: "Total", value: "900 + 10 = 910 min/day" },
+  { label: "Cost", value: "910 / 60 x 102.27 = 1,551.14 THB/day" },
+  { label: "Month / Year", value: "34,125 THB/month | 409,500 THB/year" },
 ];
 
 const jobSoundItems = [
@@ -789,6 +974,60 @@ const mmsRealtimeUpdates = [
   },
 ];
 
+const lightboxGalleries: LightboxImage[][] = [
+  overallImages.map((image) => ({ src: image.src, title: image.title, detail: image.caption })),
+  adminImages.map((image) => ({ src: image.src, title: image.title, detail: image.caption })),
+  mmsSlides.map((slide) => ({
+    src: slide.src,
+    title: slide.title,
+    detail: slide.detail,
+    points: "points" in slide ? slide.points : undefined,
+    userSee: "userSee" in slide ? slide.userSee : undefined,
+    guide: "guide" in slide ? slide.guide : undefined,
+  })),
+  toolingSlides.map((slide) => ({
+    src: slide.src,
+    title: slide.title,
+    detail: slide.detail,
+    userSee: "userSee" in slide ? slide.userSee : undefined,
+  })),
+  pmSlides.map((slide) => ({
+    src: slide.src,
+    title: slide.title,
+    detail: slide.detail,
+    userSee: "userSee" in slide ? slide.userSee : undefined,
+  })),
+  jobSlides.map((slide) => ({ src: slide.src, title: slide.title, detail: slide.detail })),
+  [
+    {
+      src: "/projects/smart-factory-operations/project-lifecycle-flow.svg",
+      title: "Project Lifecycle Flow",
+      detail: "Observe shopfloor, interview users, map workflow, design DB/API/status flow, test E2E, and deploy with feedback.",
+    },
+    {
+      src: "/projects/smart-factory-operations/development-workflow-flow.svg",
+      title: "Development Workflow Flow",
+      detail: "Git branch, frontend, backend API, MSSQL queries, Socket.IO events, E2E testing, CI/CD, and controlled release.",
+    },
+  ],
+];
+
+function resolveLightboxGallery(image: LightboxImage) {
+  const normalized = {
+    ...image,
+    detail: image.detail ?? "Detailed project evidence image.",
+  };
+
+  for (const gallery of lightboxGalleries) {
+    const index = gallery.findIndex((item) => item.src === image.src);
+    if (index >= 0) {
+      return { gallery, index };
+    }
+  }
+
+  return { gallery: [normalized], index: 0 };
+}
+
 const benefitCalculations = [
   {
     feature: "MMS monitoring/report",
@@ -798,49 +1037,120 @@ const benefitCalculations = [
     saving: "100 min/day",
   },
   {
-    feature: "Job follow-up",
-    before: "Manual follow-up across Prod / MM / QC",
-    after: "Status-driven workflow in one system",
+    feature: "Job follow-up / Production confirm-check",
+    before: "20 min/job manual follow-up and production confirm-check",
+    after: "8 min/job status-driven workflow with owner history",
     calculation: "75 avg cases/day x 12 min saved",
     saving: "900 min/day",
   },
   {
     feature: "Maintenance history lookup",
-    before: "20 min/case manual search",
+    before: "5 min/case manual search",
     after: "3 min/case system lookup",
-    calculation: "5 cases/day x 17 min saved",
-    saving: "85 min/day",
-  },
-  {
-    feature: "QC / Production confirm-check",
-    before: "Phone/chat follow-up for QC or Production confirmation",
-    after: "Status-driven check, reason, and owner history",
-    calculation: "75 cases/day x 40% x 8 min saved",
-    saving: "240 min/day",
+    calculation: "5 cases/day x 2 min saved",
+    saving: "10 min/day",
   },
   {
     feature: "Preventive Maintenance",
-    before: "35 min/PM record manual checklist and report prep",
-    after: "25 min/PM record with digital checklist and history",
-    calculation: "7.5 records/week x 10 min saved / 5 days",
-    saving: "15 min/day",
+    before: "35 min/PM record manual record entry",
+    after: "30 min/PM record digital record entry",
+    calculation: "7.5 records/week x 5 min saved / 5 days",
+    saving: "7.5 min/day",
   },
   {
     feature: "Tooling stock check",
-    before: "10 min/item manual stock check",
+    before: "3 min/item manual stock check",
     after: "2 min/item system lookup",
-    calculation: "8 items/day x 8 min saved",
-    saving: "64 min/day",
+    calculation: "8 items/day x 1 min saved",
+    saving: "8 min/day",
   },
 ];
 
 const projectWorkingFlow = [
   { step: "Requirement & Analysis", detail: "Shopfloor Study, Workflow Summary, pain points, handover rules, and user scope" },
-  { step: "System Architecture", detail: "Master data, MSSQL tables, API contract, status flow, Socket.IO, and permission scope" },
+  { step: "System Architecture", detail: "Frontend: Next.js | Backend: Node.js/Express | Database: MSSQL | Realtime: Socket.IO" },
   { step: "Development", detail: "Build MMS Dashboard, Job Request, Preventive Maintenance, Toolling & Store, and Admin mode" },
-  { step: "Testing", detail: "Verify job request, reject loop, handover, PM, tooling, MMS dashboard, and user feedback" },
-  { step: "Deployment", detail: "Release backend and frontend services to the factory server with PM2" },
+  { step: "Testing", detail: "Unit test, Integration test, E2E test, and UAT with real users" },
+  { step: "Deployment", detail: "CI/CD with GitLab workflow and deployment to PM2 on the factory server" },
   { step: "Maintenance & Monitoring", detail: "Support daily use, check PM2 process and logs, fix issues, and improve production workflow" },
+];
+
+const machineAreaSources = [
+  {
+    area: "Area 1",
+    areaName: "Line A",
+    machineCount: "30 machines",
+    typeSummary: "4 types: Conveyor 10, Filling 8, Control Panel 6, Robot Arm 6",
+    machine: "Machine + PLC",
+    receiver: "IoT Box / Arduino Link",
+    receiverNote: "1 box per 1 machine",
+    gateway: "PC Gateway",
+    gatewayNote: "MQTT relay",
+    links: ["Modbus TCP", "MQTT"],
+    accent: "cyan",
+  },
+  {
+    area: "Area 2",
+    areaName: "Line B",
+    machineCount: "30 machines",
+    typeSummary: "4 types: Pump 8, Mixer 8, Packing Machine 7, Labeler 7",
+    machine: "Machine + PLC",
+    receiver: "PC Gateway",
+    receiverNote: "1 gateway per 1 area",
+    gateway: null,
+    gatewayNote: null,
+    links: ["MC Protocol"],
+    accent: "amber",
+  },
+  {
+    area: "Area 3",
+    areaName: "Packing",
+    machineCount: "20 machines",
+    typeSummary: "3 types: Sealer 8, Cartoner 6, Weigher 6",
+    machine: "Machine + PLC",
+    receiver: "PC Gateway",
+    receiverNote: "1 gateway per 1 area",
+    gateway: null,
+    gatewayNote: null,
+    links: ["MC Protocol"],
+    accent: "amber",
+  },
+  {
+    area: "Area 4",
+    areaName: "Utility",
+    machineCount: "20 machines",
+    typeSummary: "3 types: Compressor 7, Chiller 7, Boiler 6",
+    machine: "Machine + PLC",
+    receiver: "PC Gateway",
+    receiverNote: "1 gateway per 1 area",
+    gateway: null,
+    gatewayNote: null,
+    links: ["MC Protocol"],
+    accent: "amber",
+  },
+];
+
+const machinePipeline = [
+  { label: "Switching Hub", detail: "Factory LAN", icon: Network },
+  { label: "MSSQL Server", detail: "Microsoft SQL Server", icon: Database },
+  { label: "Backend API", detail: "Node.js / Express", icon: Server },
+];
+
+const machineBackendOutputs = [
+  { label: "Web Dashboard / Socket.IO", detail: "Realtime monitoring", icon: Factory },
+  { label: "Email Alert", detail: "Alert notification", icon: Mail },
+];
+
+const machineLegend = [
+  { term: "PLC", meaning: "Programmable Logic Controller" },
+  { term: "IoT", meaning: "Internet of Things" },
+  { term: "Modbus TCP", meaning: "Modbus Transmission Control Protocol" },
+  { term: "MC Protocol", meaning: "Mitsubishi Communication Protocol" },
+  { term: "MQTT", meaning: "Message Queuing Telemetry Transport" },
+  { term: "PC Gateway", meaning: "Personal Computer Gateway" },
+  { term: "MSSQL", meaning: "Microsoft SQL Server" },
+  { term: "API", meaning: "Application Programming Interface" },
+  { term: "Socket.IO", meaning: "Realtime bidirectional communication library" },
 ];
 
 function AnimatedHorizontalFlow({
@@ -884,6 +1194,256 @@ function AnimatedHorizontalFlow({
         ))}
       </div>
     </div>
+  );
+}
+
+function MmsMachineCardGuide() {
+  const callouts = [
+    { label: "Machine no", value: "SEA-P-004" },
+    { label: "MMS status", value: "MM" },
+    { label: "Job status", value: "MM REPAIR" },
+    { label: "Job PIC", value: "MM-006 Anan S." },
+    { label: "PM state", value: "LATE 8D" },
+    { label: "Production result", value: "Output, OK, NG, OEE" },
+  ];
+
+  return (
+    <div className="mt-6 rounded-2xl border border-cyan-400/30 bg-cyan-400/10 p-4">
+      <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-300">Machine Card Reading Guide</p>
+      <div className="mt-4 grid gap-4">
+        <div className="relative mx-auto w-full max-w-[190px] rounded-2xl border-2 border-cyan-300/70 bg-slate-950 p-2 shadow-lg shadow-cyan-950/30">
+          <Image
+            src="/projects/smart-factory-operations/mms-machine-card-sea-p-004.png"
+            alt="SEA-P-004 machine card"
+            width={178}
+            height={116}
+            className="h-auto w-full rounded-xl"
+          />
+        </div>
+
+        <div className="grid gap-2">
+          {callouts.map((item) => (
+            <div key={item.label} className="rounded-xl border border-cyan-400/20 bg-slate-950/60 p-3">
+              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-cyan-300">{item.label}</p>
+              <p className="mt-1 text-sm font-black text-white">{item.value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MachineDataFlowDiagram() {
+  return (
+    <section className="rounded-2xl border border-cyan-500/30 bg-slate-950 p-5 shadow-sm">
+      <div className="mb-5 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-300">Machine Data Flow</p>
+          <h3 className="mt-1 text-lg font-black text-white">4 area machine sources merge into one platform flow</h3>
+          <p className="mt-2 max-w-3xl text-sm font-semibold leading-relaxed text-slate-300">
+            Each machine has its own PLC. Area 1 uses IoT Box / Arduino Link per machine, then sends data to PC Gateway
+            by MQTT. Areas 2-4 use one PC Gateway per area to read PLC data directly by MC Protocol.
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-2 text-center sm:min-w-[360px]">
+          {[
+            { value: "100", label: "Machines" },
+            { value: "14", label: "Machine Types" },
+            { value: "4", label: "Areas" },
+          ].map((item) => (
+            <div key={item.label} className="rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-3 py-2">
+              <p className="text-xl font-black text-white">{item.value}</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.12em] text-cyan-200">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-4 lg:items-start">
+        {machineAreaSources.map((source, index) => {
+          const isCyan = source.accent === "cyan";
+          return (
+            <motion.div
+              key={source.area}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.06 }}
+              className={`self-start rounded-2xl border p-4 ${
+                isCyan
+                  ? "border-cyan-400/40 bg-cyan-400/10"
+                  : "border-amber-400/40 bg-amber-400/10"
+              }`}
+            >
+              <div className="mb-3 flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-base font-black text-white">{source.area}</p>
+                  <p className="mt-0.5 text-xs font-bold text-slate-300">
+                    {source.areaName} | {source.machineCount}
+                  </p>
+                </div>
+                <span
+                  className={`rounded-full px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] ${
+                    isCyan ? "bg-cyan-300 text-slate-950" : "bg-amber-300 text-slate-950"
+                  }`}
+                >
+                  Source
+                </span>
+              </div>
+              <div className="mb-3 rounded-lg border border-white/10 bg-slate-950/50 px-3 py-2">
+                <p className="mt-1 text-[11px] font-semibold leading-relaxed text-slate-300">
+                  {source.typeSummary}
+                </p>
+              </div>
+
+              <div className="flex min-h-[76px] items-center gap-3 rounded-xl border border-white/10 bg-slate-950/70 p-3 text-left">
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${isCyan ? "bg-cyan-400/10 text-cyan-200" : "bg-amber-400/10 text-amber-200"}`}>
+                  <Cpu size={22} />
+                </div>
+                <div>
+                  <p className="text-sm font-black text-white">{source.machine}</p>
+                  <p className="mt-1 text-[11px] font-semibold leading-snug text-slate-300">Each machine has its own PLC</p>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center py-2">
+                <div className={`h-4 w-px ${isCyan ? "bg-cyan-300/70" : "bg-amber-300/70"}`} />
+                <span
+                  className={`rounded-full border px-3 py-1 text-[10px] font-black uppercase tracking-[0.1em] ${
+                    isCyan
+                      ? "border-cyan-300/50 bg-cyan-300/10 text-cyan-100"
+                      : "border-amber-300/50 bg-amber-300/10 text-amber-100"
+                  }`}
+                >
+                  {source.links[0]}
+                </span>
+                <div className={`h-4 w-px ${isCyan ? "bg-cyan-300/70" : "bg-amber-300/70"}`} />
+              </div>
+
+              <div className="flex min-h-[76px] items-center gap-3 rounded-xl border border-white/10 bg-slate-950/70 p-3 text-left">
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${source.receiver.includes("IoT") ? "bg-cyan-400/10 text-cyan-200" : "bg-amber-400/10 text-amber-200"}`}>
+                  {source.receiver.includes("IoT") ? <RadioTower size={22} /> : <MonitorDot size={22} />}
+                </div>
+                <div>
+                  <p className="text-sm font-black text-white">{source.receiver}</p>
+                  <p className="mt-1 text-[11px] font-semibold leading-snug text-slate-300">{source.receiverNote}</p>
+                </div>
+              </div>
+
+              {source.gateway && (
+                <>
+                  <div className="flex flex-col items-center py-2">
+                    <div className="h-4 w-px bg-cyan-300/70" />
+                    <span className="rounded-full border border-cyan-300/50 bg-cyan-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.1em] text-cyan-100">
+                      {source.links[1]}
+                    </span>
+                    <div className="h-4 w-px bg-cyan-300/70" />
+                  </div>
+                  <div className="flex min-h-[76px] items-center gap-3 rounded-xl border border-white/10 bg-slate-950/70 p-3 text-left">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-200">
+                      <MonitorDot size={22} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-black text-white">{source.gateway}</p>
+                      <p className="mt-1 text-[11px] font-semibold leading-snug text-slate-300">{source.gatewayNote}</p>
+                    </div>
+                  </div>
+                </>
+              )}
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <div className="my-5 flex flex-col items-center gap-2">
+        <div className="grid w-full grid-cols-4 gap-4">
+          {machineAreaSources.map((source) => (
+            <div key={`${source.area}-merge-line`} className="mx-auto h-8 w-px bg-cyan-400/50" />
+          ))}
+        </div>
+        <div className="h-px w-full bg-cyan-400/40" />
+        <div className="h-8 w-px bg-cyan-400/50" />
+      </div>
+
+      <div className="mb-5 flex items-center gap-3">
+        <div className="h-px flex-1 bg-cyan-400/40" />
+        <div className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-cyan-100">
+          Merge all 4 area streams to Switching Hub
+        </div>
+        <div className="h-px flex-1 bg-cyan-400/40" />
+      </div>
+
+      <div className="grid gap-3 lg:grid-cols-4">
+        {machinePipeline.map((step, index) => (
+          <div key={step.label} className="flex flex-col gap-3 lg:flex-row lg:items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.08 + 0.1 }}
+              className="relative min-h-[104px] flex-1 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-4 py-4 text-center shadow-[0_0_25px_rgba(34,211,238,0.12)]"
+            >
+              <step.icon size={24} className="mx-auto mb-2 text-cyan-200" />
+              <p className="text-sm font-black text-white">{step.label}</p>
+              <p className="mt-1 text-xs font-semibold leading-relaxed text-slate-300">{step.detail}</p>
+              <motion.span
+                className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-cyan-300"
+                animate={{ opacity: [0.35, 1, 0.35], scale: [0.9, 1.25, 0.9] }}
+                transition={{ duration: 1.6, repeat: Infinity, delay: index * 0.12 }}
+              />
+            </motion.div>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: index * 0.08 + 0.22, duration: 0.35 }}
+              className="h-8 w-px origin-top self-center bg-cyan-400/60 lg:h-px lg:w-8 lg:origin-left"
+            />
+          </div>
+        ))}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: machinePipeline.length * 0.08 + 0.1 }}
+          className="rounded-xl border border-cyan-400/40 bg-cyan-400/10 p-3 shadow-[0_0_25px_rgba(34,211,238,0.12)]"
+        >
+          <p className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] text-cyan-100">
+            Backend outputs / next step
+          </p>
+          <div className="grid gap-2">
+            {machineBackendOutputs.map((output, index) => (
+              <div key={output.label} className="rounded-lg border border-slate-800 bg-slate-950/70 px-3 py-3">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-300/40 bg-cyan-300/10 text-cyan-100">
+                    <output.icon size={18} />
+                  </div>
+                  <div className="min-w-0">
+                    {index === 1 && (
+                      <span className="mb-1 inline-flex rounded-full border border-amber-400/40 bg-amber-400/10 px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.12em] text-amber-200">
+                        Next step
+                      </span>
+                    )}
+                    <p className="text-sm font-black leading-tight text-white">{output.label}</p>
+                    <p className="mt-0.5 text-xs font-semibold leading-snug text-slate-300">{output.detail}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="mt-4 rounded-xl border border-slate-800 bg-slate-950/50 px-3 py-2">
+        <p className="mb-2 text-[10px] font-black uppercase tracking-[0.16em] text-slate-500">Abbreviation Legend</p>
+        <div className="flex flex-wrap gap-1.5">
+          {machineLegend.map((item) => (
+            <div key={item.term} className="rounded-md border border-slate-800 bg-slate-950/70 px-2 py-1">
+              <p className="text-[10px] font-semibold leading-relaxed text-slate-400">
+                <span className="font-black text-cyan-200">{item.term}</span> = {item.meaning}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -1429,9 +1989,227 @@ function JobRequestFlowDiagram({ openLightbox }: { openLightbox: (image: Lightbo
   );
 }
 
+function JobRequestReadableFlowDiagram({ openLightbox }: { openLightbox: (image: LightboxImage) => void }) {
+  const mainFlow = [
+    {
+      eyebrow: "Step 1",
+      title: "Production creates repair request",
+      detail: "Production opens a job for a machine problem. The job starts as WAIT_MM and Maintenance receives the work.",
+      points: [
+        "Select machine, problem, priority, request detail, and attachment.",
+        "Status becomes WAIT_MM so Maintenance can see new work.",
+        "The job number becomes the shared reference for every team.",
+      ],
+      image: {
+        src: "/projects/smart-factory-operations/job-e2e-production-create-request.png",
+        title: "Production Create Job Screen",
+      },
+    },
+    {
+      eyebrow: "Step 2",
+      title: "Maintenance accepts and repairs",
+      detail: "Maintenance takes ownership, changes the job to MM_REPAIR, records the repair action, and decides the next route.",
+      points: [
+        "Maintenance PIC accepts the job and becomes the current owner.",
+        "Cause, action, repair detail, and spare usage are saved in history.",
+        "After repair, the job can go to QC, Production confirm, or complete if no further check is needed.",
+      ],
+      image: {
+        src: "/projects/smart-factory-operations/job-e2e-maintenance-repair-result-send-to-qc.png",
+        title: "Maintenance Repair Result Screen",
+      },
+    },
+    {
+      eyebrow: "Step 3",
+      title: "QC inspects repair result",
+      detail: "QC checks the repaired condition when QC verification is required. The result is recorded before the job moves forward.",
+      points: [
+        "QC reviews the repair history and machine condition.",
+        "If the repair is accepted, the job moves to Production confirmation.",
+        "If the repair is rejected, the job returns to Maintenance with a visible reason.",
+      ],
+      image: {
+        src: "/projects/smart-factory-operations/job-e2e-qc-pass-to-production.png",
+        title: "QC Inspection Screen",
+      },
+    },
+    {
+      eyebrow: "Step 4",
+      title: "Production confirms and closes",
+      detail: "Production confirms that the machine can return to operation. Accepted jobs become completed repair history.",
+      points: [
+        "Production checks the repaired machine from the user side.",
+        "Accepted result closes the job as COMPLETED.",
+        "Rejected result returns to QC so the reason and owner remain traceable.",
+      ],
+      image: {
+        src: "/projects/smart-factory-operations/job-e2e-production-accept-confirm.png",
+        title: "Production Confirmation Screen",
+      },
+    },
+  ];
+
+  const rejectLoops = [
+    {
+      title: "QC rejects to Maintenance",
+      detail: "If QC finds the repair is still NG, the job goes back to Maintenance repair with reject reason and history.",
+      image: {
+        src: "/projects/smart-factory-operations/job-e2e-qc-reject-to-maintenance.png",
+        title: "QC Reject to Maintenance Screen",
+      },
+      loopBackTo: "Maintenance accepts and repairs",
+    },
+    {
+      title: "Production rejects to QC",
+      detail: "If Production does not accept the final condition, the job goes back to QC for recheck before returning to repair if needed.",
+      image: {
+        src: "/projects/smart-factory-operations/job-e2e-production-reject-to-qc.png",
+        title: "Production Reject to QC Screen",
+      },
+      loopBackTo: "QC inspects repair result",
+    },
+  ];
+
+  const handoverFlow = [
+    {
+      title: "Unfinished repair work",
+      detail: "The job is still active, but the current owner cannot finish it in the same shift.",
+    },
+    {
+      title: "Open handover action",
+      detail: "The current owner records why the job must be handed over and what is still pending.",
+      image: {
+        src: "/projects/smart-factory-operations/job-handover-action-modal-full.png",
+        title: "Handover Action Screen",
+      },
+    },
+    {
+      title: "Assign next owner",
+      detail: "Select the next owner or next shift, add pending items, and save the handover note.",
+      image: {
+        src: "/projects/smart-factory-operations/job-handover-new-modal-full.png",
+        title: "New Handover Screen",
+      },
+    },
+    {
+      title: "Next owner continues same job",
+      detail: "The job keeps the same job number and status, but the current owner changes. The next owner continues from the same repair history.",
+    },
+  ];
+
+  return (
+    <section className="overflow-hidden rounded-2xl border border-cyan-300/40 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 p-5 shadow-sm">
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-300">Job Request Flow</p>
+          <h3 className="mt-1 text-lg font-black text-white">Repair ownership flow with reject loops and separate handover flow</h3>
+          <p className="mt-2 max-w-3xl text-sm font-semibold leading-relaxed text-slate-300">
+            The main flow explains how Production, Maintenance, and QC close a repair job. Handover is separated because
+            it does not close the job; it only transfers unfinished work to the next owner.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 gap-2 text-xs font-black text-slate-100 sm:grid-cols-3">
+          <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-2">Main Flow</span>
+          <span className="rounded-full border border-orange-400/30 bg-orange-400/10 px-3 py-2">Reject Loop</span>
+          <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-2">Handover Flow</span>
+        </div>
+      </div>
+
+      <div className="space-y-5">
+        <div className="rounded-2xl border border-cyan-400/20 bg-slate-950/60 p-4">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-300">Main Repair Flow</p>
+          <h4 className="mt-1 text-lg font-black text-white">From request to completed repair history</h4>
+          <div className="mt-4 space-y-3">
+            {mainFlow.map((step, index) => (
+              <div key={step.title}>
+                <FlowStepCard
+                  eyebrow={step.eyebrow}
+                  title={step.title}
+                  detail={step.detail}
+                  points={step.points}
+                  image={step.image}
+                  openLightbox={openLightbox}
+                  reverse={index % 2 === 1}
+                />
+                {index < mainFlow.length - 1 && (
+                  <div className="flex justify-center py-1 text-2xl font-black text-cyan-300">&darr;</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-orange-400/30 bg-orange-400/10 p-4">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-orange-300">Reject Loop</p>
+          <h4 className="mt-1 text-lg font-black text-white">Rejected work returns to the responsible step</h4>
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            {rejectLoops.map((loop) => (
+              <div key={loop.title} className="rounded-2xl border border-orange-400/30 bg-slate-950/50 p-4">
+                <h5 className="text-base font-black text-white">{loop.title}</h5>
+                <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-200">{loop.detail}</p>
+                <FlowScreenPreview image={loop.image} openLightbox={openLightbox} />
+                <LoopBackLabel target={loop.loopBackTo} color="orange" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-amber-300">Separate Handover Flow</p>
+          <h4 className="mt-1 text-lg font-black text-white">Shift handover changes owner, not the repair process</h4>
+          <div className="mt-4 grid gap-3 lg:grid-cols-4">
+            {handoverFlow.map((step, index) => (
+              <div key={step.title} className="relative rounded-2xl border border-amber-400/25 bg-slate-950/55 p-4">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-amber-400/20 text-xs font-black text-amber-100">
+                  {index + 1}
+                </span>
+                <h5 className="mt-3 text-base font-black text-white">{step.title}</h5>
+                <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-200">{step.detail}</p>
+                {step.image && <FlowScreenPreview image={step.image} openLightbox={openLightbox} />}
+                {index < handoverFlow.length - 1 && (
+                  <div className="absolute -right-4 top-1/2 hidden -translate-y-1/2 text-2xl font-black text-amber-300 lg:block">
+                    &rarr;
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 rounded-xl border border-amber-400/20 bg-slate-950/50 p-3 text-sm font-black text-amber-100">
+            Handover keeps the same repair job traceable: same job number, same machine, same history, new current owner.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-teal-400/30 bg-teal-400/10 p-4">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-teal-300">MMS Realtime Context</p>
+          <h4 className="mt-1 text-lg font-black text-white">Machine card shows active repair context</h4>
+          <div className="mt-4 grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+            <FlowWideScreenPreview
+              image={{
+                src: "/projects/smart-factory-operations/mms-overview-full-data.png",
+                title: "MMS Dashboard Active Job Context Screen",
+              }}
+              openLightbox={openLightbox}
+            />
+            <div className="grid gap-2 sm:grid-cols-2">
+              {mmsRealtimeUpdates.map((item) => (
+                <div key={item.label} className="rounded-lg border border-teal-400/20 bg-slate-950/50 p-3">
+                  <p className="text-sm font-black text-teal-100">{item.label}</p>
+                  <p className="mt-1 text-xs font-semibold leading-relaxed text-slate-200">{item.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function PredictiveMaintenanceModal({ project, onClose }: Props) {
   const [activeTab, setActiveTab] = useState(getInitialActiveTab);
   const [lightboxImage, setLightboxImage] = useState<LightboxImage | null>(null);
+  const [lightboxGallery, setLightboxGallery] = useState<LightboxImage[]>([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   const [mmsSlideIndex, setMmsSlideIndex] = useState(0);
   const [toolingSlideIndex, setToolingSlideIndex] = useState(0);
   const [pmSlideIndex, setPmSlideIndex] = useState(0);
@@ -1454,13 +2232,32 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
   };
 
   const openLightbox = (image: LightboxImage) => {
-    setLightboxImage(image);
+    const { gallery, index } = resolveLightboxGallery(image);
+    setLightboxGallery(gallery);
+    setLightboxIndex(index);
+    setLightboxImage(gallery[index] ?? image);
+  };
+
+  const closeLightbox = () => {
+    setLightboxImage(null);
+    setLightboxGallery([]);
+    setLightboxIndex(0);
+  };
+
+  const showLightboxImage = (direction: -1 | 1) => {
+    if (lightboxGallery.length <= 1) return;
+    const nextIndex = (lightboxIndex + direction + lightboxGallery.length) % lightboxGallery.length;
+    setLightboxIndex(nextIndex);
+    setLightboxImage(lightboxGallery[nextIndex]);
   };
 
   const activeMmsSlide = mmsSlides[mmsSlideIndex];
+  const activeMmsSlideSummary = "summary" in activeMmsSlide ? activeMmsSlide.summary : activeMmsSlide.detail;
   const activeToolingSlide = toolingSlides[toolingSlideIndex];
   const activePmSlide = pmSlides[pmSlideIndex];
   const activeJobSlide = jobSlides[jobSlideIndex];
+  const activeLightboxImage = lightboxGallery[lightboxIndex] ?? lightboxImage;
+  const canNavigateLightbox = lightboxGallery.length > 1;
 
   return (
     <AnimatePresence>
@@ -1521,9 +2318,9 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                   <div className="mt-4 grid max-w-xl grid-cols-2 gap-2 sm:grid-cols-4">
                     {[
                       { value: "100", label: "Machines" },
-                      { value: "1,404 min", label: "Saved / Day" },
-                      { value: "23.4 hr", label: "Reduced / Day" },
-                      { value: "52,650 THB", label: "Saved / Month" },
+                      { value: "1,025.5 min", label: "Saved / Day" },
+                      { value: "17.1 hr", label: "Reduced / Day" },
+                      { value: "38,456 THB", label: "Saved / Month" },
                     ].map((metric) => (
                       <div
                         key={metric.label}
@@ -1621,7 +2418,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           </motion.div>
                         ))}
                         <div className="col-span-2 rounded-xl border border-orange-400/30 bg-orange-400/10 p-4 text-center">
-                          <div className="text-lg font-black text-white">52,650 THB/month | 631,800 THB/year</div>
+                          <div className="text-lg font-black text-white">38,456 THB/month | 461,475 THB/year</div>
                           <div className="mt-1 text-[10px] font-black uppercase tracking-wide text-orange-200">
                             Labor-time cost saving from all core features
                           </div>
@@ -1636,18 +2433,18 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                         type="button"
                         onClick={() =>
                           openLightbox({
-                            src: "/projects/smart-factory-operations/old-working-problem.png",
-                            title: "Old Working Problem",
+                            src: "/projects/smart-factory-operations/old-working-process-flow.svg",
+                            title: "Old Working Process Flow",
                           })
                         }
                         className="relative aspect-video w-full cursor-zoom-in overflow-hidden rounded-xl border border-slate-200 bg-slate-100 text-left outline-none transition hover:border-cyan-400 focus-visible:ring-2 focus-visible:ring-cyan-400 dark:border-slate-800 dark:bg-slate-950"
-                        aria-label="Open Old Working Problem image"
+                        aria-label="Open Old Working Process Flow image"
                       >
                         <Image
-                          src="/projects/smart-factory-operations/old-working-problem.png"
-                          alt="Old manual factory coordination problem"
+                          src="/projects/smart-factory-operations/old-working-process-flow.svg"
+                          alt="Old working process flow before Smart Factory Operation Platform"
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           sizes="(max-width: 1024px) 100vw, 40vw"
                         />
                       </button>
@@ -1674,17 +2471,6 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                             <span>Response was slower, and maintenance history was difficult to trace.</span>
                           </li>
                         </ul>
-                        <div className="mt-5 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950/40">
-                          <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                            Result
-                          </p>
-                          <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
-                            The platform reduces manual coordination and reporting time by 1,404 min/day, equal to
-                            23.4 hr/day or 52,650 THB/month in labor-time saving. The same saved time also reduces
-                            production-loss risk by about 1,151 pcs/day, equal to 51,482 THB/day in protected production
-                            value.
-                          </p>
-                        </div>
                       </div>
                     </div>
                   </section>
@@ -1695,7 +2481,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     steps={projectWorkingFlow}
                   />
 
-                  <AnimatedHorizontalFlow title="Machine Data Flow" steps={machineDataFlow} />
+                  <MachineDataFlowDiagram />
 
                   <section className="rounded-2xl border border-orange-300 bg-gradient-to-br from-orange-50 via-white to-cyan-50 p-5 shadow-sm dark:border-orange-900/50 dark:from-orange-950/20 dark:via-slate-900 dark:to-cyan-950/20">
                     <div className="mb-5">
@@ -1704,12 +2490,17 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     <div className="grid gap-3 md:grid-cols-2">
                       {platformModules.map((module, index) => {
                         const Icon = module.icon;
+                        const isUpcoming = module.status === "Upcoming";
                         return (
                           <button
                             key={module.title}
                             type="button"
                             onClick={() => handleTabChange(module.tab)}
-                            className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-orange-400 hover:shadow-md dark:border-slate-800 dark:bg-slate-950/70 dark:hover:border-orange-600"
+                            className={`group relative overflow-hidden rounded-xl border p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-orange-400 hover:shadow-md ${
+                              isUpcoming
+                                ? "border-orange-300 bg-orange-50 dark:border-orange-600 dark:bg-orange-950/20"
+                                : "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950/70 dark:hover:border-orange-600"
+                            }`}
                           >
                             <div className="absolute inset-y-0 left-0 w-1 bg-orange-500 opacity-70" />
                             <div className="flex items-start gap-3">
@@ -1722,6 +2513,11 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                                     {index + 1}
                                   </span>
                                   <p className="text-sm font-black text-slate-950 dark:text-white">{module.title}</p>
+                                  {isUpcoming && (
+                                    <span className="rounded-full border border-orange-300 bg-orange-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.1em] text-orange-700 dark:border-orange-700 dark:bg-orange-950 dark:text-orange-200">
+                                      Upcoming
+                                    </span>
+                                  )}
                                 </div>
                                 <p className="text-xs font-semibold leading-relaxed text-slate-600 dark:text-slate-300">{module.detail}</p>
                                 <p className="mt-2 text-[10px] font-black uppercase tracking-wide text-orange-600 opacity-80 dark:text-orange-300">
@@ -1732,39 +2528,6 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                           </button>
                         );
                       })}
-                    </div>
-                  </section>
-
-                  <section className="rounded-2xl border border-cyan-200 bg-white p-5 shadow-sm dark:border-cyan-900/50 dark:bg-slate-900">
-                    <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-                      <div>
-                        <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-500">
-                          Tooling Usage Forecast
-                        </p>
-                        <h3 className="mt-1 text-lg font-black text-slate-950 dark:text-white">
-                          Predictive Tooling Usage inside Toolling & Store
-                        </h3>
-                        <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
-                          Toolling & Store also uses stock balance, stock-out history, PM part usage, and upcoming PM
-                          plans to forecast shortage risk, reorder timing, 30-day issue quantity, and suggested buy
-                          quantity before Maintenance waits for missing parts.
-                        </p>
-                      </div>
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {predictiveToolingCards.map((item) => (
-                          <div
-                            key={item.label}
-                            className="rounded-xl border border-cyan-100 bg-cyan-50 p-4 dark:border-cyan-900/50 dark:bg-cyan-950/20"
-                          >
-                            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-300">
-                              {item.label}
-                            </p>
-                            <p className="mt-2 text-sm font-black leading-relaxed text-slate-950 dark:text-white">
-                              {item.value}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
                     </div>
                   </section>
 
@@ -1838,19 +2601,19 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Total time</p>
                         <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
-                          100 + 900 + 85 + 240 + 15 + 64 = 1,404 min/day
+                          100 + 900 + 10 + 7.5 + 8 = 1,025.5 min/day
                         </p>
                       </div>
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Cost saving</p>
                         <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
-                          18,000 / 22 / 8 = 102.27 THB/hr; 23.4 x 102.27 = 2,393.18 THB/day
+                          18,000 / 22 / 8 = 102.27 THB/hr; 1,025.5 / 60 = 17.09 hr/day; x 102.27 = 1,748.01 THB/day
                         </p>
                       </div>
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Month / year</p>
                         <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
-                          2,393.18 x 22 = 52,650 THB/month; x 12 = 631,800 THB/year
+                          1,748.01 x 22 = 38,456 THB/month; x 12 = 461,475 THB/year
                         </p>
                       </div>
                     </div>
@@ -1885,19 +2648,19 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Per day</p>
                         <p className="mt-1 text-sm font-black leading-relaxed text-slate-950 dark:text-white">
-                          1,404 min/day / 1.22 min/pc = 1,151 pcs/day; x 44.73 = 51,482 THB/day
+                          1,025.5 min/day / 1.22 min/pc = 841 pcs/day; x 44.73 = 37,604 THB/day
                         </p>
                       </div>
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Per month</p>
                         <p className="mt-1 text-sm font-black leading-relaxed text-slate-950 dark:text-white">
-                          1,151 pcs/day x 22 = 25,322 pcs/month; value protected ~= 1.13M THB/month
+                          841 pcs/day x 22 = 18,495 pcs/month; value protected ~= 827,296 THB/month
                         </p>
                       </div>
                       <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-950/50">
                         <p className="text-xs font-black uppercase text-slate-500">Per year</p>
                         <p className="mt-1 text-sm font-black leading-relaxed text-slate-950 dark:text-white">
-                          25,322 pcs/month x 12 = 303,864 pcs/year; value protected ~= 13.59M THB/year
+                          18,495 pcs/month x 12 = 221,944 pcs/year; value protected ~= 9.93M THB/year
                         </p>
                       </div>
                     </div>
@@ -1906,13 +2669,56 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     </p>
                   </section>
 
-                  <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                    <h3 className="mb-3 text-lg font-black text-slate-950 dark:text-white">My Role and Technical Scope</h3>
-                    <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-                      My role covered full-stack development, factory workflow design, SQL Server data structure,
-                      backend API design, Socket.IO realtime workflow, IoT / Arduino machine data concept, user access
-                      flow, Git workflow, CI/CD direction, PM2 deployment, monitoring, hotfix, and maintenance support.
-                    </p>
+                  <section className="rounded-2xl border border-cyan-300 bg-white p-5 shadow-sm dark:border-cyan-900/50 dark:bg-slate-900">
+                    <div className="mb-5">
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-500">Next Step</p>
+                      <h3 className="mt-1 text-lg font-black text-slate-950 dark:text-white">
+                        Extend current platform data into alert and prediction
+                      </h3>
+                      <p className="mt-2 max-w-3xl text-sm font-semibold leading-relaxed text-slate-600 dark:text-slate-300">
+                        After connecting MMS Dashboard, Toolling & Store, Job Request, and PM records in one platform,
+                        the next step is to use the same data for email notification, Predictive Usage, and Predictive MM.
+                      </p>
+                    </div>
+                    <div className="grid gap-3 lg:grid-cols-3">
+                      {overallNextSteps.map((item, index) => {
+                        const Icon = item.icon;
+                        return (
+                          <div
+                            key={item.title}
+                            className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950/60"
+                          >
+                            <div className="mb-3 flex items-start gap-3">
+                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-100 text-cyan-700 dark:bg-cyan-950/50 dark:text-cyan-200">
+                                <Icon size={19} />
+                              </div>
+                              <div>
+                                <div className="mb-1 flex flex-wrap items-center gap-2">
+                                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-600 text-[10px] font-black text-white">
+                                    {index + 1}
+                                  </span>
+                                  <p className="text-sm font-black text-slate-950 dark:text-white">{item.title}</p>
+                                </div>
+                                <p className="text-[10px] font-black uppercase tracking-[0.12em] text-cyan-600 dark:text-cyan-300">
+                                  {item.label}
+                                </p>
+                              </div>
+                            </div>
+                            <p className="text-xs font-semibold leading-relaxed text-slate-600 dark:text-slate-300">
+                              {item.detail}
+                            </p>
+                            <ul className="mt-4 space-y-2">
+                              {item.points.map((point) => (
+                                <li key={point} className="flex gap-2 text-xs font-bold leading-relaxed text-slate-600 dark:text-slate-300">
+                                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500" />
+                                  <span>{point}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </section>
 
                   <section>
@@ -2003,82 +2809,6 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                             </div>
                           );
                         })}
-                      </div>
-                    </div>
-                  </section>
-
-                  <section>
-                    <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                      <div className="mb-4 flex items-center gap-3">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
-                          <ShieldCheck size={24} />
-                        </div>
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-[0.16em] text-violet-500">Admin Control</p>
-                          <h3 className="text-lg font-black text-slate-950 dark:text-white">
-                            Key Admin Responsibilities
-                          </h3>
-                        </div>
-                      </div>
-                      <div className="grid gap-3">
-                        {adminResponsibilities.map((item, index) => {
-                          const Icon = adminResponsibilityIcons[index] ?? Settings;
-                          return (
-                          <div
-                            key={item}
-                            className="flex min-h-[64px] gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950/50"
-                          >
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
-                              <Icon size={18} />
-                            </div>
-                            <p className="text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
-                              <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-950 text-[10px] font-black text-white dark:bg-slate-800">
-                                {index + 1}
-                              </span>
-                              {item}
-                            </p>
-                          </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                      <div className="mb-4 flex items-center gap-3">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">
-                          <Network size={24} />
-                        </div>
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-[0.16em] text-orange-500">Connected Platform</p>
-                          <h3 className="text-lg font-black text-slate-950 dark:text-white">Why It Matters</h3>
-                        </div>
-                      </div>
-                      <div className="grid flex-1 gap-3">
-                        {adminImportance.map((item, index) => {
-                          const Icon = adminImportanceIcons[index] ?? ClipboardCheck;
-                          return (
-                          <div
-                            key={item}
-                            className="flex min-h-[76px] gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950/50"
-                          >
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">
-                              <Icon size={18} />
-                            </div>
-                            <p className="text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
-                              {item}
-                            </p>
-                          </div>
-                          );
-                        })}
-                      </div>
-                      <div className="mt-5 rounded-xl border border-orange-200 bg-orange-50 p-4 dark:border-orange-900/50 dark:bg-orange-950/20">
-                        <p className="text-xs font-black uppercase tracking-[0.16em] text-orange-600 dark:text-orange-300">
-                          Estimated impact
-                        </p>
-                        <p className="mt-2 text-sm font-bold leading-relaxed text-orange-900 dark:text-orange-100">
-                          Reduces repeated master data setup, correction work, and access-scope clarification across
-                          connected modules.
-                        </p>
                       </div>
                     </div>
                   </section>
@@ -2278,7 +3008,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                               {activeMmsSlide.title}
                             </h3>
                             <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-700 dark:text-slate-300">
-                              {activeMmsSlide.detail}
+                              {activeMmsSlideSummary}
                             </p>
                           </motion.div>
                         </AnimatePresence>
@@ -2385,7 +3115,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                             Tooling Benefit
                           </p>
                           <h3 className="text-lg font-black text-slate-950 dark:text-white">
-                            64 min/day from faster stock and tool traceability
+                            8 min/day from faster stock and tool traceability
                           </h3>
                         </div>
                       </div>
@@ -2592,7 +3322,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
                       Preventive Maintenance turns routine machine care into a configurable inspection workflow. Users
                       create PM Type templates, define checklist topics, map those PM Types to machines, see the plan in
-                      calendar or machine layout views, receive due-date reminders, and store OK/NG inspection history.
+                      calendar view, receive due-date reminders, and store OK/NG inspection history.
                     </p>
                   </section>
 
@@ -2638,7 +3368,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                             PM Benefit
                           </p>
                           <h3 className="text-lg font-black text-slate-950 dark:text-white">
-                            15 min/day aligned with the overall impact summary
+                            7.5 min/day aligned with the overall impact summary
                           </h3>
                         </div>
                       </div>
@@ -2926,7 +3656,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     </div>
                     <p className="mt-4 rounded-xl border border-orange-200 bg-orange-50 p-4 text-sm font-bold leading-relaxed text-orange-800 dark:border-orange-900/50 dark:bg-orange-950/20 dark:text-orange-200">
                       Use this as workload reduction, not headcount reduction: the platform reduces routine manual
-                      coordination by about 23.4 hours/day, equivalent to 2.9 people-shift workload per day.
+                      coordination by about 17.1 hours/day, equivalent to 2.1 people-shift workload per day.
                     </p>
                   </section>
 
@@ -3173,7 +3903,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                             Job Request Benefit
                           </p>
                           <h3 className="text-lg font-black text-slate-950 dark:text-white">
-                            1,225 min/day from follow-up, history, and confirm-check workflow control
+                            910 min/day from follow-up, production confirm-check, and history lookup workflow control
                           </h3>
                         </div>
                       </div>
@@ -3292,7 +4022,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                     </div>
                   </section>
 
-                  <JobRequestFlowDiagram openLightbox={openLightbox} />
+                  <JobRequestReadableFlowDiagram openLightbox={openLightbox} />
 
                   <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
                     <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
@@ -3395,7 +4125,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
         </motion.div>
 
         <AnimatePresence>
-          {lightboxImage && (
+          {activeLightboxImage && (
             <motion.div
               key="smart-factory-image-lightbox"
               initial={{ opacity: 0 }}
@@ -3405,7 +4135,7 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
             >
               <button
                 type="button"
-                onClick={() => setLightboxImage(null)}
+                onClick={closeLightbox}
                 className="absolute inset-0 cursor-zoom-out"
                 aria-label="Close enlarged image"
               />
@@ -3414,29 +4144,137 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96, y: 10 }}
                 transition={{ duration: 0.18, ease: "easeOut" }}
-                className="relative z-10 flex h-full max-h-[86vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-cyan-400/30 bg-slate-950 shadow-2xl"
+                className="relative z-10 flex h-full max-h-[86vh] w-full max-w-7xl flex-col overflow-hidden rounded-2xl border border-cyan-400/30 bg-slate-950 shadow-2xl"
               >
                 <div className="flex shrink-0 items-center justify-between gap-4 border-b border-cyan-400/20 px-4 py-3">
-                  <p className="min-w-0 truncate text-sm font-black text-white sm:text-base">
-                    {lightboxImage.title}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setLightboxImage(null)}
-                    className="shrink-0 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
-                    aria-label="Close enlarged image"
-                  >
-                    <X size={20} />
-                  </button>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-300">Feature View</p>
+                    <p className="min-w-0 truncate text-sm font-black text-white sm:text-base">
+                      {activeLightboxImage.title}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-2">
+                    {canNavigateLightbox && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => showLightboxImage(-1)}
+                          className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
+                          aria-label="Previous image"
+                        >
+                          <ChevronLeft size={20} />
+                        </button>
+                        <span className="min-w-12 text-center text-xs font-black text-slate-300">
+                          {lightboxIndex + 1} / {lightboxGallery.length}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => showLightboxImage(1)}
+                          className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
+                          aria-label="Next image"
+                        >
+                          <ChevronRight size={20} />
+                        </button>
+                      </>
+                    )}
+                    <button
+                      type="button"
+                      onClick={closeLightbox}
+                      className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
+                      aria-label="Close enlarged image"
+                    >
+                      <X size={20} />
+                    </button>
+                  </div>
                 </div>
-                <div className="relative min-h-0 flex-1 bg-slate-950">
-                  <Image
-                    src={lightboxImage.src}
-                    alt={lightboxImage.title}
-                    fill
-                    className="object-contain p-3"
-                    sizes="100vw"
-                  />
+                <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(0,1.45fr)_360px]">
+                  <div className="relative min-h-[260px] bg-slate-950">
+                    <Image
+                      src={activeLightboxImage.src}
+                      alt={activeLightboxImage.title}
+                      fill
+                      className="object-contain p-3"
+                      sizes="(max-width: 1024px) 100vw, 70vw"
+                    />
+                  </div>
+                  <aside className="min-h-0 overflow-y-auto border-t border-cyan-400/20 bg-slate-900/70 p-5 lg:border-l lg:border-t-0">
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-300">Description</p>
+                    <p className="mt-4 text-sm font-semibold leading-relaxed text-slate-300">
+                      {activeLightboxImage.detail}
+                    </p>
+                    {activeLightboxImage.userSee && activeLightboxImage.userSee.length > 0 && (
+                      <div className="mt-5">
+                        <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-slate-400">
+                          What users see from this page
+                        </p>
+                        <div className="grid gap-2">
+                          {activeLightboxImage.userSee.map((item) => (
+                            <div key={item.title} className="rounded-xl border border-cyan-400/20 bg-slate-950/60 p-3">
+                              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-cyan-300">
+                                {item.title}
+                              </p>
+                              <p className="mt-1 text-sm font-semibold leading-relaxed text-slate-300">
+                                {item.detail}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {!activeLightboxImage.userSee && activeLightboxImage.points && activeLightboxImage.points.length > 0 && (
+                      <ul className="mt-4 space-y-2 text-sm font-semibold leading-relaxed text-slate-300">
+                        {activeLightboxImage.points.map((point) => (
+                          <li key={point} className="flex gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {activeLightboxImage.guide === "mms-machine-card" && <MmsMachineCardGuide />}
+
+                    {canNavigateLightbox && (
+                      <div className="mt-8">
+                        <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-slate-400">
+                          Slide navigation
+                        </p>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            type="button"
+                            onClick={() => showLightboxImage(-1)}
+                            className="flex items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-3 py-2 text-xs font-black text-cyan-100 transition hover:bg-cyan-400/20"
+                          >
+                            <ChevronLeft size={16} />
+                            Previous
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => showLightboxImage(1)}
+                            className="flex items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-3 py-2 text-xs font-black text-cyan-100 transition hover:bg-cyan-400/20"
+                          >
+                            Next
+                            <ChevronRight size={16} />
+                          </button>
+                        </div>
+                        <div className="mt-5 flex flex-wrap gap-2">
+                          {lightboxGallery.map((item, index) => (
+                            <button
+                              key={`${item.src}-${index}`}
+                              type="button"
+                              onClick={() => {
+                                setLightboxIndex(index);
+                                setLightboxImage(item);
+                              }}
+                              className={`h-2.5 rounded-full transition ${
+                                index === lightboxIndex ? "w-8 bg-cyan-300" : "w-2.5 bg-slate-600 hover:bg-slate-400"
+                              }`}
+                              aria-label={`Open image ${index + 1}: ${item.title}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </aside>
                 </div>
               </motion.div>
             </motion.div>
