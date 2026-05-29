@@ -2251,6 +2251,39 @@ export default function PredictiveMaintenanceModal({ project, onClose }: Props) 
     setLightboxImage(lightboxGallery[nextIndex]);
   };
 
+  useEffect(() => {
+    if (!lightboxImage) return;
+
+    const handleLightboxKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const isTypingTarget =
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.tagName === "SELECT" ||
+        target?.isContentEditable;
+
+      if (isTypingTarget) return;
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        showLightboxImage(-1);
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        showLightboxImage(1);
+      }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeLightbox();
+      }
+    };
+
+    window.addEventListener("keydown", handleLightboxKeyDown);
+    return () => window.removeEventListener("keydown", handleLightboxKeyDown);
+  }, [lightboxImage, lightboxGallery, lightboxIndex]);
+
   const activeMmsSlide = mmsSlides[mmsSlideIndex];
   const activeMmsSlideSummary = "summary" in activeMmsSlide ? activeMmsSlide.summary : activeMmsSlide.detail;
   const activeToolingSlide = toolingSlides[toolingSlideIndex];
