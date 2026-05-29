@@ -74,12 +74,9 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "CI/CD", iconKey: "pipeline" },
       { name: "Git Workflow", iconKey: "git" },
-      { name: "Release Pipeline", iconKey: "release" },
       { name: "Git", iconKey: "git" },
       { name: "Docker", iconKey: "docker" },
-      { name: "Linux Server", iconKey: "linux" },
-      { name: "Artifact Publish", iconKey: "artifact" },
-      { name: "Deployment Scripts", iconKey: "terminal" },
+      { name: "Grafana", iconKey: "grafana" },
     ],
   },
 ];

@@ -81,6 +81,7 @@ const SkillIcon = ({ iconKey }: { iconKey?: string }) => {
     case "ai": return <Cpu className="w-4 h-4" />;
     case "arduino": return <Cpu className="w-4 h-4" />;
     case "azure": return <Cloud className="w-4 h-4" />;
+    case "grafana": return <Activity className="w-4 h-4" />;
     case "pipeline": return <Workflow className="w-4 h-4" />;
     case "release": return <Cloud className="w-4 h-4" />;
     case "artifact": return <Database className="w-4 h-4" />;
